@@ -1,0 +1,27 @@
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+name: Upload Release Assets
+
+jobs:
+  build:
+    name: Upload Release Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.2
+      - name: Build project
+        run: |
+          poetry build
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ./dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

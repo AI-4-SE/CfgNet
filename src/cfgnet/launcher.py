@@ -1,8 +1,4 @@
-"""A sample module."""
-
-
 def main():
-    """Entry point."""
     return True
 
 

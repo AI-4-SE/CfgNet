@@ -1,6 +1,6 @@
 """You should replace this by something more meaningful."""
 
-from sample_package.main import main
+from src.cfgnet.launcher import main
 
 
 def test_nothing():

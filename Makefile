@@ -40,6 +40,10 @@ linter: poetry.lock
 	poetry run pylint --score=no --extension-pkg-whitelist=lxml src
 	poetry run pylint --score=no --disable W0212 tests
 
+.PHONY: mypy
+mypy: poetry.lock
+	poetry run mypy --ignore-missing-imports src/ tests/
+
 .PHONY: docs
 docs: $(DOCS) install
 	poetry run sphinx-apidoc --force -o docs/api-docs/ src

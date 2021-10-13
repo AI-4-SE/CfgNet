@@ -60,8 +60,7 @@ class PluginManager:
         :return: Responsible plugin or None if there is no such plugin
         """
         for plugin in PluginManager.get_plugins():
-            if plugin.is_enabled():
-                if plugin.is_responsible(artifact_path):
-                    return plugin
+            if plugin.is_responsible(artifact_path):
+                return plugin
 
         return None

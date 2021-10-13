@@ -29,6 +29,8 @@ mypy = "^0.910"
 PyYAML = "^5.4.1"
 lxml = "^4.6.3"
 jproperties = "^2.1.1"
+types-PyYAML = "^5.4.11"
+types-toml = "^0.10.1"
 
 [tool.poetry.dev-dependencies]
 black = { version = '*', allow-prereleases = true }

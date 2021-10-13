@@ -32,12 +32,10 @@ class Commit:
 
 
 class Git:
-    def __init__(self):
-        self.repo = None
-        self.commit_history = None
-        self.commit_index = None
-
-    def touch(self, project_root) -> None:
+    def __init__(self, project_root: str) -> None:
+        self.repo: Repo = None  # type: ignore
+        self.commit_history: List[Any] = None  # type: ignore
+        self.commit_index: int = None  # type: ignore
         self._init_repo(project_root)
 
     def get_current_branch_name(self) -> Optional[SymbolicReference]:
@@ -50,10 +48,8 @@ class Git:
         """Return current commit hash."""
         return self.repo.head.object.hexsha
 
-    def get_tracked_files(self, project_root) -> List:
+    def get_tracked_files(self) -> List:
         """Return tracked files."""
-        self._init_repo(project_root)
-
         if self.repo is None:
             return []
 
@@ -69,10 +65,8 @@ class Git:
         """Go to a specific commit."""
         self.repo.git.checkout(commit)
 
-    def restore_initial_commit(self, project_root) -> Optional[Commit]:
+    def restore_initial_commit(self) -> Optional[Commit]:
         """Restore initial commit."""
-        self._init_repo(project_root)
-
         if self.repo is None:
             return None
 
@@ -84,19 +78,15 @@ class Git:
             self.commit_history[0].hexsha, self.commit_history[0].message, None
         )
 
-    def has_next_commit(self, project_root) -> bool:
+    def has_next_commit(self) -> bool:
         """Return if there is a next commit."""
-        self._init_repo(project_root)
-
         if self.repo is None:
             return False
 
         return self.commit_index < len(self.commit_history) - 1
 
-    def next_commit(self, project_root) -> Optional[Commit]:
+    def next_commit(self) -> Optional[Commit]:
         """Go to next commit."""
-        self._init_repo(project_root)
-
         if self.repo is None:
             return None
 
@@ -126,9 +116,8 @@ class Git:
 
         return Commit(next_commit.hexsha, next_commit.message, diffs)
 
-    def has_unstaged_changes(self, project_root) -> bool:
+    def has_unstaged_changes(self) -> bool:
         """Return if there are unstaged changes in the working directory."""
-        self._init_repo(project_root)
         changed_files = [item.a_path for item in self.repo.index.diff(None)]
         if len(changed_files) > 0:
             return True
@@ -151,13 +140,11 @@ class Git:
             logging.error(
                 '"%s" does not represent a git repository', project_root
             )
-            self.repo = None
         except IndexError:
             logging.error(
                 "You are probably in detached HEAD state. "
                 "We can't do anything here. Sorry."
             )
-            self.repo = None
 
     def _iter_tree(self, trees, files) -> None:
         for tree in trees:

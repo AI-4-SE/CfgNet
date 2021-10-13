@@ -26,6 +26,9 @@ packages = [
 [tool.poetry.dependencies]
 python = '^3.7'
 mypy = "^0.910"
+PyYAML = "^5.4.1"
+lxml = "^4.6.3"
+jproperties = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 black = { version = '*', allow-prereleases = true }

@@ -32,11 +32,28 @@ class Commit:
 
 
 class Git:
+    repo: Repo
+    commit_history: List[Any]
+    commit_index: int
+
     def __init__(self, project_root: str) -> None:
-        self.repo: Repo = None  # type: ignore
-        self.commit_history: List[Any] = None  # type: ignore
-        self.commit_index: int = None  # type: ignore
-        self._init_repo(project_root)
+        """Initialize the git repository."""
+        try:
+            self.repo = Repo(project_root)
+            self.commit_history = list(
+                self.repo.iter_commits(rev=self.repo.heads[0])
+            )
+            self.commit_history.reverse()
+            self.commit_index = len(self.commit_history) - 1
+        except InvalidGitRepositoryError:
+            logging.error(
+                '"%s" does not represent a git repository', project_root
+            )
+        except IndexError:
+            logging.error(
+                "You are probably in detached HEAD state. "
+                "We can't do anything here. Sorry."
+            )
 
     def get_current_branch_name(self) -> Optional[SymbolicReference]:
         """Return current branch name or None if HEAD is detached."""
@@ -50,9 +67,6 @@ class Git:
 
     def get_tracked_files(self) -> List:
         """Return tracked files."""
-        if self.repo is None:
-            return []
-
         tree = self.repo.tree()
 
         files: List[Any] = []
@@ -67,9 +81,6 @@ class Git:
 
     def restore_initial_commit(self) -> Optional[Commit]:
         """Restore initial commit."""
-        if self.repo is None:
-            return None
-
         if len(self.commit_history) > 0:
             self.repo.git.checkout(self.commit_history[0])
             self.commit_index = 0
@@ -80,16 +91,10 @@ class Git:
 
     def has_next_commit(self) -> bool:
         """Return if there is a next commit."""
-        if self.repo is None:
-            return False
-
         return self.commit_index < len(self.commit_history) - 1
 
     def next_commit(self) -> Optional[Commit]:
         """Go to next commit."""
-        if self.repo is None:
-            return None
-
         current_commit = self.commit_history[self.commit_index]
         self.commit_index += 1
 
@@ -122,29 +127,6 @@ class Git:
         if len(changed_files) > 0:
             return True
         return False
-
-    def _init_repo(self, project_root) -> None:
-        """Initialize the git repository."""
-        if self.repo is not None:
-            if self.repo.working_tree_dir == project_root:
-                return
-
-        try:
-            self.repo = Repo(project_root)
-            self.commit_history = list(
-                self.repo.iter_commits(rev=self.repo.heads[0])
-            )
-            self.commit_history.reverse()
-            self.commit_index = len(self.commit_history) - 1
-        except InvalidGitRepositoryError:
-            logging.error(
-                '"%s" does not represent a git repository', project_root
-            )
-        except IndexError:
-            logging.error(
-                "You are probably in detached HEAD state. "
-                "We can't do anything here. Sorry."
-            )
 
     def _iter_tree(self, trees, files) -> None:
         for tree in trees:

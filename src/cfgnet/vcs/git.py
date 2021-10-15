@@ -15,25 +15,27 @@
 
 import logging
 
-from typing import Optional, Any, List
+from typing import Optional, Any, List, Set
 
 from git import Repo
 from git.exc import InvalidGitRepositoryError
 from git.refs.symbolic import SymbolicReference
+from git.objects.commit import Commit as GitCommit
+from git.objects.tree import Tree
 
 
 class Commit:
     """Data structure of commits."""
 
     def __init__(self, commithash, msg, diffs):
-        self.hash = commithash
-        self.message = msg
-        self.diffs = diffs
+        self.hash: str = commithash
+        self.message: str = msg
+        self.diffs: Optional[Set[Any]] = diffs
 
 
 class Git:
     repo: Repo
-    commit_history: List[Any]
+    commit_history: List[GitCommit]
     commit_index: int
 
     def __init__(self, project_root: str) -> None:
@@ -75,11 +77,11 @@ class Git:
 
         return files
 
-    def checkout(self, commit) -> None:
+    def checkout(self, commit: GitCommit) -> None:
         """Go to a specific commit."""
         self.repo.git.checkout(commit)
 
-    def restore_initial_commit(self) -> Optional[Commit]:
+    def restore_initial_commit(self) -> Commit:
         """Restore initial commit."""
         if len(self.commit_history) > 0:
             self.repo.git.checkout(self.commit_history[0])
@@ -93,7 +95,7 @@ class Git:
         """Return if there is a next commit."""
         return self.commit_index < len(self.commit_history) - 1
 
-    def next_commit(self) -> Optional[Commit]:
+    def next_commit(self) -> Commit:
         """Go to next commit."""
         current_commit = self.commit_history[self.commit_index]
         self.commit_index += 1
@@ -128,7 +130,7 @@ class Git:
             return True
         return False
 
-    def _iter_tree(self, trees, files) -> None:
+    def _iter_tree(self, trees: List[Tree], files: List[Any]) -> None:
         for tree in trees:
             for blob in tree.blobs:
                 files.append(blob.path)

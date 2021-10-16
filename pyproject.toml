@@ -26,6 +26,7 @@ packages = [
 [tool.poetry.dependencies]
 python = '^3.7'
 mypy = "^0.910"
+GitPython = "^3.1.24"
 
 [tool.poetry.dev-dependencies]
 black = { version = '*', allow-prereleases = true }

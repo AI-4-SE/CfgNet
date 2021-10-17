@@ -199,7 +199,7 @@ class MavenPlugin(Plugin):
             option_node.add_child(value_node)
 
             if version != "":
-                executable_name_no_version = f"{artifactid}.{version}"
+                executable_name_no_version = f"{artifactid}.{packaging}"
                 option_node_no_version = OptionNode(
                     "ExecutableNameNoVersion", location
                 )

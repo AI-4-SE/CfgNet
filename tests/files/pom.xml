@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project>
+  <!-- comment -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example.apps</groupId>
+  <artifactId>my-cool-app</artifactId>
+  <version>42</version>
+  <packaging>jar</packaging>
+  <port>8000</port>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <groupId>apple</groupId>
+        <artifactId>apple_artifact</artifactId>
+        <version>apple_version</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>config</module>
+    <module>monitor</module>
+    <module>registry</module>
+  </modules>
+
+</project>

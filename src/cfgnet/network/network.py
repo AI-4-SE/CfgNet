@@ -53,6 +53,12 @@ class Network:
         :param node_type: Type of node that should be returned
         :return: List of nodes
         """
+        return [
+            node
+            for nodes in self.nodes.values()
+            for node in nodes
+            if isinstance(node, node_type)
+        ]
 
     def create_links(self) -> None:
         """Create links between nodes using the available linker."""

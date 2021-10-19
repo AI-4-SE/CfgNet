@@ -22,6 +22,7 @@ from typing import List, Set, Any, Optional, Callable
 from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.plugins.plugin_manager import PluginManager
+from cfgnet.linker.linker_manager import LinkerManager
 from cfgnet.network.nodes import Node, ProjectNode, OptionNode
 from cfgnet.network.network_configuration import NetworkConfiguration
 
@@ -160,6 +161,6 @@ class Network:
                         file,
                     )
 
-        # TODO: Create links
+        LinkerManager.apply_linker(network)
 
         return network

@@ -14,8 +14,14 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import annotations
+
+import os
+import logging
+
 from typing import List, Set, Any, Optional, Callable
 from collections import defaultdict
+from cfgnet.vcs.git import Git
+from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.network.nodes import Node, ProjectNode
 
 
@@ -84,3 +90,34 @@ class Network:
         :project_root: Project root of the software repository
         :return: Configuration network
         """
+        repo = Git(project_root=project_root)
+        tracked_files = set(repo.get_tracked_files())
+
+        # TODO: Filter files using the ignore file
+
+        project_name = os.path.basename(os.path.abspath(project_root))
+        root = ProjectNode(name=project_name, root_dir=project_root)
+        network = Network(project_name=project_name, root=root)
+
+        for file in tracked_files:
+            abs_file_path = os.path.join(project_root, file)
+            plugin = PluginManager.get_responsible_plugin(abs_file_path)
+
+            if plugin:
+                try:
+                    plugin.parse_file(
+                        abs_file_path=abs_file_path,
+                        rel_file_path=file,
+                        root=root,
+                    )
+                except UnicodeDecodeError as error:
+                    logging.warning(
+                        "%s: %s (%s)",
+                        plugin.__class__.__name__,
+                        error.reason,
+                        file,
+                    )
+
+        # TODO: Create links
+
+        return network

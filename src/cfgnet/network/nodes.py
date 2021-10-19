@@ -29,7 +29,7 @@ class Node:
         self.children: List[Any] = []
 
         self.id: str = name
-        self.network = None
+        self.network: Any = None
 
     def __str__(self):
         return self.id

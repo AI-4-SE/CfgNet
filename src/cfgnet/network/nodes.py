@@ -16,26 +16,17 @@
 """Datastructure for nodes of a configuration network."""
 
 from __future__ import annotations
-from typing import List, Optional, Union, Type
+from typing import List, Any, Optional, Union
 from cfgnet.exceptions.exceptions import NetworkConstructionException
 
 
 class Node:
-    """
-    Base class of a node in the network.
-
-    Members:
-        * name -- name of the node
-        * parent -- parent node
-        * children -- list of children of this node
-        * id -- identifier of a node that represents the path from the root
-        * network -- configuration network of a node
-    """
+    """Base class of a node in the network."""
 
     def __init__(self, name: str, parent: Node = None):
         self.name: str = name
         self.parent: Optional[Node] = parent
-        self.children: List[Node] = []
+        self.children: List[Any] = []
 
         self.id: str = name
         self.network = None
@@ -66,12 +57,7 @@ class Node:
 
 
 class ProjectNode(Node):
-    """
-    Root node of a configuration network that represents the whole software system.
-
-    Members:
-        * root_dir -- root directory of the software system
-    """
+    """Root node of a network that represents the whole software system."""
 
     def __init__(self, name: str, root_dir: str):
         super().__init__(name)
@@ -87,14 +73,7 @@ class ProjectNode(Node):
 
 
 class ArtifactNode(Node):
-    """
-    Represent configuration artifacts.
-
-    Members:
-        * file_path -- file path of the artifact
-        * rel_file_path -- relative file path of the artifact
-        * concept_name -- name of the technology concept
-    """
+    """Represent configuration artifacts."""
 
     def __init__(
         self,
@@ -117,8 +96,8 @@ class ArtifactNode(Node):
     def get_nodes(
         self,
         artifact: Optional[ArtifactNode] = None,
-        node_type: Optional[Type[Node]] = None,
-    ) -> List[Node]:
+        node_type: Optional[Any] = None,
+    ) -> List[Any]:
         """Return all value nodes of an artifact."""
         nodes: List[Node] = []
         node_type = ValueNode if node_type is None else node_type
@@ -152,14 +131,7 @@ class ArtifactNode(Node):
 
 
 class OptionNode(Node):
-    """
-    Option nodes refer to commands or lines of code in an artifact.
-
-    Members:
-        * display_option_id -- ID that is shown when a conflict is displayed
-        * location -- location of the option in the artifact
-        * prevalue_node -- indicator of option is a pre-value node
-    """
+    """Option nodes refer to commands or lines of code in an artifact."""
 
     def __init__(self, name: str, location: str):
         super().__init__(name)

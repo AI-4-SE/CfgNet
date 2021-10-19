@@ -16,16 +16,21 @@
 import os
 import re
 
-from typing import List, Any
+from typing import List, Any, Optional
 
-from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
+from cfgnet.network.nodes import (
+    ArtifactNode,
+    OptionNode,
+    ProjectNode,
+    ValueNode,
+)
 from cfgnet.plugins.plugin import Plugin
 
 
 class Command:
-    cmd = None
-    start_line = None
-    value: List[Any] = []
+    cmd: str
+    start_line: str
+    value: List[Any]
 
     def __init__(self, cmd, start_line, value):
         self.cmd = cmd
@@ -33,7 +38,7 @@ class Command:
         self.value = value
 
 
-def parse_string(content):
+def parse_string(content: str) -> List[Command]:
     data = []
     line_no = 0
     cmd = None
@@ -78,7 +83,7 @@ def parse_string(content):
     return data
 
 
-def parse_file(abs_file_path):
+def parse_file(abs_file_path: str) -> List[Command]:
     with open(abs_file_path, "r", encoding="utf-8") as file:
         return parse_string(file.read())
 
@@ -91,10 +96,21 @@ class DockerPlugin(Plugin):
     def __init__(self):
         super().__init__("docker")
 
-    def _parse_config_file(self, abs_file_path, rel_file_path, root):
+    def _parse_config_file(
+        self,
+        abs_file_path: str,
+        rel_file_path: str,
+        root: Optional[ProjectNode],
+    ) -> ArtifactNode:
         file_name = os.path.basename(abs_file_path)
 
-        artifact = ArtifactNode(file_name, abs_file_path, rel_file_path, root)
+        artifact = ArtifactNode(
+            name=file_name,
+            file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            concept_name=self.concept_name,
+            project_root=root,
+        )
 
         data = parse_file(abs_file_path)
         # files that are destinations in `ADD` and `COPY`
@@ -168,7 +184,7 @@ class DockerPlugin(Plugin):
 
         return artifact
 
-    def is_responsible(self, abs_file_path):
+    def is_responsible(self, abs_file_path: str) -> bool:
         file_name = os.path.basename(abs_file_path)
 
         if file_name == "Dockerfile":
@@ -176,7 +192,7 @@ class DockerPlugin(Plugin):
 
         return False
 
-    def _parse_expose(self, option, value):
+    def _parse_expose(self, option: OptionNode, value: str) -> None:
         match = self.expose_command.fullmatch(value)
         if match:
             port = ValueNode(match.group("port"))
@@ -191,7 +207,7 @@ class DockerPlugin(Plugin):
             option.add_child(ValueNode(value))
 
     @staticmethod
-    def _add_params(option, parameters):
+    def _add_params(option: OptionNode, parameters: List[str]):
         param_counter = 0
         for param in parameters:
             option_param = OptionNode(

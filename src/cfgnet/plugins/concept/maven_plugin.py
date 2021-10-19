@@ -16,9 +16,17 @@
 import logging
 import os
 
+from typing import Optional, Tuple, List
 from lxml import etree as ET
+from lxml.etree import _Element
 
-from cfgnet.network.nodes import ArtifactNode, Node, OptionNode, ValueNode
+from cfgnet.network.nodes import (
+    ArtifactNode,
+    Node,
+    OptionNode,
+    ProjectNode,
+    ValueNode,
+)
 from cfgnet.plugins.plugin import Plugin
 
 TAGS_CONTAINING_LISTS = {
@@ -37,10 +45,21 @@ class MavenPlugin(Plugin):
     def __init__(self):
         super().__init__("maven")
 
-    def _parse_config_file(self, abs_file_path, rel_file_path, root):
+    def _parse_config_file(
+        self,
+        abs_file_path: str,
+        rel_file_path: str,
+        root: Optional[ProjectNode],
+    ) -> ArtifactNode:
         file_name = os.path.basename(abs_file_path)
 
-        artifact = ArtifactNode(file_name, abs_file_path, rel_file_path, root)
+        artifact = ArtifactNode(
+            name=file_name,
+            file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            concept_name=self.concept_name,
+            project_root=root,
+        )
 
         try:
             maven_tree = ET.parse(abs_file_path)
@@ -68,7 +87,7 @@ class MavenPlugin(Plugin):
 
         return artifact
 
-    def is_responsible(self, abs_file_path):
+    def is_responsible(self, abs_file_path: str) -> bool:
         file_name = os.path.basename(abs_file_path)
 
         if file_name == "pom.xml":
@@ -76,7 +95,7 @@ class MavenPlugin(Plugin):
 
         return False
 
-    def parse_tree(self, subtree_root, parent_node: Node):
+    def parse_tree(self, subtree_root: _Element, parent_node: Node):
         name = self._make_name(subtree_root)
         if name:
             current_node = OptionNode(name, subtree_root.sourceline)
@@ -100,7 +119,7 @@ class MavenPlugin(Plugin):
                 parent_node.children.remove(current_node)
 
     @staticmethod
-    def _add_attribs(subtree_root, current_node):
+    def _add_attribs(subtree_root: _Element, current_node: OptionNode):
         current_attribs = subtree_root.attrib
         for key in current_attribs:
             option_node = OptionNode(key, subtree_root.sourceline)
@@ -112,7 +131,7 @@ class MavenPlugin(Plugin):
 
     # pylint: disable=too-many-return-statements
     @staticmethod
-    def _make_name(current_item):
+    def _make_name(current_item: _Element) -> str:
         """
         Construct a name for an option node to avoid ambiguous option nodes.
 
@@ -160,14 +179,16 @@ class MavenPlugin(Plugin):
 
         return current_item.tag
 
-    def _add_executable_name(self, artifact):
+    def _add_executable_name(self, artifact: ArtifactNode) -> None:
         try:
-            option_nodes = artifact.get_nodes(node_type=OptionNode)
-            project_option = next(
+            option_nodes: List[OptionNode] = artifact.get_nodes(
+                node_type=OptionNode
+            )
+            project_option: OptionNode = next(
                 filter(lambda node: node.name == "project", option_nodes)
             )
-            project_option_children = project_option.children
-            artifactid_node = next(
+            project_option_children: List[OptionNode] = project_option.children
+            artifactid_node: OptionNode = next(
                 filter(
                     lambda node: node.name == "artifactId",
                     project_option_children,
@@ -218,8 +239,10 @@ class MavenPlugin(Plugin):
 
     @staticmethod
     def merge_executable_name_locations(
-        artifactid_location, version_location, packaging_location
-    ):
+        artifactid_location: str,
+        version_location: Optional[str],
+        packaging_location: Optional[str],
+    ) -> str:
         location = artifactid_location
         if version_location and packaging_location:
             location += ", " + version_location + ", and " + packaging_location
@@ -230,7 +253,9 @@ class MavenPlugin(Plugin):
         return location
 
     @staticmethod
-    def _get_version_for_executable_name(project_option_node):
+    def _get_version_for_executable_name(
+        project_option_node: OptionNode,
+    ) -> Tuple[str, Optional[str]]:
         try:
             version_node = next(
                 filter(
@@ -246,7 +271,9 @@ class MavenPlugin(Plugin):
             return "", None
 
     @staticmethod
-    def _get_packaging_for_executable_name(project_option_node):
+    def _get_packaging_for_executable_name(
+        project_option_node: OptionNode,
+    ) -> Tuple[str, Optional[str]]:
         try:
             packaging_node = next(
                 filter(

@@ -1,0 +1,38 @@
+From 2bf6d99a36f5d9e90d1f45b0bede22f267af49bc Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <Bastisimon95@googlemail.com>
+Date: Wed, 18 Aug 2021 10:26:07 +0200
+Subject: [PATCH 2/2] Provoke two conflicts
+
+---
+ Dockerfile | 2 +-
+ pom.xml    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Dockerfile b/Dockerfile
+index 9d7e2dc..325b63e 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -2,7 +2,7 @@ FROM maven:3.6.3-jdk-8 as builder
+ 
+ ADD target/example-app-1.0.jar app.jar
+ 
+-COPY --from=builder pom.xml /pom.xml
++COPY --from=builder app/pom.xml /pom.xml
+ 
+ COPY app /src/bin/app 
+ 
+diff --git a/pom.xml b/pom.xml
+index ddcc1c2..825b77f 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -1,6 +1,6 @@
+ <project>
+     <artifactId>example-app</artifactId>
+-    <version>1.0</version>
++    <version>1.1</version>
+     <packaging>jar</packaging>
+ 
+     <dependencyManagement>
+-- 
+2.23.0.windows.1
+

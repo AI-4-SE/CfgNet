@@ -17,7 +17,12 @@ import os
 import pytest
 
 from cfgnet.network.network import Network
-from cfgnet.network.nodes import ProjectNode
+from cfgnet.network.nodes import (
+    ArtifactNode,
+    OptionNode,
+    ProjectNode,
+    ValueNode,
+)
 from tests.utility.temporary_repository import TemporaryRepository
 
 
@@ -43,3 +48,17 @@ def test_init_network(init_network):
     assert network
     assert network.project_name == project_name
     assert network.root == root
+
+
+def test_get_nodes(init_network):
+    network = init_network[0]
+
+    project_nodes = network.get_nodes(ProjectNode)
+    artifact_nodes = network.get_nodes(ArtifactNode)
+    option_nodes = network.get_nodes(OptionNode)
+    value_nodes = network.get_nodes(ValueNode)
+
+    assert all(isinstance(node, ProjectNode) for node in project_nodes)
+    assert all(isinstance(node, ArtifactNode) for node in artifact_nodes)
+    assert all(isinstance(node, OptionNode) for node in option_nodes)
+    assert all(isinstance(node, ValueNode) for node in value_nodes)

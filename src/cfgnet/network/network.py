@@ -16,7 +16,10 @@
 from __future__ import annotations
 
 import os
+import sys
 import logging
+import hashlib
+import pickle
 
 from typing import List, Set, Any, Optional, Callable
 from collections import defaultdict
@@ -44,6 +47,7 @@ class Network:
         self.project_name: str = project_name
         self.root: ProjectNode = root
         self.root.network = self
+        self.project_root: str = root.root_dir
 
         self.links: Set = set()
 
@@ -146,17 +150,39 @@ class Network:
         conflicts: List[Any] = []  # TODO Change `Any` to `Conflict`
         return conflicts
 
-    def save_network(self) -> None:
-        """Save configuration network of a project into a pickle file."""
+    def save(self, network_dir: str) -> None:
+        """
+        Save configuration network of a project into a pickle file.
+
+        :param network_dir: Directory for saving the network
+        """
+        file_name = hashlib.md5(self.project_root.encode()).hexdigest()
+        network_file = os.path.join(network_dir, file_name + ".pickle")
+
+        with open(network_file, "wb") as pickle_file:
+            pickle.dump(self, pickle_file)
 
     @staticmethod
-    def load_network(project_root: str) -> Network:
+    def load_network(project_root: str, network_dir: str) -> Network:
         """
         Load configuration network of a project from a pickle file.
 
-        :project_root: Project root of the software repository
+        :param project_root: Project root of the software repository
+        :param network_dir: Directory where networks are stored
         :return: Configuration network
         """
+        file_name = hashlib.md5(project_root.encode()).hexdigest()
+        network_file = os.path.join(network_dir, file_name + ".pickle")
+
+        if not os.path.exists(network_file):
+            logging.error(
+                'No existing reference network for project "%s". Please call "init" first.',
+                project_root,
+            )
+            sys.exit(1)
+
+        with open(network_file, "rb") as pickle_file:
+            return pickle.load(pickle_file)
 
     @staticmethod
     def traverse(current: Node, callback: Callable) -> None:

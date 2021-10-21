@@ -15,6 +15,7 @@
 
 import os
 import pytest
+import hashlib
 
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
@@ -25,6 +26,9 @@ from cfgnet.network.nodes import (
     ValueNode,
 )
 from tests.utility.temporary_repository import TemporaryRepository
+
+
+NETWORK_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 @pytest.fixture(name="init_network")
@@ -42,6 +46,15 @@ def init_network_():
     return network, repo.root
 
 
+def cleanup():
+    files = os.listdir(NETWORK_DIR)
+    pickle_files = [x for x in files if x.endswith(".pickle")]
+
+    for file in pickle_files:
+        path_to_file = os.path.join(NETWORK_DIR, file)
+        os.remove(path_to_file)
+
+
 def test_init_network(init_network):
     network = init_network[0]
     repo_root = init_network[1]
@@ -49,7 +62,6 @@ def test_init_network(init_network):
     root = ProjectNode(name=project_name, root_dir=repo_root)
 
     assert network
-    assert network.project_name == project_name
     assert network.root == root
     assert len(network.links) == 4
 
@@ -104,3 +116,30 @@ def test_find_node(init_network):
     assert searched_config_option == config_option
     assert searched_executable == executable
     assert not node_not_found
+
+
+def test_save_network(init_network):
+    network = init_network[0]
+
+    file_name = hashlib.md5(network.project_root.encode()).hexdigest()
+    network_file = os.path.join(NETWORK_DIR, file_name + ".pickle")
+
+    network.save(network_dir=NETWORK_DIR)
+
+    assert os.path.exists(network_file)
+
+    cleanup()
+
+
+def test_load_network(init_network):
+    network = init_network[0]
+    repo_root = init_network[1]
+
+    network.save(network_dir=NETWORK_DIR)
+    loaded_network = Network.load_network(
+        project_root=repo_root, network_dir=NETWORK_DIR
+    )
+
+    assert loaded_network
+
+    cleanup()

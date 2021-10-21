@@ -20,15 +20,15 @@ from cfgnet.network.nodes import Node, ArtifactNode, OptionNode
 class Link:
     """Datastructure for network links between Value or artifact nodes."""
 
-    node_a: Node
+    node_a: Any
     artifact_a: ArtifactNode
     option_stack_a: List[OptionNode]
 
-    node_b: Node
+    node_b: Any
     artifact_b: ArtifactNode
     option_stack_b: List[OptionNode]
 
-    def __init__(self, node_a: Node, node_b: Node):
+    def __init__(self, node_a: Any, node_b: Any):
         if node_b.id < node_a.id:
             node_a, node_b = node_b, node_a
 

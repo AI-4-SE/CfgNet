@@ -39,7 +39,7 @@ class Network:
         self.nodes = defaultdict(list)
         self.nodes[self.root.id].append(self.root)
 
-    def find_node(self, node: Node) -> Optional[Node]:
+    def find_node(self, node: Node) -> Any:
         """
         Find instance of the given node with the same ID.
 

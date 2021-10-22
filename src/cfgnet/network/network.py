@@ -26,10 +26,11 @@ from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.linker.linker_manager import LinkerManager
+from cfgnet.conflicts.conflict_detector import ConflictDetector
 from cfgnet.network.nodes import (
-    ArtifactNode,
     Node,
     ProjectNode,
+    ArtifactNode,
     OptionNode,
     ValueNode,
 )
@@ -141,13 +142,18 @@ class Network:
             if isinstance(node, node_type)
         ]
 
-    def create_links(self) -> None:
-        """Create links between nodes using the available linker."""
+    def validate(self) -> Set:
+        """
+        Detect conflicts with respect to the reference network.
 
-    # (TODO remove when implmeneted) pylint: disable=no-self-use
-    def validate(self):
-        """Validate a network against the current state of the project dir."""
-        conflicts: List[Any] = []  # TODO Change `Any` to `Conflict`
+        :return: Set of detected dependency conflicts
+        """
+        new_network = Network.init_network(cfg=self.cfg)
+
+        conflicts = ConflictDetector.detect(
+            ref_network=self, new_network=new_network
+        )
+
         return conflicts
 
     def save(self, network_dir: str) -> None:
@@ -199,7 +205,7 @@ class Network:
         """
         Initialize a configuration network.
 
-        :project_root: Project root of the software repository
+        :param project_root: Project root of the software repository
         :return: Configuration network
         """
         repo = Git(project_root=cfg.project_root_abs)

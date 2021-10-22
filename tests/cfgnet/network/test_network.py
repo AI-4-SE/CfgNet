@@ -25,25 +25,35 @@ from cfgnet.network.nodes import (
     ProjectNode,
     ValueNode,
 )
+from cfgnet.conflicts.conflict import (
+    MissingOptionConflict,
+    ModifiedOptionConflict,
+)
 from tests.utility.temporary_repository import TemporaryRepository
 
 
 NETWORK_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
-@pytest.fixture(name="init_network")
-def init_network_():
+@pytest.fixture(name="get_repo")
+def get_repo_():
     repo = TemporaryRepository(
         "tests/test_repos/maven_docker/0001-Add-Docker-and-maven-file.patch"
     )
+    return repo
+
+
+@pytest.fixture(name="get_config")
+def get_config_(get_repo):
     network_configuration = NetworkConfiguration(
-        project_root_abs=os.path.abspath(repo.root),
+        project_root_abs=os.path.abspath(get_repo.root),
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
     )
-    network = Network.init_network(network_configuration)
 
-    return network, repo.root
+    yield network_configuration
+
+    cleanup()
 
 
 def cleanup():
@@ -55,19 +65,18 @@ def cleanup():
         os.remove(path_to_file)
 
 
-def test_init_network(init_network):
-    network = init_network[0]
-    repo_root = init_network[1]
-    project_name = os.path.basename(os.path.abspath(repo_root))
-    root = ProjectNode(name=project_name, root_dir=repo_root)
+def test_init_network(get_repo, get_config):
+    network = Network.init_network(cfg=get_config)
+    project_name = os.path.basename(os.path.abspath(get_repo.root))
+    root = ProjectNode(name=project_name, root_dir=get_repo.root)
 
     assert network
     assert network.root == root
     assert len(network.links) == 4
 
 
-def test_links(init_network):
-    network = init_network[0]
+def test_links(get_config):
+    network = Network.init_network(cfg=get_config)
     expected_links = {
         "app.jar",
         "target/example-app-1.0.jar",
@@ -83,8 +92,8 @@ def test_links(init_network):
     assert expected_links == link_targets
 
 
-def test_get_nodes(init_network):
-    network = init_network[0]
+def test_get_nodes(get_config):
+    network = Network.init_network(cfg=get_config)
 
     project_nodes = network.get_nodes(ProjectNode)
     artifact_nodes = network.get_nodes(ArtifactNode)
@@ -97,8 +106,8 @@ def test_get_nodes(init_network):
     assert all(isinstance(node, ValueNode) for node in value_nodes)
 
 
-def test_find_node(init_network):
-    network = init_network[0]
+def test_find_node(get_config):
+    network = Network.init_network(cfg=get_config)
     artifact_nodes = network.get_nodes(ArtifactNode)
     value_nodes = network.get_nodes(ValueNode)
 
@@ -118,8 +127,8 @@ def test_find_node(init_network):
     assert not node_not_found
 
 
-def test_save_network(init_network):
-    network = init_network[0]
+def test_save_network(get_config):
+    network = Network.init_network(cfg=get_config)
 
     file_name = hashlib.md5(network.project_root.encode()).hexdigest()
     network_file = os.path.join(NETWORK_DIR, file_name + ".pickle")
@@ -128,18 +137,35 @@ def test_save_network(init_network):
 
     assert os.path.exists(network_file)
 
-    cleanup()
 
-
-def test_load_network(init_network):
-    network = init_network[0]
-    repo_root = init_network[1]
+def test_load_network(get_config):
+    network = Network.init_network(cfg=get_config)
 
     network.save(network_dir=NETWORK_DIR)
     loaded_network = Network.load_network(
-        project_root=repo_root, network_dir=NETWORK_DIR
+        project_root=network.cfg.project_root_abs, network_dir=NETWORK_DIR
     )
 
     assert loaded_network
 
-    cleanup()
+
+def test_validate_network(get_repo, get_config):
+    repo = get_repo
+    ref_network = Network.init_network(cfg=get_config)
+    ref_network.save(network_dir=NETWORK_DIR)
+
+    repo.apply_patch(
+        "tests/test_repos/maven_docker/0002-Provoke-two-conflicts.patch"
+    )
+
+    conflicts = ref_network.validate()
+    missing_option_conflicts = list(
+        filter(lambda x: isinstance(x, MissingOptionConflict), conflicts)
+    )
+    modified_option_conflicts = list(
+        filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
+    )
+
+    assert len(conflicts) == 2
+    assert len(missing_option_conflicts) == 1
+    assert len(modified_option_conflicts) == 1

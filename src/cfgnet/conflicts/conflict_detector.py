@@ -14,8 +14,8 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-from typing import Optional, Set, Union
 
+from typing import Optional, Set, Union, TYPE_CHECKING
 from cfgnet.conflicts.conflict import (
     MissingArtifactConflict,
     MissingOptionConflict,
@@ -23,15 +23,17 @@ from cfgnet.conflicts.conflict import (
     MultiValueConflict,
 )
 from cfgnet.network.nodes import OptionNode
-from cfgnet.network.network import Network
 from cfgnet.linker.link import Link
+
+if TYPE_CHECKING:
+    from cfgnet.network.network import Network
 
 
 class ConflictDetector:
     """Static class responsible for conflict detection."""
 
     @staticmethod
-    def detect(ref_network: Network, new_network: Network) -> Set:
+    def detect(ref_network: "Network", new_network: "Network") -> Set:
         """
         Detect conflicts.
 
@@ -80,7 +82,7 @@ class ConflictDetector:
 
     @staticmethod
     def _detect_missing_artifact(
-        link: Link, new_network: Network
+        link: Link, new_network: "Network"
     ) -> Optional[MissingArtifactConflict]:
         """Detect a missing artifact conflict."""
         artifact_a = new_network.find_artifact_node(link.artifact_a)
@@ -101,7 +103,7 @@ class ConflictDetector:
 
     @staticmethod
     def _detect_missing_options(
-        link: Link, new_network: Network
+        link: Link, new_network: "Network"
     ) -> Optional[MissingOptionConflict]:
         """Detect a missing option conflict."""
         artifact_a = new_network.find_artifact_node(link.artifact_a)
@@ -144,7 +146,7 @@ class ConflictDetector:
 
     @staticmethod
     def _detect_modified_options(
-        link: Link, new_network: Network
+        link: Link, new_network: "Network"
     ) -> Optional[Union[ModifiedOptionConflict, MultiValueConflict]]:
         """Detect either a modified option or a multi value conflict."""
         artifact_a = new_network.find_artifact_node(link.artifact_a)

@@ -13,10 +13,13 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from typing import List, Any
+from typing import List, TYPE_CHECKING
 
 from cfgnet.linker.linker import Linker
 from cfgnet.linker.equality_linker import EqualityLinker
+
+if TYPE_CHECKING:
+    from cfgnet.network.network import Network
 
 
 class LinkerManager:
@@ -25,7 +28,7 @@ class LinkerManager:
     all_linkers: List[Linker] = [EqualityLinker()]
 
     @staticmethod
-    def apply_linkers(network: Any) -> None:
+    def apply_linkers(network: "Network") -> None:
         """
         Apply all existing linker to create links in the configuration network.
 

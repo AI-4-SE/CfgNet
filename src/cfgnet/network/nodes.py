@@ -16,8 +16,11 @@
 """Datastructure for nodes of a configuration network."""
 
 from __future__ import annotations
-from typing import List, Any, Optional, Union
+from typing import List, Any, Optional, Union, TYPE_CHECKING
 from cfgnet.exceptions.exceptions import NetworkConstructionException
+
+if TYPE_CHECKING:
+    from cfgnet.network.network import Network
 
 
 class Node:
@@ -29,7 +32,7 @@ class Node:
         self.children: List[Any] = []
 
         self.id: str = name
-        self.network: Any = None
+        self.network: Optional["Network"] = None
 
     def __str__(self):
         return self.id

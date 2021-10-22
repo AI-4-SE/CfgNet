@@ -16,17 +16,20 @@
 """Package for linking nodes."""
 
 import abc
-from typing import List, Any
+from typing import List, Any, Optional, TYPE_CHECKING
 from cfgnet.linker.link import Link
 from cfgnet.linker.static_blacklist import StaticBlackList
 from cfgnet.network.nodes import ValueNode
+
+if TYPE_CHECKING:
+    from cfgnet.network.network import Network
 
 
 class Linker(abc.ABC):
     """Helper class for establishing links while constructing a network."""
 
     def __init__(self):
-        self.network: Any = None
+        self.network: Optional["Network"] = None
         self.target_nodes: List = None
         self._static_blacklist = StaticBlackList()
 
@@ -49,9 +52,10 @@ class Linker(abc.ABC):
             return
 
         # discard words from static blacklist
-        if self.network.cfg.enable_static_blacklist:
-            if node.name in self._static_blacklist.values:
-                return
+        if self.network:
+            if self.network.cfg.enable_static_blacklist:
+                if node.name in self._static_blacklist.values:
+                    return
 
         # find all matches with the given linker criterion
         matches = self._find_matches(node)
@@ -69,7 +73,8 @@ class Linker(abc.ABC):
         :return: None
         """
         link = Link(node_a, node_b)
-        self.network.links.add(link)
+        if self.network:
+            self.network.links.add(link)
 
     @abc.abstractmethod
     def _find_target_nodes(self):

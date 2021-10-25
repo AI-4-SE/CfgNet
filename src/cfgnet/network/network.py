@@ -35,6 +35,7 @@ from cfgnet.network.nodes import (
     ValueNode,
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
+from cfgnet.exporter.exporter import DotExporter, JSONExporter
 
 
 class Network:
@@ -168,6 +169,65 @@ class Network:
         with open(network_file, "wb") as pickle_file:
             pickle.dump(self, pickle_file)
 
+    def traverse(self, current: Node, callback: Callable) -> None:
+        """
+        Traverse the configuration network.
+
+        :param current: Starting point of traversal
+        :param callback: Callback called on every visited node
+        :return: None
+        """
+        callback(current)
+
+        if current.children is not None:
+            for child in current.children:
+                self.traverse(child, callback)
+
+    def export(
+        self,
+        data_dir: str,
+        name: str,
+        export_format: str,
+        include_unlinked: bool,
+    ) -> None:
+        """
+        Export the configuration network.
+
+        :param data_dir: Directory in which data about the network is stored
+        :param name: Name of the file to which the network is to be exported
+        :param export_format: Format in which the network is stored
+        :include_unlinked: If true include all nodes else only linked value nodes
+        """
+        # TODO: Replace data_dir
+        file_path = os.path.join(data_dir, name)
+
+        with open(file_path, "w+", encoding="utf-8") as export_file:
+            if export_format == "dot":
+                DotExporter(self).export(export_file, include_unlinked)
+            elif export_format == "json":
+                JSONExporter(self).export(export_file, include_unlinked)
+
+    def visualize(
+        self,
+        data_dir: str,
+        name: str,
+        export_format: str,
+        include_unlinked: bool,
+    ):
+        """
+        Visualize the configuration network.
+
+        :param data_dir: Directory in which data about the network is stored
+        :param name: Name of the file to which the network is to be exported
+        :param export_format: Format in which the network is stored
+        :include_unlinked: If true include all nodes else only linked value nodes
+        """
+        # TODO: Replace data_dir
+        file_path = os.path.join(data_dir, name)
+        DotExporter(self).visualize(
+            file_path, name, export_format, include_unlinked
+        )
+
     @staticmethod
     def load_network(project_root: str, network_dir: str) -> Network:
         """
@@ -189,21 +249,6 @@ class Network:
 
         with open(network_file, "rb") as pickle_file:
             return pickle.load(pickle_file)
-
-    @staticmethod
-    def traverse(current: Node, callback: Callable) -> None:
-        """
-        Traverse the configuration network.
-
-        :param current: Starting point of traversal
-        :param callback: Callback called on every visited node
-        :return: None
-        """
-        callback(current)
-
-        if current.children is not None:
-            for child in current.children:
-                Network.traverse(child, callback)
 
     @staticmethod
     def init_network(cfg: NetworkConfiguration) -> Network:

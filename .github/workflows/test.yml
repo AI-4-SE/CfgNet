@@ -30,6 +30,9 @@ jobs:
         run: poetry install
         if: steps.cache.outputs.cache-hit != 'true'
 
+      - name: Install Graphviz dependency
+        run: sudo apt install graphviz
+
       - name: Test
         run: |
           make test

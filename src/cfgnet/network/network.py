@@ -199,6 +199,11 @@ class Network:
         :param callback: Callback called on every visited node
         :return: None
         """
+        callback(current)
+
+        if current.children is not None:
+            for child in current.children:
+                Network.traverse(child, callback)
 
     @staticmethod
     def init_network(cfg: NetworkConfiguration) -> Network:

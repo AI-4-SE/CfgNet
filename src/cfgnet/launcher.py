@@ -6,6 +6,7 @@ import click
 from cfgnet.launcher_configuration import (
     LauncherConfiguration,
 )
+from cfgnet.network.network import Network
 
 pass_launcher_configuration = click.make_pass_decorator(
     LauncherConfiguration, ensure=True
@@ -44,7 +45,7 @@ def init(
 
     logging.info("Initializing network for '%s'.", cfg.project_root)
 
-    # TODO Network.init_network(cfg)
+    Network.init_network(cfg.project_root)
 
 
 @main.command()

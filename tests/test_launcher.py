@@ -13,10 +13,9 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from click.testing import CliRunner, Result
-from tempfile import TemporaryDirectory
 import os
-
+from tempfile import TemporaryDirectory
+from click.testing import CliRunner, Result
 from cfgnet.launcher import main
 
 runner = CliRunner()
@@ -37,18 +36,18 @@ def test_commands():
     result_analyze: Result = runner.invoke(main, ["analyze", "."])
     assert result_analyze.exit_code == 0
 
-    export_dir = TemporaryDirectory()
+    with TemporaryDirectory() as export_dir:
 
-    json_export_filename = os.path.join(export_dir.name, "network.json")
-    assert not os.path.exists(json_export_filename)
-    result_export_json: Result = runner.invoke(
-        main, ["export", "-fjson", "-o%s" % json_export_filename, "."]
-    )
-    assert result_export_json.exit_code == 0
+        json_export_filename = os.path.join(export_dir, "network.json")
+        assert not os.path.exists(json_export_filename)
+        result_export_json: Result = runner.invoke(
+            main, ["export", "-fjson", f"-o{json_export_filename}", "."]
+        )
+        assert result_export_json.exit_code == 0
 
-    dot_export_filename = os.path.join(export_dir.name, "network.dot")
-    assert not os.path.exists(dot_export_filename)
-    result_export_dot: Result = runner.invoke(
-        main, ["export", "-fdot", "-o%s" % dot_export_filename, "."]
-    )
-    assert result_export_dot.exit_code == 0
+        dot_export_filename = os.path.join(export_dir, "network.dot")
+        assert not os.path.exists(dot_export_filename)
+        result_export_dot: Result = runner.invoke(
+            main, ["export", "-fdot", f"-o{dot_export_filename}", "."]
+        )
+        assert result_export_dot.exit_code == 0

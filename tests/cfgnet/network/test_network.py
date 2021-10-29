@@ -17,7 +17,12 @@ import os
 import pytest
 
 from cfgnet.network.network import Network
-from cfgnet.network.nodes import ProjectNode
+from cfgnet.network.nodes import (
+    ArtifactNode,
+    OptionNode,
+    ProjectNode,
+    ValueNode,
+)
 from tests.utility.temporary_repository import TemporaryRepository
 
 
@@ -43,3 +48,36 @@ def test_init_network(init_network):
     assert network
     assert network.project_name == project_name
     assert network.root == root
+
+
+def test_get_nodes(init_network):
+    network = init_network[0]
+
+    project_nodes = network.get_nodes(ProjectNode)
+    artifact_nodes = network.get_nodes(ArtifactNode)
+    option_nodes = network.get_nodes(OptionNode)
+    value_nodes = network.get_nodes(ValueNode)
+
+    assert all(isinstance(node, ProjectNode) for node in project_nodes)
+    assert all(isinstance(node, ArtifactNode) for node in artifact_nodes)
+    assert all(isinstance(node, OptionNode) for node in option_nodes)
+    assert all(isinstance(node, ValueNode) for node in value_nodes)
+
+
+def test_find_node(init_network):
+    network = init_network[0]
+    artifact_nodes = network.get_nodes(ArtifactNode)
+    value_nodes = network.get_nodes(ValueNode)
+
+    maven_file = next(filter(lambda x: "pom.xml" in x.name, artifact_nodes))
+    executable = next(filter(lambda x: "ExecutableName" in x.id, value_nodes))
+    config = next(filter(lambda x: "config" in x.name, value_nodes))
+    config_option = config.parent
+
+    searched_maven_file = network.find_node(maven_file)
+    searched_executable = network.find_node(executable)
+    searched_config_option = network.find_node(config_option)
+
+    assert searched_maven_file == maven_file
+    assert searched_config_option == config_option
+    assert searched_executable == executable

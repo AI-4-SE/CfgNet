@@ -22,7 +22,7 @@ from typing import List, Set, Any, Optional, Callable
 from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.plugins.plugin_manager import PluginManager
-from cfgnet.network.nodes import Node, ProjectNode
+from cfgnet.network.nodes import Node, ProjectNode, OptionNode
 
 
 class Network:
@@ -45,6 +45,34 @@ class Network:
         :param node: Node to be searched for
         :return: Found node or None if node has not been found
         """
+        if node.id not in self.nodes:
+            return None
+
+        if node.id in self.nodes:
+            if len(self.nodes[node.id]) == 1:
+                return self.nodes[node.id][0]
+            if isinstance(node, OptionNode):
+                # multiple option nodes can have the same ID
+                # here we can also use other techniques to find the right option
+                return self._find_option(node, self.nodes[node.id])
+
+        return None
+
+    @staticmethod
+    def _find_option(node: OptionNode, options: List) -> Optional[OptionNode]:
+        """
+        Try to find the correct option node in a list of option nodes where all have the same ID.
+
+        :param node: node to be searched
+        :param options: list of option nodes with the same ID
+        :return: Found option node or None
+        """
+        child = node.children[0]
+        for option in options:
+            if child in option.children:
+                return option
+
+        return None
 
     def get_nodes(self, node_type: Any) -> List[Any]:
         """
@@ -53,6 +81,12 @@ class Network:
         :param node_type: Type of node that should be returned
         :return: List of nodes
         """
+        return [
+            node
+            for nodes in self.nodes.values()
+            for node in nodes
+            if isinstance(node, node_type)
+        ]
 
     def create_links(self) -> None:
         """Create links between nodes using the available linker."""

@@ -22,20 +22,15 @@ from cfgnet.linker.equality_linker import EqualityLinker
 class LinkerManager:
     """Manager for linker implementations."""
 
-    all_linker: List[Linker] = [EqualityLinker()]
+    all_linkers: List[Linker] = [EqualityLinker()]
 
     @staticmethod
-    def apply_linker(network: Any) -> None:
+    def apply_linkers(network: Any) -> None:
         """
         Apply all existing linker to create links in the configuration network.
 
         :param: Configuration network
         """
-        for linker in LinkerManager.get_all_linker():
+        for linker in LinkerManager.all_linkers:
             linker.network = network
             linker.create_links()
-
-    @staticmethod
-    def get_all_linker():
-        """Get all existing linker."""
-        return LinkerManager.all_linker

@@ -22,7 +22,11 @@ class EqualityLinker(Linker):
     """Equality-based Linker."""
 
     def _find_target_nodes(self):
-        return self.network.get_nodes(ValueNode)
+        return [
+            node
+            for node in self.network.get_nodes(ValueNode)
+            if node.type != bool
+        ]
 
     def _find_matches(self, node: ValueNode) -> List[ValueNode]:
         return [

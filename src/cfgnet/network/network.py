@@ -161,6 +161,6 @@ class Network:
                         file,
                     )
 
-        LinkerManager.apply_linker(network)
+        LinkerManager.apply_linkers(network)
 
         return network

@@ -44,16 +44,12 @@ class Linker(abc.ABC):
 
     def _create_links(self, node: Any) -> None:
         """Create links using nodes for which the corresponding linker is responsible."""
-        # discard booleans
-        if node.type == bool:
-            return
-
         # discard empty values
         if not node.name:
             return
 
         # discard words from static blacklist
-        if self._static_blacklist:
+        if self.network.cfg.enable_static_blacklist:
             if node.name in self._static_blacklist.values:
                 return
 

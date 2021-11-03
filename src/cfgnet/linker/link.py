@@ -76,10 +76,7 @@ class Link:
         :param node: node that should be involved in a link
         :return: true if node is involved in a link, else false
         """
-        if node in (self.node_a, self.node_b):
-            return True
-
-        return False
+        return node in (self.node_a, self.node_b)
 
     def __hash__(self):
         obj_hash = hash("|".join([self.node_a.id, self.node_b.id]))

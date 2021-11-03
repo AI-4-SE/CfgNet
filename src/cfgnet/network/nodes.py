@@ -166,6 +166,7 @@ class ValueNode(Node):
 
     def __init__(self, name: str):
         super().__init__(str(name))
+        self.type = self._check_type(name)
 
     def __eq__(self, other):
         return self.name == other.name
@@ -179,3 +180,29 @@ class ValueNode(Node):
         raise NetworkConstructionException(
             "Value nodes do not accept children."
         )
+
+    @staticmethod
+    def _check_type(value: str) -> Any:
+        """
+        Identify type of the value node.
+
+        :param value: Value of the value node
+        :return: Type of the value node
+        """
+        value = str(value)
+        type_set = [int, float, str]
+
+        res_type: Any = None
+
+        for prim_type in type_set:
+            try:
+                prim_type(value)
+                res_type = prim_type
+                break
+            except ValueError:
+                pass
+
+        if value.lower() == "true" or value.lower() == "false":
+            res_type = bool
+
+        return res_type

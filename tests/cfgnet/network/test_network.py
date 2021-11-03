@@ -48,12 +48,27 @@ def test_init_network(init_network):
     project_name = os.path.basename(os.path.abspath(repo_root))
     root = ProjectNode(name=project_name, root_dir=repo_root)
 
-    print("repo_root: ", repo_root)
-    print("project_name: ", project_name)
-
     assert network
     assert network.project_name == project_name
     assert network.root == root
+    assert len(network.links) == 4
+
+
+def test_links(init_network):
+    network = init_network[0]
+    expected_links = {
+        "app.jar",
+        "target/example-app-1.0.jar",
+        "pom.xml",
+        "builder",
+    }
+
+    link_targets = {
+        str(link).rsplit("::::", maxsplit=1)[-1] for link in network.links
+    }
+
+    assert len(network.links) == 4
+    assert expected_links == link_targets
 
 
 def test_get_nodes(init_network):

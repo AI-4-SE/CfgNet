@@ -7,9 +7,6 @@ class LauncherConfiguration:
     # global, for all commands
     verbose: bool = False
 
-    # analyze
-    check_network_integrity: bool = False
-
     # export
     export_output: Optional[str] = None
     export_format: Optional[str] = None  # TODO: Create format enum in exporter

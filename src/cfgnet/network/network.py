@@ -23,12 +23,17 @@ from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.network.nodes import Node, ProjectNode, OptionNode
+from cfgnet.network.network_configuration import NetworkConfiguration
 
 
 class Network:
     """Datastructure for a configuration network."""
 
-    def __init__(self, project_name: str, root: ProjectNode) -> None:
+    def __init__(
+        self, project_name: str, root: ProjectNode, cfg: NetworkConfiguration
+    ) -> None:
+        self.cfg = cfg
+
         self.project_name: str = project_name
         self.root: ProjectNode = root
         self.root.network = self
@@ -91,8 +96,11 @@ class Network:
     def create_links(self) -> None:
         """Create links between nodes using the available linker."""
 
-    def validate(self, network: Network):
-        """Validate a network against a modified version of it."""
+    # (TODO remove when implmeneted) pylint: disable=no-self-use
+    def validate(self):
+        """Validate a network against the current state of the project dir."""
+        conflicts: List[Any] = []  # TODO Change `Any` to `Conflict`
+        return conflicts
 
     def save_network(self) -> None:
         """Save configuration network of a project into a pickle file."""
@@ -117,24 +125,24 @@ class Network:
         """
 
     @staticmethod
-    def init_network(project_root: str) -> Network:
+    def init_network(cfg: NetworkConfiguration) -> Network:
         """
         Initialize a configuration network.
 
         :project_root: Project root of the software repository
         :return: Configuration network
         """
-        repo = Git(project_root=project_root)
+        repo = Git(project_root=cfg.project_root_abs)
         tracked_files = set(repo.get_tracked_files())
 
         # TODO: Filter files using the ignore file
 
-        project_name = os.path.basename(os.path.abspath(project_root))
-        root = ProjectNode(name=project_name, root_dir=project_root)
-        network = Network(project_name=project_name, root=root)
+        project_name = os.path.basename(cfg.project_root_abs)
+        root = ProjectNode(name=project_name, root_dir=cfg.project_root_abs)
+        network = Network(project_name=project_name, root=root, cfg=cfg)
 
         for file in tracked_files:
-            abs_file_path = os.path.join(project_root, file)
+            abs_file_path = os.path.join(cfg.project_root_abs, file)
             plugin = PluginManager.get_responsible_plugin(abs_file_path)
 
             if plugin:

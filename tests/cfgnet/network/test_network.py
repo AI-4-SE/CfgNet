@@ -17,6 +17,7 @@ import os
 import pytest
 
 from cfgnet.network.network import Network
+from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.network.nodes import (
     ArtifactNode,
     OptionNode,
@@ -31,7 +32,12 @@ def init_network_():
     repo = TemporaryRepository(
         "tests/test_repos/maven_docker/0001-Add-Docker-and-maven-file.patch"
     )
-    network = Network.init_network(project_root=repo.root)
+    network_configuration = NetworkConfiguration(
+        project_root_abs=os.path.abspath(repo.root),
+        enable_static_blacklist=False,
+        enable_dynamic_blacklist=False,
+    )
+    network = Network.init_network(network_configuration)
 
     return network, repo.root
 

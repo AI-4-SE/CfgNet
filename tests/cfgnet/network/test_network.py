@@ -32,9 +32,6 @@ from cfgnet.conflicts.conflict import (
 from tests.utility.temporary_repository import TemporaryRepository
 
 
-NETWORK_DIR = os.path.dirname(os.path.realpath(__file__))
-
-
 @pytest.fixture(name="get_repo")
 def get_repo_():
     repo = TemporaryRepository(
@@ -51,18 +48,7 @@ def get_config_(get_repo):
         enable_dynamic_blacklist=False,
     )
 
-    yield network_configuration
-
-    cleanup()
-
-
-def cleanup():
-    files = os.listdir(NETWORK_DIR)
-    pickle_files = [x for x in files if x.endswith(".pickle")]
-
-    for file in pickle_files:
-        path_to_file = os.path.join(NETWORK_DIR, file)
-        os.remove(path_to_file)
+    return network_configuration
 
 
 def test_init_network(get_repo, get_config):
@@ -73,6 +59,7 @@ def test_init_network(get_repo, get_config):
     assert network
     assert network.root == root
     assert len(network.links) == 4
+    assert os.path.isdir(network.data_dir)
 
 
 def test_links(get_config):
@@ -130,10 +117,11 @@ def test_find_node(get_config):
 def test_save_network(get_config):
     network = Network.init_network(cfg=get_config)
 
+    network_dir = os.path.join(network.data_dir, "networks")
     file_name = hashlib.md5(network.project_root.encode()).hexdigest()
-    network_file = os.path.join(NETWORK_DIR, file_name + ".pickle")
+    network_file = os.path.join(network_dir, file_name + ".pickle")
 
-    network.save(network_dir=NETWORK_DIR)
+    network.save()
 
     assert os.path.exists(network_file)
 
@@ -141,9 +129,11 @@ def test_save_network(get_config):
 def test_load_network(get_config):
     network = Network.init_network(cfg=get_config)
 
-    network.save(network_dir=NETWORK_DIR)
+    network_dir = os.path.join(network.data_dir, "networks")
+
+    network.save()
     loaded_network = Network.load_network(
-        project_root=network.cfg.project_root_abs, network_dir=NETWORK_DIR
+        project_root=network.cfg.project_root_abs, network_dir=network_dir
     )
 
     assert loaded_network
@@ -152,7 +142,7 @@ def test_load_network(get_config):
 def test_validate_network(get_repo, get_config):
     repo = get_repo
     ref_network = Network.init_network(cfg=get_config)
-    ref_network.save(network_dir=NETWORK_DIR)
+    ref_network.save()
 
     repo.apply_patch(
         "tests/test_repos/maven_docker/0002-Provoke-two-conflicts.patch"
@@ -169,3 +159,23 @@ def test_validate_network(get_repo, get_config):
     assert len(conflicts) == 2
     assert len(missing_option_conflicts) == 1
     assert len(modified_option_conflicts) == 1
+
+
+def test_export_network(get_config):
+    network = Network.init_network(cfg=get_config)
+    export_dir = os.path.join(network.data_dir, "exports")
+    export_file = os.path.join(export_dir, "dot_file")
+
+    network.export("dot_file", "dot", False)
+
+    assert os.path.exists(export_file)
+
+
+def test_visualize_network(get_config):
+    network = Network.init_network(cfg=get_config)
+    export_dir = os.path.join(network.data_dir, "exports")
+    export_file = os.path.join(export_dir, "png_file")
+
+    network.visualize("png_file", "png", False)
+
+    assert os.path.exists(export_file)

@@ -56,6 +56,13 @@ class Network:
         self.nodes = defaultdict(list)
         self.nodes[self.root.id].append(self.root)
 
+        self.data_dir = os.path.join(
+            self.cfg.project_root_abs, self.cfg.cfgnet_path_rel
+        )
+
+        if not os.path.isdir(self.data_dir):
+            os.makedirs(self.data_dir)
+
     def find_artifact_node(self, node: Node) -> Optional[ArtifactNode]:
         """
         Find instance of the given node with the same ID.
@@ -157,12 +164,12 @@ class Network:
 
         return conflicts
 
-    def save(self, network_dir: str) -> None:
-        """
-        Save configuration network of a project into a pickle file.
+    def save(self) -> None:
+        """Save configuration network of a project into a pickle file."""
+        network_dir = os.path.join(self.data_dir, "networks")
+        if not os.path.isdir(network_dir):
+            os.mkdir(network_dir)
 
-        :param network_dir: Directory for saving the network
-        """
         file_name = hashlib.md5(self.project_root.encode()).hexdigest()
         network_file = os.path.join(network_dir, file_name + ".pickle")
 
@@ -185,7 +192,6 @@ class Network:
 
     def export(
         self,
-        data_dir: str,
         name: str,
         export_format: str,
         include_unlinked: bool,
@@ -195,11 +201,14 @@ class Network:
 
         :param data_dir: Directory in which data about the network is stored
         :param name: Name of the file to which the network is to be exported
-        :param export_format: Format in which the network is stored
+        :param export_format: Format in which the network is stored, either "dot" or "json"
         :include_unlinked: If true include all nodes else only linked value nodes
         """
-        # TODO: Replace data_dir
-        file_path = os.path.join(data_dir, name)
+        export_dir = os.path.join(self.data_dir, "exports")
+        if not os.path.isdir(export_dir):
+            os.mkdir(export_dir)
+
+        file_path = os.path.join(export_dir, name)
 
         with open(file_path, "w+", encoding="utf-8") as export_file:
             if export_format == "dot":
@@ -209,7 +218,6 @@ class Network:
 
     def visualize(
         self,
-        data_dir: str,
         name: str,
         export_format: str,
         include_unlinked: bool,
@@ -219,11 +227,15 @@ class Network:
 
         :param data_dir: Directory in which data about the network is stored
         :param name: Name of the file to which the network is to be exported
-        :param export_format: Format in which the network is stored
+        :param export_format: Format in which the network is stored, either "png" or "pdf"
         :include_unlinked: If true include all nodes else only linked value nodes
         """
-        # TODO: Replace data_dir
-        file_path = os.path.join(data_dir, name)
+        export_dir = os.path.join(self.data_dir, "exports")
+        if not os.path.isdir(export_dir):
+            os.mkdir(export_dir)
+
+        file_path = os.path.join(export_dir, name)
+
         DotExporter(self).visualize(
             file_path, name, export_format, include_unlinked
         )

@@ -39,7 +39,9 @@ def init(
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
     )
-    Network.init_network(network_configuration)
+    network = Network.init_network(network_configuration)
+
+    network.save()
 
 
 @main.command()

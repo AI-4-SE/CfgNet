@@ -95,10 +95,12 @@ def test_find_node(init_network):
     config = next(filter(lambda x: "config" in x.name, value_nodes))
     config_option = config.parent
 
-    searched_maven_file = network.find_node(maven_file)
-    searched_executable = network.find_node(executable)
-    searched_config_option = network.find_node(config_option)
+    searched_maven_file = network.find_artifact_node(maven_file)
+    searched_executable = network.find_value_node(executable)
+    searched_config_option = network.find_option_node(config_option)
+    node_not_found = network.find_value_node(config_option)
 
     assert searched_maven_file == maven_file
     assert searched_config_option == config_option
     assert searched_executable == executable
+    assert not node_not_found

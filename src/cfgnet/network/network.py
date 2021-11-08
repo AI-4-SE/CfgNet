@@ -23,7 +23,13 @@ from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.linker.linker_manager import LinkerManager
-from cfgnet.network.nodes import Node, ProjectNode, OptionNode
+from cfgnet.network.nodes import (
+    ArtifactNode,
+    Node,
+    ProjectNode,
+    OptionNode,
+    ValueNode,
+)
 from cfgnet.network.network_configuration import NetworkConfiguration
 
 
@@ -44,7 +50,35 @@ class Network:
         self.nodes = defaultdict(list)
         self.nodes[self.root.id].append(self.root)
 
-    def find_node(self, node: Node) -> Optional[Node]:
+    def find_artifact_node(self, node: Node) -> Optional[ArtifactNode]:
+        """
+        Find instance of the given node with the same ID.
+
+        :param node: artifact node to be searched for
+        :return: Found artifact node or None if node has not been found
+        """
+        return self._find_node(node, ArtifactNode)
+
+    def find_option_node(self, node: Node) -> Optional[OptionNode]:
+        """
+        Find instance of the given node with the same ID.
+
+        :param node: option node to be searched for
+        :return: Found option node or None if node has not been found
+        """
+        return self._find_node(node, OptionNode)
+
+    def find_value_node(self, node: Node) -> Optional[ValueNode]:
+        """
+        Find instance of the given node with the same ID.
+
+        :param node: value node to be searched for
+        :return: Found value node or None if node has not been found
+        """
+        return self._find_node(node, ValueNode)
+
+    # pylint: disable=too-many-return-statements
+    def _find_node(self, node: Node, node_type: Any = None) -> Any:
         """
         Find instance of the given node with the same ID.
 
@@ -56,11 +90,20 @@ class Network:
 
         if node.id in self.nodes:
             if len(self.nodes[node.id]) == 1:
+                if node_type:
+                    if isinstance(self.nodes[node.id][0], node_type):
+                        return self.nodes[node.id][0]
+                    return None
                 return self.nodes[node.id][0]
             if isinstance(node, OptionNode):
                 # multiple option nodes can have the same ID
                 # here we can also use other techniques to find the right option
-                return self._find_option(node, self.nodes[node.id])
+                search_node = self._find_option(node, self.nodes[node.id])
+                if node_type:
+                    if isinstance(search_node, node_type):
+                        return search_node
+                    return None
+                return search_node
 
         return None
 

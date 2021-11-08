@@ -83,8 +83,8 @@ class ConflictDetector:
         link: Link, new_network: Network
     ) -> Optional[MissingArtifactConflict]:
         """Detect a missing artifact conflict."""
-        artifact_a = new_network.find_node(link.artifact_a)
-        artifact_b = new_network.find_node(link.artifact_b)
+        artifact_a = new_network.find_artifact_node(link.artifact_a)
+        artifact_b = new_network.find_artifact_node(link.artifact_b)
 
         missing_artifacts = []
 
@@ -104,14 +104,14 @@ class ConflictDetector:
         link: Link, new_network: Network
     ) -> Optional[MissingOptionConflict]:
         """Detect a missing option conflict."""
-        artifact_a = new_network.find_node(link.artifact_a)
-        artifact_b = new_network.find_node(link.artifact_b)
+        artifact_a = new_network.find_artifact_node(link.artifact_a)
+        artifact_b = new_network.find_artifact_node(link.artifact_b)
 
         if artifact_a is None or artifact_b is None:
             return None
 
-        option_a = new_network.find_node(link.option_stack_a[-1])
-        option_b = new_network.find_node(link.option_stack_b[-1])
+        option_a = new_network.find_option_node(link.option_stack_a[-1])
+        option_b = new_network.find_option_node(link.option_stack_b[-1])
 
         missing_options = []
 
@@ -147,14 +147,14 @@ class ConflictDetector:
         link: Link, new_network: Network
     ) -> Optional[Union[ModifiedOptionConflict, MultiValueConflict]]:
         """Detect either a modified option or a multi value conflict."""
-        artifact_a = new_network.find_node(link.artifact_a)
-        artifact_b = new_network.find_node(link.artifact_b)
+        artifact_a = new_network.find_artifact_node(link.artifact_a)
+        artifact_b = new_network.find_artifact_node(link.artifact_b)
 
         if artifact_a is None or artifact_b is None:
             return None
 
-        option_a = new_network.find_node(link.option_stack_a[-1])
-        option_b = new_network.find_node(link.option_stack_b[-1])
+        option_a = new_network.find_option_node(link.option_stack_a[-1])
+        option_b = new_network.find_option_node(link.option_stack_b[-1])
 
         if option_a is None or option_b is None:
             return None
@@ -165,8 +165,8 @@ class ConflictDetector:
         ):
             return None
 
-        value_a = new_network.find_node(link.node_a)
-        value_b = new_network.find_node(link.node_b)
+        value_a = new_network.find_value_node(link.node_a)
+        value_b = new_network.find_value_node(link.node_b)
 
         if value_a is None and value_b is None:
             equal_values = False

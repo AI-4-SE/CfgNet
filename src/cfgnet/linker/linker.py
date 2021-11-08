@@ -19,7 +19,7 @@ import abc
 from typing import List, Any
 from cfgnet.linker.link import Link
 from cfgnet.linker.static_blacklist import StaticBlackList
-from cfgnet.network.nodes import Node
+from cfgnet.network.nodes import ValueNode
 
 
 class Linker(abc.ABC):
@@ -60,7 +60,7 @@ class Linker(abc.ABC):
         for match in matches:
             self._add_link(node, match)
 
-    def _add_link(self, node_a: Node, node_b: Node):
+    def _add_link(self, node_a: ValueNode, node_b: ValueNode):
         """
         Establish a link between the two given nodes.
 

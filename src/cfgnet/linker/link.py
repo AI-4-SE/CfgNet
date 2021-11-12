@@ -14,21 +14,21 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import List, Any, Tuple, Optional
-from cfgnet.network.nodes import Node, ArtifactNode, OptionNode
+from cfgnet.network.nodes import Node, ArtifactNode, OptionNode, ValueNode
 
 
 class Link:
     """Datastructure for network links between Value or artifact nodes."""
 
-    node_a: Node
+    node_a: ValueNode
     artifact_a: ArtifactNode
     option_stack_a: List[OptionNode]
 
-    node_b: Node
+    node_b: ValueNode
     artifact_b: ArtifactNode
     option_stack_b: List[OptionNode]
 
-    def __init__(self, node_a: Node, node_b: Node):
+    def __init__(self, node_a: ValueNode, node_b: ValueNode):
         if node_b.id < node_a.id:
             node_a, node_b = node_b, node_a
 

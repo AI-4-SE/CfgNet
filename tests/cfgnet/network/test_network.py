@@ -129,11 +129,9 @@ def test_save_network(get_config):
 def test_load_network(get_config):
     network = Network.init_network(cfg=get_config)
 
-    network_dir = os.path.join(network.data_dir, "networks")
-
     network.save()
     loaded_network = Network.load_network(
-        project_root=network.cfg.project_root_abs, network_dir=network_dir
+        project_root=network.cfg.project_root_abs
     )
 
     assert loaded_network
@@ -148,7 +146,7 @@ def test_validate_network(get_repo, get_config):
         "tests/test_repos/maven_docker/0002-Provoke-two-conflicts.patch"
     )
 
-    conflicts = ref_network.validate()
+    conflicts, _ = ref_network.validate()
     missing_option_conflicts = list(
         filter(lambda x: isinstance(x, MissingOptionConflict), conflicts)
     )

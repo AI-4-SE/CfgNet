@@ -1,15 +1,13 @@
 import os
 import sys
-from typing import List, Any
+import time
 import logging
 import click
 
-from cfgnet.launcher_configuration import (
-    LauncherConfiguration,
-)
 from cfgnet.utility.logger import configure_console_logger
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
+from cfgnet.launcher_configuration import LauncherConfiguration
 
 
 add_project_root_argument = click.argument(
@@ -41,33 +39,46 @@ def init(
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
     )
+
+    start = time.time()
+
     network = Network.init_network(network_configuration)
 
     network.save()
 
+    completion_time = round((time.time() - start), 2)
+
+    # TODO: Replace print with logging
+    print(f"Done in {completion_time}s")
+
 
 @main.command()
 @add_project_root_argument
-def validate(
-    project_root: str,
-):
+def validate(project_root: str):
     logging.info("Validating network for '%s'.", project_root)
 
-    # TODO network: Network = Network.load_network(project_root)
+    start = time.time()
 
-    # TODO Change Any to Conflict once conflict class is added
-    # TODO Replace empty list with `network.validate()`
-    conflicts: List[Any] = []
+    ref_network = Network.load_network(project_root=project_root)
+
+    conflicts, new_network = ref_network.validate()
+
+    new_network.save()
 
     if len(conflicts) == 0:
-        logging.info("No conflicts detected. Updated reference network.")
-        # TODO network.save(cfg)
+        # TODO: Replace print with logging
+        print("No conflicts detected.")
         return
 
-    logging.error(
-        "Detected %d configuration conflicts.",
-        sum([conflict.count() for conflict in conflicts]),
-    )
+    detected_conflicts = sum([conflict.count() for conflict in conflicts])
+
+    # TODO: Replace print with logging
+    print(f"Detected {detected_conflicts} configuration conflicts.")
+
+    completion_time = round((time.time() - start), 2)
+
+    # TODO: Replace print with logging
+    print(f"Done in {completion_time}s")
 
     for conflict in conflicts:
         logging.info(conflict)

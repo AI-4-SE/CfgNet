@@ -21,7 +21,7 @@ import logging
 import hashlib
 import pickle
 
-from typing import List, Set, Any, Optional, Callable
+from typing import List, Set, Any, Optional, Callable, Tuple
 from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.utility.logger import configure_repo_logger
@@ -157,11 +157,11 @@ class Network:
             if isinstance(node, node_type)
         ]
 
-    def validate(self) -> Set:
+    def validate(self) -> Tuple[Set, Network]:
         """
         Detect conflicts with respect to the reference network.
 
-        :return: Set of detected dependency conflicts
+        :return: Set of detected dependency conflicts and the newly created network
         """
         new_network = Network.init_network(cfg=self.cfg)
 
@@ -169,7 +169,7 @@ class Network:
             ref_network=self, new_network=new_network
         )
 
-        return conflicts
+        return conflicts, new_network
 
     def save(self) -> None:
         """Save configuration network of a project into a pickle file."""
@@ -248,15 +248,16 @@ class Network:
         )
 
     @staticmethod
-    def load_network(project_root: str, network_dir: str) -> Network:
+    def load_network(project_root: str) -> Network:
         """
         Load configuration network of a project from a pickle file.
 
         :param project_root: Project root of the software repository
-        :param network_dir: Directory where networks are stored
         :return: Configuration network
         """
         file_name = hashlib.md5(project_root.encode()).hexdigest()
+        network_dir = os.path.join(project_root, ".cfgnet", "networks")
+
         network_file = os.path.join(network_dir, file_name + ".pickle")
 
         if not os.path.exists(network_file):

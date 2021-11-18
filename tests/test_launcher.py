@@ -20,20 +20,22 @@ from cfgnet.launcher import main
 
 runner = CliRunner()
 
+ROOT_DIR = os.path.abspath(os.curdir)
+
 
 def test_invalid_command():
-    result: Result = runner.invoke(main, ["invalidcommand", "."])
+    result: Result = runner.invoke(main, ["invalidcommand", ROOT_DIR])
     assert result.exit_code != 0
 
 
 def test_commands():
-    result_init: Result = runner.invoke(main, ["init", "."])
+    result_init: Result = runner.invoke(main, ["init", ROOT_DIR])
     assert result_init.exit_code == 0
 
-    result_validate: Result = runner.invoke(main, ["validate", "."])
+    result_validate: Result = runner.invoke(main, ["validate", ROOT_DIR])
     assert result_validate.exit_code == 0
 
-    result_analyze: Result = runner.invoke(main, ["analyze", "."])
+    result_analyze: Result = runner.invoke(main, ["analyze", ROOT_DIR])
     assert result_analyze.exit_code == 0
 
     with TemporaryDirectory() as export_dir:
@@ -41,13 +43,13 @@ def test_commands():
         json_export_filename = os.path.join(export_dir, "network.json")
         assert not os.path.exists(json_export_filename)
         result_export_json: Result = runner.invoke(
-            main, ["export", "-fjson", f"-o{json_export_filename}", "."]
+            main, ["export", "-fjson", f"-o{json_export_filename}", ROOT_DIR]
         )
         assert result_export_json.exit_code == 0
 
         dot_export_filename = os.path.join(export_dir, "network.dot")
         assert not os.path.exists(dot_export_filename)
         result_export_dot: Result = runner.invoke(
-            main, ["export", "-fdot", f"-o{dot_export_filename}", "."]
+            main, ["export", "-fdot", f"-o{dot_export_filename}", ROOT_DIR]
         )
         assert result_export_dot.exit_code == 0

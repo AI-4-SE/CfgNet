@@ -15,7 +15,7 @@
 
 import logging
 
-from typing import Optional, Any, List, Set
+from typing import Optional, Any, List, Set, Union
 
 from git import Repo
 from git.exc import InvalidGitRepositoryError
@@ -77,7 +77,7 @@ class Git:
 
         return files
 
-    def checkout(self, commit: GitCommit) -> None:
+    def checkout(self, commit: Union[GitCommit, SymbolicReference]) -> None:
         """Go to a specific commit."""
         self.repo.git.checkout(commit)
 

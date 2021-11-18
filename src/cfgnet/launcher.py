@@ -1,15 +1,17 @@
 import os
 import sys
+import time
 from typing import List, Any
 import logging
 import click
+
 
 from cfgnet.launcher_configuration import (
     LauncherConfiguration,
 )
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
-
+from cfgnet.analyze.analyzer import Analyzer
 
 add_project_root_argument = click.argument(
     "project_root", type=click.Path(exists=True)
@@ -83,17 +85,25 @@ def analyze(
     project_root: str,
 ):
     """Run self-evaluating analysis of commit history."""
+    project_name = os.path.basename(project_root)
+
+    print(f"Analyzing network for {project_root}.")
+
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
     )
 
-    # TODO Run analysis
+    start = time.time()
 
-    logging.info(
-        "Analyzing network for '%s'.", network_configuration.project_root_abs
-    )
+    analyzer = Analyzer(cfg=network_configuration)
+
+    analyzer.analyze_commit_history()
+
+    completion_time = round((time.time() - start), 2)
+
+    print(f"Analysis of {project_name} done in {completion_time}s.")
 
 
 @main.command()

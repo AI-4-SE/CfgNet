@@ -113,23 +113,41 @@ def analyze(
 @main.command()
 @click.option("-o", "--output", required=True)  # TODO type
 @click.option("-f", "--format", "export_format", required=True)  # TODO type
-@click.option("-u", "--include-unlinked", is_flag=True, help="TODO")
-@click.option("--visualize-dot", is_flag=True, help="TODO")
+@click.option("-u", "--include-unlinked", is_flag=True)  # TODO type
+@click.option("-v", "--visualize-dot", is_flag=True)  # TODO type
 @add_project_root_argument
 def export(
     output: str,
     export_format: str,
     include_unlinked: bool,
     visualize_dot: bool,
-    project_root: str,  # (TODO remove when implemented) pylint: disable=unused-argument
+    project_root: str,
 ):
     LauncherConfiguration.export_output = output
     LauncherConfiguration.export_format = export_format
     LauncherConfiguration.export_include_unlinked = include_unlinked
     LauncherConfiguration.export_visualize_dot = visualize_dot
 
-    # TODO network = Network.load_network(project_root)
-    # TODO Export
+    network = Network.load_network(project_root)
+
+    if LauncherConfiguration.export_visualize_dot:
+
+        logging.info("Visualize the configuration network.")
+
+        network.visualize(
+            name=LauncherConfiguration.export_output,
+            export_format=LauncherConfiguration.export_format,
+            include_unlinked=LauncherConfiguration.export_include_unlinked,
+        )
+        return
+
+    logging.info("Export the configuration network.")
+
+    network.export(
+        name=LauncherConfiguration.export_output,
+        export_format=LauncherConfiguration.export_format,
+        include_unlinked=LauncherConfiguration.export_include_unlinked,
+    )
 
 
 if __name__ == "__main__":

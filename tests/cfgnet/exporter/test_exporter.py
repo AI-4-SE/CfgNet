@@ -50,7 +50,7 @@ def get_config_(get_repo):
 
 def cleanup():
     files = os.listdir(NETWORK_DIR)
-    pickle_files = [x for x in files if x.endswith((".dot", ".json"))]
+    pickle_files = [x for x in files if x.endswith((".dot", ".json", ".png"))]
 
     for file in pickle_files:
         path_to_file = os.path.join(NETWORK_DIR, file)
@@ -73,13 +73,13 @@ def test_dot_export_file(get_config):
 
 def test_dot_visualize_file(get_config):
     network = Network.init_network(cfg=get_config)
-    file_name = "visualized"
-    file_path = os.path.join(NETWORK_DIR, "graph", file_name + ".png")
+    file_name = os.path.join(NETWORK_DIR, "visualized")
+    file_path = file_name + ".png"
 
     dot_exporter = DotExporter(network=network)
-    dot_exporter.visualize(NETWORK_DIR, file_name, "png", False)
+    dot_exporter.visualize(file_name, "png", False)
 
-    assert os.path.isfile(file_path)
+    assert os.path.exists(file_path)
 
 
 def test_json_export_file(get_config):

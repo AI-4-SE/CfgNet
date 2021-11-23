@@ -243,9 +243,7 @@ class Network:
 
         file_path = os.path.join(export_dir, name)
 
-        DotExporter(self).visualize(
-            file_path, name, export_format, include_unlinked
-        )
+        DotExporter(self).visualize(file_path, export_format, include_unlinked)
 
     @staticmethod
     def load_network(project_root: str) -> Network:

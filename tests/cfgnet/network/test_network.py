@@ -172,7 +172,7 @@ def test_export_network(get_config):
 def test_visualize_network(get_config):
     network = Network.init_network(cfg=get_config)
     export_dir = os.path.join(network.data_dir, "exports")
-    export_file = os.path.join(export_dir, "png_file")
+    export_file = os.path.join(export_dir, "png_file.png")
 
     network.visualize("png_file", "png", False)
 

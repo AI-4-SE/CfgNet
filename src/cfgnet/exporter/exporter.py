@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
-
 from json import dumps
 from typing import Dict, Set, TYPE_CHECKING, TextIO
 from graphviz import Digraph
@@ -46,7 +44,6 @@ class DotExporter:
 
     def visualize(
         self,
-        data_dir: str,
         name: str,
         export_format: str,
         include_unlinked: bool,
@@ -58,11 +55,10 @@ class DotExporter:
         :param format: format to visualize the network
         :param include_unlinked: if true include all value nodes, else only linked nodes
         """
-        destination = os.path.join(data_dir, "graph", name)
         self._create_digraph(include_unlinked)
         if self._dot:
             self._dot.render(
-                filename=destination,
+                filename=name,
                 format=export_format,
                 cleanup=True,
             )

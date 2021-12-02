@@ -28,6 +28,7 @@ from cfgnet.utility.logger import configure_repo_logger
 from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.linker.linker_manager import LinkerManager
 from cfgnet.conflicts.conflict_detector import ConflictDetector
+from cfgnet.network.ignorefile import IgnoreFile
 from cfgnet.network.nodes import (
     Node,
     ProjectNode,
@@ -66,6 +67,8 @@ class Network:
 
         log_file_path = os.path.join(self.data_dir, f"{self.project_name}.log")
         configure_repo_logger(log_file_path)
+
+        IgnoreFile.configure(cfg.ignorefile_path())
 
     def find_artifact_node(self, node: Node) -> Optional[ArtifactNode]:
         """
@@ -275,13 +278,13 @@ class Network:
         :return: Configuration network
         """
         repo = Git(project_root=cfg.project_root_abs)
-        tracked_files = set(repo.get_tracked_files())
-
-        # TODO: Filter files using the ignore file
+        tracked_files: Set[str] = set(repo.get_tracked_files())
 
         project_name = os.path.basename(cfg.project_root_abs)
         root = ProjectNode(name=project_name, root_dir=cfg.project_root_abs)
         network = Network(project_name=project_name, root=root, cfg=cfg)
+
+        tracked_files = IgnoreFile.filter(tracked_files)
 
         for file in tracked_files:
             abs_file_path = os.path.join(cfg.project_root_abs, file)

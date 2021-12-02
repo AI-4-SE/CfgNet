@@ -1,0 +1,66 @@
+From 4ad5ace76a49671bd2c85c44d212656643b28aa4 Mon Sep 17 00:00:00 2001
+From: Jakob Ruckel <jakob@ruckel.de>
+Date: Thu, 2 Dec 2021 04:02:24 +0100
+Subject: [PATCH] Initial
+
+---
+ Dockerfile             |  1 +
+ ignored_dir/Dockerfile |  1 +
+ pom.xml                | 29 +++++++++++++++++++++++++++++
+ 3 files changed, 31 insertions(+)
+ create mode 100644 Dockerfile
+ create mode 100644 ignored_dir/Dockerfile
+ create mode 100644 pom.xml
+
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..4cad8da
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1 @@
++ENV ignored="no"
+diff --git a/ignored_dir/Dockerfile b/ignored_dir/Dockerfile
+new file mode 100644
+index 0000000..641c307
+--- /dev/null
++++ b/ignored_dir/Dockerfile
+@@ -0,0 +1 @@
++ENV ignored="yes"
+diff --git a/pom.xml b/pom.xml
+new file mode 100644
+index 0000000..c7e8069
+--- /dev/null
++++ b/pom.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0"?>
++<project>
++  <!-- comment -->
++  <modelVersion>4.0.0</modelVersion>
++  <groupId>com.example.apps</groupId>
++  <artifactId>my-cool-app</artifactId>
++  <version>42</version>
++  <packaging>jar</packaging>
++  <port>8000</port>
++
++  <dependencyManagement>
++    <dependencies>
++
++      <dependency>
++        <groupId>apple</groupId>
++        <artifactId>apple_artifact</artifactId>
++        <version>apple_version</version>
++      </dependency>
++
++    </dependencies>
++  </dependencyManagement>
++
++  <modules>
++    <module>config</module>
++    <module>monitor</module>
++    <module>registry</module>
++  </modules>
++
++</project>
+-- 
+2.34.1
+

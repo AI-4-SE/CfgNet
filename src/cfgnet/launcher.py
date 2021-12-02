@@ -7,6 +7,7 @@ import click
 from cfgnet.launcher_configuration import (
     LauncherConfiguration,
 )
+from cfgnet.utility.logger import configure_console_logger
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
 
@@ -22,6 +23,7 @@ add_project_root_argument = click.argument(
 )
 def main(verbose: bool):
     LauncherConfiguration.verbose = verbose
+    configure_console_logger(verbose=verbose)
 
 
 @main.command()
@@ -68,7 +70,7 @@ def validate(
     )
 
     for conflict in conflicts:
-        print(conflict)
+        logging.info(conflict)
 
     sys.exit(1)
 

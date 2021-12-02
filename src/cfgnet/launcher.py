@@ -34,6 +34,8 @@ def init(
     project_root: str,
 ):
     """Initialize configuration network."""
+    logging.info("Initialize configuration network")
+
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
@@ -48,14 +50,13 @@ def init(
 
     completion_time = round((time.time() - start), 2)
 
-    # TODO: Replace print with logging
-    print(f"Done in {completion_time}s")
+    logging.info("Done in [%s s]", str(completion_time))
 
 
 @main.command()
 @add_project_root_argument
 def validate(project_root: str):
-    logging.info("Validating network for '%s'.", project_root)
+    logging.info("Validate configuration network")
 
     start = time.time()
 
@@ -66,22 +67,22 @@ def validate(project_root: str):
     new_network.save()
 
     if len(conflicts) == 0:
-        # TODO: Replace print with logging
-        print("No conflicts detected.")
+        logging.info("No conflicts detected.")
         return
 
     detected_conflicts = sum([conflict.count() for conflict in conflicts])
 
-    # TODO: Replace print with logging
-    print(f"Detected {detected_conflicts} configuration conflicts.")
+    logging.error(
+        "Detected %s configuration conflicts", str(detected_conflicts)
+    )
 
     completion_time = round((time.time() - start), 2)
 
-    # TODO: Replace print with logging
-    print(f"Done in {completion_time}s")
+    logging.info("Done in [%s s]", completion_time)
 
+    print()
     for conflict in conflicts:
-        logging.info(conflict)
+        print(conflict)
 
     sys.exit(1)
 

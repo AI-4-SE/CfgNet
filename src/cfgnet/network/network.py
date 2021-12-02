@@ -24,6 +24,7 @@ import pickle
 from typing import List, Set, Any, Optional, Callable
 from collections import defaultdict
 from cfgnet.vcs.git import Git
+from cfgnet.utility.logger import configure_repo_logger
 from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.linker.linker_manager import LinkerManager
 from cfgnet.conflicts.conflict_detector import ConflictDetector
@@ -62,6 +63,9 @@ class Network:
 
         if not os.path.isdir(self.data_dir):
             os.makedirs(self.data_dir)
+
+        log_file_path = os.path.join(self.data_dir, f"{self.project_name}.log")
+        configure_repo_logger(log_file_path)
 
     def find_artifact_node(self, node: Node) -> Optional[ArtifactNode]:
         """

@@ -17,6 +17,7 @@
 
 from __future__ import annotations
 from typing import List, Any, Optional, Union, TYPE_CHECKING
+from cfgnet.config_types.config_types import ConfigType
 from cfgnet.exceptions.exceptions import NetworkConstructionException
 
 if TYPE_CHECKING:
@@ -167,9 +168,11 @@ class OptionNode(Node):
 class ValueNode(Node):
     """Value nodes represent actual parameters associated to an option node."""
 
-    def __init__(self, name: str):
-        super().__init__(str(name))
-        self.type = self._check_type(name)
+    def __init__(
+        self, name: str, config_type: ConfigType = ConfigType.UNKNOWN
+    ):
+        super().__init__(name)
+        self.config_type = config_type
 
     def __eq__(self, other):
         return self.name == other.name
@@ -183,29 +186,3 @@ class ValueNode(Node):
         raise NetworkConstructionException(
             "Value nodes do not accept children."
         )
-
-    @staticmethod
-    def _check_type(value: str) -> Any:
-        """
-        Identify type of the value node.
-
-        :param value: Value of the value node
-        :return: Type of the value node
-        """
-        value = str(value)
-        type_set = [int, float, str]
-
-        res_type: Any = None
-
-        for prim_type in type_set:
-            try:
-                prim_type(value)
-                res_type = prim_type
-                break
-            except ValueError:
-                pass
-
-        if value.lower() == "true" or value.lower() == "false":
-            res_type = bool
-
-        return res_type

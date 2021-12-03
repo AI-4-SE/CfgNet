@@ -12,7 +12,14 @@ class NetworkConfiguration:
     # Path to CfgNet data directory relative to project_root
     cfgnet_path_rel: str = ".cfgnet"
 
+    def data_dir_path(self):
+        return os.path.join(self.project_root_abs, self.cfgnet_path_rel)
+
+    def network_dir_path(self):
+        return os.path.join(self.data_dir_path(), "network")
+
+    def export_dir_path(self):
+        return os.path.join(self.data_dir_path(), "export")
+
     def ignorefile_path(self):
-        return os.path.join(
-            self.project_root_abs, self.cfgnet_path_rel, "ignore"
-        )
+        return os.path.join(self.data_dir_path(), "ignore")

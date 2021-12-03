@@ -59,7 +59,7 @@ def test_init_network(get_repo, get_config):
     assert network
     assert network.root == root
     assert len(network.links) == 4
-    assert os.path.isdir(network.data_dir)
+    assert os.path.isdir(network.cfg.data_dir_path())
 
 
 def test_links(get_config):
@@ -117,9 +117,10 @@ def test_find_node(get_config):
 def test_save_network(get_config):
     network = Network.init_network(cfg=get_config)
 
-    network_dir = os.path.join(network.data_dir, "networks")
     file_name = hashlib.md5(network.project_root.encode()).hexdigest()
-    network_file = os.path.join(network_dir, file_name + ".pickle")
+    network_file = os.path.join(
+        network.cfg.network_dir_path(), file_name + ".pickle"
+    )
 
     network.save()
 
@@ -161,8 +162,7 @@ def test_validate_network(get_repo, get_config):
 
 def test_export_network(get_config):
     network = Network.init_network(cfg=get_config)
-    export_dir = os.path.join(network.data_dir, "exports")
-    export_file = os.path.join(export_dir, "dot_file")
+    export_file = os.path.join(network.cfg.export_dir_path(), "dot_file")
 
     network.export("dot_file", "dot", False)
 
@@ -171,8 +171,7 @@ def test_export_network(get_config):
 
 def test_visualize_network(get_config):
     network = Network.init_network(cfg=get_config)
-    export_dir = os.path.join(network.data_dir, "exports")
-    export_file = os.path.join(export_dir, "png_file.png")
+    export_file = os.path.join(network.cfg.export_dir_path(), "png_file.png")
 
     network.visualize("png_file", "png", False)
 

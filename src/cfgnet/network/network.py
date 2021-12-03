@@ -58,14 +58,12 @@ class Network:
         self.nodes = defaultdict(list)
         self.nodes[self.root.id].append(self.root)
 
-        self.data_dir = os.path.join(
-            self.cfg.project_root_abs, self.cfg.cfgnet_path_rel
+        if not os.path.isdir(self.cfg.data_dir_path()):
+            os.makedirs(self.cfg.data_dir_path())
+
+        log_file_path = os.path.join(
+            self.cfg.data_dir_path(), f"{self.project_name}.log"
         )
-
-        if not os.path.isdir(self.data_dir):
-            os.makedirs(self.data_dir)
-
-        log_file_path = os.path.join(self.data_dir, f"{self.project_name}.log")
         configure_repo_logger(log_file_path)
 
         IgnoreFile.configure(cfg.ignorefile_path())
@@ -173,12 +171,13 @@ class Network:
 
     def save(self) -> None:
         """Save configuration network of a project into a pickle file."""
-        network_dir = os.path.join(self.data_dir, "networks")
-        if not os.path.isdir(network_dir):
-            os.mkdir(network_dir)
+        if not os.path.isdir(self.cfg.network_dir_path()):
+            os.mkdir(self.cfg.network_dir_path())
 
         file_name = hashlib.md5(self.project_root.encode()).hexdigest()
-        network_file = os.path.join(network_dir, file_name + ".pickle")
+        network_file = os.path.join(
+            self.cfg.network_dir_path(), file_name + ".pickle"
+        )
 
         with open(network_file, "wb") as pickle_file:
             pickle.dump(self, pickle_file)
@@ -211,11 +210,10 @@ class Network:
         :param export_format: Format in which the network is stored, either "dot" or "json"
         :include_unlinked: If true include all nodes else only linked value nodes
         """
-        export_dir = os.path.join(self.data_dir, "exports")
-        if not os.path.isdir(export_dir):
-            os.mkdir(export_dir)
+        if not os.path.isdir(self.cfg.export_dir_path()):
+            os.mkdir(self.cfg.export_dir_path())
 
-        file_path = os.path.join(export_dir, name)
+        file_path = os.path.join(self.cfg.export_dir_path(), name)
 
         with open(file_path, "w+", encoding="utf-8") as export_file:
             if export_format == "dot":
@@ -237,11 +235,10 @@ class Network:
         :param export_format: Format in which the network is stored, either "png" or "pdf"
         :include_unlinked: If true include all nodes else only linked value nodes
         """
-        export_dir = os.path.join(self.data_dir, "exports")
-        if not os.path.isdir(export_dir):
-            os.mkdir(export_dir)
+        if not os.path.isdir(self.cfg.export_dir_path()):
+            os.mkdir(self.cfg.export_dir_path())
 
-        file_path = os.path.join(export_dir, name)
+        file_path = os.path.join(self.cfg.export_dir_path(), name)
 
         DotExporter(self).visualize(file_path, export_format, include_unlinked)
 
@@ -254,7 +251,7 @@ class Network:
         :return: Configuration network
         """
         file_name = hashlib.md5(project_root.encode()).hexdigest()
-        network_dir = os.path.join(project_root, ".cfgnet", "networks")
+        network_dir = os.path.join(project_root, ".cfgnet", "network")
 
         network_file = os.path.join(network_dir, file_name + ".pickle")
 

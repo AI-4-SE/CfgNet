@@ -44,11 +44,8 @@ def test_parse_dockerfile(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
-    for id in ids:
-        print(id)
-
     assert artifact is not None
-    assert len(nodes) == 26
+    assert len(nodes) == 29
 
     # FILE PATH
     assert make_id("Dockerfile", "file", "Dockerfile") in ids
@@ -72,6 +69,12 @@ def test_parse_dockerfile(get_plugin):
     assert make_id("Dockerfile", "entrypoint", "param0", "lorem") in ids
     assert make_id("Dockerfile", "entrypoint", "param1", "ipsum") in ids
     assert make_id("Dockerfile", "entrypoint", "param2", "foo.bar") in ids
+    assert (
+        make_id("Dockerfile", "entrypoint", "exec_command", "python ./app.py")
+        in ids
+    )
+    assert make_id("Dockerfile", "entrypoint", "param0", "python") in ids
+    assert make_id("Dockerfile", "entrypoint", "param1", "app.py") in ids
 
     # CMD
     assert (

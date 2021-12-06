@@ -73,9 +73,14 @@ def parse_string(content: str) -> List[Command]:
                 if cmd.cmd == "env":
                     cmd.value = "=".join(cmd.value).split("=")
                 elif cmd.cmd in ["cmd", "entrypoint"]:
-                    without_brackets = " ".join(cmd.value)[1:-1]
-                    params = without_brackets.replace(" ", "").split(",")
-                    cmd.value = [" ".join(params)]
+                    if cmd.value[0].startswith("[") and cmd.value[-1].endswith(
+                        "]"
+                    ):
+                        without_brackets = " ".join(cmd.value)[1:-1]
+                        params = without_brackets.replace(" ", "").split(",")
+                        cmd.value = [" ".join(params)]
+                    else:
+                        cmd.value = [" ".join(cmd.value)]
                 data.append(cmd)
                 cmd = None
             else:

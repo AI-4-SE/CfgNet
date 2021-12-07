@@ -22,6 +22,8 @@ from cfgnet.config_types.config_types import ConfigType
 class EqualityLinker(Linker):
     """Equality-based Linker."""
 
+    name: str = "equality"
+
     def _find_target_nodes(self):
         return [
             node

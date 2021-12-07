@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from typing import List, TYPE_CHECKING
+from typing import List, Iterable, TYPE_CHECKING
 
 from cfgnet.linker.linker import Linker
 from cfgnet.linker.equality_linker import EqualityLinker
@@ -26,6 +26,7 @@ class LinkerManager:
     """Manager for linker implementations."""
 
     all_linkers: List[Linker] = [EqualityLinker()]
+    enabled_linkers: List[Linker] = []
 
     @staticmethod
     def apply_linkers(network: "Network") -> None:
@@ -37,3 +38,15 @@ class LinkerManager:
         for linker in LinkerManager.all_linkers:
             linker.network = network
             linker.create_links()
+
+    @staticmethod
+    def get_linker_names() -> List[str]:
+        return [linker.name for linker in LinkerManager.all_linkers]
+
+    @staticmethod
+    def set_enabled_linkers(linker_names: Iterable[str]) -> None:
+        LinkerManager.enabled_linkers = [
+            linker
+            for linker in LinkerManager.all_linkers
+            if linker.name in linker_names
+        ]

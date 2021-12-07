@@ -28,6 +28,8 @@ if TYPE_CHECKING:
 class Linker(abc.ABC):
     """Helper class for establishing links while constructing a network."""
 
+    name: str = ""
+
     def __init__(self):
         self.network: Optional["Network"] = None
         self.target_nodes: List = None

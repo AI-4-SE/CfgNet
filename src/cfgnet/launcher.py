@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import logging
+from typing import List
 import click
 
 from cfgnet.utility.logger import configure_console_logger
@@ -9,10 +10,31 @@ from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.launcher_configuration import LauncherConfiguration
 from cfgnet.analyze.analyzer import Analyzer
+from cfgnet.linker.linker_manager import LinkerManager
 
 
 add_project_root_argument = click.argument(
     "project_root", type=click.Path(exists=True)
+)
+
+add_enable_linker_option = click.option(
+    "--enable-linker",
+    type=click.Choice(LinkerManager.get_linker_names()),
+    multiple=True,
+    default=LinkerManager.get_linker_names,
+    help="Specify a linker to be enabled.  If this is not specified, all "
+    "available linkers except those explicitly disabled will be used.  "
+    "To enable multiple linkers, pass the option for each of them, i.e.  "
+    "`--enable-linker foo --enable-linker bar`.",
+)
+add_disable_linker_option = click.option(
+    "--disable-linker",
+    type=click.Choice(LinkerManager.get_linker_names()),
+    multiple=True,
+    default=[],
+    help="Specify a linker to be disabled."
+    "To enable multiple linkers, pass the option for each of them, i.e.  "
+    "`--disable-linker foo --disable-linker bar`.",
 )
 
 
@@ -29,10 +51,14 @@ def main(verbose: bool):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @add_project_root_argument
+@add_enable_linker_option
+@add_disable_linker_option
 def init(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
     project_root: str,
+    enable_linker: List[str],
+    disable_linker: List[str],
 ):
     """Initialize configuration network."""
     logging.info("Initialize configuration network")
@@ -41,7 +67,9 @@ def init(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
+        enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
+    LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
 
     start = time.time()
 
@@ -62,6 +90,8 @@ def validate(project_root: str):
     start = time.time()
 
     ref_network = Network.load_network(project_root=project_root)
+
+    # TODO Network should configure LinkerManager with list of enabled linkers
 
     conflicts, new_network = ref_network.validate()
 
@@ -92,10 +122,14 @@ def validate(project_root: str):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @add_project_root_argument
+@add_enable_linker_option
+@add_disable_linker_option
 def analyze(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
     project_root: str,
+    enable_linker: List[str],
+    disable_linker: List[str],
 ):
     """Run self-evaluating analysis of commit history."""
     project_name = os.path.basename(project_root)
@@ -106,7 +140,12 @@ def analyze(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
+        enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
+    LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
+
+    enabled_linkers = set(enable_linker) - set(disable_linker)
+    LinkerManager.set_enabled_linkers(enabled_linkers)
 
     start = time.time()
 

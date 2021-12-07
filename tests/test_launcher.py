@@ -19,6 +19,7 @@ import pytest
 
 from click.testing import CliRunner, Result
 from cfgnet.launcher import main
+from cfgnet.linker.linker_manager import LinkerManager
 from tests.utility.temporary_repository import TemporaryRepository
 
 
@@ -63,3 +64,11 @@ def test_commands(get_repo):
             main, ["export", "-fdot", f"-o{dot_export_filename}", ROOT_DIR]
         )
         assert result_export_dot.exit_code == 0
+
+
+def test_linker_options():
+    result: Result = runner.invoke(
+        main, ["init", ROOT_DIR, "--disable-linker", "equality"]
+    )
+    assert len(LinkerManager.enabled_linkers) == 0
+    assert result.exit_code == 0

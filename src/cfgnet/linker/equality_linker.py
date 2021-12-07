@@ -21,6 +21,8 @@ from cfgnet.linker.linker import Linker
 class EqualityLinker(Linker):
     """Equality-based Linker."""
 
+    name: str = "equality"
+
     def _find_target_nodes(self):
         return [
             node

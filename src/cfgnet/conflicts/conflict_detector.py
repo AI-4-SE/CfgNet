@@ -33,7 +33,11 @@ class ConflictDetector:
     """Static class responsible for conflict detection."""
 
     @staticmethod
-    def detect(ref_network: "Network", new_network: "Network") -> Set:
+    def detect(
+        ref_network: "Network",
+        new_network: "Network",
+        commit_hash: Optional[str] = None,
+    ) -> Set:
         """
         Detect conflicts.
 
@@ -77,6 +81,10 @@ class ConflictDetector:
                 else:
                     conflicts.add(modified_option_conflict)
                 continue
+
+        if commit_hash:
+            for conflict in conflicts:
+                conflict.occurred_at = commit_hash
 
         return conflicts
 

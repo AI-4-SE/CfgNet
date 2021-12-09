@@ -14,18 +14,13 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-import csv
 import logging
 import time
 
-from typing import Optional, Set, Union
+from typing import Optional, Set
 from cfgnet.vcs.git import Git
 from cfgnet.network.network import Network, NetworkConfiguration
-from cfgnet.conflicts.conflict import (
-    MissingArtifactConflict,
-    MissingOptionConflict,
-    ModifiedOptionConflict,
-)
+from cfgnet.analyze.csv_writer import CSVWriter
 
 
 class Analyzer:
@@ -33,7 +28,6 @@ class Analyzer:
         self.cfg: NetworkConfiguration = cfg
         self.conflicts_cvs_path: Optional[str] = None
         self.time_last_progress_print: float = 0
-
         self._setup_dirs()
 
     def _setup_dirs(self) -> None:
@@ -51,58 +45,6 @@ class Analyzer:
 
         if os.path.exists(self.conflicts_csv_path):
             os.remove(self.conflicts_csv_path)
-
-    def _write_conflicts_to_csv(
-        self,
-        conflicts: Set[
-            Union[
-                ModifiedOptionConflict,
-                MissingArtifactConflict,
-                MissingOptionConflict,
-            ]
-        ],
-    ) -> None:
-        """
-        Write all detected conflicts into a csv file.
-
-        :param conflicts: Conflicts to be written to a csv file
-        """
-        fieldnames = [
-            "occurred_at",
-            "conflict_type",
-            "conflict_id",
-            "artifact",
-            "option",
-            "value",
-            "old_value",
-            "dependent_value",
-        ]
-
-        with open(
-            self.conflicts_csv_path, "a+", encoding="utf-8"
-        ) as conflict_file:
-            writer = csv.DictWriter(conflict_file, fieldnames=fieldnames)
-            writer.writeheader()
-
-            for conflict in conflicts:
-                data = {
-                    "occurred_at": conflict.occurred_at,
-                    "conflict_type": conflict.__class__.__name__,
-                    "conflict_id": conflict.id,
-                }
-
-                if isinstance(conflict, ModifiedOptionConflict):
-                    data.update(
-                        {
-                            "artifact": conflict.artifact.rel_file_path,
-                            "option": conflict.option.display_option_id,
-                            "value": conflict.value.name,
-                            "old_value": conflict.old_value.name,
-                            "dependent_value": conflict.dependent_value.name,
-                        }
-                    )
-
-                writer.writerow(data)
 
     def _print_progress(self, num_commit: int, final: bool = False) -> None:
         """Print the progress of th analysis."""
@@ -138,9 +80,9 @@ class Analyzer:
                 commit = repo.next_commit()
                 num_commit += 1
 
-                conflicts, _ = ref_network.validate()
+                detected_conflicts, _ = ref_network.validate(commit.hash)
 
-                conflicts.update(conflicts)
+                conflicts.update(detected_conflicts)
 
                 self._print_progress(num_commit=num_commit)
 
@@ -164,6 +106,8 @@ class Analyzer:
                 # HEAD was detached, so got back to the commit
                 repo.checkout(commit_hash_pre_analysis)
 
-            self._write_conflicts_to_csv(conflicts)
+            CSVWriter.write_conflicts_to_csv(
+                csv_path=self.conflicts_csv_path, conflicts=conflicts
+            )
 
             self._print_progress(num_commit=num_commit, final=True)

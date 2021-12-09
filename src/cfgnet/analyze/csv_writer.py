@@ -44,11 +44,7 @@ class CSVWriter:
             "occurred_at",
             "conflict_type",
             "conflict_id",
-            "artifact",
-            "option",
-            "value",
-            "old_value",
-            "dependent_value",
+            "link",
         ]
 
         with open(csv_path, "a+", encoding="utf-8") as conflict_file:
@@ -60,17 +56,7 @@ class CSVWriter:
                     "occurred_at": conflict.occurred_at,
                     "conflict_type": conflict.__class__.__name__,
                     "conflict_id": conflict.id,
+                    "link": conflict.link,
                 }
-
-                if isinstance(conflict, ModifiedOptionConflict):
-                    data.update(
-                        {
-                            "artifact": conflict.artifact.rel_file_path,
-                            "option": conflict.option.display_option_id,
-                            "value": conflict.value.name,
-                            "old_value": conflict.old_value.name,
-                            "dependent_value": conflict.dependent_value.name,
-                        }
-                    )
 
                 writer.writerow(data)

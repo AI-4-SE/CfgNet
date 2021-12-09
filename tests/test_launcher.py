@@ -15,12 +15,22 @@
 
 import os
 from tempfile import TemporaryDirectory
+import pytest
+
 from click.testing import CliRunner, Result
 from cfgnet.launcher import main
+from tests.utility.temporary_repository import TemporaryRepository
+
 
 runner = CliRunner()
 
 ROOT_DIR = os.path.abspath(os.curdir)
+
+
+@pytest.fixture(name="get_repo")
+def get_repo_():
+    repo = TemporaryRepository("tests/test_repos/maven_docker")
+    return repo
 
 
 def test_invalid_command():
@@ -28,14 +38,14 @@ def test_invalid_command():
     assert result.exit_code != 0
 
 
-def test_commands():
+def test_commands(get_repo):
     result_init: Result = runner.invoke(main, ["init", ROOT_DIR])
     assert result_init.exit_code == 0
 
     result_validate: Result = runner.invoke(main, ["validate", ROOT_DIR])
     assert result_validate.exit_code == 0
 
-    result_analyze: Result = runner.invoke(main, ["analyze", ROOT_DIR])
+    result_analyze: Result = runner.invoke(main, ["analyze", get_repo.root])
     assert result_analyze.exit_code == 0
 
     with TemporaryDirectory() as export_dir:

@@ -45,7 +45,7 @@ index 0000000..ddcc1c2
 +          <dependency>
 +            <groupId>mockito</groupId>
 +            <artifactId>mockito_artifact</artifactId>
-+            <version>3.7</version>
++            <version>5.9</version>
 +          </dependency>
 +
 +          <dependency>
@@ -66,4 +66,3 @@ index 0000000..ddcc1c2
 \ No newline at end of file
 -- 
 2.23.0.windows.1
-

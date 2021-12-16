@@ -36,6 +36,7 @@ def get_config_(get_repo):
         project_root_abs=os.path.abspath(get_repo.root),
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
+        disable_internal_links=False,
     )
 
     return network_configuration

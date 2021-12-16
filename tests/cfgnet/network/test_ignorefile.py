@@ -35,6 +35,7 @@ def test_ignorefile(repo):
         project_root_abs=os.path.abspath(repo.root),
         enable_dynamic_blacklist=False,
         enable_static_blacklist=False,
+        disable_internal_links=False,
     )
 
     network = Network.init_network(cfg)

@@ -32,6 +32,7 @@ class Linker(abc.ABC):
 
     def __init__(self):
         self.network: Optional["Network"] = None
+        self.disable_internal_links: Optional[bool] = None
         self.target_nodes: List = None
         self.static_blacklist = StaticBlackList()
 

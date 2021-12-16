@@ -16,7 +16,7 @@
 """Package for linking nodes."""
 
 import abc
-from typing import List, Any, Optional, TYPE_CHECKING
+from typing import List, Optional, TYPE_CHECKING
 from cfgnet.linker.link import Link
 from cfgnet.linker.static_blacklist import StaticBlackList
 from cfgnet.network.nodes import ValueNode
@@ -33,38 +33,19 @@ class Linker(abc.ABC):
     def __init__(self):
         self.network: Optional["Network"] = None
         self.target_nodes: List = None
-        self._static_blacklist = StaticBlackList()
+        self.static_blacklist = StaticBlackList()
 
+    @abc.abstractmethod
     def create_links(self) -> None:
-        """
-        Call for each linker to create links based on a specific linker criterion.
+        """Call for each linker to create links based on a specific linker criterion."""
 
-        :param node: Node that has been added to the network
-        :return: None
-        """
-        self.target_nodes = self._find_target_nodes()
+    @abc.abstractmethod
+    def _find_target_nodes(self):
+        """Find all nodes for which a linker is_responsible."""
 
-        for node in self.target_nodes:
-            self._create_links(node)
-
-    def _create_links(self, node: Any) -> None:
-        """Create links using nodes for which the corresponding linker is responsible."""
-        # discard empty values
-        if not node.name:
-            return
-
-        # discard words from static blacklist
-        if self.network:
-            if self.network.cfg.enable_static_blacklist:
-                if node.name in self._static_blacklist.values:
-                    return
-
-        # find all matches with the given linker criterion
-        matches = self._find_matches(node)
-
-        # add link for all matches
-        for match in matches:
-            self._add_link(node, match)
+    @abc.abstractmethod
+    def _find_matches(self, node):
+        """Find all matches for node with a given linker criterion."""
 
     def _add_link(self, node_a: ValueNode, node_b: ValueNode):
         """
@@ -77,11 +58,3 @@ class Linker(abc.ABC):
         link = Link(node_a, node_b)
         if self.network:
             self.network.links.add(link)
-
-    @abc.abstractmethod
-    def _find_target_nodes(self):
-        """Find all nodes for which a linker is_responsible."""
-
-    @abc.abstractmethod
-    def _find_matches(self, node):
-        """Find all matches for node with a given linker criterion."""

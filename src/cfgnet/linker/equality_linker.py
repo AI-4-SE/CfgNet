@@ -24,6 +24,26 @@ class EqualityLinker(Linker):
 
     name: str = "equality"
 
+    def create_links(self) -> None:
+        self.target_nodes = self._find_target_nodes()
+
+        for node in self.target_nodes:
+            if not node.name:
+                return
+
+            # discard words from static blacklist
+            if self.network:
+                if self.network.cfg.enable_static_blacklist:
+                    if node.name in self.static_blacklist.values:
+                        return
+
+            # find all matches with the given linker criterion
+            matches = self._find_matches(node)
+
+            # add link for all matches
+            for match in matches:
+                self._add_link(node, match)
+
     def _find_target_nodes(self):
         return [
             node

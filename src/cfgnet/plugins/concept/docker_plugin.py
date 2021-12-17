@@ -17,6 +17,7 @@ import os
 import re
 
 from typing import List, Any, Optional
+from cfgnet.config_types.config_types import ConfigType
 
 from cfgnet.network.nodes import (
     ArtifactNode,
@@ -127,7 +128,9 @@ class DockerPlugin(Plugin):
 
             if cmd.cmd == "from":
                 if len(cmd.value) == 3:
-                    image = ValueNode(cmd.value[0])
+                    image = ValueNode(
+                        cmd.value[0], config_type=ConfigType.IMAGE
+                    )
                     name = ValueNode(cmd.value[2])
                     option_image = OptionNode("image", cmd.start_line)
                     option_name = OptionNode("name", cmd.start_line)
@@ -162,13 +165,17 @@ class DockerPlugin(Plugin):
                 src = OptionNode("src", cmd.start_line)
                 option.add_child(src)
                 # remove leading `./` or `/`
-                source_file = re.sub(r"^(\.)?/", "", cmd.value[-2])
-                src.add_child(ValueNode(source_file))
+                src_file = re.sub(r"^(\.)?/", "", cmd.value[-2])
+                src.add_child(
+                    ValueNode(name=src_file, config_type=ConfigType.PATH)
+                )
                 dest = OptionNode("dest", cmd.start_line)
                 option.add_child(dest)
-                destination_file = cmd.value[-1]
-                dest.add_child(ValueNode(destination_file))
-                destination_files.append(destination_file)
+                dest_value = cmd.value[-1]
+                dest.add_child(
+                    ValueNode(name=dest_value, config_type=ConfigType.PATH)
+                )
+                destination_files.append(dest_value)
                 if len(cmd.value) > 2:  # handle flags
                     flag_re = re.compile(r"--(chown|from)=([^ ]+)")
                     for part in cmd.value:
@@ -200,8 +207,10 @@ class DockerPlugin(Plugin):
     def _parse_expose(self, option: OptionNode, value: str) -> None:
         match = self.expose_command.fullmatch(value)
         if match:
-            port = ValueNode(match.group("port"))
-            protocol = ValueNode(match.group("protocol"))
+            port = ValueNode(match.group("port"), config_type=ConfigType.PORT)
+            protocol = ValueNode(
+                match.group("protocol"), config_type=ConfigType.PROTOCOL
+            )
             option_port = OptionNode("port", option.location)
             option_protocol = OptionNode("protocol", option.location)
             option.add_child(option_port)
@@ -209,7 +218,9 @@ class DockerPlugin(Plugin):
             option_port.add_child(port)
             option_protocol.add_child(protocol)
         else:
-            option.add_child(ValueNode(value))
+            option.add_child(
+                ValueNode(name=value, config_type=ConfigType.PORT)
+            )
 
     @staticmethod
     def _add_params(option: OptionNode, parameters: List[str]):

@@ -36,6 +36,9 @@ class ConfigType(Enum):
     URL = auto()
     EMAIL = auto()
     DOMAIN_NAME = auto()
+    PROTOCOL = auto()
+    IMAGE = auto()
+    PATH = auto()
 
     # Booleans
     BOOLEAN = auto()

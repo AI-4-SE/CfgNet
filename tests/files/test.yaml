@@ -1,0 +1,12 @@
+- name: Port
+  args:
+    number: 8000
+  register: Port
+
+- name: Test
+  copy:
+    src: "./tmp.sh"
+    dest: "./tmp.sh"
+  ignore_errors: true
+
+- runs-on: {{ matrix.os }}

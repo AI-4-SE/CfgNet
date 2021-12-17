@@ -17,6 +17,7 @@ import os
 import pytest
 
 from cfgnet.plugins.concept.docker_plugin import DockerPlugin
+from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
 
 
@@ -102,3 +103,49 @@ def test_parse_dockerfile(get_plugin):
     assert make_id("Dockerfile", "expose", "protocol", "tcp") in ids
     assert make_id("Dockerfile", "expose", "port", "8080") in ids
     assert make_id("Dockerfile", "expose", "protocol", "udp") in ids
+
+
+def test_config_types(get_plugin):
+    docker_plugin = get_plugin
+    file = os.path.abspath("tests/files/Dockerfile")
+
+    artifact = docker_plugin.parse_file(file, "docker-compose.yml")
+    nodes = artifact.get_nodes()
+
+    expose_port = next(
+        filter(
+            lambda x: x.id == make_id("Dockerfile", "expose", "port", "8080"),
+            nodes,
+        )
+    )
+    expose_protocol = next(
+        filter(
+            lambda x: x.id
+            == make_id("Dockerfile", "expose", "protocol", "tcp"),
+            nodes,
+        )
+    )
+    copy_src = next(
+        filter(
+            lambda x: x.id == make_id("Dockerfile", "copy", "src", "foo.jar"),
+            nodes,
+        )
+    )
+    add_dest = next(
+        filter(
+            lambda x: x.id == make_id("Dockerfile", "add", "dest", "bar.jar"),
+            nodes,
+        )
+    )
+    from_image = next(
+        filter(
+            lambda x: x.id == make_id("Dockerfile", "from", "image", "java:8"),
+            nodes,
+        )
+    )
+
+    assert expose_port.config_type == ConfigType.PORT
+    assert expose_protocol.config_type == ConfigType.PROTOCOL
+    assert copy_src.config_type == ConfigType.PATH
+    assert add_dest.config_type == ConfigType.PATH
+    assert from_image.config_type == ConfigType.IMAGE

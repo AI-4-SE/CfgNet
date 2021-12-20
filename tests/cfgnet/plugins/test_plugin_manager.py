@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(set(all_plugins)) == 7
+    assert len(set(all_plugins)) == 8
 
 
 def test_get_responsible_plugin():
@@ -37,6 +37,7 @@ def test_get_responsible_plugin():
     properties_plugin = PluginManager.get_responsible_plugin(
         "path/to/applications.properties"
     )
+    toml_plugin = PluginManager.get_responsible_plugin("path/to/test.toml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -46,3 +47,4 @@ def test_get_responsible_plugin():
     assert yaml_plugin.concept_name == "yaml"
     assert ini_plugin.concept_name == "configparser"
     assert properties_plugin.concept_name == "configparser"
+    assert toml_plugin.concept_name == "toml"

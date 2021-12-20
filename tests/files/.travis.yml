@@ -1,0 +1,21 @@
+python:
+  - '3.8'
+  - '3.7'
+
+env:
+  - TEST_SUITE=units
+
+git:
+  depth: 3
+  quiet: true
+
+jobs:
+  include:
+  - name: "unit-tests"
+    python: "3.5"
+    env: TEST_SUITE=suite_unit
+  - name: "pypy-tests"
+    python: "pypy"
+    env: TEST_SUITE=suite_pypy
+    
+script: ./test.py $TEST_SUITE

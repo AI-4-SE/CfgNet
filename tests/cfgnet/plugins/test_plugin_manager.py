@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(set(all_plugins)) == 2
+    assert len(set(all_plugins)) == 3
 
 
 def test_get_responsible_plugin():

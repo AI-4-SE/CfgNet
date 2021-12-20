@@ -34,8 +34,14 @@ class YAMLPlugin(Plugin):
             super().__init__(name)
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
-        file_name = os.path.basename(abs_file_path)
-        artifact = ArtifactNode(file_name, abs_file_path, rel_file_path, root)
+
+        artifact = ArtifactNode(
+            name=os.path.basename(abs_file_path),
+            file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            concept_name=self.concept_name,
+            project_root=root,
+        )
 
         with open(abs_file_path, "r", encoding="utf8") as yaml_file:
             try:

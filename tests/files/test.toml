@@ -1,0 +1,11 @@
+[tool.poetry]
+name = 'cfgnet'
+version = 'v1.1.0'
+keywords=['config']
+packages = [
+    { include = 'cfgnet', from = 'src' },
+]
+
+[dependencies]
+python = '^3.6'
+gitpython = '^3.0'

@@ -30,85 +30,73 @@ class ConfigParserPlugin(Plugin):
 
         artifact = ArtifactNode(file_name, abs_file_path, rel_file_path, root)
 
-        with open(abs_file_path, "r", encoding="utf-8") as ini_file:
-            ini_string = ini_file.read()
+        with open(abs_file_path, "r", encoding="utf-8") as config_file:
+            file_content = config_file.read()
 
-            try:
-                dummy_ini_string = "[dummy_section]\n" + ini_string
-                parsed_ini = configparser.ConfigParser(
-                    interpolation=None, allow_no_value=True
-                )
-                parsed_ini.read_string(dummy_ini_string)
+        try:
+            dummy_section = "[dummy_section]\n"
+            config = configparser.ConfigParser(
+                interpolation=None, allow_no_value=True
+            )
+            config.read_string(dummy_section + file_content)
+        except configparser.Error as error:
+            logging.warning(
+                'Failed to parse ini file "%s"'
+                '" with configparser due to "%s"',
+                rel_file_path,
+                str(error),
+            )
+            return artifact
 
-                # parent will become a section node as soon as there is a
-                # section
+        for section_name in config:
+            # configparser always adds a DEFAULT section which is empty
+            # and we don't need it
+            if section_name == "DEFAULT":
+                continue
+
+            section = config[section_name]
+
+            # skip empty sections
+            if len(section.keys()) == 0:
+                continue
+
+            # the dummy section that we had to create should not
+            # become a node in our network
+            if section_name == "dummy_section":
                 parent = artifact
-
-                for section_name in parsed_ini:
-                    # configparser always adds a DEFAULT section which is empty
-                    # and we don't need it
-                    if section_name != "DEFAULT":
-                        section = parsed_ini[section_name]
-
-                        # the dummy section that we had to create should not
-                        # become a node in our network
-                        if section_name != "dummy_section":
-                            section_node = OptionNode(
-                                section_name, "section: " + section_name
-                            )
-                            artifact.add_child(section_node)
-
-                        for option in section.keys():
-
-                            option_node = OptionNode(
-                                option,
-                                "section: "
-                                + section_name
-                                + ", option: "
-                                + option,
-                            )
-                            # since there is no option node for the dummy
-                            # section options in this section will be added to
-                            # the artifact node directly
-                            if section_name != "dummy_section":
-                                parent = section_node
-                            parent.add_child(option_node)
-
-                            value = section[option]
-                            if value:
-                                while value.startswith("\n"):
-                                    # remove \n at beginning of value:
-                                    value = value[1:]
-
-                                # remove backslash followed by newline and
-                                # (if present) whitespace
-                                value = re.sub(r"\\\n\s*", "", value)
-
-                                value_node = ValueNode(value)
-                                option_node.add_child(value_node)
-
-                            else:
-                                logging.warning(
-                                    'Empty value in file "%s"', rel_file_path
-                                )
-                                parent.children.remove(option_node)
-
-                        # remove option nodes without children
-                        if section_name != "dummy_section":
-                            if not section_node.children:
-                                artifact.children.remove(section_node)
-
-            except configparser.Error as error:
-                logging.warning(
-                    'Failed to parse ini file "%s"'
-                    '" with configparser due to "%s"',
-                    rel_file_path,
-                    str(error),
+            else:
+                section_node = OptionNode(
+                    section_name, "section: " + section_name
                 )
+                artifact.add_child(section_node)
+                parent = section_node
+
+            for option in section.keys():
+
+                option_node = OptionNode(
+                    option,
+                    "section: " + section_name + ", option: " + option,
+                )
+                parent.add_child(option_node)
+
+                value = section[option]
+                if value:
+                    while value.startswith("\n"):
+                        # remove \n at beginning of value:
+                        value = value[1:]
+
+                    # remove backslash followed by newline and
+                    # (if present) whitespace
+                    value = re.sub(r"\\\n\s*", "", value)
+
+                    value_node = ValueNode(value)
+                    option_node.add_child(value_node)
+
+                else:
+                    logging.warning('Empty value in file "%s"', rel_file_path)
+                    parent.children.remove(option_node)
 
         return artifact
 
     def is_responsible(self, abs_file_path):
-        return abs_file_path.endswith(".ini") or abs_file_path.endswith(
-            ".properties"
-        )
+        return re.match(r".*\.(ini|properties)$", abs_file_path)

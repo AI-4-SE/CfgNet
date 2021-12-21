@@ -5,7 +5,7 @@ import logging
 from typing import List
 import click
 
-from cfgnet.utility.logger import configure_console_logger
+from cfgnet.utility import logger
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.launcher_configuration import LauncherConfiguration
@@ -44,7 +44,7 @@ add_disable_linker_option = click.option(
 )
 def main(verbose: bool):
     LauncherConfiguration.verbose = verbose
-    configure_console_logger(verbose=verbose)
+    logger.configure_console_logger(verbose=verbose)
 
 
 @main.command()
@@ -73,6 +73,7 @@ def init(
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
+    logger.configure_repo_logger(network_configuration.logfile_path())
 
     start = time.time()
 
@@ -93,6 +94,7 @@ def validate(project_root: str):
     start = time.time()
 
     ref_network = Network.load_network(project_root=project_root)
+    logger.configure_repo_logger(ref_network.cfg.logfile_path())
 
     # TODO Network should configure LinkerManager with list of enabled linkers
 
@@ -149,6 +151,7 @@ def analyze(
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
+    logger.configure_repo_logger(network_configuration.logfile_path())
 
     enabled_linkers = set(enable_linker) - set(disable_linker)
     LinkerManager.set_enabled_linkers(enabled_linkers)
@@ -183,6 +186,7 @@ def export(
     LauncherConfiguration.export_visualize_dot = visualize_dot
 
     network = Network.load_network(project_root)
+    logger.configure_repo_logger(network.cfg.logfile_path())
 
     if LauncherConfiguration.export_visualize_dot:
 

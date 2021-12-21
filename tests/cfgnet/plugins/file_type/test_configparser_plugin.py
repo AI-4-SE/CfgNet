@@ -138,7 +138,7 @@ def test_parse_properties_file(get_plugin):
         make_id(
             "test.properties",
             "org.example.multiline",
-            "\\\nDetroit,\\\nChicago,\\\nLos Angeles",
+            "Detroit,Chicago,Los Angeles",
         )
         in ids
     )

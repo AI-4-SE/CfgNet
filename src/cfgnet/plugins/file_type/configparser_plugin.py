@@ -15,6 +15,7 @@
 import configparser
 import logging
 import os
+import re
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
@@ -78,6 +79,10 @@ class ConfigParserPlugin(Plugin):
                                 while value.startswith("\n"):
                                     # remove \n at beginning of value:
                                     value = value[1:]
+
+                                # remove backslash followed by newline and
+                                # (if present) whitespace
+                                value = re.sub(r"\\\n\s*", "", value)
 
                                 value_node = ValueNode(value)
                                 option_node.add_child(value_node)

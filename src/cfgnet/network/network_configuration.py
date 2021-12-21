@@ -27,3 +27,9 @@ class NetworkConfiguration:
 
     def ignorefile_path(self):
         return os.path.join(self.data_dir_path(), "ignore")
+
+    def project_name(self):
+        return os.path.basename(self.project_root_abs)
+
+    def logfile_path(self):
+        return os.path.join(self.data_dir_path(), f"{self.project_name()}.log")

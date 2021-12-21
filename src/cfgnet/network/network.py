@@ -24,7 +24,6 @@ import pickle
 from typing import List, Set, Any, Optional, Callable, Tuple
 from collections import defaultdict
 from cfgnet.vcs.git import Git
-from cfgnet.utility.logger import configure_repo_logger
 from cfgnet.plugins.plugin_manager import PluginManager
 from cfgnet.linker.linker_manager import LinkerManager
 from cfgnet.conflicts.conflict_detector import ConflictDetector
@@ -60,11 +59,6 @@ class Network:
 
         if not os.path.isdir(self.cfg.data_dir_path()):
             os.makedirs(self.cfg.data_dir_path())
-
-        log_file_path = os.path.join(
-            self.cfg.data_dir_path(), f"{self.project_name}.log"
-        )
-        configure_repo_logger(log_file_path)
 
         IgnoreFile.configure(cfg.ignorefile_path())
 
@@ -276,7 +270,7 @@ class Network:
         repo = Git(project_root=cfg.project_root_abs)
         tracked_files: Set[str] = set(repo.get_tracked_files())
 
-        project_name = os.path.basename(cfg.project_root_abs)
+        project_name = cfg.project_name()
         root = ProjectNode(name=project_name, root_dir=cfg.project_root_abs)
         network = Network(project_name=project_name, root=root, cfg=cfg)
 

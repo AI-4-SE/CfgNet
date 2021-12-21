@@ -14,6 +14,7 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
+import os
 
 # basic logging formatter
 log_formatter = logging.Formatter(
@@ -41,6 +42,9 @@ def configure_console_logger(verbose: bool):
 
 def configure_repo_logger(repo_log_file_path: str):
     """Configure logging to per-repo logfile."""
+    log_dir = os.path.dirname(repo_log_file_path)
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
     repo_logging_handler = logging.FileHandler(repo_log_file_path)
     repo_logging_handler.setLevel(logging.DEBUG)
     repo_logging_handler.setFormatter(log_formatter)

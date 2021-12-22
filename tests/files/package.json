@@ -1,0 +1,20 @@
+{
+  "name": "node-js-sample",
+  "version": "0.2.0",
+  "description": "Example Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "repo": {
+    "url": "https://github.com/example/example"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
+}

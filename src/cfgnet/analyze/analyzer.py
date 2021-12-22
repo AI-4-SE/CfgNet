@@ -74,13 +74,15 @@ class Analyzer:
             commit = repo.restore_initial_commit()
             num_commit += 1
 
+            ref_network = Network.init_network(cfg=self.cfg)
             while repo.has_next_commit():
-                ref_network = Network.init_network(cfg=self.cfg)
 
                 commit = repo.next_commit()
                 num_commit += 1
 
-                detected_conflicts, _ = ref_network.validate(commit.hash)
+                detected_conflicts, ref_network = ref_network.validate(
+                    commit.hash
+                )
 
                 conflicts.update(detected_conflicts)
 

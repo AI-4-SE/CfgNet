@@ -19,6 +19,7 @@ import time
 
 from typing import Optional, Set
 from cfgnet.vcs.git import Git
+from cfgnet.vcs.git_history import GitHistory
 from cfgnet.network.network import Network, NetworkConfiguration
 from cfgnet.analyze.csv_writer import CSVWriter
 
@@ -68,23 +69,22 @@ class Analyzer:
         commit_hash_pre_analysis = repo.get_current_commit_hash()
 
         conflicts: Set = set()
-        num_commit = 0
+        history = GitHistory(repo)
+        commit = history.restore_initial_commit()
 
         try:
-            commit = repo.restore_initial_commit()
-            num_commit += 1
+            ref_network = Network.init_network(cfg=self.cfg)
+            while history.has_next_commit():
 
-            while repo.has_next_commit():
-                ref_network = Network.init_network(cfg=self.cfg)
+                commit = history.next_commit()
 
-                commit = repo.next_commit()
-                num_commit += 1
-
-                detected_conflicts, _ = ref_network.validate(commit.hash)
+                detected_conflicts, ref_network = ref_network.validate(
+                    commit.hash
+                )
 
                 conflicts.update(detected_conflicts)
 
-                self._print_progress(num_commit=num_commit)
+                self._print_progress(num_commit=history.commit_index + 1)
 
                 if commit.hash == commit_hash_pre_analysis:
                     break
@@ -110,4 +110,6 @@ class Analyzer:
                 csv_path=self.conflicts_csv_path, conflicts=conflicts
             )
 
-            self._print_progress(num_commit=num_commit, final=True)
+            self._print_progress(
+                num_commit=history.commit_index + 1, final=True
+            )

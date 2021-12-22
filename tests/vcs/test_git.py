@@ -18,15 +18,17 @@
 import os
 
 from src.cfgnet.vcs.git import Git
+from src.cfgnet.vcs.git_history import GitHistory
 
 ROOT_DIR = os.path.dirname(os.path.abspath("CfgNet"))
 
 
 def test_init_git_repo():
     repo = Git(project_root=ROOT_DIR)
+    history = GitHistory(repo)
 
     assert repo is not None
-    assert repo.commit_history is not None
-    assert repo.commit_index is not None
-    assert not repo.has_next_commit()
+    assert history.commits is not None
+    assert history.commit_index is not None
+    assert not history.has_next_commit()
     assert len(repo.get_tracked_files()) > 0

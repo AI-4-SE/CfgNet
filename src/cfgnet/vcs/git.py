@@ -15,22 +15,13 @@
 
 import logging
 
-from typing import Optional, Any, List, Set, Union
+from typing import Optional, Any, List, Union
 
 from git.repo import Repo
 from git.exc import InvalidGitRepositoryError
 from git.refs.symbolic import SymbolicReference
 from git.objects.commit import Commit
 from git.objects.tree import Tree
-
-
-class Diffs:
-    """A commit, with diffs."""
-
-    def __init__(self, commit: Commit, diffs):
-        self.hash: str = commit.hexsha
-        self.message: str = str(commit.message)
-        self.diffs: Optional[Set[Any]] = diffs
 
 
 class Git:

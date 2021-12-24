@@ -30,6 +30,7 @@ class ConfigType(Enum):
     IP_ADDRESS = auto()
 
     # Strings
+    NAME = auto()
     USERNAME = auto()
     PASSWORD = auto()
     FILEPATH = auto()
@@ -39,6 +40,8 @@ class ConfigType(Enum):
     PROTOCOL = auto()
     IMAGE = auto()
     PATH = auto()
+    COMMAND = auto()
+    LICENSE = auto()
 
     # Booleans
     BOOLEAN = auto()

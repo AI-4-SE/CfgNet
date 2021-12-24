@@ -24,11 +24,15 @@ from cfgnet.network.network import (
     ValueNode,
 )
 from cfgnet.plugins.plugin import Plugin
+from cfgnet.config_types.config_types import ConfigType
+
+EXCLUDE_KEYS = ["keywords", "description"]
 
 
 class NodejsPlugin(Plugin):
     def __init__(self):
         super().__init__("nodejs")
+        self.current_config_type = ConfigType.UNKNOWN
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("package.json"):
@@ -85,16 +89,18 @@ class NodejsPlugin(Plugin):
     ) -> None:
         if isinstance(json_object, dict):
             for key in json_object:
-                option = OptionNode(
-                    name=key,
-                    location=self._get_line_number(line_number_dict, key),
-                )
-                parent.add_child(option)
-                child = json_object[key]
+                if key not in EXCLUDE_KEYS:
+                    self.current_config_type = self.get_config_type(key)
+                    option = OptionNode(
+                        name=key,
+                        location=self._get_line_number(line_number_dict, key),
+                    )
+                    parent.add_child(option)
+                    child = json_object[key]
 
-                self._parse_json_object(child, option, line_number_dict)
-                if not option.children:
-                    parent.children.remove(option)
+                    self._parse_json_object(child, option, line_number_dict)
+                    if not option.children:
+                        parent.children.remove(option)
             return
 
         if isinstance(json_object, list):
@@ -111,11 +117,15 @@ class NodejsPlugin(Plugin):
                         ),
                     )
                     parent.add_child(virtual_option)
-                    value = ValueNode(name=item)
+                    value = ValueNode(
+                        name=item, config_type=self.current_config_type
+                    )
                     virtual_option.add_child(value)
 
         else:
-            value = ValueNode(json_object)
+            value = ValueNode(
+                name=json_object, config_type=self.current_config_type
+            )
             if not isinstance(parent, ArtifactNode):
                 parent.add_child(value)
 
@@ -130,3 +140,32 @@ class NodejsPlugin(Plugin):
         """
         line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
         return lines_dict[line]
+
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str) -> ConfigType:
+        """
+        Find config type based on option name.
+
+        :param option_name: name of option
+        :return: config type
+        """
+        if option_name in (
+            "version",
+            "dependencies",
+            "devDependencies",
+            "engines",
+        ):
+            return ConfigType.VERSION_NUMBER
+        if option_name in ("main", "files", "man"):
+            return ConfigType.FILEPATH
+        if option_name in ("scripts", "bin"):
+            return ConfigType.COMMAND
+        if option_name == "name":
+            return ConfigType.NAME
+        if option_name == "url":
+            return ConfigType.URL
+        if option_name == "email":
+            return ConfigType.EMAIL
+        if option_name in ("repository", "author", "funding", "type"):
+            return ConfigType.UNKNOWN
+        return self.current_config_type

@@ -9,12 +9,16 @@
   "dependencies": {
     "express": "^4.13.3"
   },
-  "repo": {
+  "repository": {
     "url": "https://github.com/example/example"
   },
   "keywords": [
     "node",
     "heroku",
     "express"
-  ]
+  ],
+  "devDependencies": {
+	"nodemon": "^1.1.1"
+  },
+  "license": "ISC"
 }

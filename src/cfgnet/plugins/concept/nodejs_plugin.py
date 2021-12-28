@@ -17,7 +17,7 @@ import os
 import logging
 
 from typing import Union, Optional, Dict, List
-from cfgnet.network.network import (
+from cfgnet.network.nodes import (
     ProjectNode,
     ArtifactNode,
     OptionNode,

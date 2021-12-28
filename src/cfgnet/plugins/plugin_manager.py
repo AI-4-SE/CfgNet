@@ -18,13 +18,18 @@ from typing import List, Optional
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.plugins.concept.docker_plugin import DockerPlugin
 from cfgnet.plugins.concept.maven_plugin import MavenPlugin
+from cfgnet.plugins.concept.nodejs_plugin import NodejsPlugin
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 
 
 class PluginManager:
     """Manager for plugin implementations."""
 
-    concept_plugins: List[Plugin] = [DockerPlugin(), MavenPlugin()]
+    concept_plugins: List[Plugin] = [
+        DockerPlugin(),
+        MavenPlugin(),
+        NodejsPlugin(),
+    ]
 
     file_type_plugins: List[Plugin] = [ConfigParserPlugin()]
 

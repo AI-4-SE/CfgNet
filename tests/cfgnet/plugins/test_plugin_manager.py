@@ -19,13 +19,22 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(set(all_plugins)) == 3
+    assert len(set(all_plugins)) == 4
 
 
 def test_get_responsible_plugin():
-    # Concept plugins
     docker_plugin = PluginManager.get_responsible_plugin("path/to/Dockerfile")
     maven_plugin = PluginManager.get_responsible_plugin("path/to/pom.xml")
+    nodejs_plugin = PluginManager.get_responsible_plugin(
+        "path/to/package.json"
+    )
+    ini_plugin = PluginManager.get_responsible_plugin("path/to/tox.ini")
+    properties_plugin = PluginManager.get_responsible_plugin(
+        "path/to/application.properties"
+    )
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
+    assert nodejs_plugin.concept_name == "nodejs"
+    assert ini_plugin.concept_name == "configparser"
+    assert properties_plugin.concept_name == "configparser"

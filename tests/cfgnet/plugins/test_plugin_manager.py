@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(set(all_plugins)) == 4
+    assert len(set(all_plugins)) == 7
 
 
 def test_get_responsible_plugin():
@@ -28,13 +28,21 @@ def test_get_responsible_plugin():
     nodejs_plugin = PluginManager.get_responsible_plugin(
         "path/to/package.json"
     )
+    docker_compose_plugin = PluginManager.get_responsible_plugin(
+        "path/to/docker-compose.yml"
+    )
+    travis_plugin = PluginManager.get_responsible_plugin("path/to/.travis.yml")
+    yaml_plugin = PluginManager.get_responsible_plugin("path/to/test.yaml")
     ini_plugin = PluginManager.get_responsible_plugin("path/to/tox.ini")
     properties_plugin = PluginManager.get_responsible_plugin(
-        "path/to/application.properties"
+        "path/to/applications.properties"
     )
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
     assert nodejs_plugin.concept_name == "nodejs"
+    assert docker_compose_plugin.concept_name == "docker-compose"
+    assert travis_plugin.concept_name == "travis"
+    assert yaml_plugin.concept_name == "yaml"
     assert ini_plugin.concept_name == "configparser"
     assert properties_plugin.concept_name == "configparser"

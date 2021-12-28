@@ -19,7 +19,10 @@ from cfgnet.plugins.plugin import Plugin
 from cfgnet.plugins.concept.docker_plugin import DockerPlugin
 from cfgnet.plugins.concept.maven_plugin import MavenPlugin
 from cfgnet.plugins.concept.nodejs_plugin import NodejsPlugin
+from cfgnet.plugins.concept.travis_plugin import TravisPlugin
+from cfgnet.plugins.concept.docker_compose_plugin import DockerComposePlugin
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
+from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 
 
 class PluginManager:
@@ -29,9 +32,11 @@ class PluginManager:
         DockerPlugin(),
         MavenPlugin(),
         NodejsPlugin(),
+        DockerComposePlugin(),
+        TravisPlugin(),
     ]
 
-    file_type_plugins: List[Plugin] = [ConfigParserPlugin()]
+    file_type_plugins: List[Plugin] = [ConfigParserPlugin(), YAMLPlugin()]
 
     @staticmethod
     def get_plugins() -> List:

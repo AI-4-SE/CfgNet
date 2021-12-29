@@ -74,7 +74,7 @@ class NodejsPlugin(Plugin):
 
         except json.JSONDecodeError as error:
             logging.warning(
-                'Failed to parse json file "%s" due to "%s"',
+                'Failed to parse json file "%s": "%s"',
                 rel_file_path,
                 error,
             )
@@ -118,13 +118,13 @@ class NodejsPlugin(Plugin):
                     )
                     parent.add_child(virtual_option)
                     value = ValueNode(
-                        name=item, config_type=self.current_config_type
+                        name=str(item), config_type=self.current_config_type
                     )
                     virtual_option.add_child(value)
 
         else:
             value = ValueNode(
-                name=json_object, config_type=self.current_config_type
+                name=str(json_object), config_type=self.current_config_type
             )
             if not isinstance(parent, ArtifactNode):
                 parent.add_child(value)
@@ -138,8 +138,14 @@ class NodejsPlugin(Plugin):
         :param: name: name of option
         :return: line number of option
         """
-        line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
-        return lines_dict[line]
+        try:
+            line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
+            return lines_dict[line]
+        except StopIteration:
+            logging.warning(
+                "Line number for Key: %s could not be found.", f'"{name}"'
+            )
+            return "unknown"
 
     # pylint: disable=too-many-return-statements
     def get_config_type(self, option_name: str) -> ConfigType:

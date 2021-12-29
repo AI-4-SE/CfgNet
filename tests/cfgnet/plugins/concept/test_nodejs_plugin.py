@@ -74,51 +74,52 @@ def test_parsing_package_json_file(get_plugin):
         in ids
     )
 
-    def test_config_types():
-        nodejs_plugin = get_plugin
-        file = os.path.abspath("tests/files/package.json")
 
-        artifact = nodejs_plugin.parse_file(file, "package.json")
-        nodes = artifact.get_nodes()
+def test_config_types(get_plugin):
+    nodejs_plugin = get_plugin
+    file = os.path.abspath("tests/files/package.json")
 
-        url_node = next(
-            filter(
-                lambda x: x.id
-                == make_id(
-                    "package.json",
-                    "repo",
-                    "url",
-                    "https://github.com/example/example",
-                ),
-                nodes,
-            )
-        )
-        dep_node = next(
-            filter(
-                lambda x: x.id
-                == make_id(
-                    "package.json", "dependencies", "express", "^4.13.3"
-                ),
-                nodes,
-            )
-        )
-        script_node = next(
-            filter(
-                lambda x: x.id
-                == make_id(
-                    "package.json", "scripts", "start", "node index.js"
-                ),
-                nodes,
-            )
-        )
-        file_node = next(
-            filter(
-                lambda x: x.id == make_id("package.json", "main", "index.js"),
-                nodes,
-            )
-        )
+    artifact = nodejs_plugin.parse_file(file, "package.json")
+    nodes = artifact.get_nodes()
 
-        assert url_node.config_type == ConfigType.URL
-        assert dep_node.config_type == ConfigType.VERSION_NUMBER
-        assert script_node.config_type == ConfigType.COMMAND
-        assert file_node.config_type == ConfigType.FILEPATH
+    for node in nodes:
+        print(node)
+
+    url_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "package.json",
+                "repository",
+                "url",
+                "https://github.com/example/example",
+            ),
+            nodes,
+        )
+    )
+
+    dep_node = next(
+        filter(
+            lambda x: x.id
+            == make_id("package.json", "dependencies", "express", "^4.13.3"),
+            nodes,
+        )
+    )
+    script_node = next(
+        filter(
+            lambda x: x.id
+            == make_id("package.json", "scripts", "start", "node index.js"),
+            nodes,
+        )
+    )
+    file_node = next(
+        filter(
+            lambda x: x.id == make_id("package.json", "main", "index.js"),
+            nodes,
+        )
+    )
+
+    assert url_node.config_type == ConfigType.URL
+    assert dep_node.config_type == ConfigType.VERSION_NUMBER
+    assert script_node.config_type == ConfigType.COMMAND
+    assert file_node.config_type == ConfigType.FILEPATH

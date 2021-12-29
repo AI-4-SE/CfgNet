@@ -173,7 +173,7 @@ class ValueNode(Node):
     def __init__(
         self, name: str, config_type: ConfigType = ConfigType.UNKNOWN
     ):
-        super().__init__(name)
+        super().__init__(str(name))
         self.config_type = config_type
 
     def __eq__(self, other):

@@ -21,6 +21,7 @@ import yaml.reader
 from yaml.nodes import MappingNode, ScalarNode, SequenceNode
 from yaml.parser import ParserError
 from yaml.scanner import ScannerError
+from yaml.reader import ReaderError
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
@@ -43,23 +44,19 @@ class YAMLPlugin(Plugin):
             project_root=root,
         )
 
-        with open(abs_file_path, "r", encoding="utf8") as yaml_file:
-            try:
+        try:
+            with open(abs_file_path, "r", encoding="utf8") as yaml_file:
                 docs = yaml.compose_all(yaml_file)
                 for root_tree in docs:
                     self._iter_tree(root_tree, artifact)
-            except ScannerError as error:
-                logging.warning(
-                    "Invalid YAML file %s: %s", abs_file_path, error.problem
-                )
-            except ParserError as error:
-                logging.warning(
-                    "Invalid YAML file %s: %s", abs_file_path, error.problem
-                )
-            except yaml.reader.ReaderError as error:
-                logging.warning(
-                    "Invalid YAML file %s: %s", abs_file_path, error
-                )
+        except (ScannerError, ParserError) as error:
+            logging.warning(
+                "Invalid YAML file %s: %s", abs_file_path, error.problem
+            )
+        except (FileNotFoundError, ReaderError) as error:
+            logging.warning(
+                "Yaml file %s could not be parsed: %s.", abs_file_path, error
+            )
         return artifact
 
     def is_responsible(self, abs_file_path):

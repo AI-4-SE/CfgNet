@@ -114,8 +114,12 @@ class YAMLPlugin(Plugin):
 
     @staticmethod
     def _parse_scalar_node(node, parent):
-        if node.value != "":
-            value = ValueNode(node.value)
+        # empty values are possible, but need str tag
+        if node.value != "" or (
+            node.value == "" and node.tag == "tag:yaml.org,2002:str"
+        ):
+            name = node.value if node.value != "" else ""
+            value = ValueNode(name=name)
             if isinstance(parent, ArtifactNode):
                 option = OptionNode("unnamed_option", node.start_mark.line + 1)
                 parent.add_child(option)

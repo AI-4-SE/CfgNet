@@ -51,7 +51,7 @@ def test_parse_yaml_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 9
+    assert len(nodes) == 10
     assert make_id("test.yaml", "file", "test.yaml") in ids
     assert make_id("test.yaml", "test.yaml_0", "name", "Port") in ids
     assert make_id("test.yaml", "test.yaml_0", "args", "number", "8000") in ids
@@ -65,3 +65,4 @@ def test_parse_yaml_file(get_plugin):
         make_id("test.yaml", "test.yaml_1", "copy", "dest", "./tmp.sh") in ids
     )
     assert make_id("test.yaml", "test.yaml_2", "runs-on", "matrix.os") in ids
+    assert make_id("test.yaml", "test.yaml_3", "test", "empty", "") in ids

@@ -10,3 +10,7 @@
   ignore_errors: true
 
 - runs-on: {{ matrix.os }}
+
+- test:
+    empty:
+      - ''

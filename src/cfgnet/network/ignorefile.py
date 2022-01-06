@@ -35,9 +35,8 @@ class IgnoreFile:
     @staticmethod
     def configure(ignorefile_path: str):
         IgnoreFile.ignored_globs = set()
-        if not os.path.exists(ignorefile_path):
-            logging.debug("No ignorefile found at %s", ignorefile_path)
-        else:
+        if os.path.exists(ignorefile_path):
+            logging.debug("Ignorefile found at %s", ignorefile_path)
             try:
                 with open(
                     ignorefile_path, "r", encoding="utf-8"
@@ -49,7 +48,6 @@ class IgnoreFile:
                 logging.error(
                     "Couldn't read ignorefile '%s': %s", ignorefile_path, error
                 )
-        logging.debug("Loaded %s globs", len(IgnoreFile.ignored_globs))
 
     @staticmethod
     def ignored(file: str) -> bool:

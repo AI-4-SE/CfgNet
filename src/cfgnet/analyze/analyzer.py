@@ -22,6 +22,7 @@ from cfgnet.vcs.git import Git
 from cfgnet.vcs.git_history import GitHistory
 from cfgnet.network.network import Network, NetworkConfiguration
 from cfgnet.analyze.csv_writer import CSVWriter
+from cfgnet.analyze.timeout import Timeout
 
 
 class Analyzer:
@@ -75,19 +76,27 @@ class Analyzer:
         try:
             ref_network = Network.init_network(cfg=self.cfg)
             while history.has_next_commit():
+                with Timeout(seconds=20):
 
-                commit = history.next_commit()
+                    commit = history.next_commit()
 
-                detected_conflicts, ref_network = ref_network.validate(
-                    commit.hexsha
-                )
+                    detected_conflicts, ref_network = ref_network.validate(
+                        commit.hexsha
+                    )
 
-                conflicts.update(detected_conflicts)
+                    conflicts.update(detected_conflicts)
 
-                self._print_progress(num_commit=history.commit_index + 1)
+                    self._print_progress(num_commit=history.commit_index + 1)
 
-                if commit.hexsha == commit_hash_pre_analysis:
-                    break
+                    if commit.hexsha == commit_hash_pre_analysis:
+                        break
+
+        except TimeoutError as error:
+            logging.error(
+                "%s occurred during analysis at commit %s.",
+                error,
+                commit.hexsha,
+            )
 
         except Exception as error:
             logging.error(
@@ -113,3 +122,9 @@ class Analyzer:
             self._print_progress(
                 num_commit=history.commit_index + 1, final=True
             )
+
+            logging.debug("Latest commit analyzed: %s", commit.hexsha)
+            logging.debug(
+                "Total analyzed commits %s", str(history.commit_index + 1)
+            )
+            logging.info("Total detected conflicts: %s", str(len(conflicts)))

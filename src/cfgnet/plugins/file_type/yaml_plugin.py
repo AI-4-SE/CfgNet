@@ -21,6 +21,8 @@ import yaml.reader
 from yaml.nodes import MappingNode, ScalarNode, SequenceNode
 from yaml.parser import ParserError
 from yaml.scanner import ScannerError
+from yaml.composer import ComposerError
+from yaml.reader import ReaderError
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
@@ -48,15 +50,11 @@ class YAMLPlugin(Plugin):
                 docs = yaml.compose_all(yaml_file)
                 for root_tree in docs:
                     self._iter_tree(root_tree, artifact)
-            except ScannerError as error:
+            except (ScannerError, ParserError, ComposerError) as error:
                 logging.warning(
                     "Invalid YAML file %s: %s", abs_file_path, error.problem
                 )
-            except ParserError as error:
-                logging.warning(
-                    "Invalid YAML file %s: %s", abs_file_path, error.problem
-                )
-            except yaml.reader.ReaderError as error:
+            except ReaderError as error:
                 logging.warning(
                     "Invalid YAML file %s: %s", abs_file_path, error
                 )

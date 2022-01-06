@@ -140,7 +140,8 @@ class MavenPlugin(Plugin):
         """
         name_element = current_item.find("id")
         if name_element is not None:
-            return current_item.tag + "_" + name_element.text
+            if name_element.text is not None:
+                return current_item.tag + "_" + name_element.text
 
         name_element = current_item.find("groupId")
         if name_element is not None:

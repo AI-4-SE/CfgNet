@@ -26,4 +26,16 @@
     <module>registry</module>
   </modules>
 
+  <build>
+    <plugins>
+      <plugin>
+        <executions>
+          <execution>
+            <id></id>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

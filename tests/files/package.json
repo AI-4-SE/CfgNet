@@ -20,5 +20,6 @@
   "devDependencies": {
 	"nodemon": "^1.1.1"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "^.+\\module\\css$": "Test"
 }

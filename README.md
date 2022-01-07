@@ -1,116 +1,76 @@
-# Python Project Template
+![](https://github.com/AI-4-SE/CfgNet/workflows/Tests/badge.svg?branch=main)
+![](https://github.com/AI-4-SE/CfgNet/workflows/Code%20Style/badge.svg?branch=main)
 
-![Tests](https://github.com/digital-bauhaus/python-template/workflows/Tests/badge.svg)
-![Code Style](https://github.com/digital-bauhaus/python-template/workflows/Code%20Style/badge.svg)
+# CfgNet
 
-Python packaging can be confusing because there are [a][borini] [lot][yeaw]
-[of][bernat] [different][smith] opinions and [loose standards][pep518].
+This package contains the configuration network implementation that is used for tracking configuration dependencies across the technology stack of software systems.
+Due to the tracking mechanism, CfgNet provides a possibility to detect dependency conflicts of configurations by interpreting the changes in the configuration networks.
 
-This is a template for a Python project following all the current best
-practices. Since there is not just one way to do those things in Python this
-is also kind of opinionated but I tried to reduce this to a minimum.
+## Installation
 
-This template is configured for Python versions 3.6 and above and should work on
-Linux, macOS and Windows.
+Right now the package is not on PyPI.
+To install it, you can either download it from the [releases page][releases] or build it locally.
+Then install either the source distribution or wheel manually.
+Please refer to the documentation for further details.
 
-## Getting Started
+## Basic Usage
 
-To use this template for your project, do the following:
+CfgNet provides a method-based command line interface with the commands `init`, `validate`, `export` and `analyze`.
+Each method requires the `project_root` as option that points towards the root directory of the project on which you want to apply the CfgNet.
 
-1. Update the `[tool.poetry]` section of the `pyproject.toml` with your and you
-   package’s information.
-2. If you want to use another license, change `COPYING` file and `license`
-   section in `pyproject.toml`. You may consider changing the filename of
-   `COPYING` if you do not want to use GPL according to the licence’s
-   [guidelines][so-licences].
-3. Rename `src/sample_package` to `src/$YOURPROJECT`.
-4. Update `docs/index.rst` to match your package.
-5. Enable GitHub Pages to make your documentation available.
+To initialize a reference configuration network, use the `init` command.
 
-## Poetry Quickstart
-
-[Poetry](https://poetry.eustace.io/) is used to build the package. After
-installing Poetry, you can install this package with:
-
-    poetry install
-
-Poetry handles all the dependencies and virtual environments for you. To run
-your code from and in your virtual environment prepend `poetry run` to your
-command. This applies to all the non-Make commands in this README.
-
-By default, Poetry creates the virtual environments in it’s own directory.
-Since a lot of other tools expect your virtual environments in the project
-directory itself as `.venv`. To do that, add the following lines in
-`poetry.toml`:
-
-    [virtualenvs]
-    in-project = true
-    path = ".venv"
-
-You can add dependencies with `poetry [-D] add $DEPENDENCY_NAME`, where `-D`
-specifies development dependencies, e.g. libraries you need to build and
-develop the code that don’t need to be shipped for end users. I advise you to
-take a look at the [Poetry documentation][poetry documentation]
+    cfgnet init <project_root>
 
 
-## Makefile
+To detect dependency conflicts against the initialized reference network, you need to call
+the `validate` command. Detected dependency conflicts will be displayed on screen.
 
-This repository also provides a Makefile for convenience. It contains the
-following rules:
+    cfgnet validate <project_root>
 
-* `install` (default): Install the package with poetry
-* `test`: This is probably the most useful rule for developing. It checks the
-          linter and runs the tests with the current Python version. This will
-          also run in the CI.
-* `linters`: Run the linters. You can disable certain errors in
-             [`pyproject.toml`](pyproject.toml) and the [`Makefile`](Makefile)
-             itself. This will also run in the CI.
-* `codeformat`: Format all source and test files with Black.
-* `distribution`: Build the source distribution and wheel packages.
-* `docs`: Build the documentation with Sphinx
-* `docs-spelling`: Run a spell checker on the documentation. You can add your
-                   own dictionary in `docs/spelling_wordlist.txt`.
-* `clean`: Removes all the local build files. Note that this does not include
-           anything in the virtual environment to prevent conflicts with your
-           Poetry workflow.
 
-I recommend using the make rules instead of running all the commands manually
-since it's easy to forget something.
+To export the reference network for visualization, use the `export` command.
+The `export` command additionally requires a `output` and `format` option.
+While the former specifies the name of the output file the latter defines which format the configuration network should be converted to.
+Available formats are `json` and `dot`.
+By default, the export includes only linked value nodes.
+To export all nodes from the configuration network, you have te set the option `include-unlinked`. 
 
-To adjust the Makefile to your project you have to change the `MODULE_NAME`. If
-your source folder names differ from this template, this has to be changed in
-`SOURCE_FOLERS` accordingly.
+    cfgnet export --output=<name> --format=<format> <project_root>
+    cfgnet export --output=<name> --format=<format> --include-unlinked <project_root>
 
-## GitHub Actions Workflows
+To visualize the reference network immediately without exporting the format, use the `export` command with the `-visualize-dot` option. 
+The visualization of the configuration network is stored in `.cfgnet/export` using the `png` format by default.
+However, the format can be changed to either `pdf` or `png` using the format option.
+By default, the network visualization includes only linked value nodes.
+To visualize the entire configuration network including value nodes that are not linked to other nodes, you have to set the option `include-unlinked`. 
 
-CI should work out of the box with the provided configurations in
-`.github/workflow`. The following workflows are provided
+    cfgnet export --output=<name> --visualize-dot <project_root>
+    cfgnet export --output=<name> --format=<format> --visualize-dot <project_root>
+    cfgnet export --output=<name> --format=<format> --include-unlinked --visualize-dot <project_root>
 
-### Code Formatting
+The `analyze` command is used for analyzing the commit history of software systems in an automated manner.
+When the analysis is finished, all detected configuration conflicts will be stored in `.cfgnet/analysis`.
 
-The `linter.yml` workflow checks the source code with [Black][black], flake8,
-pylint and pydocstyle.
+    cfgnet analyze <project_root>
 
-To format your contributions so that they will pass, run
 
-    make codeformat
+For a documentation of further options run
 
-### Tests
+    cfgnet -h
 
-The `test.yml` workflow will run the tests on the latest Ubuntu, macOS, and
-Windows with Python 3.6, 3.7, and 3.8.
+## Documentation
 
-### Continuous Deployment
+You can build the documentation with
 
-When you push commits tagged with tags that match "v\*.\*.\*", the source
-distribution and the wheel package get uploaded to the releases page on GitHub.
-This is configured in the `release.yml` workflow.
+    make docs
 
-[borini]: https://stefanoborini.com/current-status-of-python-packaging/
-[yeaw]: https://dan.yeaw.me/posts/python-packaging-with-poetry-and-briefcase/
-[bernat]: https://www.bernat.tech/pep-517-and-python-packaging/
-[smith]: https://medium.com/@grassfedcode/goodbye-virtual-environments-b9f8115bc2b6
-[pep518]: https://www.python.org/dev/peps/pep-0518/
-[poetry documentation]: https://python-poetry.org/docs/basic-usage/
-[black]: https://github.com/python/black
-[so-licences]: https://stackoverflow.com/a/5678716
+The HTML version of the documentation will be in `docs/_build/html`.
+
+## Contributing
+
+To contribute to this project feel free to create pull requests.
+Please read our [guidelines and instructions for development][development] first.
+
+[releases]: https://github.com/AI-4-SE/CfgNet/releases
+[development]: docs/development.rst

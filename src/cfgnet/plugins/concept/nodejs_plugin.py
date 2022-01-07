@@ -60,6 +60,7 @@ class NodejsPlugin(Plugin):
                 lineno = 1
                 for line in json_file:
                     line = line.strip()
+                    line = line.replace("\\\\", "\\")
                     if len(line) > 0:
                         line_number_dict[line] = lineno
                     lineno += 1

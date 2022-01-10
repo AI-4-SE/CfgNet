@@ -17,3 +17,5 @@ ADD --chown=1 /foo.jar bar.jar
 COPY --from=builder --chown=55:mygroup ./foo.jar bar.jar
 
 ENTRYPOINT python ./app.py
+
+ADD     vendor	/vendor

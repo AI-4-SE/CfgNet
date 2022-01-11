@@ -14,9 +14,9 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-
+import logging
 import toml
-
+from toml import TomlDecodeError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 
@@ -45,8 +45,14 @@ class TomlPlugin(Plugin):
                 lineno += 1
 
         with open(abs_file_path, "r", encoding="utf-8") as file:
-            data = toml.load(file)
-            self._iter_data(data, line_number_dict, artifact)
+            try:
+                data = toml.load(file)
+                self._iter_data(data, line_number_dict, artifact)
+
+            except TomlDecodeError as error:
+                logging.warning(
+                    "Invalid Toml file %s: %s", abs_file_path, error
+                )
 
         return artifact
 

@@ -87,7 +87,7 @@ def test_enable_internal_links(get_config):
         "target/example-app-1.0.jar",
         "pom.xml",
         "builder",
-        "5.9",
+        "version:5.9",
     }
 
     link_targets = {

@@ -118,15 +118,27 @@ class NodejsPlugin(Plugin):
                         ),
                     )
                     parent.add_child(virtual_option)
+
+                    name = (
+                        f"{parent.name}:{item}"
+                        if self.current_config_type
+                        == ConfigType.VERSION_NUMBER
+                        else item
+                    )
+
                     value = ValueNode(
-                        name=item, config_type=self.current_config_type
+                        name=name, config_type=self.current_config_type
                     )
                     virtual_option.add_child(value)
 
         else:
-            value = ValueNode(
-                name=json_object, config_type=self.current_config_type
+            name = (
+                f"{parent.name}:{json_object}"
+                if self.current_config_type == ConfigType.VERSION_NUMBER
+                else json_object
             )
+            value = ValueNode(name=name, config_type=self.current_config_type)
+
             if not isinstance(parent, ArtifactNode):
                 parent.add_child(value)
 
@@ -169,4 +181,6 @@ class NodejsPlugin(Plugin):
             return ConfigType.EMAIL
         if option_name in ("repository", "author", "funding", "type"):
             return ConfigType.UNKNOWN
+        if option_name == "license":
+            return ConfigType.LICENSE
         return self.current_config_type

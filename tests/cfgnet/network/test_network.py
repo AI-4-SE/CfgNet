@@ -78,20 +78,23 @@ def test_links(get_config):
     assert expected_links == link_targets
 
 
-def test_disbale_internal_links(get_config):
+def test_enable_internal_links(get_config):
     config = get_config
-    config.disable_internal_links = True
+    config.enable_internal_links = True
     network = Network.init_network(cfg=config)
     expected_links = {
+        "app.jar",
         "target/example-app-1.0.jar",
         "pom.xml",
+        "builder",
+        "5.9",
     }
 
     link_targets = {
         str(link).rsplit("::::", maxsplit=1)[-1] for link in network.links
     }
 
-    assert len(network.links) == 2
+    assert len(network.links) == 5
     assert expected_links == link_targets
 
 

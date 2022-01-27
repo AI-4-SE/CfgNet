@@ -45,19 +45,17 @@ class YAMLPlugin(Plugin):
             project_root=root,
         )
 
-        with open(abs_file_path, "r", encoding="utf8") as yaml_file:
-            try:
+        try:
+            with open(abs_file_path, "r", encoding="utf8") as yaml_file:
                 docs = yaml.compose_all(yaml_file)
                 for root_tree in docs:
                     self._iter_tree(root_tree, artifact)
-            except (ScannerError, ParserError, ComposerError) as error:
-                logging.warning(
-                    "Invalid YAML file %s: %s", abs_file_path, error.problem
-                )
-            except ReaderError as error:
-                logging.warning(
-                    "Invalid YAML file %s: %s", abs_file_path, error
-                )
+        except (ScannerError, ParserError, ComposerError) as error:
+            logging.warning(
+                "Invalid YAML file %s: %s", abs_file_path, error.problem
+            )
+        except (FileNotFoundError, ReaderError) as error:
+            logging.warning("Invalid YAML file %s: %s", abs_file_path, error)
         return artifact
 
     def is_responsible(self, abs_file_path):

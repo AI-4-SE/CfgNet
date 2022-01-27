@@ -63,14 +63,14 @@ class EqualityLinker(Linker):
 
     def _filter_target_nodes(self, node) -> List[ValueNode]:
         """Filter target nodes to avoid links within the same file."""
-        if self.disable_internal_links:
-            artifact_name = node.id.split("::::")[1]
+        if self.enable_internal_links:
+            return self.target_nodes
 
-            return list(
-                filter(
-                    lambda node: artifact_name not in node.id.split("::::")[1],
-                    self.target_nodes,
-                )
+        artifact_name = node.id.split("::::")[1]
+
+        return list(
+            filter(
+                lambda x: artifact_name not in x.id.split("::::")[1],
+                self.target_nodes,
             )
-
-        return self.target_nodes
+        )

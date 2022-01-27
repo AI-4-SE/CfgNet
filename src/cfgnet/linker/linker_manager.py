@@ -37,7 +37,7 @@ class LinkerManager:
         """
         for linker in LinkerManager.all_linkers:
             linker.network = network
-            linker.disable_internal_links = network.cfg.disable_internal_links
+            linker.enable_internal_links = network.cfg.enable_internal_links
             linker.create_links()
 
     @staticmethod

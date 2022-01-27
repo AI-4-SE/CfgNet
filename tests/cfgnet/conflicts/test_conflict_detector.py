@@ -36,7 +36,7 @@ def get_networks_():
         project_root_abs=os.path.abspath(repo.root),
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
-        disable_internal_links=False,
+        enable_internal_links=False,
     )
     ref_network = Network.init_network(cfg=network_configuration)
 

@@ -46,7 +46,7 @@ def get_config_(get_repo):
         project_root_abs=os.path.abspath(get_repo.root),
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
-        disable_internal_links=False,
+        enable_internal_links=False,
     )
 
     return network_configuration
@@ -59,25 +59,22 @@ def test_init_network(get_repo, get_config):
 
     assert network
     assert network.root == root
-    assert len(network.links) == 5
+    assert len(network.links) == 2
     assert os.path.isdir(network.cfg.data_dir_path())
 
 
 def test_links(get_config):
     network = Network.init_network(cfg=get_config)
     expected_links = {
-        "app.jar",
         "target/example-app-1.0.jar",
         "pom.xml",
-        "builder",
-        "5.9",
     }
 
     link_targets = {
         str(link).rsplit("::::", maxsplit=1)[-1] for link in network.links
     }
 
-    assert len(network.links) == 5
+    assert len(network.links) == 2
     assert expected_links == link_targets
 
 

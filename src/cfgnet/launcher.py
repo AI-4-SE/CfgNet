@@ -50,14 +50,14 @@ def main(verbose: bool):
 @main.command()
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
-@click.option("-i", "--disable-internal-links", is_flag=True)
+@click.option("-i", "--enable-internal-links", is_flag=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
 def init(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
-    disable_internal_links: bool,
+    enable_internal_links: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -69,7 +69,7 @@ def init(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
-        disable_internal_links=disable_internal_links,
+        enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
@@ -126,14 +126,14 @@ def validate(project_root: str):
 @main.command()
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
-@click.option("-i", "--disable-internal-links", is_flag=True)
+@click.option("-i", "--enable-internal-links", is_flag=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
 def analyze(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
-    disable_internal_links: bool,
+    enable_internal_links: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -147,7 +147,7 @@ def analyze(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
-        disable_internal_links=disable_internal_links,
+        enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)

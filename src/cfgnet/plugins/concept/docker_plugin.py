@@ -61,10 +61,13 @@ def parse_string(content: str) -> List[Command]:
 
         # if there is no cmd, add line to the last created cmd
         if command not in COMMANDS:
-            last_cmd = data[-1]
-            if last_cmd.cmd == "env":
-                values = parse_env(line)
-                last_cmd.value += values
+            try:
+                last_cmd = data[-1]
+                if last_cmd.cmd == "env":
+                    values = parse_env(line)
+                    last_cmd.value += values
+                    continue
+            except IndexError:
                 continue
 
         # parse env command

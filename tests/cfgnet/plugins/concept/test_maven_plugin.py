@@ -55,7 +55,7 @@ def test_parse_file(get_plugin):
             "dependencies",
             "dependency_apple/apple_artifact",
             "version",
-            "apple_version",
+            "version:apple_version",
         )
         in ids
     )
@@ -89,13 +89,15 @@ def test_parse_file(get_plugin):
         make_id("pom.xml", "project", "modules", "module", "registry") in ids
     )
     assert make_id("pom.xml", "project", "port", "8000") in ids
-    assert make_id("pom.xml", "project", "modelVersion", "4.0.0") in ids
+    assert (
+        make_id("pom.xml", "project", "modelVersion", "modelVersion:4.0.0")
+        in ids
+    )
     assert make_id("pom.xml", "project", "packaging", "jar") in ids
     assert make_id("pom.xml", "file", "pom.xml") in ids
     assert make_id("pom.xml", "project", "groupId", "com.example.apps") in ids
     assert make_id("pom.xml", "project", "artifactId", "my-cool-app") in ids
-    assert make_id("pom.xml", "project", "version", "42") in ids
-    assert make_id("pom.xml", "project", "version", "42") in ids
+    assert make_id("pom.xml", "project", "version", "version:42") in ids
     assert (
         make_id("pom.xml", "ExecutableName", "target/my-cool-app-42.jar")
         in ids

@@ -20,6 +20,7 @@ from typing import Optional, Tuple, List
 from lxml import etree as ET
 from lxml.etree import _Element
 
+from cfgnet.config_types.config_types import ConfigType
 from cfgnet.network.nodes import (
     ArtifactNode,
     Node,
@@ -98,36 +99,53 @@ class MavenPlugin(Plugin):
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
         name = self._make_name(subtree_root)
         if name:
-            current_node = OptionNode(name, subtree_root.sourceline)
-            parent_node.add_child(current_node)
+            option = OptionNode(name, subtree_root.sourceline)
+            parent_node.add_child(option)
 
-            self._add_attribs(subtree_root, current_node)
+            self._add_attribs(subtree_root, option)
 
             text = subtree_root.text
             if text:
                 text = text.strip()
                 if text:
-                    value_node = ValueNode(text)
-                    current_node.add_child(value_node)
+
+                    config_type = self.get_config_type(option.name)
+
+                    name = (
+                        f"{option.name}:{text}"
+                        if config_type == ConfigType.VERSION_NUMBER
+                        else text
+                    )
+
+                    value_node = ValueNode(name=name)
+                    option.add_child(value_node)
 
             for child in subtree_root:
                 if child.tag is not ET.Comment:
-                    self.parse_tree(child, current_node)
+                    self.parse_tree(child, option)
 
             # remove option nodes without children
-            if not current_node.children:
-                parent_node.children.remove(current_node)
+            if not option.children:
+                parent_node.children.remove(option)
 
     @staticmethod
     def _add_attribs(subtree_root: _Element, current_node: OptionNode):
         current_attribs = subtree_root.attrib
         for key in current_attribs:
-            option_node = OptionNode(key, subtree_root.sourceline)
-            current_node.add_child(option_node)
-
+            option = OptionNode(key, subtree_root.sourceline)
+            current_node.add_child(option)
             value = current_attribs[key]
-            value_node = ValueNode(value)
-            option_node.add_child(value_node)
+
+            config_type = MavenPlugin.get_config_type(option.name)
+
+            name = (
+                f"{option.name}:{value}"
+                if config_type == ConfigType.VERSION_NUMBER
+                else value
+            )
+
+            value_node = ValueNode(name=name)
+            option.add_child(value_node)
 
     # pylint: disable=too-many-return-statements
     @staticmethod
@@ -264,8 +282,11 @@ class MavenPlugin(Plugin):
                     project_option_node.children,
                 )
             )
+
+            name = version_node.children[0].name.split(":")[-1]
+
             return (
-                "-" + version_node.children[0].name,
+                "-" + name,
                 str(version_node.location),
             )
         except StopIteration:
@@ -288,3 +309,18 @@ class MavenPlugin(Plugin):
             )
         except StopIteration:
             return "jar", None
+
+    @staticmethod
+    def get_config_type(name: str) -> ConfigType:
+        """
+        Get config type based on the option name.
+
+        :param name: option name
+        :return: ConfigType
+        """
+        if name in ("modelVersion", "version"):
+            return ConfigType.VERSION_NUMBER
+
+        # TODO: Check for other config types
+
+        return ConfigType.UNKNOWN

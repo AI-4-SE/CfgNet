@@ -42,7 +42,9 @@ class EqualityLinker(Linker):
 
             # add link for all matches
             for match in matches:
-                self._add_link(node, match)
+                # check config types before creating a link
+                if self._check_config_types(node, match):
+                    self._add_link(node, match)
 
     def _find_target_nodes(self):
         return [
@@ -74,3 +76,16 @@ class EqualityLinker(Linker):
                 self.target_nodes,
             )
         )
+
+    def _check_config_types(
+        self, node_a: ValueNode, node_b: ValueNode
+    ) -> bool:
+        # return true if both nodes have the same config type
+        if node_a.config_type == node_b.config_type:
+            return True
+
+        # return true if at least on node has no config type specified
+        if ConfigType.UNKNOWN in (node_a.config_type, node_b.config_type):
+            return True
+
+        return False

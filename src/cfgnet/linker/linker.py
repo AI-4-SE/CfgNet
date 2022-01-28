@@ -48,6 +48,18 @@ class Linker(abc.ABC):
     def _find_matches(self, node):
         """Find all matches for node with a given linker criterion."""
 
+    @abc.abstractmethod
+    def _check_config_types(
+        self, node_a: ValueNode, node_b: ValueNode
+    ) -> bool:
+        """
+        Check config types of given nodes before creating a link.
+
+        :param node_a: First node to be linked to the second
+        :param node_b: Second node to be linked to the first
+        :return: True if config types meet specific condition else False
+        """
+
     def _add_link(self, node_a: ValueNode, node_b: ValueNode):
         """
         Establish a link between the two given nodes.

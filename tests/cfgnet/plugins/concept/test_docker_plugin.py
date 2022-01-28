@@ -113,7 +113,7 @@ def test_config_types(get_plugin):
     docker_plugin = get_plugin
     file = os.path.abspath("tests/files/Dockerfile")
 
-    artifact = docker_plugin.parse_file(file, "docker-compose.yml")
+    artifact = docker_plugin.parse_file(file, "Dockerfile")
     nodes = artifact.get_nodes()
 
     expose_port = next(

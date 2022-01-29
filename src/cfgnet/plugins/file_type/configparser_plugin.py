@@ -28,7 +28,13 @@ class ConfigParserPlugin(Plugin):
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
         file_name = os.path.basename(abs_file_path)
 
-        artifact = ArtifactNode(file_name, abs_file_path, rel_file_path, root)
+        artifact = ArtifactNode(
+            name=file_name,
+            file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            concept_name=self.concept_name,
+            project_root=root,
+        )
 
         with open(abs_file_path, "r", encoding="utf-8") as config_file:
             file_content = config_file.read()

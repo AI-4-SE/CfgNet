@@ -80,11 +80,17 @@ class EqualityLinker(Linker):
     def _check_config_types(
         self, node_a: ValueNode, node_b: ValueNode
     ) -> bool:
-        # return true if both nodes have the same config type
+        """
+        Check config types of given nodes before creating a link.
+
+        :param node_a: First node to be linked to the second
+        :param node_b: Second node to be linked to the first
+        :return: True if both nodes have the same config type or if at least
+         one node has no config type specified, else False
+        """
         if node_a.config_type == node_b.config_type:
             return True
 
-        # return true if at least on node has no config type specified
         if ConfigType.UNKNOWN in (node_a.config_type, node_b.config_type):
             return True
 

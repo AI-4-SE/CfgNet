@@ -25,17 +25,14 @@ def test_check_config_types():
     port_node_b = ValueNode(name="8000", config_type=ConfigType.PORT)
     unknown_node_a = ValueNode(name="unknown", config_type=ConfigType.UNKNOWN)
     unknown_node_b = ValueNode(name="unknown", config_type=ConfigType.UNKNOWN)
-    filepath_node = ValueNode(name="pom.xml", config_type=ConfigType.FILEPATH)
     path_node = ValueNode(name="path", config_type=ConfigType.PATH)
 
     same_type = linker._check_config_types(port_node_a, port_node_b)
     only_one_unknown = linker._check_config_types(port_node_a, unknown_node_a)
     both_unknown = linker._check_config_types(unknown_node_a, unknown_node_b)
-    path_type = linker._check_config_types(path_node, filepath_node)
-    different_types = linker._check_config_types(port_node_a, filepath_node)
+    different_types = linker._check_config_types(port_node_a, path_node)
 
     assert same_type
     assert only_one_unknown
     assert both_unknown
-    assert path_type
     assert not different_types

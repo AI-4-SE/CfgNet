@@ -126,4 +126,4 @@ def test_config_types(get_plugin):
     assert url_node.config_type == ConfigType.URL
     assert dep_node.config_type == ConfigType.VERSION_NUMBER
     assert script_node.config_type == ConfigType.COMMAND
-    assert file_node.config_type == ConfigType.FILEPATH
+    assert file_node.config_type == ConfigType.PATH

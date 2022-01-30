@@ -131,9 +131,7 @@ class ArtifactNode(Node):
         """Add default option to the artifact node."""
         option = OptionNode(name="file", location="file_path")
         self.add_child(option)
-        value = ValueNode(
-            name=self.rel_file_path, config_type=ConfigType.FILEPATH
-        )
+        value = ValueNode(name=self.rel_file_path, config_type=ConfigType.PATH)
         option.add_child(value)
 
 

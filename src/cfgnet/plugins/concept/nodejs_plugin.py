@@ -170,7 +170,7 @@ class NodejsPlugin(Plugin):
         ):
             return ConfigType.VERSION_NUMBER
         if option_name in ("main", "files", "man"):
-            return ConfigType.FILEPATH
+            return ConfigType.PATH
         if option_name in ("scripts", "bin"):
             return ConfigType.COMMAND
         if option_name == "name":

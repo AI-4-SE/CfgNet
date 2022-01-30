@@ -17,8 +17,6 @@ from enum import Enum, auto
 
 
 class ConfigType(Enum):
-    PATH_VALUE = auto()
-
     # Numbers
     TIME = auto()
     PORT = auto()
@@ -35,13 +33,12 @@ class ConfigType(Enum):
     NAME = auto()
     USERNAME = auto()
     PASSWORD = auto()
-    FILEPATH = PATH_VALUE
     URL = auto()
     EMAIL = auto()
     DOMAIN_NAME = auto()
     PROTOCOL = auto()
     IMAGE = auto()
-    PATH = PATH_VALUE
+    PATH = auto()
     COMMAND = auto()
     LICENSE = auto()
 

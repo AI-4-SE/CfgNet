@@ -63,7 +63,8 @@ def init(
     disable_linker: List[str],
 ):
     """Initialize configuration network."""
-    logging.info("Initialize configuration network")
+    project_name = os.path.basename(project_root)
+    logging.info("Initialize configuration network for %s.", project_name)
 
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
@@ -89,7 +90,8 @@ def init(
 @main.command()
 @add_project_root_argument
 def validate(project_root: str):
-    logging.info("Validate configuration network")
+    project_name = os.path.basename(project_root)
+    logging.info("Validate configuration network for %s.", project_name)
 
     start = time.time()
 

@@ -52,10 +52,7 @@ class MavenPlugin(Plugin):
         rel_file_path: str,
         root: Optional[ProjectNode],
     ) -> ArtifactNode:
-        file_name = os.path.basename(abs_file_path)
-
         artifact = ArtifactNode(
-            name=file_name,
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
             concept_name=self.concept_name,

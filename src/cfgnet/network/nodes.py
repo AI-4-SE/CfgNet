@@ -81,14 +81,12 @@ class ArtifactNode(Node):
 
     def __init__(
         self,
-        name: str,
         file_path: str,
         rel_file_path: str,
         concept_name: str,
         project_root=None,
     ):
         super().__init__(rel_file_path)
-        self.name = name
         self.file_path: str = file_path
         self.rel_file_path: str = rel_file_path
         self.concept_name: str = concept_name

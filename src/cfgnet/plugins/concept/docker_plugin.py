@@ -138,11 +138,11 @@ class DockerPlugin(Plugin):
 
             if cmd.cmd == "from":
                 if len(cmd.value) == 3:
-                    image = ValueNode(
-                        cmd.value[0], config_type=ConfigType.IMAGE
-                    )
+                    image = ValueNode(cmd.value[0])
                     name = ValueNode(cmd.value[2])
-                    option_image = OptionNode("image", cmd.start_line)
+                    option_image = OptionNode(
+                        "image", cmd.start_line, config_type=ConfigType.IMAGE
+                    )
                     option_name = OptionNode("name", cmd.start_line)
                     option.add_child(option_image)
                     option.add_child(option_name)
@@ -170,19 +170,15 @@ class DockerPlugin(Plugin):
                 self._add_params(option, cmd.value)
 
             elif cmd.cmd in ["add", "copy"]:
-                src = OptionNode("src", cmd.start_line)
+                src = OptionNode("src", cmd.start_line, ConfigType.PATH)
                 option.add_child(src)
                 # remove leading `./` or `/`
                 src_file = re.sub(r"^(\.)?/", "", cmd.value[-2])
-                src.add_child(
-                    ValueNode(name=src_file, config_type=ConfigType.PATH)
-                )
-                dest = OptionNode("dest", cmd.start_line)
+                src.add_child(ValueNode(name=src_file))
+                dest = OptionNode("dest", cmd.start_line, ConfigType.PATH)
                 option.add_child(dest)
                 dest_value = cmd.value[-1]
-                dest.add_child(
-                    ValueNode(name=dest_value, config_type=ConfigType.PATH)
-                )
+                dest.add_child(ValueNode(name=dest_value))
                 destination_files.append(dest_value)
                 if len(cmd.value) > 2:  # handle flags
                     flag_re = re.compile(r"--(chown|from)=([^ ]+)")
@@ -215,20 +211,19 @@ class DockerPlugin(Plugin):
     def _parse_expose(self, option: OptionNode, value: str) -> None:
         match = self.expose_command.fullmatch(value)
         if match:
-            port = ValueNode(match.group("port"), config_type=ConfigType.PORT)
-            protocol = ValueNode(
-                match.group("protocol"), config_type=ConfigType.PROTOCOL
+            port = ValueNode(match.group("port"))
+            protocol = ValueNode(match.group("protocol"))
+            option_port = OptionNode("port", option.location, ConfigType.PORT)
+            option_protocol = OptionNode(
+                "protocol", option.location, ConfigType.PROTOCOL
             )
-            option_port = OptionNode("port", option.location)
-            option_protocol = OptionNode("protocol", option.location)
             option.add_child(option_port)
             option.add_child(option_protocol)
             option_port.add_child(port)
             option_protocol.add_child(protocol)
         else:
-            option.add_child(
-                ValueNode(name=value, config_type=ConfigType.PORT)
-            )
+            option.config_type = ConfigType.PORT
+            option.add_child(ValueNode(name=value))
 
     @staticmethod
     def _add_params(option: OptionNode, parameters: List[str]):

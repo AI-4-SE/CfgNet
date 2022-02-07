@@ -15,6 +15,44 @@
 
 
 from cfgnet.config_types.config_types import ConfigType
+from cfgnet.network.nodes import OptionNode, ValueNode
+
+
+def test_config_types_option_value():
+    option_port = OptionNode("port", "1", ConfigType.PORT)
+    port = ValueNode("8000")
+    option_port.add_child(port)
+
+    assert option_port.config_type == ConfigType.PORT
+    assert port.config_type == ConfigType.PORT
+
+
+def test_config_types_nested_option():
+
+    option_path = OptionNode("path", "1", ConfigType.PATH)
+    nested_option = OptionNode("port", "2", ConfigType.PORT)
+    option_path.add_child(nested_option)
+    port = ValueNode("8000")
+    nested_option.add_child(port)
+
+    assert option_path.config_type == ConfigType.PATH
+    assert nested_option.config_type == ConfigType.PORT
+    assert port.config_type == ConfigType.PORT
+
+
+def test_config_types_nested_options_unknown():
+
+    option_dependency = OptionNode(
+        "dependencies", "1", ConfigType.VERSION_NUMBER
+    )
+    nested_option = OptionNode("pylint", "2")
+    option_dependency.add_child(nested_option)
+    version = ValueNode("3.2.1")
+    nested_option.add_child(version)
+
+    assert option_dependency.config_type == ConfigType.VERSION_NUMBER
+    assert nested_option.config_type == ConfigType.VERSION_NUMBER
+    assert version.config_type == ConfigType.VERSION_NUMBER
 
 
 def test_file_paths():

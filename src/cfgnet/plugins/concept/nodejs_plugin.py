@@ -31,7 +31,6 @@ EXCLUDE_KEYS = ["keywords", "description", "author", "contributors"]
 class NodejsPlugin(Plugin):
     def __init__(self):
         super().__init__("nodejs")
-        self.current_config_type = ConfigType.UNKNOWN
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("package.json"):
@@ -89,10 +88,11 @@ class NodejsPlugin(Plugin):
         if isinstance(json_object, dict):
             for key in json_object:
                 if key not in EXCLUDE_KEYS:
-                    self.current_config_type = self.get_config_type(key)
+                    config_type = self.get_config_type(key)
                     option = OptionNode(
                         name=key,
                         location=self._get_line_number(line_number_dict, key),
+                        config_type=config_type,
                     )
                     parent.add_child(option)
                     child = json_object[key]
@@ -117,27 +117,25 @@ class NodejsPlugin(Plugin):
                     )
                     parent.add_child(virtual_option)
 
-                    name = (
-                        f"{parent.name}:{item}"
-                        if self.current_config_type
-                        == ConfigType.VERSION_NUMBER
-                        else item
-                    )
+                    if isinstance(parent, OptionNode):
+                        name = (
+                            f"{parent.name}:{item}"
+                            if parent.config_type == ConfigType.VERSION_NUMBER
+                            else item
+                        )
 
-                    value = ValueNode(
-                        name=name, config_type=self.current_config_type
-                    )
-                    virtual_option.add_child(value)
+                        value = ValueNode(name=name)
+                        virtual_option.add_child(value)
 
         else:
-            name = (
-                f"{parent.name}:{json_object}"
-                if self.current_config_type == ConfigType.VERSION_NUMBER
-                else json_object
-            )
-            value = ValueNode(name=name, config_type=self.current_config_type)
-
             if not isinstance(parent, ArtifactNode):
+                name = (
+                    f"{parent.name}:{json_object}"
+                    if parent.config_type == ConfigType.VERSION_NUMBER
+                    else json_object
+                )
+                value = ValueNode(name=name)
+
                 parent.add_child(value)
 
     @staticmethod
@@ -153,7 +151,8 @@ class NodejsPlugin(Plugin):
         return lines_dict[line]
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
+    @staticmethod
+    def get_config_type(option_name: str) -> ConfigType:
         """
         Find config type based on option name.
 
@@ -191,4 +190,4 @@ class NodejsPlugin(Plugin):
             return ConfigType.LICENSE
         if option_name == "private":
             return ConfigType.BOOLEAN
-        return self.current_config_type
+        return ConfigType.UNKNOWN

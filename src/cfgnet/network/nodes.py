@@ -127,20 +127,28 @@ class ArtifactNode(Node):
 
     def _add_file_name_option(self) -> None:
         """Add default option to the artifact node."""
-        option = OptionNode(name="file", location="file_path")
+        option = OptionNode(
+            name="file", location="file_path", config_type=ConfigType.PATH
+        )
         self.add_child(option)
-        value = ValueNode(name=self.rel_file_path, config_type=ConfigType.PATH)
+        value = ValueNode(name=self.rel_file_path)
         option.add_child(value)
 
 
 class OptionNode(Node):
     """Option nodes refer to commands or lines of code in an artifact."""
 
-    def __init__(self, name: str, location: str):
+    def __init__(
+        self,
+        name: str,
+        location: str,
+        config_type: ConfigType = ConfigType.UNKNOWN,
+    ):
         super().__init__(name)
         self.display_option_id: str = name
         self.location: str = location
         self.prevalue_node: bool = False
+        self.config_type = config_type
 
     def __str__(self):
         return self.id + "(location: " + str(self.location) + ")"
@@ -161,17 +169,18 @@ class OptionNode(Node):
         if isinstance(node, ValueNode):
             self.prevalue_node = True
 
+        if node.config_type == ConfigType.UNKNOWN:
+            node.config_type = self.config_type
+
         super().add_child(node)
 
 
 class ValueNode(Node):
     """Value nodes represent actual parameters associated to an option node."""
 
-    def __init__(
-        self, name: str, config_type: ConfigType = ConfigType.UNKNOWN
-    ):
+    def __init__(self, name: str):
         super().__init__(str(name))
-        self.config_type = config_type
+        self.config_type = ConfigType.UNKNOWN
 
     def __eq__(self, other):
         return self.name == other.name

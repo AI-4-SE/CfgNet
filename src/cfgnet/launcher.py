@@ -143,7 +143,7 @@ def analyze(
     """Run self-evaluating analysis of commit history."""
     project_name = os.path.basename(project_root)
 
-    logging.info("Analyzing network for %s.", project_name)
+    logging.info("Analyzing commit history for %s.", project_name)
 
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
@@ -166,7 +166,9 @@ def analyze(
 
     completion_time = round((time.time() - start), 2)
 
-    logging.info("Analysis done in [%s s].", completion_time)
+    logging.info(
+        "Analysis of %s done in [%s s].", project_name, completion_time
+    )
 
 
 @main.command()

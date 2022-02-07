@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
 import logging
 import toml
 from toml import TomlDecodeError
@@ -28,7 +27,6 @@ class TomlPlugin(Plugin):
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
 
         artifact = ArtifactNode(
-            name=os.path.basename(abs_file_path),
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
             concept_name=self.concept_name,

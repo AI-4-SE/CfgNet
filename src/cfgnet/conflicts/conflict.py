@@ -82,7 +82,7 @@ class MissingArtifactConflict(Conflict):
     def __str__(self):
         return (
             f"MISSING ARTIFACT ({self.id})\n\n"
-            + f"Artifact {self.missing_artifact.name}'n\n"
+            + f"Artifact {self.missing_artifact.rel_file_path}'n\n"
             + "Possible solutions:\n\n"
             f"Restore artifact {self.missing_artifact.file_path}\n\n"
         )
@@ -115,7 +115,8 @@ class MissingOptionConflict(Conflict):
     def __str__(self):
         return (
             f"MISSING OPTION CONFLICT ({self.id})\n\n"
-            + f"Option {self.missing_option.name} in artifact {self.artifact.name} is missing\n\n"
+            + f"Option {self.missing_option.name} in artifact "
+            f"{self.artifact.rel_file_path} is missing\n\n"
             + f"In file {self.artifact.file_path}\n"
             + f"Re-add option {self.missing_option.display_option_id} "
             f'with value "{self.value.name}"\n\n'
@@ -181,7 +182,8 @@ class ModifiedOptionConflict(Conflict):
             )
         return (
             f"MODIFIED OPTION CONFLICT ({self.id})\n\n"
-            + f"Modified Option: {self.option.display_option_id} in artifact {self.artifact.name}\n"
+            + f"Modified Option: {self.option.display_option_id} "
+            f"in artifact {self.artifact.rel_file_path}\n"
             + f"Value changed from {self.old_value.name} to {self.value.name}\n\n"
             "" + "Conflicts:\n" + f"{conflicts}\n\n"
         )
@@ -216,7 +218,9 @@ class MultiValueConflict(Conflict):
         self.option: OptionNode = option
 
         id_string: str = (
-            str(self.link) + str(self.option.name) + str(self.artifact.name)
+            str(self.link)
+            + str(self.option.name)
+            + str(self.artifact.rel_file_path)
         )
         self.id: str = hashlib.md5(id_string.encode("utf-8")).hexdigest()
 
@@ -228,7 +232,7 @@ class MultiValueConflict(Conflict):
         return (
             f"MULTIVALUE ({self.id})\n\n"
             + f"Option {self.option.name} \
-            in artifact {self.artifact.name}\n\n"
+            in artifact {self.artifact.rel_file_path}\n\n"
         )
 
     def __hash__(self):

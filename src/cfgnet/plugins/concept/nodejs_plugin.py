@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import json
-import os
 import logging
 
 from typing import Union, Optional, Dict, List
@@ -46,7 +45,6 @@ class NodejsPlugin(Plugin):
         root: Optional[ProjectNode],
     ) -> ArtifactNode:
         artifact = ArtifactNode(
-            name=os.path.basename(abs_file_path),
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
             concept_name=self.concept_name,

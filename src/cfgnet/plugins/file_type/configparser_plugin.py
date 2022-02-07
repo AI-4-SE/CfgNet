@@ -14,7 +14,6 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import configparser
 import logging
-import os
 import re
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
@@ -26,10 +25,7 @@ class ConfigParserPlugin(Plugin):
         super().__init__("configparser")
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
-        file_name = os.path.basename(abs_file_path)
-
         artifact = ArtifactNode(
-            name=file_name,
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
             concept_name=self.concept_name,

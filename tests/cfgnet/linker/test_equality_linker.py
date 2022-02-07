@@ -15,22 +15,36 @@
 
 from cfgnet.linker.equality_linker import EqualityLinker
 from cfgnet.config_types.config_types import ConfigType
-from cfgnet.network.nodes import ValueNode
+from cfgnet.network.nodes import OptionNode, ValueNode
 
 
 def test_check_config_types():
     linker = EqualityLinker()
 
-    port_node_a = ValueNode(name="8000", config_type=ConfigType.PORT)
-    port_node_b = ValueNode(name="8000", config_type=ConfigType.PORT)
-    unknown_node_a = ValueNode(name="unknown", config_type=ConfigType.UNKNOWN)
-    unknown_node_b = ValueNode(name="unknown", config_type=ConfigType.UNKNOWN)
-    path_node = ValueNode(name="path", config_type=ConfigType.PATH)
+    option_port_a = OptionNode("port_a", "1", ConfigType.PORT)
+    port_a = ValueNode(name="8000")
+    option_port_a.add_child(port_a)
 
-    same_type = linker._check_config_types(port_node_a, port_node_b)
-    only_one_unknown = linker._check_config_types(port_node_a, unknown_node_a)
-    both_unknown = linker._check_config_types(unknown_node_a, unknown_node_b)
-    different_types = linker._check_config_types(port_node_a, path_node)
+    option_port_b = OptionNode("port_b", "2", ConfigType.PORT)
+    port_b = ValueNode(name="8000")
+    option_port_b.add_child(port_b)
+
+    option_unknown_a = OptionNode("unknown_a", "3", ConfigType.UNKNOWN)
+    unknown_a = ValueNode(name="unknown")
+    option_unknown_a.add_child(unknown_a)
+
+    option_unknown_b = OptionNode("unknown_a", "4", ConfigType.UNKNOWN)
+    unknown_b = ValueNode(name="unknown_b")
+    option_unknown_b.add_child(unknown_b)
+
+    option_path = OptionNode("path", "4", ConfigType.PATH)
+    path = ValueNode(name="path")
+    option_path.add_child(path)
+
+    same_type = linker._check_config_types(port_a, port_b)
+    only_one_unknown = linker._check_config_types(port_a, unknown_a)
+    both_unknown = linker._check_config_types(unknown_a, unknown_b)
+    different_types = linker._check_config_types(port_a, path)
 
     assert same_type
     assert only_one_unknown

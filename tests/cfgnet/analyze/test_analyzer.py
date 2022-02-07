@@ -44,6 +44,7 @@ def get_config_(get_repo):
 
 def test_analyze(get_config):
     analyzer = Analyzer(get_config)
+    project_name = get_config.project_name()
 
     analyzer.analyze_commit_history()
 
@@ -51,7 +52,9 @@ def test_analyze(get_config):
         get_config.project_root_abs, get_config.cfgnet_path_rel
     )
     analysis_dir = os.path.join(data_dir, "analysis")
-    conflicts_csv_path = os.path.join(analysis_dir, "conflicts.csv")
+    conflicts_csv_path = os.path.join(
+        analysis_dir, f"conflicts_{project_name}.csv"
+    )
 
     assert os.path.exists(conflicts_csv_path)
 

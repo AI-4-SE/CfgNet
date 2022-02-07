@@ -43,7 +43,9 @@ class Analyzer:
         if not os.path.exists(analysis_dir):
             os.makedirs(analysis_dir)
 
-        self.conflicts_csv_path = os.path.join(analysis_dir, "conflicts.csv")
+        self.conflicts_csv_path = os.path.join(
+            analysis_dir, f"conflicts_{self.cfg.project_name()}.csv"
+        )
 
         if os.path.exists(self.conflicts_csv_path):
             os.remove(self.conflicts_csv_path)

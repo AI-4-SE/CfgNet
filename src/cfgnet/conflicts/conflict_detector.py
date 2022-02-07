@@ -152,6 +152,7 @@ class ConflictDetector:
 
         return None
 
+    # pylint: disable=too-many-return-statements
     @staticmethod
     def _detect_modified_options(
         link: Link, new_network: "Network"
@@ -167,6 +168,15 @@ class ConflictDetector:
         option_b = new_network.find_option_node(link.option_stack_b[-1])
 
         if option_a is None or option_b is None:
+            return None
+
+        # Skip conflict creation if option has no children
+        if not option_a.children:
+            logging.warning("Option %s does not contain a children.", option_a)
+            return None
+
+        if not option_b.children:
+            logging.warning("Option %s does not contain a children.", option_b)
             return None
 
         # Skip conflict creation #200

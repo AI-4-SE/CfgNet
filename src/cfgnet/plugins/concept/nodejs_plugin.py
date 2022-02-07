@@ -26,7 +26,7 @@ from cfgnet.network.nodes import (
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.config_types.config_types import ConfigType
 
-EXCLUDE_KEYS = ["keywords", "description"]
+EXCLUDE_KEYS = ["keywords", "description", "author", "contributors"]
 
 
 class NodejsPlugin(Plugin):
@@ -166,21 +166,31 @@ class NodejsPlugin(Plugin):
             "version",
             "dependencies",
             "devDependencies",
+            "peerDependencies",
+            "optionalDependencies",
             "engines",
         ):
             return ConfigType.VERSION_NUMBER
-        if option_name in ("main", "files", "man"):
+        if option_name in (
+            "main",
+            "files",
+            "man",
+            "directories",
+            "workspaces",
+        ):
             return ConfigType.PATH
         if option_name in ("scripts", "bin"):
             return ConfigType.COMMAND
-        if option_name == "name":
+        if option_name in ("name", "bundledDependencies"):
             return ConfigType.NAME
         if option_name == "url":
             return ConfigType.URL
         if option_name == "email":
             return ConfigType.EMAIL
-        if option_name in ("repository", "author", "funding", "type"):
+        if option_name in ("repository", "funding", "type"):
             return ConfigType.UNKNOWN
         if option_name == "license":
             return ConfigType.LICENSE
+        if option_name == "private":
+            return ConfigType.BOOLEAN
         return self.current_config_type

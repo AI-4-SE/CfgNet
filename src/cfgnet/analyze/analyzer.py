@@ -76,11 +76,13 @@ class Analyzer:
 
         try:
             ref_network = Network.init_network(cfg=self.cfg)
+
             while history.has_next_commit():
+                prev_commit = commit
                 commit = history.next_commit()
 
                 detected_conflicts, ref_network = ref_network.validate(
-                    commit.hexsha
+                    [prev_commit.hexsha, commit.hexsha]
                 )
 
                 conflicts.update(detected_conflicts)

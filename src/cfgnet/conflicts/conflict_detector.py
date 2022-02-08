@@ -14,8 +14,7 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
-from typing import Optional, Set, TYPE_CHECKING
+from typing import Optional, Set, List, TYPE_CHECKING
 from cfgnet.conflicts.conflict import (
     MissingArtifactConflict,
     MissingOptionConflict,
@@ -36,7 +35,7 @@ class ConflictDetector:
         ref_network: "Network",
         new_network: "Network",
         enable_all_conflicts: bool,
-        commit_hash: Optional[str] = None,
+        commits: Optional[List[str]] = None,
     ) -> Set:
         """
         Detect conflicts.
@@ -85,9 +84,10 @@ class ConflictDetector:
                     conflicts.add(modified_option_conflict)
                 continue
 
-        if commit_hash:
+        if commits:
             for conflict in conflicts:
-                conflict.occurred_at = commit_hash
+                conflict.prev_commit = commits[0]
+                conflict.occurred_at = commits[1]
 
         return conflicts
 

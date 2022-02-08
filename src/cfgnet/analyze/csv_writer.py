@@ -38,14 +38,19 @@ class CSVWriter:
         """
         Write conflicts into a csv file.
 
+        :param csv_path: path to store csv file
         :param conflicts: Conflicts to be written to a csv file
         """
         field_names = [
             "occurred_at",
-            "conflict_type",
+            "prev_commit",
             "conflict_id",
-            "link",
+            "conflict_type",
             "config_types",
+            "link",
+            "changed_artifact",
+            "changed_option",
+            "cmd",
         ]
 
         with open(csv_path, "a+", encoding="utf-8") as conflict_file:
@@ -56,14 +61,41 @@ class CSVWriter:
                 node_a = conflict.link.node_a
                 node_b = conflict.link.node_b
 
-                config_type = f"{node_a.config_type}<->{node_b.config_type}"
+                config_types = f"{node_a.config_type}<->{node_b.config_type}"
 
                 data = {
                     "occurred_at": conflict.occurred_at,
+                    "prev_commit": conflict.prev_commit,
                     "conflict_type": conflict.__class__.__name__,
                     "conflict_id": conflict.id,
+                    "config_types": config_types,
                     "link": conflict.link,
-                    "config_types": config_type,
                 }
+
+                if isinstance(conflict, ModifiedOptionConflict):
+                    artifact = conflict.artifact
+
+                    cmd = f"git show {conflict.occurred_at} -- {artifact.rel_file_path}"
+
+                    data.update(
+                        {
+                            "changed_artifact": conflict.artifact.rel_file_path,
+                            "changed_option": str(conflict.option),
+                            "cmd": cmd,
+                        }
+                    )
+
+                if isinstance(conflict, MissingOptionConflict):
+                    artifact = conflict.artifact
+
+                    cmd = f"git show {conflict.occurred_at} -- {artifact.rel_file_path}"
+
+                    data.update(
+                        {
+                            "changed_artifact": conflict.artifact.rel_file_path,
+                            "changed_option": str(conflict.missing_option),
+                            "cmd": cmd,
+                        }
+                    )
 
                 writer.writerow(data)

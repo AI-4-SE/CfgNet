@@ -30,6 +30,7 @@ class Conflict(abc.ABC):
     def __init__(self, link):
         self.link: Link = link
         self.fixed: bool = False
+        self.prev_commit: Optional[str] = None
         self.occurred_at: Optional[str] = None
         self.fixed_at: Optional[str] = None
         self._count = 1

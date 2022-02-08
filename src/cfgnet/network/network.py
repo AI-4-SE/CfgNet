@@ -149,7 +149,7 @@ class Network:
             if isinstance(node, node_type)
         ]
 
-    def validate(self, commit_hash=None) -> Tuple[Set, Network]:
+    def validate(self, commits=None) -> Tuple[Set, Network]:
         """
         Detect conflicts with respect to the reference network.
 
@@ -158,7 +158,7 @@ class Network:
         new_network = Network.init_network(cfg=self.cfg)
 
         conflicts = ConflictDetector.detect(
-            ref_network=self, new_network=new_network, commit_hash=commit_hash
+            ref_network=self, new_network=new_network, commits=commits
         )
 
         return conflicts, new_network

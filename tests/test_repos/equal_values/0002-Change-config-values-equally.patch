@@ -1,0 +1,49 @@
+From 2bd64a02af4d56203f6419721d4f316b1a0ea062 Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <ssimon@informatik.uni-leipzig.de>
+Date: Wed, 9 Feb 2022 13:00:51 +0100
+Subject: [PATCH 2/2] Change config values equally
+
+---
+ app/package.json | 4 ++--
+ package.json     | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/app/package.json b/app/package.json
+index f16dea1..894ef4a 100644
+--- a/app/package.json
++++ b/app/package.json
+@@ -3,10 +3,10 @@
+     "version": "1.1.0",
+     "main": "app/main.js",
+     "dependencies": {
+-      "vue": "^2.5.2"
++      "vue": "^2.5.7"
+     },
+     "engines": {
+-      "node": ">= 6.0.0",
++      "node": ">= 6.1.1",
+       "npm": ">= 3.0.0"
+     }
+ }
+\ No newline at end of file
+diff --git a/package.json b/package.json
+index 919bc43..0d759c5 100644
+--- a/package.json
++++ b/package.json
+@@ -3,10 +3,10 @@
+     "version": "1.0.0",
+     "main": "src/main.js",
+     "dependencies": {
+-      "vue": "^2.5.2"
++      "vue": "^2.5.7"
+     },
+     "engines": {
+-      "node": ">= 6.0.0",
++      "node": ">= 6.1.1",
+       "npm": ">= 3.0.0"
+     }
+ }
+\ No newline at end of file
+-- 
+2.25.1
+

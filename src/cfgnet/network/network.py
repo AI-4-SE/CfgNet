@@ -199,10 +199,9 @@ class Network:
         """
         Export the configuration network.
 
-        :param data_dir: Directory in which data about the network is stored
         :param name: Name of the file to which the network is to be exported
         :param export_format: Format in which the network is stored, either "dot" or "json"
-        :include_unlinked: If true include all nodes else only linked value nodes
+        :param include_unlinked: If true include all nodes else only linked value nodes
         """
         if not os.path.isdir(self.cfg.export_dir_path()):
             os.mkdir(self.cfg.export_dir_path())
@@ -224,10 +223,9 @@ class Network:
         """
         Visualize the configuration network.
 
-        :param data_dir: Directory in which data about the network is stored
         :param name: Name of the file to which the network is to be exported
         :param export_format: Format in which the network is stored, either "png" or "pdf"
-        :include_unlinked: If true include all nodes else only linked value nodes
+        :param include_unlinked: If true include all nodes else only linked value nodes
         """
         if not os.path.isdir(self.cfg.export_dir_path()):
             os.mkdir(self.cfg.export_dir_path())
@@ -264,8 +262,8 @@ class Network:
         """
         Initialize a configuration network.
 
-        :param project_root: Project root of the software repository
-        :return: Configuration network
+        :param cfg: network configuration
+        :return: configuration network
         """
         repo = Git(project_root=cfg.project_root_abs)
         tracked_files: Set[str] = set(repo.get_tracked_files())
@@ -276,7 +274,7 @@ class Network:
 
         tracked_files = IgnoreFile.filter(tracked_files)
 
-        for file in tracked_files:
+        for file in sorted(tracked_files):
             abs_file_path = os.path.join(cfg.project_root_abs, file)
             plugin = PluginManager.get_responsible_plugin(abs_file_path)
 

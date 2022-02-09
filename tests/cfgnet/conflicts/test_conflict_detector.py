@@ -26,8 +26,8 @@ from cfgnet.network.network import NetworkConfiguration
 from tests.utility.temporary_repository import TemporaryRepository
 
 
-@pytest.fixture(name="get_networks")
-def get_networks_():
+@pytest.fixture(name="get_simple_networks")
+def get_simple_networks():
     """Return the conflicts and the updated simple git repository."""
     repo = TemporaryRepository(
         "tests/test_repos/maven_docker/0001-Add-Docker-and-maven-file.patch"
@@ -48,9 +48,31 @@ def get_networks_():
     return ref_network, new_network
 
 
-def test_detect_conflicts(get_networks):
-    ref_network = get_networks[0]
-    new_network = get_networks[1]
+@pytest.fixture(name="get_networks_equally_changed")
+def get_networks_equally_changed():
+    """Return the conflicts and the updated simple git repository."""
+    repo = TemporaryRepository(
+        "tests/test_repos/equal_values/0001-Add-two-package.json-files.patch"
+    )
+    network_configuration = NetworkConfiguration(
+        project_root_abs=os.path.abspath(repo.root),
+        enable_static_blacklist=False,
+        enable_dynamic_blacklist=False,
+        enable_internal_links=False,
+    )
+    ref_network = Network.init_network(cfg=network_configuration)
+
+    repo.apply_patch(
+        "tests/test_repos/equal_values/0002-Change-config-values-equally.patch"
+    )
+    new_network = Network.init_network(cfg=network_configuration)
+
+    return ref_network, new_network
+
+
+def test_detect_conflicts(get_simple_networks):
+    ref_network = get_simple_networks[0]
+    new_network = get_simple_networks[1]
 
     conflicts = ConflictDetector.detect(
         ref_network=ref_network, new_network=new_network
@@ -66,3 +88,14 @@ def test_detect_conflicts(get_networks):
     assert len(conflicts) == 2
     assert len(modified_option_conflict) == 1
     assert len(missing_option_conflict) == 1
+
+
+def test_equally_changed_values(get_networks_equally_changed):
+    ref_network = get_networks_equally_changed[0]
+    new_network = get_networks_equally_changed[1]
+
+    conflicts = ConflictDetector.detect(
+        ref_network=ref_network, new_network=new_network
+    )
+
+    assert len(conflicts) == 0

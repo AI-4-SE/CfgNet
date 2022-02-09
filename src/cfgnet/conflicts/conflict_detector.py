@@ -43,6 +43,7 @@ class ConflictDetector:
 
         :param ref_network: Reference network
         :param new_network: Modified network
+        :param commit_hash: Commit in which the conflict was detected
         :return: Set of detected conflicts
         """
         conflicts: Set = set()
@@ -188,15 +189,11 @@ class ConflictDetector:
         value_a = new_network.find_value_node(link.node_a)
         value_b = new_network.find_value_node(link.node_b)
 
+        # check if both values changed equally
         if value_a is None and value_b is None:
-            equal_values = False
-            for child_a in option_a.children:
-                if child_a in option_b.children:
-                    equal_values = True
-                    break
-
-            if equal_values:
-                return None
+            if option_a.prevalue_node and option_b.prevalue_node:
+                if option_a.children[0].name == option_b.children[0].name:
+                    return None
 
         multi_value = (
             len(link.option_stack_a[-1].children) > 1

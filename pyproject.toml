@@ -33,6 +33,8 @@ graphviz = "^0.17"
 PyYAML = "^6.0"
 types-PyYAML = "^6.0.1"
 types-toml = "^0.10.1"
+Sphinx = "^4.4.0"
+sphinxcontrib-spelling = "^7.3.2"
 
 [tool.poetry.dev-dependencies]
 black = { version = '*', allow-prereleases = true }

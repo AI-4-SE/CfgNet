@@ -18,6 +18,7 @@ import os
 import pytest
 
 from cfgnet.plugins.concept.maven_plugin import MavenPlugin
+from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
 
 
@@ -106,3 +107,70 @@ def test_parse_file(get_plugin):
         make_id("pom.xml", "ExecutableNameNoVersion", "target/my-cool-app.jar")
         in ids
     )
+
+
+def test_config_types(get_plugin):
+    maven_plugin = get_plugin
+    maven_file = os.path.abspath("tests/files/pom.xml")
+    artifact = maven_plugin.parse_file(maven_file, "pom.xml")
+    nodes = artifact.get_nodes()
+
+    for node in nodes:
+        print(node)
+
+    artifactId_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "pom.xml",
+                "project",
+                "artifactId",
+                "my-cool-app",
+            ),
+            nodes,
+        )
+    )
+    executable_name = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "pom.xml",
+                "ExecutableName",
+                "target/my-cool-app-42.jar",
+            ),
+            nodes,
+        )
+    )
+    executable_name_no_version = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "pom.xml", "ExecutableNameNoVersion", "target/my-cool-app.jar"
+            ),
+            nodes,
+        )
+    )
+
+    version_node = next(
+        filter(
+            lambda x: x.id
+            == make_id("pom.xml", "project", "version", "version:42"),
+            nodes,
+        )
+    )
+
+    modelVersion_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "pom.xml", "project", "modelVersion", "modelVersion:4.0.0"
+            ),
+            nodes,
+        )
+    )
+
+    assert artifactId_node.config_type == ConfigType.NAME
+    assert executable_name.config_type == ConfigType.PATH
+    assert executable_name_no_version.config_type == ConfigType.PATH
+    assert version_node.config_type == ConfigType.VERSION_NUMBER
+    assert modelVersion_node.config_type == ConfigType.VERSION_NUMBER

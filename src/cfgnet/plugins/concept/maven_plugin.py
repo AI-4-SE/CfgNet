@@ -70,7 +70,11 @@ class MavenPlugin(Plugin):
             # Remove unused namespace declarations
             ET.cleanup_namespaces(tree_root)
 
-            option_root = OptionNode(tree_root.tag, tree_root.sourceline)
+            option_root = OptionNode(
+                tree_root.tag,
+                tree_root.sourceline,
+                self.get_config_type(tree_root.tag),
+            )
             artifact.add_child(option_root)
             for child in tree_root:
                 if child.tag is not ET.Comment:
@@ -96,7 +100,8 @@ class MavenPlugin(Plugin):
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
         name = self._make_name(subtree_root)
         if name:
-            option = OptionNode(name, subtree_root.sourceline)
+            config_type = self.get_config_type(name)
+            option = OptionNode(name, subtree_root.sourceline, config_type)
             parent_node.add_child(option)
 
             self._add_attribs(subtree_root, option)
@@ -105,8 +110,6 @@ class MavenPlugin(Plugin):
             if text:
                 text = text.strip()
                 if text:
-
-                    config_type = self.get_config_type(option.name)
 
                     name = (
                         f"{option.name}:{text}"
@@ -129,15 +132,14 @@ class MavenPlugin(Plugin):
     def _add_attribs(subtree_root: _Element, current_node: OptionNode):
         current_attribs = subtree_root.attrib
         for key in current_attribs:
-            option = OptionNode(key, subtree_root.sourceline)
+            config_type = MavenPlugin.get_config_type(key)
+            option = OptionNode(key, subtree_root.sourceline, config_type)
             current_node.add_child(option)
             value = current_attribs[key]
 
-            config_type = MavenPlugin.get_config_type(option.name)
-
             name = (
                 f"{option.name}:{value}"
-                if config_type == ConfigType.VERSION_NUMBER
+                if option.config_type == ConfigType.VERSION_NUMBER
                 else value
             )
 
@@ -229,7 +231,9 @@ class MavenPlugin(Plugin):
 
             executable_name = f"{artifactid}{version}.{packaging}"
 
-            option_node = OptionNode("ExecutableName", location)
+            option_node = OptionNode(
+                "ExecutableName", location, ConfigType.PATH
+            )
             value_node = ValueNode(executable_name_prefix + executable_name)
 
             artifact.add_child(option_node)
@@ -238,7 +242,7 @@ class MavenPlugin(Plugin):
             if version != "":
                 executable_name_no_version = f"{artifactid}.{packaging}"
                 option_node_no_version = OptionNode(
-                    "ExecutableNameNoVersion", location
+                    "ExecutableNameNoVersion", location, ConfigType.PATH
                 )
                 artifact.add_child(option_node_no_version)
                 option_node_no_version.add_child(
@@ -315,8 +319,11 @@ class MavenPlugin(Plugin):
         :param name: option name
         :return: ConfigType
         """
-        if name in ("modelVersion", "version"):
+        if name in ("modelVersion", "version", "source", "target"):
             return ConfigType.VERSION_NUMBER
+
+        if name == "artifactId":
+            return ConfigType.NAME
 
         # TODO: Check for other config types
 

@@ -55,11 +55,20 @@ def test_analyze(get_config):
     conflicts_csv_path = os.path.join(
         analysis_dir, f"conflicts_{project_name}.csv"
     )
+    stats_csv_path = os.path.join(
+        analysis_dir, f"commit_stats_{project_name}.csv"
+    )
 
     assert os.path.exists(conflicts_csv_path)
 
-    with open(conflicts_csv_path, "r", encoding="utf-8") as csv_stats_file:
-        reader = csv.DictReader(csv_stats_file)
+    with open(conflicts_csv_path, "r", encoding="utf-8") as csv_conflicts_file:
+        reader = csv.DictReader(csv_conflicts_file)
         rows = list(reader)
 
         assert len(rows) == 2
+
+    with open(stats_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        assert len(rows) == 1

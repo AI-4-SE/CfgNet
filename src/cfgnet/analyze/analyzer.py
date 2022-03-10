@@ -22,12 +22,14 @@ from cfgnet.vcs.git import Git
 from cfgnet.vcs.git_history import GitHistory
 from cfgnet.network.network import Network, NetworkConfiguration
 from cfgnet.analyze.csv_writer import CSVWriter
+from cfgnet.utility.statistics import CommitStatistics
 
 
 class Analyzer:
     def __init__(self, cfg: NetworkConfiguration):
         self.cfg: NetworkConfiguration = cfg
         self.conflicts_cvs_path: Optional[str] = None
+        self.stats_csv_path: Optional[str] = None
         self.time_last_progress_print: float = 0
         self._setup_dirs()
 
@@ -45,9 +47,13 @@ class Analyzer:
         self.conflicts_csv_path = os.path.join(
             analysis_dir, f"conflicts_{self.cfg.project_name()}.csv"
         )
+        self.commit_stats_file = os.path.join(
+            analysis_dir, f"commit_stats_{self.cfg.project_name()}.csv"
+        )
 
-        if os.path.exists(self.conflicts_csv_path):
-            os.remove(self.conflicts_csv_path)
+        for path in [self.conflicts_csv_path, self.commit_stats_file]:
+            if os.path.exists(path):
+                os.remove(path)
 
     def _print_progress(self, num_commit: int, final: bool = False) -> None:
         """Print the progress of th analysis."""
@@ -76,19 +82,34 @@ class Analyzer:
 
         try:
             ref_network = Network.init_network(cfg=self.cfg)
-            while history.has_next_commit():
-                commit = history.next_commit()
+            with open(
+                self.commit_stats_file, "w+", encoding="utf-8"
+            ) as stats_csv:
+                CommitStatistics.setup_writer(stats_csv)
+                stats_prev = CommitStatistics()
+                while history.has_next_commit():
+                    commit = history.next_commit()
+                    commit_number = history.commit_index
 
-                detected_conflicts, ref_network = ref_network.validate(
-                    commit.hexsha
-                )
+                    detected_conflicts, ref_network = ref_network.validate(
+                        commit.hexsha
+                    )
 
-                conflicts.update(detected_conflicts)
+                    conflicts.update(detected_conflicts)
 
-                self._print_progress(num_commit=history.commit_index + 1)
+                    stats = CommitStatistics.calc_stats(
+                        commit=commit,
+                        commit_number=commit_number,
+                        network=ref_network,
+                        conflicts=conflicts,
+                        prev=stats_prev,
+                    )
+                    CommitStatistics.write_row(stats)
 
-                if commit.hexsha == commit_hash_pre_analysis:
-                    break
+                    self._print_progress(num_commit=commit_number + 1)
+
+                    if commit.hexsha == commit_hash_pre_analysis:
+                        break
 
         except Exception as error:
             logging.error(

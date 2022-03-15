@@ -1,0 +1,24 @@
+From 61a1f60756dc1f94484d61f2433284ec662b6f81 Mon Sep 17 00:00:00 2001
+From: simisimon <Bastisimon95@googlemail.com>
+Date: Tue, 15 Mar 2022 16:58:35 +0100
+Subject: [PATCH 2/6] Add Dockerfile
+
+---
+ Dockerfile | 5 +++++
+ 1 file changed, 5 insertions(+)
+ create mode 100644 Dockerfile
+
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..4aa00ce
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1,5 @@
++FROM java:8 as builder
++
++EXPOSE 1234
++
++ADD --chown=1 /foo.jar bar.jar
+-- 
+2.25.1
+

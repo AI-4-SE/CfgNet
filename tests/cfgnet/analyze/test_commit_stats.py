@@ -22,11 +22,16 @@ from cfgnet.analyze.analyzer import Analyzer
 from tests.utility.temporary_repository import TemporaryRepository
 
 
-TOTAL_OPTIONS = ["8", "17", "17", "16", "17", "17"]
-NUM_VALUE_NODES_CHANGED = ["0", "0", "1", "0", "0", "3"]
-NUM_VALUE_NODES_ADDED = ["8", "9", "0", "0", "1", "0"]
-NUM_VALUE_NODES_REMOVED = ["0", "0", "0", "1", "0", "0"]
-NUM_CONFIG_FILES_CHANGED = ["1", "1", "1", "1", "1", "2"]
+TOTAL_OPTIONS = ["8", "17", "17", "16", "17", "17", "21", "21"]
+TOTAL_VALUES = ["6", "13", "13", "12", "13", "13", "16", "16"]
+NUM_VALUE_NODES_CHANGED = ["0", "0", "1", "0", "0", "3", "0", "1"]
+NUM_VALUE_NODES_ADDED = ["6", "7", "0", "0", "1", "0", "3", "0"]
+NUM_VALUE_NODES_REMOVED = ["0", "0", "0", "1", "0", "0", "0", "0"]
+NUM_CONFIG_FILES_CHANGED = ["1", "1", "1", "1", "1", "2", "1", "1"]
+TOTAL_LINKS = ["0", "0", "0", "0", "0", "0", "1", "0"]
+LINKS_ADDED = ["0", "0", "0", "0", "0", "0", "1", "0"]
+LINKS_REMOVED = ["0", "0", "0", "0", "0", "0", "0", "1"]
+CONFLICTS_DETECTED = ["0", "0", "0", "0", "0", "0", "0", "1"]
 
 
 @pytest.fixture(name="get_repo")
@@ -65,7 +70,7 @@ def test_number_of_commits(get_csv_path):
         reader = csv.DictReader(csv_stats_file)
         rows = list(reader)
 
-        assert len(rows) == 6
+        assert len(rows) == 8
 
 
 def test_total_option_number(get_csv_path):
@@ -89,12 +94,23 @@ def test_num_config_file_changed(get_csv_path):
             )
 
 
+def test_total_value_nodes(get_csv_path):
+    with open(get_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        for i in range(len(rows)):
+            print("added: ", i)
+            assert rows[i]["total_value_nodes"] == TOTAL_VALUES[i]
+
+
 def test_num_value_nodes_added(get_csv_path):
     with open(get_csv_path, "r", encoding="utf-8") as csv_stats_file:
         reader = csv.DictReader(csv_stats_file)
         rows = list(reader)
 
         for i in range(len(rows)):
+            print("added: ", i)
             assert rows[i]["num_value_nodes_added"] == NUM_VALUE_NODES_ADDED[i]
 
 
@@ -104,6 +120,7 @@ def test_num_value_nodes_removed(get_csv_path):
         rows = list(reader)
 
         for i in range(len(rows)):
+            print("removed: ", i)
             assert (
                 rows[i]["num_value_nodes_removed"]
                 == NUM_VALUE_NODES_REMOVED[i]
@@ -120,3 +137,39 @@ def test_num_value_nodes_changed(get_csv_path):
                 rows[i]["num_value_nodes_changed"]
                 == NUM_VALUE_NODES_CHANGED[i]
             )
+
+
+def test_total_links(get_csv_path):
+    with open(get_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        for i in range(len(rows)):
+            assert rows[i]["total_links"] == TOTAL_LINKS[i]
+
+
+def test_links_added(get_csv_path):
+    with open(get_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        for i in range(len(rows)):
+            assert rows[i]["links_added"] == LINKS_ADDED[i]
+
+
+def test_links_removed(get_csv_path):
+    with open(get_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        for i in range(len(rows)):
+            assert rows[i]["links_removed"] == LINKS_REMOVED[i]
+
+
+def test_conflicts_detected(get_csv_path):
+    with open(get_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        for i in range(len(rows)):
+            assert rows[i]["conflicts_detected"] == CONFLICTS_DETECTED[i]

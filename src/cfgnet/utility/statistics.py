@@ -29,16 +29,19 @@ class CommitStatistics:
     def __init__(self, commit=None):
         self.commit_hash = None
         self.commit_number = 0
-        self.total_artifact_nodes = 0
+        self.total_num_artifact_nodes = 0
+        self.num_configuration_files_changed = 0
+        self.total_config_files = set()
+        self.config_files_changed = set()
         self.total_option_nodes = 0
+        self.total_value_nodes = 0
         self.num_value_nodes_added = 0
         self.num_value_nodes_removed = 0
         self.num_value_nodes_changed = 0
         self.total_links = 0
-        self.total_links_changed = 0
-        self.num_configuration_files_changed = 0
-        self.num_detected_conflicts = 0
-        self.num_fixed_conflicts = 0
+        self.links_added = 0
+        self.links_removed = 0
+        self.conflicts_detected = 0
 
         self._value_node_ids = set()
         self._value_node_parent_ids = set()
@@ -59,22 +62,37 @@ class CommitStatistics:
     ) -> "CommitStatistics":
         stats = CommitStatistics(commit=commit)
 
-        stats._value_node_ids = {
-            node.id for node in network.get_nodes(ValueNode)
-        }
-        stats._value_node_parent_ids = {
-            node.parent.id for node in network.get_nodes(ValueNode)
-        }
-
+        # commit data
         stats.commit_number = commit_number
+        stats.commit_hash = commit.hexsha
+
+        # artifact data
         artifact_nodes = network.get_nodes(ArtifactNode)
-        stats.total_artifact_nodes = len(artifact_nodes)
-        stats.total_option_nodes = len(network.get_nodes(OptionNode))
+        stats.total_num_artifact_nodes = len(artifact_nodes)
+        stats.total_config_files = {
+            node.rel_file_path for node in artifact_nodes
+        }
+        files_changed = set(commit.stats.files.keys())
+        stats.config_files_changed = stats.total_config_files.intersection(
+            files_changed
+        )
+        stats.num_configuration_files_changed = len(stats.config_files_changed)
+
+        # option data
+        option_nodes = network.get_nodes(OptionNode)
+        stats.total_option_nodes = len(option_nodes)
+
+        # value data
+        value_nodes = network.get_nodes(ValueNode)
+        stats.total_value_nodes = len(value_nodes)
+        stats._value_node_ids = {node.id for node in value_nodes}
+        stats._value_node_parent_ids = {node.parent.id for node in value_nodes}
+
         stats.num_value_nodes_added = len(
-            prev._value_node_ids.difference(stats._value_node_parent_ids)
+            stats._value_node_ids.difference(prev._value_node_ids)
         )
         stats.num_value_nodes_removed = len(
-            stats._value_node_ids.difference(prev._value_node_parent_ids)
+            prev._value_node_ids.difference(stats._value_node_ids)
         )
 
         stats.num_value_nodes_changed = 0
@@ -90,23 +108,17 @@ class CommitStatistics:
             value_new = list(filter(same_parent, stats._value_node_ids))[0]
             if value_prev != value_new:
                 stats.num_value_nodes_changed += 1
+                stats.num_value_nodes_added -= 1
+                stats.num_value_nodes_removed -= 1
 
-        stats._links = set(network.links)
+        # link data
+        stats._links = network.links
         stats.total_links = len(stats._links)
-        stats.total_links_changed = len(
-            prev._links.symmetric_difference(stats._links)
-        )
+        stats.links_added = len(stats._links.difference(prev._links))
+        stats.links_removed = len(prev._links.difference(stats._links))
 
-        config_files = {node.rel_file_path for node in artifact_nodes}
-        files_changed = set(commit.stats.files.keys())
-        config_files_changed = config_files.intersection(files_changed)
-        stats.num_configuration_files_changed = len(config_files_changed)
-
-        stats._conflicts = set(conflicts)
-        new_conflicts = stats._conflicts.difference(prev._conflicts)
-        fixed_conflicts = prev._conflicts.difference(stats._conflicts)
-        stats.num_detected_conflicts = Conflict.count_total(new_conflicts)
-        stats.num_fixed_conflicts = Conflict.count_total(fixed_conflicts)
+        # conflict data
+        stats.conflicts_detected = len(list(conflicts))
 
         return stats
 
@@ -131,16 +143,19 @@ class CommitStatistics:
             {
                 "commit_number": self.commit_number,
                 "commit_hash": self.commit_hash,
-                "total_option_nodes": self.total_option_nodes,
-                "num_value_nodes_changed": self.num_value_nodes_changed,
-                "total_artifact_nodes": self.total_artifact_nodes,
-                "total_links": self.total_links,
-                "total_links_changed": self.total_links_changed,
+                "total_num_artifact_nodes": self.total_num_artifact_nodes,
                 "num_configuration_files_changed": self.num_configuration_files_changed,
-                "num_detected_conflicts": self.num_detected_conflicts,
-                "num_fixed_conflicts": self.num_fixed_conflicts,
+                "total_config_files": sorted(self.total_config_files),
+                "config_files_changed": sorted(self.config_files_changed),
+                "total_option_nodes": self.total_option_nodes,
+                "total_value_nodes": self.total_value_nodes,
+                "num_value_nodes_changed": self.num_value_nodes_changed,
                 "num_value_nodes_added": self.num_value_nodes_added,
                 "num_value_nodes_removed": self.num_value_nodes_removed,
+                "total_links": self.total_links,
+                "links_added": self.links_added,
+                "links_removed": self.links_removed,
+                "conflicts_detected": self.conflicts_detected,
             }
         )
         return data

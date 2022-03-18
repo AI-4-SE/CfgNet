@@ -86,7 +86,16 @@ class Analyzer:
                 self.commit_stats_file, "w+", encoding="utf-8"
             ) as stats_csv:
                 CommitStatistics.setup_writer(stats_csv)
-                stats_prev = CommitStatistics()
+                initial_stats = CommitStatistics()
+                stats = CommitStatistics.calc_stats(
+                    commit=commit,
+                    commit_number=history.commit_index,
+                    network=ref_network,
+                    conflicts=conflicts,
+                    prev=initial_stats,
+                )
+                CommitStatistics.write_row(stats)
+
                 while history.has_next_commit():
                     commit = history.next_commit()
                     commit_number = history.commit_index
@@ -101,8 +110,8 @@ class Analyzer:
                         commit=commit,
                         commit_number=commit_number,
                         network=ref_network,
-                        conflicts=conflicts,
-                        prev=stats_prev,
+                        conflicts=detected_conflicts,
+                        prev=stats,
                     )
                     CommitStatistics.write_row(stats)
 

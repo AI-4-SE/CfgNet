@@ -14,6 +14,7 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import csv
+import re
 from collections import OrderedDict
 from typing import List, Iterable
 
@@ -40,6 +41,12 @@ class CommitStatistics:
         self.links_added = 0
         self.links_removed = 0
         self.conflicts_detected = 0
+
+        self.docker_nodes = {}
+        self.nodejs_nodes = {}
+        self.maven_nodes = {}
+        self.travis_nodes = {}
+        self.docker_compose_nodes = {}
 
         self._value_node_ids = set()
         self._value_node_parent_ids = set()
@@ -118,29 +125,55 @@ class CommitStatistics:
         # conflict data
         stats.conflicts_detected = len(list(conflicts))
 
+        # nodes data
+        stats.docker_nodes = CommitStatistics.parse_options(
+            network, r"Dockerfile"
+        )
+        stats.nodejs_nodes = CommitStatistics.parse_options(
+            network, r"package.json"
+        )
+        stats.maven_nodes = CommitStatistics.parse_options(network, r"pom.xml")
+        stats.docker_compose_nodes = CommitStatistics.parse_options(
+            network, r"docker-compose(.\w+)?.yml"
+        )
+        stats.travis_nodes = CommitStatistics.parse_options(
+            network, r".travis.yml"
+        )
+
         return stats
 
     @staticmethod
-    def setup_writer(commit_stats_file) -> None:
-        with open(commit_stats_file, "w+", encoding="utf-8") as stats_csv:
-            CommitStatistics.writer = csv.DictWriter(
-                stats_csv, fieldnames=CommitStatistics.fieldnames()
-            )
-            CommitStatistics.writer.writeheader()
-
-    @staticmethod
-    def write_stats_to_csv(file_path: str, commit_data: List["CommitStatistics"]) -> None:
+    def write_stats_to_csv(
+        file_path: str, commit_data: List["CommitStatistics"]
+    ) -> None:
         with open(file_path, "w+", encoding="utf-8") as stats_csv:
             writer = csv.DictWriter(
-                stats_csv, fieldnames=CommitStatistics.fieldnames()
+                stats_csv,
+                fieldnames=CommitStatistics.commit_stats_fieldnames(),
             )
             writer.writeheader()
             for stats in commit_data:
                 writer.writerow(stats.data_dict())
 
     @staticmethod
-    def fieldnames():
+    def write_options_to_csv(
+        nodes_file_path: str, commit_data: List["CommitStatistics"]
+    ) -> None:
+        with open(nodes_file_path, "w+", encoding="utf-8") as stats_csv:
+            writer = csv.DictWriter(
+                stats_csv, fieldnames=CommitStatistics.nodes_fieldnames()
+            )
+            writer.writeheader()
+            for stats in commit_data:
+                writer.writerow(stats.option_dict())
+
+    @staticmethod
+    def commit_stats_fieldnames():
         return list(CommitStatistics().data_dict().keys())
+
+    @staticmethod
+    def nodes_fieldnames():
+        return list(CommitStatistics().option_dict().keys())
 
     def data_dict(self):
         data = OrderedDict(
@@ -162,4 +195,43 @@ class CommitStatistics:
                 "conflicts_detected": self.conflicts_detected,
             }
         )
+        return data
+
+    def option_dict(self):
+        data = OrderedDict(
+            {
+                "docker_nodes": self.docker_nodes,
+                "docker_compose_nodes": self.docker_compose_nodes,
+                "maven_nodes": self.maven_nodes,
+                "nodejs_nodes": self.nodejs_nodes,
+                "travis_nodes": self.travis_nodes,
+            }
+        )
+        return data
+
+    @staticmethod
+    def parse_options(network: Network, file_name: str) -> dict:
+        artifacts = list(
+            filter(
+                lambda x: isinstance(x, ArtifactNode)
+                and re.compile(file_name).search(x.id),
+                network.get_nodes(node_type=ArtifactNode),
+            )
+        )
+
+        data = {}
+
+        for artifact in artifacts:
+            artifact_data = {}
+            options = filter(
+                lambda x: x.prevalue_node,
+                artifact.get_nodes(node_type=OptionNode),
+            )
+            for option in options:
+                parts = option.id.split("::::")
+                option_name = "::::".join(parts[2:])
+                artifact_data[f"{option_name}"] = option.children[0].name
+
+            data[artifact.rel_file_path] = artifact_data
+
         return data

@@ -51,6 +51,10 @@ class Analyzer:
             analysis_dir, f"commit_stats_{self.cfg.project_name()}.csv"
         )
 
+        self.option_stats_file = os.path.join(
+            analysis_dir, f"option_stats_{self.cfg.project_name()}.csv"
+        )
+
         for path in [self.conflicts_csv_path, self.commit_stats_file]:
             if os.path.exists(path):
                 os.remove(path)
@@ -138,7 +142,12 @@ class Analyzer:
                 csv_path=self.conflicts_csv_path, conflicts=conflicts
             )
 
-            CommitStatistics.write_stats_to_csv(self.commit_stats_file, commit_stats)
+            CommitStatistics.write_stats_to_csv(
+                self.commit_stats_file, commit_stats
+            )
+            CommitStatistics.write_options_to_csv(
+                self.option_stats_file, commit_stats
+            )
 
             self._print_progress(
                 num_commit=history.commit_index + 1, final=True

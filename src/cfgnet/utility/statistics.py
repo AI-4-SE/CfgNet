@@ -15,7 +15,7 @@
 
 import csv
 from collections import OrderedDict
-from typing import Optional, Iterable
+from typing import List, Iterable
 
 from cfgnet.network.network import Network
 from cfgnet.network.nodes import OptionNode, ArtifactNode, ValueNode
@@ -24,8 +24,6 @@ from cfgnet.vcs.git import Commit
 
 
 class CommitStatistics:
-    writer: Optional[csv.DictWriter] = None
-
     def __init__(self, commit=None):
         self.commit_hash = None
         self.commit_number = 0
@@ -124,15 +122,21 @@ class CommitStatistics:
 
     @staticmethod
     def setup_writer(commit_stats_file) -> None:
-        CommitStatistics.writer = csv.DictWriter(
-            commit_stats_file, fieldnames=CommitStatistics.fieldnames()
-        )
-        CommitStatistics.writer.writeheader()
+        with open(commit_stats_file, "w+", encoding="utf-8") as stats_csv:
+            CommitStatistics.writer = csv.DictWriter(
+                stats_csv, fieldnames=CommitStatistics.fieldnames()
+            )
+            CommitStatistics.writer.writeheader()
 
     @staticmethod
-    def write_row(stats):
-        if CommitStatistics.writer is not None:
-            CommitStatistics.writer.writerow(stats.data_dict())
+    def write_stats_to_csv(file_path: str, commit_data: List["CommitStatistics"]) -> None:
+        with open(file_path, "w+", encoding="utf-8") as stats_csv:
+            writer = csv.DictWriter(
+                stats_csv, fieldnames=CommitStatistics.fieldnames()
+            )
+            writer.writeheader()
+            for stats in commit_data:
+                writer.writerow(stats.data_dict())
 
     @staticmethod
     def fieldnames():

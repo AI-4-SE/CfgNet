@@ -17,7 +17,7 @@ import os
 import logging
 import time
 
-from typing import Optional, Set
+from typing import Optional, Set, List
 from cfgnet.vcs.git import Git
 from cfgnet.vcs.git_history import GitHistory
 from cfgnet.network.network import Network, NetworkConfiguration
@@ -77,48 +77,45 @@ class Analyzer:
         commit_hash_pre_analysis = repo.get_current_commit_hash()
 
         conflicts: Set = set()
+        commit_stats: List[CommitStatistics] = []
         history = GitHistory(repo)
         commit = history.restore_initial_commit()
 
         try:
             ref_network = Network.init_network(cfg=self.cfg)
-            with open(
-                self.commit_stats_file, "w+", encoding="utf-8"
-            ) as stats_csv:
-                CommitStatistics.setup_writer(stats_csv)
-                initial_stats = CommitStatistics()
+            initial_stats = CommitStatistics()
+            stats = CommitStatistics.calc_stats(
+                commit=commit,
+                commit_number=history.commit_index,
+                network=ref_network,
+                conflicts=conflicts,
+                prev=initial_stats,
+            )
+            commit_stats.append(stats)
+
+            while history.has_next_commit():
+                commit = history.next_commit()
+                commit_number = history.commit_index
+
+                detected_conflicts, ref_network = ref_network.validate(
+                    commit.hexsha
+                )
+
+                conflicts.update(detected_conflicts)
+
                 stats = CommitStatistics.calc_stats(
                     commit=commit,
-                    commit_number=history.commit_index,
+                    commit_number=commit_number,
                     network=ref_network,
-                    conflicts=conflicts,
-                    prev=initial_stats,
+                    conflicts=detected_conflicts,
+                    prev=stats,
                 )
-                CommitStatistics.write_row(stats)
+                commit_stats.append(stats)
 
-                while history.has_next_commit():
-                    commit = history.next_commit()
-                    commit_number = history.commit_index
+                self._print_progress(num_commit=commit_number + 1)
 
-                    detected_conflicts, ref_network = ref_network.validate(
-                        commit.hexsha
-                    )
-
-                    conflicts.update(detected_conflicts)
-
-                    stats = CommitStatistics.calc_stats(
-                        commit=commit,
-                        commit_number=commit_number,
-                        network=ref_network,
-                        conflicts=detected_conflicts,
-                        prev=stats,
-                    )
-                    CommitStatistics.write_row(stats)
-
-                    self._print_progress(num_commit=commit_number + 1)
-
-                    if commit.hexsha == commit_hash_pre_analysis:
-                        break
+                if commit.hexsha == commit_hash_pre_analysis:
+                    break
 
         except Exception as error:
             logging.error(
@@ -140,6 +137,8 @@ class Analyzer:
             CSVWriter.write_conflicts_to_csv(
                 csv_path=self.conflicts_csv_path, conflicts=conflicts
             )
+
+            CommitStatistics.write_stats_to_csv(self.commit_stats_file, commit_stats)
 
             self._print_progress(
                 num_commit=history.commit_index + 1, final=True

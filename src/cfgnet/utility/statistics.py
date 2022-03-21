@@ -30,7 +30,6 @@ class CommitStatistics:
         self.commit_number = 0
         self.total_num_artifact_nodes = 0
         self.num_configuration_files_changed = 0
-        self.total_config_files = set()
         self.config_files_changed = set()
         self.total_option_nodes = 0
         self.total_value_nodes = 0
@@ -74,11 +73,9 @@ class CommitStatistics:
         # artifact data
         artifact_nodes = network.get_nodes(ArtifactNode)
         stats.total_num_artifact_nodes = len(artifact_nodes)
-        stats.total_config_files = {
-            node.rel_file_path for node in artifact_nodes
-        }
+        total_config_files = {node.rel_file_path for node in artifact_nodes}
         files_changed = set(commit.stats.files.keys())
-        stats.config_files_changed = stats.total_config_files.intersection(
+        stats.config_files_changed = total_config_files.intersection(
             files_changed
         )
         stats.num_configuration_files_changed = len(stats.config_files_changed)
@@ -182,7 +179,6 @@ class CommitStatistics:
                 "commit_hash": self.commit_hash,
                 "total_num_artifact_nodes": self.total_num_artifact_nodes,
                 "num_configuration_files_changed": self.num_configuration_files_changed,
-                "total_config_files": sorted(self.total_config_files),
                 "config_files_changed": sorted(self.config_files_changed),
                 "total_option_nodes": self.total_option_nodes,
                 "total_value_nodes": self.total_value_nodes,

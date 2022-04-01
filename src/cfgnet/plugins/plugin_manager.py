@@ -19,6 +19,7 @@ from cfgnet.plugins.plugin import Plugin
 from cfgnet.plugins.concept.docker_plugin import DockerPlugin
 from cfgnet.plugins.concept.maven_plugin import MavenPlugin
 from cfgnet.plugins.concept.nodejs_plugin import NodejsPlugin
+from cfgnet.plugins.concept.cypress_plugin import CypressPlugin
 from cfgnet.plugins.concept.travis_plugin import TravisPlugin
 from cfgnet.plugins.concept.docker_compose_plugin import DockerComposePlugin
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
@@ -33,6 +34,7 @@ class PluginManager:
         DockerPlugin(),
         MavenPlugin(),
         NodejsPlugin(),
+        CypressPlugin(),
         DockerComposePlugin(),
         TravisPlugin(),
     ]

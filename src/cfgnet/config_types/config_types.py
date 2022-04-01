@@ -41,6 +41,7 @@ class ConfigType(Enum):
     PATH = auto()
     COMMAND = auto()
     LICENSE = auto()
+    ENVIRONMENT = auto()
 
     # Booleans
     BOOLEAN = auto()

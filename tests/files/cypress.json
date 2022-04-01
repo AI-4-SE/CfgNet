@@ -1,0 +1,19 @@
+{
+  "baseUrl": "https://test:3000/",
+  "fixturesFolder": "cypress/fixtures",
+  "env": {
+    "backendUrl": "https://test/api",
+    "phone": "1234",
+    "password": "test",
+    "staff": {
+      "phone": "1234",
+      "password": "test"
+    }
+  },
+  "defaultCommandTimeout": 8000,
+  "projectId": "abcd",
+  "retries": {
+    "runMode": 2
+  },
+  "video": false
+}

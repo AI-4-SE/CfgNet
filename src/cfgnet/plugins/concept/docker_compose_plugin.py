@@ -31,9 +31,10 @@ class DockerComposePlugin(YAMLPlugin):
             return True
         return False
 
-    def _parse_scalar_node(self, node, parent):
+    @staticmethod
+    def _parse_scalar_node(node, parent):
         if node.value != "":
-            match = self.ports.match(node.value)
+            match = DockerComposePlugin.ports.match(node.value)
             if match is not None:
                 port_in = ValueNode(name=match.group("in"))
                 port_out = ValueNode(name=match.group("out"))

@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "preserveConstEnums": true,
+        "outFile": "../../test.js",
+        "sourceMap": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+}

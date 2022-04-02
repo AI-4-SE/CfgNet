@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(set(all_plugins)) == 9
+    assert len(set(all_plugins)) == 10
 
 
 def test_get_responsible_plugin():
@@ -41,6 +41,9 @@ def test_get_responsible_plugin():
     cypress_plugin = PluginManager.get_responsible_plugin(
         "path/to/cypress.json"
     )
+    tsconfig_plugin = PluginManager.get_responsible_plugin(
+        "path/to/tsconfig.json"
+    )
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -52,3 +55,4 @@ def test_get_responsible_plugin():
     assert properties_plugin.concept_name == "configparser"
     assert toml_plugin.concept_name == "toml"
     assert cypress_plugin.concept_name == "cypress"
+    assert tsconfig_plugin.concept_name == "tsconfig"

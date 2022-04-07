@@ -1,0 +1,3376 @@
+[
+    {
+        "full_name": "sklearn.base.BaseEstimator",
+        "name": "BaseEstimator",
+        "params": [
+            "deep"
+        ]
+    },
+    {
+        "full_name": "sklearn.base.BiclusterMixin",
+        "name": "BiclusterMixin",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.base.ClassifierMixin",
+        "name": "ClassifierMixin",
+        "params": [
+            "X",
+            "y",
+            "sample_weight"
+        ]
+    },
+    {
+        "full_name": "sklearn.base.ClusterMixin",
+        "name": "ClusterMixin",
+        "params": [
+            "X",
+            "y"
+        ]
+    },
+    {
+        "full_name": "sklearn.base.DensityMixin",
+        "name": "DensityMixin",
+        "params": [
+            "X",
+            "y"
+        ]
+    },
+    {
+        "full_name": "sklearn.base.RegressorMixin",
+        "name": "RegressorMixin",
+        "params": [
+            "X",
+            "y",
+            "sample_weight"
+        ]
+    },
+    {
+        "full_name": "sklearn.base.TransformerMixin",
+        "name": "TransformerMixin",
+        "params": [
+            "X",
+            "y",
+            "**fit_params"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectorMixin",
+        "name": "SelectorMixin",
+        "params": [
+            "X",
+            "y",
+            "**fit_params"
+        ]
+    },
+    {
+        "full_name": "sklearn.calibration.CalibratedClassifierCV",
+        "name": "CalibratedClassifierCV",
+        "params": [
+            "base_estimator",
+            "method",
+            "cv",
+            "n_jobs",
+            "ensemble"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.AffinityPropagation",
+        "name": "AffinityPropagation",
+        "params": [
+            "damping",
+            "max_iter",
+            "convergence_iter",
+            "copy",
+            "preference",
+            "affinity",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.AgglomerativeClustering",
+        "name": "AgglomerativeClustering",
+        "params": [
+            "n_clusters",
+            "affinity",
+            "memory",
+            "connectivity",
+            "compute_full_tree",
+            "linkage",
+            "distance_threshold",
+            "compute_distances"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.Birch",
+        "name": "Birch",
+        "params": [
+            "threshold",
+            "branching_factor",
+            "n_clusters",
+            "compute_labels",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.DBSCAN",
+        "name": "DBSCAN",
+        "params": [
+            "eps",
+            "min_samples",
+            "metric",
+            "metric_params",
+            "algorithm",
+            "leaf_size",
+            "p",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.FeatureAgglomeration",
+        "name": "FeatureAgglomeration",
+        "params": [
+            "n_clusters",
+            "affinity",
+            "memory",
+            "connectivity",
+            "compute_full_tree",
+            "linkage",
+            "pooling_func",
+            "distance_threshold",
+            "compute_distances"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.KMeans",
+        "name": "KMeans",
+        "params": [
+            "n_clusters",
+            "init",
+            "n_init",
+            "max_iter",
+            "tol",
+            "verbose",
+            "random_state",
+            "copy_x",
+            "algorithm"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.MiniBatchKMeans",
+        "name": "MiniBatchKMeans",
+        "params": [
+            "n_clusters",
+            "init",
+            "max_iter",
+            "batch_size",
+            "verbose",
+            "compute_labels",
+            "random_state",
+            "tol",
+            "max_no_improvement",
+            "init_size",
+            "n_init",
+            "reassignment_ratio"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.MeanShift",
+        "name": "MeanShift",
+        "params": [
+            "bandwidth",
+            "seeds",
+            "bin_seeding",
+            "min_bin_freq",
+            "cluster_all",
+            "n_jobs",
+            "max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.OPTICS",
+        "name": "OPTICS",
+        "params": [
+            "min_samples",
+            "max_eps",
+            "metric",
+            "p",
+            "metric_params",
+            "cluster_method",
+            "eps",
+            "xi",
+            "predecessor_correction",
+            "min_cluster_size",
+            "algorithm",
+            "leaf_size",
+            "memory",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.SpectralClustering",
+        "name": "SpectralClustering",
+        "params": [
+            "n_clusters",
+            "eigen_solver",
+            "n_components",
+            "random_state",
+            "n_init",
+            "gamma",
+            "affinity",
+            "n_neighbors",
+            "eigen_tol",
+            "assign_labels",
+            "degree",
+            "coef0",
+            "kernel_params",
+            "n_jobs",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.SpectralBiclustering",
+        "name": "SpectralBiclustering",
+        "params": [
+            "n_clusters",
+            "method",
+            "n_components",
+            "n_best",
+            "svd_method",
+            "n_svd_vecs",
+            "mini_batch",
+            "init",
+            "n_init",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.SpectralCoclustering",
+        "name": "SpectralCoclustering",
+        "params": [
+            "n_clusters",
+            "svd_method",
+            "n_svd_vecs",
+            "mini_batch",
+            "init",
+            "n_init",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.compose.ColumnTransformer",
+        "name": "ColumnTransformer",
+        "params": [
+            "transformers",
+            "remainder",
+            "sparse_threshold",
+            "n_jobs",
+            "transformer_weights",
+            "verbose",
+            "verbose_feature_names_out"
+        ]
+    },
+    {
+        "full_name": "sklearn.compose.TransformedTargetRegressor",
+        "name": "TransformedTargetRegressor",
+        "params": [
+            "regressor",
+            "transformer",
+            "func",
+            "inverse_func",
+            "check_inverse"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.EmpiricalCovariance",
+        "name": "EmpiricalCovariance",
+        "params": [
+            "store_precision",
+            "assume_centered"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.EllipticEnvelope",
+        "name": "EllipticEnvelope",
+        "params": [
+            "store_precision",
+            "assume_centered",
+            "support_fraction",
+            "contamination",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.GraphicalLasso",
+        "name": "GraphicalLasso",
+        "params": [
+            "alpha",
+            "mode",
+            "tol",
+            "enet_tol",
+            "max_iter",
+            "verbose",
+            "assume_centered"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.GraphicalLassoCV",
+        "name": "GraphicalLassoCV",
+        "params": [
+            "alphas",
+            "n_refinements",
+            "cv",
+            "tol",
+            "enet_tol",
+            "max_iter",
+            "mode",
+            "n_jobs",
+            "verbose",
+            "assume_centered"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.LedoitWolf",
+        "name": "LedoitWolf",
+        "params": [
+            "store_precision",
+            "assume_centered",
+            "block_size"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.MinCovDet",
+        "name": "MinCovDet",
+        "params": [
+            "store_precision",
+            "assume_centered",
+            "support_fraction",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.OAS",
+        "name": "OAS",
+        "params": [
+            "store_precision",
+            "assume_centered"
+        ]
+    },
+    {
+        "full_name": "sklearn.covariance.ShrunkCovariance",
+        "name": "ShrunkCovariance",
+        "params": [
+            "store_precision",
+            "assume_centered",
+            "shrinkage"
+        ]
+    },
+    {
+        "full_name": "sklearn.cross_decomposition.CCA",
+        "name": "CCA",
+        "params": [
+            "n_components",
+            "scale",
+            "max_iter",
+            "tol",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.cross_decomposition.PLSCanonical",
+        "name": "PLSCanonical",
+        "params": [
+            "n_components",
+            "scale",
+            "algorithm",
+            "max_iter",
+            "tol",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.cross_decomposition.PLSRegression",
+        "name": "PLSRegression",
+        "params": [
+            "n_components",
+            "scale",
+            "max_iter",
+            "tol",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.cross_decomposition.PLSSVD",
+        "name": "PLSSVD",
+        "params": [
+            "n_components",
+            "scale",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.DictionaryLearning",
+        "name": "DictionaryLearning",
+        "params": [
+            "n_components",
+            "alpha",
+            "max_iter",
+            "tol",
+            "fit_algorithm",
+            "transform_algorithm",
+            "transform_n_nonzero_coefs",
+            "transform_alpha",
+            "n_jobs",
+            "code_init",
+            "dict_init",
+            "verbose",
+            "split_sign",
+            "random_state",
+            "positive_code",
+            "positive_dict",
+            "transform_max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.FactorAnalysis",
+        "name": "FactorAnalysis",
+        "params": [
+            "n_components",
+            "tol",
+            "copy",
+            "max_iter",
+            "noise_variance_init",
+            "svd_method",
+            "iterated_power",
+            "rotation",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.FastICA",
+        "name": "FastICA",
+        "params": [
+            "n_components",
+            "algorithm",
+            "whiten",
+            "fun",
+            "fun_args",
+            "max_iter",
+            "tol",
+            "w_init",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.IncrementalPCA",
+        "name": "IncrementalPCA",
+        "params": [
+            "n_components",
+            "whiten",
+            "copy",
+            "batch_size"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.KernelPCA",
+        "name": "KernelPCA",
+        "params": [
+            "n_components",
+            "kernel",
+            "gamma",
+            "degree",
+            "coef0",
+            "kernel_params",
+            "alpha",
+            "fit_inverse_transform",
+            "eigen_solver",
+            "tol",
+            "max_iter",
+            "iterated_power",
+            "remove_zero_eig",
+            "random_state",
+            "copy_X",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.LatentDirichletAllocation",
+        "name": "LatentDirichletAllocation",
+        "params": [
+            "n_components",
+            "doc_topic_prior",
+            "topic_word_prior",
+            "learning_method",
+            "learning_decay",
+            "learning_offset",
+            "max_iter",
+            "batch_size",
+            "evaluate_every",
+            "total_samples",
+            "perp_tol",
+            "mean_change_tol",
+            "max_doc_update_iter",
+            "n_jobs",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.MiniBatchDictionaryLearning",
+        "name": "MiniBatchDictionaryLearning",
+        "params": [
+            "n_components",
+            "alpha",
+            "n_iter",
+            "fit_algorithm",
+            "n_jobs",
+            "batch_size",
+            "shuffle",
+            "dict_init",
+            "transform_algorithm",
+            "transform_n_nonzero_coefs",
+            "transform_alpha",
+            "verbose",
+            "split_sign",
+            "random_state",
+            "positive_code",
+            "positive_dict",
+            "transform_max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.MiniBatchSparsePCA",
+        "name": "MiniBatchSparsePCA",
+        "params": [
+            "n_components",
+            "alpha",
+            "ridge_alpha",
+            "n_iter",
+            "callback",
+            "batch_size",
+            "verbose",
+            "shuffle",
+            "n_jobs",
+            "method",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.NMF",
+        "name": "NMF",
+        "params": [
+            "n_components",
+            "init",
+            "solver",
+            "beta_loss",
+            "tol",
+            "max_iter",
+            "random_state",
+            "alpha",
+            "alpha_W",
+            "alpha_H",
+            "l1_ratio",
+            "verbose",
+            "shuffle",
+            "regularization"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.PCA",
+        "name": "PCA",
+        "params": [
+            "n_components",
+            "copy",
+            "whiten",
+            "svd_solver",
+            "tol",
+            "iterated_power",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.SparsePCA",
+        "name": "SparsePCA",
+        "params": [
+            "n_components",
+            "alpha",
+            "ridge_alpha",
+            "max_iter",
+            "tol",
+            "method",
+            "n_jobs",
+            "U_init",
+            "V_init",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.SparseCoder",
+        "name": "SparseCoder",
+        "params": [
+            "dictionary",
+            "transform_algorithm",
+            "transform_n_nonzero_coefs",
+            "transform_alpha",
+            "split_sign",
+            "n_jobs",
+            "positive_code",
+            "transform_max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.decomposition.TruncatedSVD",
+        "name": "TruncatedSVD",
+        "params": [
+            "n_components",
+            "algorithm",
+            "n_iter",
+            "random_state",
+            "tol"
+        ]
+    },
+    {
+        "full_name": "sklearn.discriminant_analysis.LinearDiscriminantAnalysis",
+        "name": "LinearDiscriminantAnalysis",
+        "params": [
+            "solver",
+            "shrinkage",
+            "priors",
+            "n_components",
+            "store_covariance",
+            "tol",
+            "covariance_estimator"
+        ]
+    },
+    {
+        "full_name": "sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis",
+        "name": "QuadraticDiscriminantAnalysis",
+        "params": [
+            "priors",
+            "reg_param",
+            "store_covariance",
+            "tol"
+        ]
+    },
+    {
+        "full_name": "sklearn.dummy.DummyClassifier",
+        "name": "DummyClassifier",
+        "params": [
+            "strategy",
+            "random_state",
+            "constant"
+        ]
+    },
+    {
+        "full_name": "sklearn.dummy.DummyRegressor",
+        "name": "DummyRegressor",
+        "params": [
+            "strategy",
+            "constant",
+            "quantile"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.AdaBoostClassifier",
+        "name": "AdaBoostClassifier",
+        "params": [
+            "base_estimator",
+            "n_estimators",
+            "learning_rate",
+            "algorithm",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.AdaBoostRegressor",
+        "name": "AdaBoostRegressor",
+        "params": [
+            "base_estimator",
+            "n_estimators",
+            "learning_rate",
+            "loss",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.BaggingClassifier",
+        "name": "BaggingClassifier",
+        "params": [
+            "base_estimator",
+            "n_estimators",
+            "max_samples",
+            "max_features",
+            "bootstrap",
+            "bootstrap_features",
+            "oob_score",
+            "warm_start",
+            "n_jobs",
+            "random_state",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.BaggingRegressor",
+        "name": "BaggingRegressor",
+        "params": [
+            "base_estimator",
+            "n_estimators",
+            "max_samples",
+            "max_features",
+            "bootstrap",
+            "bootstrap_features",
+            "oob_score",
+            "warm_start",
+            "n_jobs",
+            "random_state",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.ExtraTreesClassifier",
+        "name": "ExtraTreesClassifier",
+        "params": [
+            "n_estimators",
+            "criterion",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "bootstrap",
+            "oob_score",
+            "n_jobs",
+            "random_state",
+            "verbose",
+            "warm_start",
+            "class_weight",
+            "ccp_alpha",
+            "max_samples"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.ExtraTreesRegressor",
+        "name": "ExtraTreesRegressor",
+        "params": [
+            "n_estimators",
+            "criterion",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "bootstrap",
+            "oob_score",
+            "n_jobs",
+            "random_state",
+            "verbose",
+            "warm_start",
+            "ccp_alpha",
+            "max_samples"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.GradientBoostingClassifier",
+        "name": "GradientBoostingClassifier",
+        "params": [
+            "loss",
+            "learning_rate",
+            "n_estimators",
+            "subsample",
+            "criterion",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_depth",
+            "min_impurity_decrease",
+            "init",
+            "random_state",
+            "max_features",
+            "verbose",
+            "max_leaf_nodes",
+            "warm_start",
+            "validation_fraction",
+            "n_iter_no_change",
+            "tol",
+            "ccp_alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.GradientBoostingRegressor",
+        "name": "GradientBoostingRegressor",
+        "params": [
+            "loss",
+            "learning_rate",
+            "n_estimators",
+            "subsample",
+            "criterion",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_depth",
+            "min_impurity_decrease",
+            "init",
+            "random_state",
+            "max_features",
+            "alpha",
+            "verbose",
+            "max_leaf_nodes",
+            "warm_start",
+            "validation_fraction",
+            "n_iter_no_change",
+            "tol",
+            "ccp_alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.IsolationForest",
+        "name": "IsolationForest",
+        "params": [
+            "n_estimators",
+            "max_samples",
+            "contamination",
+            "max_features",
+            "bootstrap",
+            "n_jobs",
+            "random_state",
+            "verbose",
+            "warm_start"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.RandomForestClassifier",
+        "name": "RandomForestClassifier",
+        "params": [
+            "n_estimators",
+            "criterion",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "bootstrap",
+            "oob_score",
+            "n_jobs",
+            "random_state",
+            "verbose",
+            "warm_start",
+            "class_weight",
+            "ccp_alpha",
+            "max_samples"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.RandomForestRegressor",
+        "name": "RandomForestRegressor",
+        "params": [
+            "n_estimators",
+            "criterion",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "bootstrap",
+            "oob_score",
+            "n_jobs",
+            "random_state",
+            "verbose",
+            "warm_start",
+            "ccp_alpha",
+            "max_samples"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.RandomTreesEmbedding",
+        "name": "RandomTreesEmbedding",
+        "params": [
+            "n_estimators",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "sparse_output",
+            "n_jobs",
+            "random_state",
+            "verbose",
+            "warm_start"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.StackingClassifier",
+        "name": "StackingClassifier",
+        "params": [
+            "estimators",
+            "final_estimator",
+            "cv",
+            "stack_method",
+            "n_jobs",
+            "passthrough",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.StackingRegressor",
+        "name": "StackingRegressor",
+        "params": [
+            "estimators",
+            "final_estimator",
+            "cv",
+            "n_jobs",
+            "passthrough",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.VotingClassifier",
+        "name": "VotingClassifier",
+        "params": [
+            "estimators",
+            "voting",
+            "weights",
+            "n_jobs",
+            "flatten_transform",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.VotingRegressor",
+        "name": "VotingRegressor",
+        "params": [
+            "estimators",
+            "weights",
+            "n_jobs",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.HistGradientBoostingRegressor",
+        "name": "HistGradientBoostingRegressor",
+        "params": [
+            "loss",
+            "learning_rate",
+            "max_iter",
+            "max_leaf_nodes",
+            "max_depth",
+            "min_samples_leaf",
+            "l2_regularization",
+            "max_bins",
+            "categorical_features",
+            "monotonic_cst",
+            "warm_start",
+            "early_stopping",
+            "scoring",
+            "validation_fraction",
+            "n_iter_no_change",
+            "tol",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.ensemble.HistGradientBoostingClassifier",
+        "name": "HistGradientBoostingClassifier",
+        "params": [
+            "loss",
+            "learning_rate",
+            "max_iter",
+            "max_leaf_nodes",
+            "max_depth",
+            "min_samples_leaf",
+            "l2_regularization",
+            "max_bins",
+            "categorical_features",
+            "monotonic_cst",
+            "warm_start",
+            "early_stopping",
+            "scoring",
+            "validation_fraction",
+            "n_iter_no_change",
+            "tol",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.exceptions.ConvergenceWarning",
+        "name": "ConvergenceWarning",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.exceptions.DataConversionWarning",
+        "name": "DataConversionWarning",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.exceptions.DataDimensionalityWarning",
+        "name": "DataDimensionalityWarning",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.exceptions.EfficiencyWarning",
+        "name": "EfficiencyWarning",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.exceptions.FitFailedWarning",
+        "name": "FitFailedWarning",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.exceptions.NotFittedError",
+        "name": "NotFittedError",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.exceptions.UndefinedMetricWarning",
+        "name": "UndefinedMetricWarning",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.feature_extraction.DictVectorizer",
+        "name": "DictVectorizer",
+        "params": [
+            "dtype",
+            "separator",
+            "sparse",
+            "sort"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_extraction.FeatureHasher",
+        "name": "FeatureHasher",
+        "params": [
+            "n_features",
+            "input_type",
+            "dtype",
+            "alternate_sign"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_extraction.image.PatchExtractor",
+        "name": "PatchExtractor",
+        "params": [
+            "patch_size",
+            "max_patches",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_extraction.text.CountVectorizer",
+        "name": "CountVectorizer",
+        "params": [
+            "input",
+            "encoding",
+            "decode_error",
+            "strip_accents",
+            "lowercase",
+            "preprocessor",
+            "tokenizer",
+            "stop_words",
+            "token_pattern",
+            "ngram_range",
+            "analyzer",
+            "max_df",
+            "min_df",
+            "max_features",
+            "vocabulary",
+            "binary",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_extraction.text.HashingVectorizer",
+        "name": "HashingVectorizer",
+        "params": [
+            "input",
+            "encoding",
+            "decode_error",
+            "strip_accents",
+            "lowercase",
+            "preprocessor",
+            "tokenizer",
+            "stop_words",
+            "token_pattern",
+            "ngram_range",
+            "analyzer",
+            "n_features",
+            "binary",
+            "norm",
+            "alternate_sign",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_extraction.text.TfidfTransformer",
+        "name": "TfidfTransformer",
+        "params": [
+            "norm",
+            "use_idf",
+            "smooth_idf",
+            "sublinear_tf"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_extraction.text.TfidfVectorizer",
+        "name": "TfidfVectorizer",
+        "params": [
+            "input",
+            "encoding",
+            "decode_error",
+            "strip_accents",
+            "lowercase",
+            "preprocessor",
+            "tokenizer",
+            "analyzer",
+            "stop_words",
+            "token_pattern",
+            "ngram_range",
+            "max_df",
+            "min_df",
+            "max_features",
+            "vocabulary",
+            "binary",
+            "dtype",
+            "norm",
+            "use_idf",
+            "smooth_idf",
+            "sublinear_tf"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.GenericUnivariateSelect",
+        "name": "GenericUnivariateSelect",
+        "params": [
+            "score_func",
+            "mode",
+            "param"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectPercentile",
+        "name": "SelectPercentile",
+        "params": [
+            "score_func",
+            "percentile"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectKBest",
+        "name": "SelectKBest",
+        "params": [
+            "score_func",
+            "k"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectFpr",
+        "name": "SelectFpr",
+        "params": [
+            "score_func",
+            "alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectFdr",
+        "name": "SelectFdr",
+        "params": [
+            "score_func",
+            "alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectFromModel",
+        "name": "SelectFromModel",
+        "params": [
+            "estimator",
+            "threshold",
+            "prefit",
+            "norm_order",
+            "max_features",
+            "importance_getter"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SelectFwe",
+        "name": "SelectFwe",
+        "params": [
+            "score_func",
+            "alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.SequentialFeatureSelector",
+        "name": "SequentialFeatureSelector",
+        "params": [
+            "estimator",
+            "n_features_to_select",
+            "direction",
+            "scoring",
+            "cv",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.RFE",
+        "name": "RFE",
+        "params": [
+            "estimator",
+            "n_features_to_select",
+            "step",
+            "verbose",
+            "importance_getter"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.RFECV",
+        "name": "RFECV",
+        "params": [
+            "estimator",
+            "step",
+            "min_features_to_select",
+            "cv",
+            "scoring",
+            "verbose",
+            "n_jobs",
+            "importance_getter"
+        ]
+    },
+    {
+        "full_name": "sklearn.feature_selection.VarianceThreshold",
+        "name": "VarianceThreshold",
+        "params": [
+            "threshold"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.GaussianProcessClassifier",
+        "name": "GaussianProcessClassifier",
+        "params": [
+            "kernel",
+            "optimizer",
+            "n_restarts_optimizer",
+            "max_iter_predict",
+            "warm_start",
+            "copy_X_train",
+            "random_state",
+            "multi_class",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.GaussianProcessRegressor",
+        "name": "GaussianProcessRegressor",
+        "params": [
+            "kernel",
+            "alpha",
+            "optimizer",
+            "n_restarts_optimizer",
+            "normalize_y",
+            "copy_X_train",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.CompoundKernel",
+        "name": "CompoundKernel",
+        "params": [
+            "kernels"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.ConstantKernel",
+        "name": "ConstantKernel",
+        "params": [
+            "constant_value",
+            "constant_value_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.DotProduct",
+        "name": "DotProduct",
+        "params": [
+            "sigma_0",
+            "sigma_0_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.ExpSineSquared",
+        "name": "ExpSineSquared",
+        "params": [
+            "length_scale",
+            "periodicity",
+            "length_scale_bounds",
+            "periodicity_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.Exponentiation",
+        "name": "Exponentiation",
+        "params": [
+            "kernel",
+            "exponent"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.Hyperparameter",
+        "name": "Hyperparameter",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.Kernel",
+        "name": "Kernel",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.Matern",
+        "name": "Matern",
+        "params": [
+            "length_scale",
+            "length_scale_bounds",
+            "nu"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.PairwiseKernel",
+        "name": "PairwiseKernel",
+        "params": [
+            "gamma",
+            "gamma_bounds",
+            "metric",
+            "pairwise_kernels_kwargs"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.Product",
+        "name": "Product",
+        "params": [
+            "k1",
+            "k2"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.RBF",
+        "name": "RBF",
+        "params": [
+            "length_scale",
+            "length_scale_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.RationalQuadratic",
+        "name": "RationalQuadratic",
+        "params": [
+            "length_scale",
+            "alpha",
+            "length_scale_bounds",
+            "alpha_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.Sum",
+        "name": "Sum",
+        "params": [
+            "k1",
+            "k2"
+        ]
+    },
+    {
+        "full_name": "sklearn.gaussian_process.kernels.WhiteKernel",
+        "name": "WhiteKernel",
+        "params": [
+            "noise_level",
+            "noise_level_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.impute.SimpleImputer",
+        "name": "SimpleImputer",
+        "params": [
+            "missing_values",
+            "strategy",
+            "fill_value",
+            "verbose",
+            "copy",
+            "add_indicator"
+        ]
+    },
+    {
+        "full_name": "sklearn.impute.IterativeImputer",
+        "name": "IterativeImputer",
+        "params": [
+            "estimator",
+            "missing_values",
+            "sample_posterior",
+            "max_iter",
+            "tol",
+            "n_nearest_features",
+            "initial_strategy",
+            "imputation_order",
+            "skip_complete",
+            "min_value",
+            "max_value",
+            "verbose",
+            "random_state",
+            "add_indicator"
+        ]
+    },
+    {
+        "full_name": "sklearn.impute.MissingIndicator",
+        "name": "MissingIndicator",
+        "params": [
+            "missing_values",
+            "features",
+            "sparse",
+            "error_on_new"
+        ]
+    },
+    {
+        "full_name": "sklearn.impute.KNNImputer",
+        "name": "KNNImputer",
+        "params": [
+            "missing_values",
+            "n_neighbors",
+            "weights",
+            "metric",
+            "copy",
+            "add_indicator"
+        ]
+    },
+    {
+        "full_name": "sklearn.inspection.PartialDependenceDisplay",
+        "name": "PartialDependenceDisplay",
+        "params": [
+            "pd_results",
+            "features",
+            "feature_names",
+            "target_idx",
+            "pdp_lim",
+            "deciles",
+            "kind",
+            "subsample",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.isotonic.IsotonicRegression",
+        "name": "IsotonicRegression",
+        "params": [
+            "y_min",
+            "y_max",
+            "increasing",
+            "out_of_bounds"
+        ]
+    },
+    {
+        "full_name": "sklearn.kernel_approximation.AdditiveChi2Sampler",
+        "name": "AdditiveChi2Sampler",
+        "params": [
+            "sample_steps",
+            "sample_interval"
+        ]
+    },
+    {
+        "full_name": "sklearn.kernel_approximation.Nystroem",
+        "name": "Nystroem",
+        "params": [
+            "kernel",
+            "gamma",
+            "coef0",
+            "degree",
+            "kernel_params",
+            "n_components",
+            "random_state",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.kernel_approximation.PolynomialCountSketch",
+        "name": "PolynomialCountSketch",
+        "params": [
+            "gamma",
+            "degree",
+            "coef0",
+            "n_components",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.kernel_approximation.RBFSampler",
+        "name": "RBFSampler",
+        "params": [
+            "gamma",
+            "n_components",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.kernel_approximation.SkewedChi2Sampler",
+        "name": "SkewedChi2Sampler",
+        "params": [
+            "skewedness",
+            "n_components",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.kernel_ridge.KernelRidge",
+        "name": "KernelRidge",
+        "params": [
+            "alpha",
+            "kernel",
+            "gamma",
+            "degree",
+            "coef0",
+            "kernel_params"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LogisticRegression",
+        "name": "LogisticRegression",
+        "params": [
+            "penalty",
+            "dual",
+            "tol",
+            "C",
+            "fit_intercept",
+            "intercept_scaling",
+            "class_weight",
+            "random_state",
+            "solver",
+            "max_iter",
+            "multi_class",
+            "verbose",
+            "warm_start",
+            "n_jobs",
+            "l1_ratio"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LogisticRegressionCV",
+        "name": "LogisticRegressionCV",
+        "params": [
+            "Cs",
+            "fit_intercept",
+            "cv",
+            "dual",
+            "penalty",
+            "scoring",
+            "solver",
+            "tol",
+            "max_iter",
+            "class_weight",
+            "n_jobs",
+            "verbose",
+            "refit",
+            "intercept_scaling",
+            "multi_class",
+            "random_state",
+            "l1_ratios"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.PassiveAggressiveClassifier",
+        "name": "PassiveAggressiveClassifier",
+        "params": [
+            "C",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "early_stopping",
+            "validation_fraction",
+            "n_iter_no_change",
+            "shuffle",
+            "verbose",
+            "loss",
+            "n_jobs",
+            "random_state",
+            "warm_start",
+            "class_weight",
+            "average"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.Perceptron",
+        "name": "Perceptron",
+        "params": [
+            "penalty",
+            "alpha",
+            "l1_ratio",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "shuffle",
+            "verbose",
+            "eta0",
+            "n_jobs",
+            "random_state",
+            "early_stopping",
+            "validation_fraction",
+            "n_iter_no_change",
+            "class_weight",
+            "warm_start"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.RidgeClassifier",
+        "name": "RidgeClassifier",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "max_iter",
+            "tol",
+            "class_weight",
+            "solver",
+            "positive",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.RidgeClassifierCV",
+        "name": "RidgeClassifierCV",
+        "params": [
+            "alphas",
+            "fit_intercept",
+            "normalize",
+            "scoring",
+            "cv",
+            "class_weight",
+            "store_cv_values"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.SGDClassifier",
+        "name": "SGDClassifier",
+        "params": [
+            "loss",
+            "penalty",
+            "alpha",
+            "l1_ratio",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "shuffle",
+            "verbose",
+            "epsilon",
+            "n_jobs",
+            "random_state",
+            "learning_rate",
+            "eta0",
+            "power_t",
+            "early_stopping",
+            "validation_fraction",
+            "n_iter_no_change",
+            "class_weight",
+            "warm_start",
+            "average"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.SGDOneClassSVM",
+        "name": "SGDOneClassSVM",
+        "params": [
+            "nu",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "shuffle",
+            "verbose",
+            "random_state",
+            "learning_rate",
+            "eta0",
+            "power_t",
+            "warm_start",
+            "average"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LinearRegression",
+        "name": "LinearRegression",
+        "params": [
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "n_jobs",
+            "positive"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.Ridge",
+        "name": "Ridge",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "max_iter",
+            "tol",
+            "solver",
+            "positive",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.RidgeCV",
+        "name": "RidgeCV",
+        "params": [
+            "alphas",
+            "fit_intercept",
+            "normalize",
+            "scoring",
+            "cv",
+            "gcv_mode",
+            "store_cv_values",
+            "alpha_per_target"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.SGDRegressor",
+        "name": "SGDRegressor",
+        "params": [
+            "loss",
+            "penalty",
+            "alpha",
+            "l1_ratio",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "shuffle",
+            "verbose",
+            "epsilon",
+            "random_state",
+            "learning_rate",
+            "eta0",
+            "power_t",
+            "early_stopping",
+            "validation_fraction",
+            "n_iter_no_change",
+            "warm_start",
+            "average"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.ElasticNet",
+        "name": "ElasticNet",
+        "params": [
+            "alpha",
+            "l1_ratio",
+            "fit_intercept",
+            "normalize",
+            "precompute",
+            "max_iter",
+            "copy_X",
+            "tol",
+            "warm_start",
+            "positive",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.ElasticNetCV",
+        "name": "ElasticNetCV",
+        "params": [
+            "l1_ratio",
+            "eps",
+            "n_alphas",
+            "alphas",
+            "fit_intercept",
+            "normalize",
+            "precompute",
+            "max_iter",
+            "tol",
+            "cv",
+            "copy_X",
+            "verbose",
+            "n_jobs",
+            "positive",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.Lars",
+        "name": "Lars",
+        "params": [
+            "fit_intercept",
+            "verbose",
+            "normalize",
+            "precompute",
+            "n_nonzero_coefs",
+            "eps",
+            "copy_X",
+            "fit_path",
+            "jitter",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LarsCV",
+        "name": "LarsCV",
+        "params": [
+            "fit_intercept",
+            "verbose",
+            "max_iter",
+            "normalize",
+            "precompute",
+            "cv",
+            "max_n_alphas",
+            "n_jobs",
+            "eps",
+            "copy_X"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.Lasso",
+        "name": "Lasso",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "normalize",
+            "precompute",
+            "copy_X",
+            "max_iter",
+            "tol",
+            "warm_start",
+            "positive",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LassoCV",
+        "name": "LassoCV",
+        "params": [
+            "eps",
+            "n_alphas",
+            "alphas",
+            "fit_intercept",
+            "normalize",
+            "precompute",
+            "max_iter",
+            "tol",
+            "copy_X",
+            "cv",
+            "verbose",
+            "n_jobs",
+            "positive",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LassoLars",
+        "name": "LassoLars",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "verbose",
+            "normalize",
+            "precompute",
+            "max_iter",
+            "eps",
+            "copy_X",
+            "fit_path",
+            "positive",
+            "jitter",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LassoLarsCV",
+        "name": "LassoLarsCV",
+        "params": [
+            "fit_intercept",
+            "verbose",
+            "max_iter",
+            "normalize",
+            "precompute",
+            "cv",
+            "max_n_alphas",
+            "n_jobs",
+            "eps",
+            "copy_X",
+            "positive"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.LassoLarsIC",
+        "name": "LassoLarsIC",
+        "params": [
+            "criterion",
+            "fit_intercept",
+            "verbose",
+            "normalize",
+            "precompute",
+            "max_iter",
+            "eps",
+            "copy_X",
+            "positive"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.OrthogonalMatchingPursuit",
+        "name": "OrthogonalMatchingPursuit",
+        "params": [
+            "n_nonzero_coefs",
+            "tol",
+            "fit_intercept",
+            "normalize",
+            "precompute"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.OrthogonalMatchingPursuitCV",
+        "name": "OrthogonalMatchingPursuitCV",
+        "params": [
+            "copy",
+            "fit_intercept",
+            "normalize",
+            "max_iter",
+            "cv",
+            "n_jobs",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.ARDRegression",
+        "name": "ARDRegression",
+        "params": [
+            "n_iter",
+            "tol",
+            "alpha_1",
+            "alpha_2",
+            "lambda_1",
+            "lambda_2",
+            "compute_score",
+            "threshold_lambda",
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.BayesianRidge",
+        "name": "BayesianRidge",
+        "params": [
+            "n_iter",
+            "tol",
+            "alpha_1",
+            "alpha_2",
+            "lambda_1",
+            "lambda_2",
+            "alpha_init",
+            "lambda_init",
+            "compute_score",
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.MultiTaskElasticNet",
+        "name": "MultiTaskElasticNet",
+        "params": [
+            "alpha",
+            "l1_ratio",
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "max_iter",
+            "tol",
+            "warm_start",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.MultiTaskElasticNetCV",
+        "name": "MultiTaskElasticNetCV",
+        "params": [
+            "l1_ratio",
+            "eps",
+            "n_alphas",
+            "alphas",
+            "fit_intercept",
+            "normalize",
+            "max_iter",
+            "tol",
+            "cv",
+            "copy_X",
+            "verbose",
+            "n_jobs",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.MultiTaskLasso",
+        "name": "MultiTaskLasso",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "normalize",
+            "copy_X",
+            "max_iter",
+            "tol",
+            "warm_start",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.MultiTaskLassoCV",
+        "name": "MultiTaskLassoCV",
+        "params": [
+            "eps",
+            "n_alphas",
+            "alphas",
+            "fit_intercept",
+            "normalize",
+            "max_iter",
+            "tol",
+            "copy_X",
+            "cv",
+            "verbose",
+            "n_jobs",
+            "random_state",
+            "selection"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.HuberRegressor",
+        "name": "HuberRegressor",
+        "params": [
+            "epsilon",
+            "max_iter",
+            "alpha",
+            "warm_start",
+            "fit_intercept",
+            "tol"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.QuantileRegressor",
+        "name": "QuantileRegressor",
+        "params": [
+            "quantile",
+            "alpha",
+            "fit_intercept",
+            "solver",
+            "solver_options"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.RANSACRegressor",
+        "name": "RANSACRegressor",
+        "params": [
+            "base_estimator",
+            "min_samples",
+            "residual_threshold",
+            "is_data_valid",
+            "is_model_valid",
+            "max_trials",
+            "max_skips",
+            "stop_n_inliers",
+            "stop_score",
+            "stop_probability",
+            "loss",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.TheilSenRegressor",
+        "name": "TheilSenRegressor",
+        "params": [
+            "fit_intercept",
+            "copy_X",
+            "max_subpopulation",
+            "n_subsamples",
+            "max_iter",
+            "tol",
+            "random_state",
+            "n_jobs",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.PoissonRegressor",
+        "name": "PoissonRegressor",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "warm_start",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.TweedieRegressor",
+        "name": "TweedieRegressor",
+        "params": [
+            "power",
+            "alpha",
+            "fit_intercept",
+            "link",
+            "max_iter",
+            "tol",
+            "warm_start",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.GammaRegressor",
+        "name": "GammaRegressor",
+        "params": [
+            "alpha",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "warm_start",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.linear_model.PassiveAggressiveRegressor",
+        "name": "PassiveAggressiveRegressor",
+        "params": [
+            "C",
+            "fit_intercept",
+            "max_iter",
+            "tol",
+            "early_stopping",
+            "validation_fraction",
+            "n_iter_no_change",
+            "shuffle",
+            "verbose",
+            "loss",
+            "epsilon",
+            "random_state",
+            "warm_start",
+            "average"
+        ]
+    },
+    {
+        "full_name": "sklearn.manifold.Isomap",
+        "name": "Isomap",
+        "params": [
+            "n_neighbors",
+            "n_components",
+            "eigen_solver",
+            "tol",
+            "max_iter",
+            "path_method",
+            "neighbors_algorithm",
+            "n_jobs",
+            "metric",
+            "p",
+            "metric_params"
+        ]
+    },
+    {
+        "full_name": "sklearn.manifold.LocallyLinearEmbedding",
+        "name": "LocallyLinearEmbedding",
+        "params": [
+            "n_neighbors",
+            "n_components",
+            "reg",
+            "eigen_solver",
+            "tol",
+            "max_iter",
+            "method",
+            "hessian_tol",
+            "modified_tol",
+            "neighbors_algorithm",
+            "random_state",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.manifold.MDS",
+        "name": "MDS",
+        "params": [
+            "n_components",
+            "metric",
+            "n_init",
+            "max_iter",
+            "verbose",
+            "eps",
+            "n_jobs",
+            "random_state",
+            "dissimilarity"
+        ]
+    },
+    {
+        "full_name": "sklearn.manifold.SpectralEmbedding",
+        "name": "SpectralEmbedding",
+        "params": [
+            "n_components",
+            "affinity",
+            "gamma",
+            "random_state",
+            "eigen_solver",
+            "n_neighbors",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.manifold.TSNE",
+        "name": "TSNE",
+        "params": [
+            "n_components",
+            "perplexity",
+            "early_exaggeration",
+            "learning_rate",
+            "n_iter",
+            "n_iter_without_progress",
+            "min_grad_norm",
+            "metric",
+            "init",
+            "verbose",
+            "random_state",
+            "method",
+            "angle",
+            "n_jobs",
+            "square_distances"
+        ]
+    },
+    {
+        "full_name": "sklearn.metrics.ConfusionMatrixDisplay",
+        "name": "ConfusionMatrixDisplay",
+        "params": [
+            "confusion_matrix",
+            "display_labels"
+        ]
+    },
+    {
+        "full_name": "sklearn.metrics.DetCurveDisplay",
+        "name": "DetCurveDisplay",
+        "params": [
+            "fpr",
+            "fnr",
+            "estimator_name",
+            "pos_label"
+        ]
+    },
+    {
+        "full_name": "sklearn.metrics.PrecisionRecallDisplay",
+        "name": "PrecisionRecallDisplay",
+        "params": [
+            "precision",
+            "recall",
+            "average_precision",
+            "estimator_name",
+            "pos_label"
+        ]
+    },
+    {
+        "full_name": "sklearn.metrics.RocCurveDisplay",
+        "name": "RocCurveDisplay",
+        "params": [
+            "fpr",
+            "tpr",
+            "roc_auc",
+            "estimator_name",
+            "pos_label"
+        ]
+    },
+    {
+        "full_name": "sklearn.calibration.CalibrationDisplay",
+        "name": "CalibrationDisplay",
+        "params": [
+            "prob_true",
+            "prob_pred",
+            "y_prob",
+            "estimator_name"
+        ]
+    },
+    {
+        "full_name": "sklearn.mixture.BayesianGaussianMixture",
+        "name": "BayesianGaussianMixture",
+        "params": [
+            "n_components",
+            "covariance_type",
+            "tol",
+            "reg_covar",
+            "max_iter",
+            "n_init",
+            "init_params",
+            "weight_concentration_prior_type",
+            "weight_concentration_prior",
+            "mean_precision_prior",
+            "mean_prior",
+            "degrees_of_freedom_prior",
+            "covariance_prior",
+            "random_state",
+            "warm_start",
+            "verbose",
+            "verbose_interval"
+        ]
+    },
+    {
+        "full_name": "sklearn.mixture.GaussianMixture",
+        "name": "GaussianMixture",
+        "params": [
+            "n_components",
+            "covariance_type",
+            "tol",
+            "reg_covar",
+            "max_iter",
+            "n_init",
+            "init_params",
+            "weights_init",
+            "means_init",
+            "precisions_init",
+            "random_state",
+            "warm_start",
+            "verbose",
+            "verbose_interval"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.GroupKFold",
+        "name": "GroupKFold",
+        "params": [
+            "n_splits"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.GroupShuffleSplit",
+        "name": "GroupShuffleSplit",
+        "params": [
+            "n_splits",
+            "test_size",
+            "train_size",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.KFold",
+        "name": "KFold",
+        "params": [
+            "n_splits",
+            "shuffle",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.LeaveOneGroupOut",
+        "name": "LeaveOneGroupOut",
+        "params": [
+            "X",
+            "y",
+            "groups"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.LeavePGroupsOut",
+        "name": "LeavePGroupsOut",
+        "params": [
+            "n_groups"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.LeaveOneOut",
+        "name": "LeaveOneOut",
+        "params": [
+            "X",
+            "y",
+            "groups"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.LeavePOut",
+        "name": "LeavePOut",
+        "params": [
+            "p"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.PredefinedSplit",
+        "name": "PredefinedSplit",
+        "params": [
+            "test_fold"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.RepeatedKFold",
+        "name": "RepeatedKFold",
+        "params": [
+            "n_splits",
+            "n_repeats",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.RepeatedStratifiedKFold",
+        "name": "RepeatedStratifiedKFold",
+        "params": [
+            "n_splits",
+            "n_repeats",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.ShuffleSplit",
+        "name": "ShuffleSplit",
+        "params": [
+            "n_splits",
+            "test_size",
+            "train_size",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.StratifiedKFold",
+        "name": "StratifiedKFold",
+        "params": [
+            "n_splits",
+            "shuffle",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.StratifiedShuffleSplit",
+        "name": "StratifiedShuffleSplit",
+        "params": [
+            "n_splits",
+            "test_size",
+            "train_size",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.StratifiedGroupKFold",
+        "name": "StratifiedGroupKFold",
+        "params": [
+            "n_splits",
+            "shuffle",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.TimeSeriesSplit",
+        "name": "TimeSeriesSplit",
+        "params": [
+            "n_splits",
+            "max_train_size",
+            "test_size",
+            "gap"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.GridSearchCV",
+        "name": "GridSearchCV",
+        "params": [
+            "estimator",
+            "param_grid",
+            "scoring",
+            "n_jobs",
+            "refit",
+            "cv",
+            "verbose",
+            "pre_dispatch",
+            "error_score",
+            "return_train_score"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.HalvingGridSearchCV",
+        "name": "HalvingGridSearchCV",
+        "params": [
+            "estimator",
+            "param_grid",
+            "factor",
+            "resource",
+            "max_resources",
+            "min_resources",
+            "aggressive_elimination",
+            "cv",
+            "scoring",
+            "refit",
+            "error_score",
+            "return_train_score",
+            "random_state",
+            "n_jobs",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.ParameterGrid",
+        "name": "ParameterGrid",
+        "params": [
+            "param_grid"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.ParameterSampler",
+        "name": "ParameterSampler",
+        "params": [
+            "param_distributions",
+            "n_iter",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.RandomizedSearchCV",
+        "name": "RandomizedSearchCV",
+        "params": [
+            "estimator",
+            "param_distributions",
+            "n_iter",
+            "scoring",
+            "n_jobs",
+            "refit",
+            "cv",
+            "verbose",
+            "pre_dispatch",
+            "random_state",
+            "error_score",
+            "return_train_score"
+        ]
+    },
+    {
+        "full_name": "sklearn.model_selection.HalvingRandomSearchCV",
+        "name": "HalvingRandomSearchCV",
+        "params": [
+            "estimator",
+            "param_distributions",
+            "n_candidates",
+            "factor",
+            "resource",
+            "max_resources",
+            "min_resources",
+            "aggressive_elimination",
+            "cv",
+            "scoring",
+            "refit",
+            "error_score",
+            "return_train_score",
+            "random_state",
+            "n_jobs",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.multiclass.OneVsRestClassifier",
+        "name": "OneVsRestClassifier",
+        "params": [
+            "estimator",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.multiclass.OneVsOneClassifier",
+        "name": "OneVsOneClassifier",
+        "params": [
+            "estimator",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.multiclass.OutputCodeClassifier",
+        "name": "OutputCodeClassifier",
+        "params": [
+            "estimator",
+            "code_size",
+            "random_state",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.multioutput.ClassifierChain",
+        "name": "ClassifierChain",
+        "params": [
+            "base_estimator",
+            "order",
+            "cv",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.multioutput.MultiOutputRegressor",
+        "name": "MultiOutputRegressor",
+        "params": [
+            "estimator",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.multioutput.MultiOutputClassifier",
+        "name": "MultiOutputClassifier",
+        "params": [
+            "estimator",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.multioutput.RegressorChain",
+        "name": "RegressorChain",
+        "params": [
+            "base_estimator",
+            "order",
+            "cv",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.naive_bayes.BernoulliNB",
+        "name": "BernoulliNB",
+        "params": [
+            "alpha",
+            "binarize",
+            "fit_prior",
+            "class_prior"
+        ]
+    },
+    {
+        "full_name": "sklearn.naive_bayes.CategoricalNB",
+        "name": "CategoricalNB",
+        "params": [
+            "alpha",
+            "fit_prior",
+            "class_prior",
+            "min_categories"
+        ]
+    },
+    {
+        "full_name": "sklearn.naive_bayes.ComplementNB",
+        "name": "ComplementNB",
+        "params": [
+            "alpha",
+            "fit_prior",
+            "class_prior",
+            "norm"
+        ]
+    },
+    {
+        "full_name": "sklearn.naive_bayes.GaussianNB",
+        "name": "GaussianNB",
+        "params": [
+            "priors",
+            "var_smoothing"
+        ]
+    },
+    {
+        "full_name": "sklearn.naive_bayes.MultinomialNB",
+        "name": "MultinomialNB",
+        "params": [
+            "alpha",
+            "fit_prior",
+            "class_prior"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.BallTree",
+        "name": "BallTree",
+        "params": [
+            "X",
+            "leaf_size",
+            "metric",
+            "Additional keywords are passed to the distance metric class.",
+            "Note: Callable functions in the metric parameter are NOT supported for KDTree",
+            "and Ball Tree. Function call overhead will result in very poor performance."
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.DistanceMetric",
+        "name": "DistanceMetric",
+        "params": [
+            "dist"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.KDTree",
+        "name": "KDTree",
+        "params": [
+            "X",
+            "leaf_size",
+            "metric",
+            "Additional keywords are passed to the distance metric class.",
+            "Note: Callable functions in the metric parameter are NOT supported for KDTree",
+            "and Ball Tree. Function call overhead will result in very poor performance."
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.KernelDensity",
+        "name": "KernelDensity",
+        "params": [
+            "bandwidth",
+            "algorithm",
+            "kernel",
+            "metric",
+            "atol",
+            "rtol",
+            "breadth_first",
+            "leaf_size",
+            "metric_params"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.KNeighborsClassifier",
+        "name": "KNeighborsClassifier",
+        "params": [
+            "n_neighbors",
+            "weights",
+            "algorithm",
+            "leaf_size",
+            "p",
+            "metric",
+            "metric_params",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.KNeighborsRegressor",
+        "name": "KNeighborsRegressor",
+        "params": [
+            "n_neighbors",
+            "weights",
+            "algorithm",
+            "leaf_size",
+            "p",
+            "metric",
+            "metric_params",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.KNeighborsTransformer",
+        "name": "KNeighborsTransformer",
+        "params": [
+            "mode",
+            "n_neighbors",
+            "algorithm",
+            "leaf_size",
+            "metric",
+            "p",
+            "metric_params",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.LocalOutlierFactor",
+        "name": "LocalOutlierFactor",
+        "params": [
+            "n_neighbors",
+            "algorithm",
+            "leaf_size",
+            "metric",
+            "p",
+            "metric_params",
+            "contamination",
+            "novelty",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.RadiusNeighborsClassifier",
+        "name": "RadiusNeighborsClassifier",
+        "params": [
+            "radius",
+            "weights",
+            "algorithm",
+            "leaf_size",
+            "p",
+            "metric",
+            "outlier_label",
+            "metric_params",
+            "n_jobs",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.RadiusNeighborsRegressor",
+        "name": "RadiusNeighborsRegressor",
+        "params": [
+            "radius",
+            "weights",
+            "algorithm",
+            "leaf_size",
+            "p",
+            "metric",
+            "metric_params",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.RadiusNeighborsTransformer",
+        "name": "RadiusNeighborsTransformer",
+        "params": [
+            "mode",
+            "radius",
+            "algorithm",
+            "leaf_size",
+            "metric",
+            "p",
+            "metric_params",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.NearestCentroid",
+        "name": "NearestCentroid",
+        "params": [
+            "metric",
+            "shrink_threshold"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.NearestNeighbors",
+        "name": "NearestNeighbors",
+        "params": [
+            "n_neighbors",
+            "radius",
+            "algorithm",
+            "leaf_size",
+            "metric",
+            "p",
+            "metric_params",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.neighbors.NeighborhoodComponentsAnalysis",
+        "name": "NeighborhoodComponentsAnalysis",
+        "params": [
+            "n_components",
+            "init",
+            "warm_start",
+            "max_iter",
+            "tol",
+            "callback",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.neural_network.BernoulliRBM",
+        "name": "BernoulliRBM",
+        "params": [
+            "n_components",
+            "learning_rate",
+            "batch_size",
+            "n_iter",
+            "verbose",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.neural_network.MLPClassifier",
+        "name": "MLPClassifier",
+        "params": [
+            "hidden_layer_sizes",
+            "activation",
+            "solver",
+            "alpha",
+            "batch_size",
+            "learning_rate",
+            "learning_rate_init",
+            "power_t",
+            "max_iter",
+            "shuffle",
+            "random_state",
+            "tol",
+            "verbose",
+            "warm_start",
+            "momentum",
+            "nesterovs_momentum",
+            "early_stopping",
+            "validation_fraction",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "n_iter_no_change",
+            "max_fun"
+        ]
+    },
+    {
+        "full_name": "sklearn.neural_network.MLPRegressor",
+        "name": "MLPRegressor",
+        "params": [
+            "hidden_layer_sizes",
+            "activation",
+            "solver",
+            "alpha",
+            "batch_size",
+            "learning_rate",
+            "learning_rate_init",
+            "power_t",
+            "max_iter",
+            "shuffle",
+            "random_state",
+            "tol",
+            "verbose",
+            "warm_start",
+            "momentum",
+            "nesterovs_momentum",
+            "early_stopping",
+            "validation_fraction",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "n_iter_no_change",
+            "max_fun"
+        ]
+    },
+    {
+        "full_name": "sklearn.pipeline.FeatureUnion",
+        "name": "FeatureUnion",
+        "params": [
+            "transformer_list",
+            "n_jobs",
+            "transformer_weights",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.pipeline.Pipeline",
+        "name": "Pipeline",
+        "params": [
+            "steps",
+            "memory",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.Binarizer",
+        "name": "Binarizer",
+        "params": [
+            "threshold",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.FunctionTransformer",
+        "name": "FunctionTransformer",
+        "params": [
+            "func",
+            "inverse_func",
+            "validate",
+            "accept_sparse",
+            "check_inverse",
+            "kw_args",
+            "inv_kw_args"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.KBinsDiscretizer",
+        "name": "KBinsDiscretizer",
+        "params": [
+            "n_bins",
+            "encode",
+            "strategy",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.KernelCenterer",
+        "name": "KernelCenterer",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.preprocessing.LabelBinarizer",
+        "name": "LabelBinarizer",
+        "params": [
+            "neg_label",
+            "pos_label",
+            "sparse_output"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.LabelEncoder",
+        "name": "LabelEncoder",
+        "params": []
+    },
+    {
+        "full_name": "sklearn.preprocessing.MultiLabelBinarizer",
+        "name": "MultiLabelBinarizer",
+        "params": [
+            "classes",
+            "sparse_output"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.MaxAbsScaler",
+        "name": "MaxAbsScaler",
+        "params": [
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.MinMaxScaler",
+        "name": "MinMaxScaler",
+        "params": [
+            "feature_range",
+            "copy",
+            "clip"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.Normalizer",
+        "name": "Normalizer",
+        "params": [
+            "norm",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.OneHotEncoder",
+        "name": "OneHotEncoder",
+        "params": [
+            "categories",
+            "drop",
+            "sparse",
+            "dtype",
+            "handle_unknown"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.OrdinalEncoder",
+        "name": "OrdinalEncoder",
+        "params": [
+            "categories",
+            "dtype",
+            "handle_unknown",
+            "unknown_value"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.PolynomialFeatures",
+        "name": "PolynomialFeatures",
+        "params": [
+            "degree",
+            "interaction_only",
+            "include_bias",
+            "order"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.PowerTransformer",
+        "name": "PowerTransformer",
+        "params": [
+            "method",
+            "standardize",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.QuantileTransformer",
+        "name": "QuantileTransformer",
+        "params": [
+            "n_quantiles",
+            "output_distribution",
+            "ignore_implicit_zeros",
+            "subsample",
+            "random_state",
+            "copy"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.RobustScaler",
+        "name": "RobustScaler",
+        "params": [
+            "with_centering",
+            "with_scaling",
+            "quantile_range",
+            "copy",
+            "unit_variance"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.SplineTransformer",
+        "name": "SplineTransformer",
+        "params": [
+            "n_knots",
+            "degree",
+            "knots",
+            "extrapolation",
+            "include_bias",
+            "order"
+        ]
+    },
+    {
+        "full_name": "sklearn.preprocessing.StandardScaler",
+        "name": "StandardScaler",
+        "params": [
+            "copy",
+            "with_mean",
+            "with_std"
+        ]
+    },
+    {
+        "full_name": "sklearn.random_projection.GaussianRandomProjection",
+        "name": "GaussianRandomProjection",
+        "params": [
+            "n_components",
+            "eps",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.random_projection.SparseRandomProjection",
+        "name": "SparseRandomProjection",
+        "params": [
+            "n_components",
+            "density",
+            "eps",
+            "dense_output",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.semi_supervised.LabelPropagation",
+        "name": "LabelPropagation",
+        "params": [
+            "kernel",
+            "gamma",
+            "n_neighbors",
+            "max_iter",
+            "tol",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.semi_supervised.LabelSpreading",
+        "name": "LabelSpreading",
+        "params": [
+            "kernel",
+            "gamma",
+            "n_neighbors",
+            "alpha",
+            "max_iter",
+            "tol",
+            "n_jobs"
+        ]
+    },
+    {
+        "full_name": "sklearn.semi_supervised.SelfTrainingClassifier",
+        "name": "SelfTrainingClassifier",
+        "params": [
+            "base_estimator",
+            "threshold",
+            "criterion",
+            "k_best",
+            "max_iter",
+            "verbose"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.LinearSVC",
+        "name": "LinearSVC",
+        "params": [
+            "penalty",
+            "loss",
+            "dual",
+            "tol",
+            "C",
+            "multi_class",
+            "fit_intercept",
+            "intercept_scaling",
+            "class_weight",
+            "verbose",
+            "random_state",
+            "max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.LinearSVR",
+        "name": "LinearSVR",
+        "params": [
+            "epsilon",
+            "tol",
+            "C",
+            "loss",
+            "fit_intercept",
+            "intercept_scaling",
+            "dual",
+            "verbose",
+            "random_state",
+            "max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.NuSVC",
+        "name": "NuSVC",
+        "params": [
+            "nu",
+            "kernel",
+            "degree",
+            "gamma",
+            "coef0",
+            "shrinking",
+            "probability",
+            "tol",
+            "cache_size",
+            "class_weight",
+            "verbose",
+            "max_iter",
+            "decision_function_shape",
+            "break_ties",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.NuSVR",
+        "name": "NuSVR",
+        "params": [
+            "nu",
+            "C",
+            "kernel",
+            "degree",
+            "gamma",
+            "coef0",
+            "shrinking",
+            "tol",
+            "cache_size",
+            "verbose",
+            "max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.OneClassSVM",
+        "name": "OneClassSVM",
+        "params": [
+            "kernel",
+            "degree",
+            "gamma",
+            "coef0",
+            "tol",
+            "nu",
+            "shrinking",
+            "cache_size",
+            "verbose",
+            "max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.SVC",
+        "name": "SVC",
+        "params": [
+            "C",
+            "kernel",
+            "degree",
+            "gamma",
+            "coef0",
+            "shrinking",
+            "probability",
+            "tol",
+            "cache_size",
+            "class_weight",
+            "verbose",
+            "max_iter",
+            "decision_function_shape",
+            "break_ties",
+            "random_state"
+        ]
+    },
+    {
+        "full_name": "sklearn.svm.SVR",
+        "name": "SVR",
+        "params": [
+            "kernel",
+            "degree",
+            "gamma",
+            "coef0",
+            "tol",
+            "C",
+            "epsilon",
+            "shrinking",
+            "cache_size",
+            "verbose",
+            "max_iter"
+        ]
+    },
+    {
+        "full_name": "sklearn.tree.DecisionTreeClassifier",
+        "name": "DecisionTreeClassifier",
+        "params": [
+            "criterion",
+            "splitter",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "random_state",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "class_weight",
+            "ccp_alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.tree.DecisionTreeRegressor",
+        "name": "DecisionTreeRegressor",
+        "params": [
+            "criterion",
+            "splitter",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "random_state",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "ccp_alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.tree.ExtraTreeClassifier",
+        "name": "ExtraTreeClassifier",
+        "params": [
+            "criterion",
+            "splitter",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "random_state",
+            "max_leaf_nodes",
+            "min_impurity_decrease",
+            "class_weight",
+            "ccp_alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.tree.ExtraTreeRegressor",
+        "name": "ExtraTreeRegressor",
+        "params": [
+            "criterion",
+            "splitter",
+            "max_depth",
+            "min_samples_split",
+            "min_samples_leaf",
+            "min_weight_fraction_leaf",
+            "max_features",
+            "random_state",
+            "min_impurity_decrease",
+            "max_leaf_nodes",
+            "ccp_alpha"
+        ]
+    },
+    {
+        "full_name": "sklearn.utils.Bunch",
+        "name": "Bunch",
+        "params": []
+    }
+]

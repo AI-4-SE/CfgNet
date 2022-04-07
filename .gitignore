@@ -9,3 +9,5 @@ htmlcov/*
 docs/api-docs/*
 docs/_build/*
 .cfgnet
+.idea/*
+.vscode

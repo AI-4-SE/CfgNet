@@ -39,6 +39,3 @@ class PytorchPLugin(Plugin):
                     return True
 
         return False
-
-
-    

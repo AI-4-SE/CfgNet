@@ -1,0 +1,3607 @@
+[
+    {
+        "full_name:": "torch.Tensor",
+        "name": "Tensor",
+        "params": []
+    },
+    {
+        "full_name:": "torch.torch.dtype",
+        "name": "dtype",
+        "params": []
+    },
+    {
+        "full_name:": "torch.torch.device",
+        "name": "device",
+        "params": []
+    },
+    {
+        "full_name:": "torch.torch.layout",
+        "name": "layout",
+        "params": []
+    },
+    {
+        "full_name:": "torch.torch.memory_format",
+        "name": "memory_format",
+        "params": []
+    },
+    {
+        "full_name:": "torch.autograd.Function",
+        "name": "Function",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.autograd.profiler.profile",
+        "name": "profile",
+        "params": [
+            "enabled",
+            "*",
+            "use_cuda",
+            "record_shapes",
+            "with_flops",
+            "profile_memory",
+            "with_stack",
+            "with_modules",
+            "use_kineto",
+            "use_cpu"
+        ]
+    },
+    {
+        "full_name:": "torch.autograd.profiler.emit_nvtx",
+        "name": "emit_nvtx",
+        "params": [
+            "enabled",
+            "record_shapes"
+        ]
+    },
+    {
+        "full_name:": "torch.autograd.detect_anomaly",
+        "name": "detect_anomaly",
+        "params": []
+    },
+    {
+        "full_name:": "torch.autograd.set_detect_anomaly",
+        "name": "set_detect_anomaly",
+        "params": [
+            "mode"
+        ]
+    },
+    {
+        "full_name:": "torch.autograd.graph.saved_tensors_hooks",
+        "name": "saved_tensors_hooks",
+        "params": [
+            "pack_hook",
+            "unpack_hook"
+        ]
+    },
+    {
+        "full_name:": "torch.autograd.graph.save_on_cpu",
+        "name": "save_on_cpu",
+        "params": [
+            "pin_memory"
+        ]
+    },
+    {
+        "full_name:": "torch.autocast",
+        "name": "autocast",
+        "params": [
+            "device_type",
+            "enabled",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.cuda.amp.autocast",
+        "name": "autocast",
+        "params": [
+            "enabled",
+            "dtype",
+            "cache_enabled"
+        ]
+    },
+    {
+        "full_name:": "torch.cuda.amp.GradScaler",
+        "name": "GradScaler",
+        "params": [
+            "init_scale",
+            "growth_factor",
+            "backoff_factor",
+            "growth_interval",
+            "enabled"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.Backend",
+        "name": "Backend",
+        "params": [
+            "name"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.Store",
+        "name": "Store",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.TCPStore",
+        "name": "TCPStore",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.HashStore",
+        "name": "HashStore",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.FileStore",
+        "name": "FileStore",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.PrefixStore",
+        "name": "PrefixStore",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.ReduceOp",
+        "name": "ReduceOp",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.reduce_op",
+        "name": "reduce_op",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.algorithms.Join",
+        "name": "Join",
+        "params": [
+            "joinables",
+            "enable",
+            "throw_on_early_termination",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.algorithms.Joinable",
+        "name": "Joinable",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.algorithms.JoinHook",
+        "name": "JoinHook",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.optim.ZeroRedundancyOptimizer",
+        "name": "ZeroRedundancyOptimizer",
+        "params": [
+            "params",
+            "optimizer_class",
+            "process_group",
+            "parameters_as_bucket_view",
+            "overlap_with_ddp",
+            "**defaults"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.distribution.Distribution",
+        "name": "Distribution",
+        "params": [
+            "batch_shape",
+            "event_shape",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.exp_family.ExponentialFamily",
+        "name": "ExponentialFamily",
+        "params": [
+            "batch_shape",
+            "event_shape",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.bernoulli.Bernoulli",
+        "name": "Bernoulli",
+        "params": [
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.beta.Beta",
+        "name": "Beta",
+        "params": [
+            "concentration1",
+            "concentration0",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.binomial.Binomial",
+        "name": "Binomial",
+        "params": [
+            "total_count",
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.categorical.Categorical",
+        "name": "Categorical",
+        "params": [
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.cauchy.Cauchy",
+        "name": "Cauchy",
+        "params": [
+            "loc",
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.chi2.Chi2",
+        "name": "Chi2",
+        "params": [
+            "df",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.continuous_bernoulli.ContinuousBernoulli",
+        "name": "ContinuousBernoulli",
+        "params": [
+            "probs",
+            "logits",
+            "lims",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.dirichlet.Dirichlet",
+        "name": "Dirichlet",
+        "params": [
+            "concentration",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.exponential.Exponential",
+        "name": "Exponential",
+        "params": [
+            "rate",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.fishersnedecor.FisherSnedecor",
+        "name": "FisherSnedecor",
+        "params": [
+            "df1",
+            "df2",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.gamma.Gamma",
+        "name": "Gamma",
+        "params": [
+            "concentration",
+            "rate",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.geometric.Geometric",
+        "name": "Geometric",
+        "params": [
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.gumbel.Gumbel",
+        "name": "Gumbel",
+        "params": [
+            "loc",
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.half_cauchy.HalfCauchy",
+        "name": "HalfCauchy",
+        "params": [
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.half_normal.HalfNormal",
+        "name": "HalfNormal",
+        "params": [
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.independent.Independent",
+        "name": "Independent",
+        "params": [
+            "base_distribution",
+            "reinterpreted_batch_ndims",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.kumaraswamy.Kumaraswamy",
+        "name": "Kumaraswamy",
+        "params": [
+            "concentration1",
+            "concentration0",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.lkj_cholesky.LKJCholesky",
+        "name": "LKJCholesky",
+        "params": [
+            "dim",
+            "concentration",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.laplace.Laplace",
+        "name": "Laplace",
+        "params": [
+            "loc",
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.log_normal.LogNormal",
+        "name": "LogNormal",
+        "params": [
+            "loc",
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal",
+        "name": "LowRankMultivariateNormal",
+        "params": [
+            "loc",
+            "cov_factor",
+            "cov_diag",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.mixture_same_family.MixtureSameFamily",
+        "name": "MixtureSameFamily",
+        "params": [
+            "mixture_distribution",
+            "component_distribution",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.multinomial.Multinomial",
+        "name": "Multinomial",
+        "params": [
+            "total_count",
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.multivariate_normal.MultivariateNormal",
+        "name": "MultivariateNormal",
+        "params": [
+            "loc",
+            "covariance_matrix",
+            "precision_matrix",
+            "scale_tril",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.negative_binomial.NegativeBinomial",
+        "name": "NegativeBinomial",
+        "params": [
+            "total_count",
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.normal.Normal",
+        "name": "Normal",
+        "params": [
+            "loc",
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.one_hot_categorical.OneHotCategorical",
+        "name": "OneHotCategorical",
+        "params": [
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.pareto.Pareto",
+        "name": "Pareto",
+        "params": [
+            "scale",
+            "alpha",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.poisson.Poisson",
+        "name": "Poisson",
+        "params": [
+            "rate",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.relaxed_bernoulli.RelaxedBernoulli",
+        "name": "RelaxedBernoulli",
+        "params": [
+            "temperature",
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.relaxed_bernoulli.LogitRelaxedBernoulli",
+        "name": "LogitRelaxedBernoulli",
+        "params": [
+            "temperature",
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.relaxed_categorical.RelaxedOneHotCategorical",
+        "name": "RelaxedOneHotCategorical",
+        "params": [
+            "temperature",
+            "probs",
+            "logits",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.studentT.StudentT",
+        "name": "StudentT",
+        "params": [
+            "df",
+            "loc",
+            "scale",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transformed_distribution.TransformedDistribution",
+        "name": "TransformedDistribution",
+        "params": [
+            "base_distribution",
+            "transforms",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.uniform.Uniform",
+        "name": "Uniform",
+        "params": [
+            "low",
+            "high",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.von_mises.VonMises",
+        "name": "VonMises",
+        "params": [
+            "loc",
+            "concentration",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.weibull.Weibull",
+        "name": "Weibull",
+        "params": [
+            "scale",
+            "concentration",
+            "validate_args"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.AbsTransform",
+        "name": "AbsTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.AffineTransform",
+        "name": "AffineTransform",
+        "params": [
+            "loc",
+            "scale",
+            "event_dim",
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.ComposeTransform",
+        "name": "ComposeTransform",
+        "params": [
+            "parts",
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.CorrCholeskyTransform",
+        "name": "CorrCholeskyTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.ExpTransform",
+        "name": "ExpTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.IndependentTransform",
+        "name": "IndependentTransform",
+        "params": [
+            "base_transform",
+            "reinterpreted_batch_ndims",
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.LowerCholeskyTransform",
+        "name": "LowerCholeskyTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.PowerTransform",
+        "name": "PowerTransform",
+        "params": [
+            "exponent",
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.ReshapeTransform",
+        "name": "ReshapeTransform",
+        "params": [
+            "in_shape",
+            "out_shape",
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.SigmoidTransform",
+        "name": "SigmoidTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.TanhTransform",
+        "name": "TanhTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.SoftmaxTransform",
+        "name": "SoftmaxTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.StackTransform",
+        "name": "StackTransform",
+        "params": [
+            "tseq",
+            "dim",
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.StickBreakingTransform",
+        "name": "StickBreakingTransform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.transforms.Transform",
+        "name": "Transform",
+        "params": [
+            "cache_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributions.constraints.Constraint",
+        "name": "Constraint",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributions.constraint_registry.ConstraintRegistry",
+        "name": "ConstraintRegistry",
+        "params": []
+    },
+    {
+        "full_name:": "torch.futures.Future",
+        "name": "Future",
+        "params": [
+            "*",
+            "devices"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.GraphModule",
+        "name": "GraphModule",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.Graph",
+        "name": "Graph",
+        "params": [
+            "owning_module",
+            "tracer_cls"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.Node",
+        "name": "Node",
+        "params": [
+            "graph",
+            "name",
+            "op",
+            "target",
+            "args",
+            "kwargs",
+            "return_type"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.Tracer",
+        "name": "Tracer",
+        "params": [
+            "autowrap_modules",
+            "autowrap_functions",
+            "enable_cpatching"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.Proxy",
+        "name": "Proxy",
+        "params": [
+            "node",
+            "tracer"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.Interpreter",
+        "name": "Interpreter",
+        "params": [
+            "module",
+            "garbage_collect_values"
+        ]
+    },
+    {
+        "full_name:": "torch.fx.Transformer",
+        "name": "Transformer",
+        "params": [
+            "module"
+        ]
+    },
+    {
+        "full_name:": "torch.package.PackagingError",
+        "name": "PackagingError",
+        "params": [
+            "dependency_graph"
+        ]
+    },
+    {
+        "full_name:": "torch.package.EmptyMatchError",
+        "name": "EmptyMatchError",
+        "params": []
+    },
+    {
+        "full_name:": "torch.package.PackageExporter",
+        "name": "PackageExporter",
+        "params": [
+            "f",
+            "importer"
+        ]
+    },
+    {
+        "full_name:": "torch.package.PackageImporter",
+        "name": "PackageImporter",
+        "params": [
+            "file_or_buffer",
+            "module_allowed"
+        ]
+    },
+    {
+        "full_name:": "torch.package.Directory",
+        "name": "Directory",
+        "params": [
+            "name",
+            "is_dir"
+        ]
+    },
+    {
+        "full_name:": "torch.profiler.profile",
+        "name": "profile",
+        "params": [
+            "*",
+            "activities",
+            "schedule",
+            "on_trace_ready",
+            "record_shapes",
+            "profile_memory",
+            "with_stack",
+            "with_flops",
+            "with_modules",
+            "use_cuda"
+        ]
+    },
+    {
+        "full_name:": "torch.profiler.ProfilerAction",
+        "name": "ProfilerAction",
+        "params": [
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.profiler.ProfilerActivity",
+        "name": "ProfilerActivity",
+        "params": []
+    },
+    {
+        "full_name:": "torch.optim.Optimizer",
+        "name": "Optimizer",
+        "params": [
+            "params",
+            "defaults"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.GradBucket",
+        "name": "GradBucket",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState",
+        "name": "PowerSGDState",
+        "params": [
+            "process_group",
+            "matrix_approximation_rank",
+            "start_powerSGD_iter",
+            "min_compression_rate",
+            "use_error_feedback",
+            "warm_start",
+            "orthogonalization_epsilon",
+            "random_seed",
+            "compression_stats_logging_frequency"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.pipeline.sync.Pipe",
+        "name": "Pipe",
+        "params": [
+            "module",
+            "chunks",
+            "checkpoint",
+            "deferred_batch_norm"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.pipeline.sync.skip.skippable.stash",
+        "name": "stash",
+        "params": [
+            "name",
+            "tensor"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.pipeline.sync.skip.skippable.pop",
+        "name": "pop",
+        "params": [
+            "name"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.rpc.WorkerInfo",
+        "name": "WorkerInfo",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.rpc.BackendType",
+        "name": "BackendType",
+        "params": [
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.rpc.RpcBackendOptions",
+        "name": "RpcBackendOptions",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.rpc.TensorPipeRpcBackendOptions",
+        "name": "TensorPipeRpcBackendOptions",
+        "params": [
+            "*",
+            "num_worker_threads",
+            "rpc_timeout",
+            "init_method",
+            "device_maps",
+            "devices",
+            "_transports",
+            "_channels"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.rpc.RRef",
+        "name": "RRef",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.nn.api.remote_module.RemoteModule",
+        "name": "RemoteModule",
+        "params": [
+            "remote_device",
+            "module_cls",
+            "args",
+            "kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.autograd.context",
+        "name": "context",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.optim.DistributedOptimizer",
+        "name": "DistributedOptimizer",
+        "params": [
+            "optimizer_class",
+            "params_rref",
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.DoubleStorage",
+        "name": "DoubleStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.FloatStorage",
+        "name": "FloatStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.HalfStorage",
+        "name": "HalfStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.LongStorage",
+        "name": "LongStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.IntStorage",
+        "name": "IntStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.ShortStorage",
+        "name": "ShortStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.CharStorage",
+        "name": "CharStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.ByteStorage",
+        "name": "ByteStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.BoolStorage",
+        "name": "BoolStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.BFloat16Storage",
+        "name": "BFloat16Storage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.ComplexDoubleStorage",
+        "name": "ComplexDoubleStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.ComplexFloatStorage",
+        "name": "ComplexFloatStorage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.QUInt8Storage",
+        "name": "QUInt8Storage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.QInt8Storage",
+        "name": "QInt8Storage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.QInt32Storage",
+        "name": "QInt32Storage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.QUInt4x2Storage",
+        "name": "QUInt4x2Storage",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.benchmark.Timer",
+        "name": "Timer",
+        "params": [
+            "stmt",
+            "setup",
+            "global_setup",
+            "timer",
+            "globals",
+            "label",
+            "sub_label",
+            "description",
+            "env",
+            "num_threads",
+            "language"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.benchmark.Measurement",
+        "name": "Measurement",
+        "params": [
+            "number_per_run",
+            "raw_times",
+            "task_spec",
+            "metadata"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.benchmark.CallgrindStats",
+        "name": "CallgrindStats",
+        "params": [
+            "task_spec",
+            "number_per_run",
+            "built_with_debug_symbols",
+            "baseline_inclusive_stats",
+            "baseline_exclusive_stats",
+            "stmt_inclusive_stats",
+            "stmt_exclusive_stats",
+            "stmt_callgrind_out"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.benchmark.FunctionCounts",
+        "name": "FunctionCounts",
+        "params": [
+            "_data",
+            "inclusive",
+            "truncate_rows",
+            "_linewidth"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.DataLoader",
+        "name": "DataLoader",
+        "params": [
+            "dataset",
+            "batch_size",
+            "shuffle",
+            "sampler",
+            "batch_sampler",
+            "num_workers",
+            "collate_fn",
+            "pin_memory",
+            "drop_last",
+            "timeout",
+            "worker_init_fn",
+            "multiprocessing_context",
+            "generator",
+            "*",
+            "prefetch_factor",
+            "persistent_workers"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.Dataset",
+        "name": "Dataset",
+        "params": [
+            "*args",
+            "**kwds"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.IterableDataset",
+        "name": "IterableDataset",
+        "params": [
+            "*args",
+            "**kwds"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.TensorDataset",
+        "name": "TensorDataset",
+        "params": [
+            "*tensors"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.ConcatDataset",
+        "name": "ConcatDataset",
+        "params": [
+            "datasets"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.ChainDataset",
+        "name": "ChainDataset",
+        "params": [
+            "datasets"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.Subset",
+        "name": "Subset",
+        "params": [
+            "dataset",
+            "indices"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.Sampler",
+        "name": "Sampler",
+        "params": [
+            "data_source"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.SequentialSampler",
+        "name": "SequentialSampler",
+        "params": [
+            "data_source"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.RandomSampler",
+        "name": "RandomSampler",
+        "params": [
+            "data_source",
+            "replacement",
+            "num_samples",
+            "generator"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.SubsetRandomSampler",
+        "name": "SubsetRandomSampler",
+        "params": [
+            "indices",
+            "generator"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.WeightedRandomSampler",
+        "name": "WeightedRandomSampler",
+        "params": [
+            "weights",
+            "num_samples",
+            "replacement",
+            "generator"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.BatchSampler",
+        "name": "BatchSampler",
+        "params": [
+            "sampler",
+            "batch_size",
+            "drop_last"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.data.distributed.DistributedSampler",
+        "name": "DistributedSampler",
+        "params": [
+            "dataset",
+            "num_replicas",
+            "rank",
+            "shuffle",
+            "seed",
+            "drop_last"
+        ]
+    },
+    {
+        "full_name:": "torch.utils.tensorboard.writer.SummaryWriter",
+        "name": "SummaryWriter",
+        "params": [
+            "log_dir",
+            "comment",
+            "purge_step",
+            "max_queue",
+            "flush_secs",
+            "filename_suffix"
+        ]
+    },
+    {
+        "full_name:": "torch.torch.finfo",
+        "name": "finfo",
+        "params": []
+    },
+    {
+        "full_name:": "torch.torch.iinfo",
+        "name": "iinfo",
+        "params": []
+    },
+    {
+        "full_name:": "torch.Generator",
+        "name": "Generator",
+        "params": [
+            "device"
+        ]
+    },
+    {
+        "full_name:": "torch.quasirandom.SobolEngine",
+        "name": "SobolEngine",
+        "params": [
+            "dimension",
+            "scramble",
+            "seed"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.parameter.Parameter",
+        "name": "Parameter",
+        "params": [
+            "data",
+            "requires_grad"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.parameter.UninitializedParameter",
+        "name": "UninitializedParameter",
+        "params": [
+            "requires_grad",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.parameter.UninitializedBuffer",
+        "name": "UninitializedBuffer",
+        "params": [
+            "requires_grad",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Module",
+        "name": "Module",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.Sequential",
+        "name": "Sequential",
+        "params": [
+            "*args"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ModuleList",
+        "name": "ModuleList",
+        "params": [
+            "modules"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ModuleDict",
+        "name": "ModuleDict",
+        "params": [
+            "modules"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ParameterList",
+        "name": "ParameterList",
+        "params": [
+            "parameters"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ParameterDict",
+        "name": "ParameterDict",
+        "params": [
+            "parameters"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Conv1d",
+        "name": "Conv1d",
+        "params": [
+            "in_channels",
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "bias",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Conv2d",
+        "name": "Conv2d",
+        "params": [
+            "in_channels",
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "bias",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Conv3d",
+        "name": "Conv3d",
+        "params": [
+            "in_channels",
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "bias",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ConvTranspose1d",
+        "name": "ConvTranspose1d",
+        "params": [
+            "in_channels",
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "output_padding",
+            "groups",
+            "bias",
+            "dilation",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ConvTranspose2d",
+        "name": "ConvTranspose2d",
+        "params": [
+            "in_channels",
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "output_padding",
+            "groups",
+            "bias",
+            "dilation",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ConvTranspose3d",
+        "name": "ConvTranspose3d",
+        "params": [
+            "in_channels",
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "output_padding",
+            "groups",
+            "bias",
+            "dilation",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyConv1d",
+        "name": "LazyConv1d",
+        "params": [
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "bias",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyConv2d",
+        "name": "LazyConv2d",
+        "params": [
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "bias",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyConv3d",
+        "name": "LazyConv3d",
+        "params": [
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "bias",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyConvTranspose1d",
+        "name": "LazyConvTranspose1d",
+        "params": [
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "output_padding",
+            "groups",
+            "bias",
+            "dilation",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyConvTranspose2d",
+        "name": "LazyConvTranspose2d",
+        "params": [
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "output_padding",
+            "groups",
+            "bias",
+            "dilation",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyConvTranspose3d",
+        "name": "LazyConvTranspose3d",
+        "params": [
+            "out_channels",
+            "kernel_size",
+            "stride",
+            "padding",
+            "output_padding",
+            "groups",
+            "bias",
+            "dilation",
+            "padding_mode",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Unfold",
+        "name": "Unfold",
+        "params": [
+            "kernel_size",
+            "dilation",
+            "padding",
+            "stride"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Fold",
+        "name": "Fold",
+        "params": [
+            "output_size",
+            "kernel_size",
+            "dilation",
+            "padding",
+            "stride"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MaxPool1d",
+        "name": "MaxPool1d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "return_indices",
+            "ceil_mode"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MaxPool2d",
+        "name": "MaxPool2d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "return_indices",
+            "ceil_mode"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MaxPool3d",
+        "name": "MaxPool3d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding",
+            "dilation",
+            "return_indices",
+            "ceil_mode"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MaxUnpool1d",
+        "name": "MaxUnpool1d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MaxUnpool2d",
+        "name": "MaxUnpool2d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MaxUnpool3d",
+        "name": "MaxUnpool3d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AvgPool1d",
+        "name": "AvgPool1d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding",
+            "ceil_mode",
+            "count_include_pad"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AvgPool2d",
+        "name": "AvgPool2d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding",
+            "ceil_mode",
+            "count_include_pad",
+            "divisor_override"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AvgPool3d",
+        "name": "AvgPool3d",
+        "params": [
+            "kernel_size",
+            "stride",
+            "padding",
+            "ceil_mode",
+            "count_include_pad",
+            "divisor_override"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.FractionalMaxPool2d",
+        "name": "FractionalMaxPool2d",
+        "params": [
+            "kernel_size",
+            "output_size",
+            "output_ratio",
+            "return_indices",
+            "_random_samples"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.FractionalMaxPool3d",
+        "name": "FractionalMaxPool3d",
+        "params": [
+            "kernel_size",
+            "output_size",
+            "output_ratio",
+            "return_indices",
+            "_random_samples"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LPPool1d",
+        "name": "LPPool1d",
+        "params": [
+            "norm_type",
+            "kernel_size",
+            "stride",
+            "ceil_mode"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LPPool2d",
+        "name": "LPPool2d",
+        "params": [
+            "norm_type",
+            "kernel_size",
+            "stride",
+            "ceil_mode"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveMaxPool1d",
+        "name": "AdaptiveMaxPool1d",
+        "params": [
+            "output_size",
+            "return_indices"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveMaxPool2d",
+        "name": "AdaptiveMaxPool2d",
+        "params": [
+            "output_size",
+            "return_indices"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveMaxPool3d",
+        "name": "AdaptiveMaxPool3d",
+        "params": [
+            "output_size",
+            "return_indices"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveAvgPool1d",
+        "name": "AdaptiveAvgPool1d",
+        "params": [
+            "output_size"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveAvgPool2d",
+        "name": "AdaptiveAvgPool2d",
+        "params": [
+            "output_size"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveAvgPool3d",
+        "name": "AdaptiveAvgPool3d",
+        "params": [
+            "output_size"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReflectionPad1d",
+        "name": "ReflectionPad1d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReflectionPad2d",
+        "name": "ReflectionPad2d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReflectionPad3d",
+        "name": "ReflectionPad3d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReplicationPad1d",
+        "name": "ReplicationPad1d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReplicationPad2d",
+        "name": "ReplicationPad2d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReplicationPad3d",
+        "name": "ReplicationPad3d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ZeroPad2d",
+        "name": "ZeroPad2d",
+        "params": [
+            "padding"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ConstantPad1d",
+        "name": "ConstantPad1d",
+        "params": [
+            "padding",
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ConstantPad2d",
+        "name": "ConstantPad2d",
+        "params": [
+            "padding",
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ConstantPad3d",
+        "name": "ConstantPad3d",
+        "params": [
+            "padding",
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ELU",
+        "name": "ELU",
+        "params": [
+            "alpha",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Hardshrink",
+        "name": "Hardshrink",
+        "params": [
+            "lambd"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Hardsigmoid",
+        "name": "Hardsigmoid",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Hardtanh",
+        "name": "Hardtanh",
+        "params": [
+            "min_val",
+            "max_val",
+            "inplace",
+            "min_value",
+            "max_value"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Hardswish",
+        "name": "Hardswish",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LeakyReLU",
+        "name": "LeakyReLU",
+        "params": [
+            "negative_slope",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LogSigmoid",
+        "name": "LogSigmoid",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.MultiheadAttention",
+        "name": "MultiheadAttention",
+        "params": [
+            "embed_dim",
+            "num_heads",
+            "dropout",
+            "bias",
+            "add_bias_kv",
+            "add_zero_attn",
+            "kdim",
+            "vdim",
+            "batch_first",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.PReLU",
+        "name": "PReLU",
+        "params": [
+            "num_parameters",
+            "init",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReLU",
+        "name": "ReLU",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ReLU6",
+        "name": "ReLU6",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.RReLU",
+        "name": "RReLU",
+        "params": [
+            "lower",
+            "upper",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.SELU",
+        "name": "SELU",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.CELU",
+        "name": "CELU",
+        "params": [
+            "alpha",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.GELU",
+        "name": "GELU",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.Sigmoid",
+        "name": "Sigmoid",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.SiLU",
+        "name": "SiLU",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Mish",
+        "name": "Mish",
+        "params": [
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Softplus",
+        "name": "Softplus",
+        "params": [
+            "beta",
+            "threshold"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Softshrink",
+        "name": "Softshrink",
+        "params": [
+            "lambd"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Softsign",
+        "name": "Softsign",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.Tanh",
+        "name": "Tanh",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.Tanhshrink",
+        "name": "Tanhshrink",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.Threshold",
+        "name": "Threshold",
+        "params": [
+            "threshold",
+            "value",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.GLU",
+        "name": "GLU",
+        "params": [
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Softmin",
+        "name": "Softmin",
+        "params": [
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Softmax",
+        "name": "Softmax",
+        "params": [
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Softmax2d",
+        "name": "Softmax2d",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.LogSoftmax",
+        "name": "LogSoftmax",
+        "params": [
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AdaptiveLogSoftmaxWithLoss",
+        "name": "AdaptiveLogSoftmaxWithLoss",
+        "params": [
+            "in_features",
+            "n_classes",
+            "cutoffs",
+            "div_value",
+            "head_bias",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.BatchNorm1d",
+        "name": "BatchNorm1d",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.BatchNorm2d",
+        "name": "BatchNorm2d",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.BatchNorm3d",
+        "name": "BatchNorm3d",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyBatchNorm1d",
+        "name": "LazyBatchNorm1d",
+        "params": [
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyBatchNorm2d",
+        "name": "LazyBatchNorm2d",
+        "params": [
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyBatchNorm3d",
+        "name": "LazyBatchNorm3d",
+        "params": [
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.GroupNorm",
+        "name": "GroupNorm",
+        "params": [
+            "num_groups",
+            "num_channels",
+            "eps",
+            "affine",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.SyncBatchNorm",
+        "name": "SyncBatchNorm",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "process_group",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.InstanceNorm1d",
+        "name": "InstanceNorm1d",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.InstanceNorm2d",
+        "name": "InstanceNorm2d",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.InstanceNorm3d",
+        "name": "InstanceNorm3d",
+        "params": [
+            "num_features",
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyInstanceNorm1d",
+        "name": "LazyInstanceNorm1d",
+        "params": [
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyInstanceNorm2d",
+        "name": "LazyInstanceNorm2d",
+        "params": [
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyInstanceNorm3d",
+        "name": "LazyInstanceNorm3d",
+        "params": [
+            "eps",
+            "momentum",
+            "affine",
+            "track_running_stats",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LayerNorm",
+        "name": "LayerNorm",
+        "params": [
+            "normalized_shape",
+            "eps",
+            "elementwise_affine",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LocalResponseNorm",
+        "name": "LocalResponseNorm",
+        "params": [
+            "size",
+            "alpha",
+            "beta",
+            "k"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.RNNBase",
+        "name": "RNNBase",
+        "params": [
+            "mode",
+            "input_size",
+            "hidden_size",
+            "num_layers",
+            "bias",
+            "batch_first",
+            "dropout",
+            "bidirectional",
+            "proj_size",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.RNN",
+        "name": "RNN",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LSTM",
+        "name": "LSTM",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.GRU",
+        "name": "GRU",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.RNNCell",
+        "name": "RNNCell",
+        "params": [
+            "input_size",
+            "hidden_size",
+            "bias",
+            "nonlinearity",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LSTMCell",
+        "name": "LSTMCell",
+        "params": [
+            "input_size",
+            "hidden_size",
+            "bias",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.GRUCell",
+        "name": "GRUCell",
+        "params": [
+            "input_size",
+            "hidden_size",
+            "bias",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Transformer",
+        "name": "Transformer",
+        "params": [
+            "d_model",
+            "nhead",
+            "num_encoder_layers",
+            "num_decoder_layers",
+            "dim_feedforward",
+            "dropout",
+            "activation",
+            "custom_encoder",
+            "custom_decoder",
+            "layer_norm_eps",
+            "batch_first",
+            "norm_first",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.TransformerEncoder",
+        "name": "TransformerEncoder",
+        "params": [
+            "encoder_layer",
+            "num_layers",
+            "norm"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.TransformerDecoder",
+        "name": "TransformerDecoder",
+        "params": [
+            "decoder_layer",
+            "num_layers",
+            "norm"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.TransformerEncoderLayer",
+        "name": "TransformerEncoderLayer",
+        "params": [
+            "d_model",
+            "nhead",
+            "dim_feedforward",
+            "dropout",
+            "activation",
+            "layer_norm_eps",
+            "batch_first",
+            "norm_first",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.TransformerDecoderLayer",
+        "name": "TransformerDecoderLayer",
+        "params": [
+            "d_model",
+            "nhead",
+            "dim_feedforward",
+            "dropout",
+            "activation",
+            "layer_norm_eps",
+            "batch_first",
+            "norm_first",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Identity",
+        "name": "Identity",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Linear",
+        "name": "Linear",
+        "params": [
+            "in_features",
+            "out_features",
+            "bias",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Bilinear",
+        "name": "Bilinear",
+        "params": [
+            "in1_features",
+            "in2_features",
+            "out_features",
+            "bias",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.LazyLinear",
+        "name": "LazyLinear",
+        "params": [
+            "out_features",
+            "bias",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Dropout",
+        "name": "Dropout",
+        "params": [
+            "p",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Dropout2d",
+        "name": "Dropout2d",
+        "params": [
+            "p",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Dropout3d",
+        "name": "Dropout3d",
+        "params": [
+            "p",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.AlphaDropout",
+        "name": "AlphaDropout",
+        "params": [
+            "p",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.FeatureAlphaDropout",
+        "name": "FeatureAlphaDropout",
+        "params": [
+            "p",
+            "inplace"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Embedding",
+        "name": "Embedding",
+        "params": [
+            "num_embeddings",
+            "embedding_dim",
+            "padding_idx",
+            "max_norm",
+            "norm_type",
+            "scale_grad_by_freq",
+            "sparse",
+            "_weight",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.EmbeddingBag",
+        "name": "EmbeddingBag",
+        "params": [
+            "num_embeddings",
+            "embedding_dim",
+            "max_norm",
+            "norm_type",
+            "scale_grad_by_freq",
+            "mode",
+            "sparse",
+            "_weight",
+            "include_last_offset",
+            "padding_idx",
+            "device",
+            "dtype"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.CosineSimilarity",
+        "name": "CosineSimilarity",
+        "params": [
+            "dim",
+            "eps"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.PairwiseDistance",
+        "name": "PairwiseDistance",
+        "params": [
+            "p",
+            "eps",
+            "keepdim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.L1Loss",
+        "name": "L1Loss",
+        "params": [
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MSELoss",
+        "name": "MSELoss",
+        "params": [
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.CrossEntropyLoss",
+        "name": "CrossEntropyLoss",
+        "params": [
+            "weight",
+            "size_average",
+            "ignore_index",
+            "reduce",
+            "reduction",
+            "label_smoothing"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.CTCLoss",
+        "name": "CTCLoss",
+        "params": [
+            "blank",
+            "reduction",
+            "zero_infinity"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.NLLLoss",
+        "name": "NLLLoss",
+        "params": [
+            "weight",
+            "size_average",
+            "ignore_index",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.PoissonNLLLoss",
+        "name": "PoissonNLLLoss",
+        "params": [
+            "log_input",
+            "full",
+            "size_average",
+            "eps",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.GaussianNLLLoss",
+        "name": "GaussianNLLLoss",
+        "params": [
+            "*",
+            "full",
+            "eps",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.KLDivLoss",
+        "name": "KLDivLoss",
+        "params": [
+            "size_average",
+            "reduce",
+            "reduction",
+            "log_target"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.BCELoss",
+        "name": "BCELoss",
+        "params": [
+            "weight",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.BCEWithLogitsLoss",
+        "name": "BCEWithLogitsLoss",
+        "params": [
+            "weight",
+            "size_average",
+            "reduce",
+            "reduction",
+            "pos_weight"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MarginRankingLoss",
+        "name": "MarginRankingLoss",
+        "params": [
+            "margin",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.HingeEmbeddingLoss",
+        "name": "HingeEmbeddingLoss",
+        "params": [
+            "margin",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MultiLabelMarginLoss",
+        "name": "MultiLabelMarginLoss",
+        "params": [
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.HuberLoss",
+        "name": "HuberLoss",
+        "params": [
+            "reduction",
+            "delta"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.SmoothL1Loss",
+        "name": "SmoothL1Loss",
+        "params": [
+            "size_average",
+            "reduce",
+            "reduction",
+            "beta"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.SoftMarginLoss",
+        "name": "SoftMarginLoss",
+        "params": [
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MultiLabelSoftMarginLoss",
+        "name": "MultiLabelSoftMarginLoss",
+        "params": [
+            "weight",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.CosineEmbeddingLoss",
+        "name": "CosineEmbeddingLoss",
+        "params": [
+            "margin",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.MultiMarginLoss",
+        "name": "MultiMarginLoss",
+        "params": [
+            "p",
+            "margin",
+            "weight",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.TripletMarginLoss",
+        "name": "TripletMarginLoss",
+        "params": [
+            "margin",
+            "p",
+            "eps",
+            "swap",
+            "size_average",
+            "reduce",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.TripletMarginWithDistanceLoss",
+        "name": "TripletMarginWithDistanceLoss",
+        "params": [
+            "*",
+            "distance_function",
+            "margin",
+            "swap",
+            "reduction"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.PixelShuffle",
+        "name": "PixelShuffle",
+        "params": [
+            "upscale_factor"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.PixelUnshuffle",
+        "name": "PixelUnshuffle",
+        "params": [
+            "downscale_factor"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Upsample",
+        "name": "Upsample",
+        "params": [
+            "size",
+            "scale_factor",
+            "mode",
+            "align_corners"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.UpsamplingNearest2d",
+        "name": "UpsamplingNearest2d",
+        "params": [
+            "size",
+            "scale_factor"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.UpsamplingBilinear2d",
+        "name": "UpsamplingBilinear2d",
+        "params": [
+            "size",
+            "scale_factor"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.ChannelShuffle",
+        "name": "ChannelShuffle",
+        "params": [
+            "groups"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.DataParallel",
+        "name": "DataParallel",
+        "params": [
+            "module",
+            "device_ids",
+            "output_device",
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.parallel.DistributedDataParallel",
+        "name": "DistributedDataParallel",
+        "params": [
+            "module",
+            "device_ids",
+            "output_device",
+            "dim",
+            "broadcast_buffers",
+            "process_group",
+            "bucket_cap_mb",
+            "find_unused_parameters",
+            "check_reduction",
+            "gradient_as_bucket_view"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.BasePruningMethod",
+        "name": "BasePruningMethod",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.PruningContainer",
+        "name": "PruningContainer",
+        "params": [
+            "*args"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.Identity",
+        "name": "Identity",
+        "params": []
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.RandomUnstructured",
+        "name": "RandomUnstructured",
+        "params": [
+            "amount"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.L1Unstructured",
+        "name": "L1Unstructured",
+        "params": [
+            "amount"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.RandomStructured",
+        "name": "RandomStructured",
+        "params": [
+            "amount",
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.LnStructured",
+        "name": "LnStructured",
+        "params": [
+            "amount",
+            "n",
+            "dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.prune.CustomFromMask",
+        "name": "CustomFromMask",
+        "params": [
+            "mask"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.parametrize.ParametrizationList",
+        "name": "ParametrizationList",
+        "params": [
+            "modules",
+            "original",
+            "unsafe"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.utils.rnn.PackedSequence",
+        "name": "PackedSequence",
+        "params": [
+            "data",
+            "batch_sizes",
+            "sorted_indices",
+            "unsorted_indices"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Flatten",
+        "name": "Flatten",
+        "params": [
+            "start_dim",
+            "end_dim"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.Unflatten",
+        "name": "Unflatten",
+        "params": [
+            "dim",
+            "unflattened_size"
+        ]
+    },
+    {
+        "full_name:": "torch.nn.modules.lazy.LazyModuleMixin",
+        "name": "LazyModuleMixin",
+        "params": [
+            "*args",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.cuda.StreamContext",
+        "name": "StreamContext",
+        "params": [
+            "stream"
+        ]
+    },
+    {
+        "full_name:": "torch.cuda.Stream",
+        "name": "Stream",
+        "params": [
+            "device",
+            "priority",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.cuda.Event",
+        "name": "Event",
+        "params": [
+            "enable_timing",
+            "blocking",
+            "interprocess"
+        ]
+    },
+    {
+        "full_name:": "torch.cuda.CUDAGraph",
+        "name": "CUDAGraph",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.ElasticAgent",
+        "name": "ElasticAgent",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.WorkerSpec",
+        "name": "WorkerSpec",
+        "params": [
+            "role",
+            "local_world_size",
+            "rdzv_handler",
+            "fn",
+            "entrypoint",
+            "args",
+            "max_restarts",
+            "monitor_interval",
+            "master_port",
+            "master_addr",
+            "redirects",
+            "tee"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.WorkerState",
+        "name": "WorkerState",
+        "params": [
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.Worker",
+        "name": "Worker",
+        "params": [
+            "local_rank",
+            "global_rank",
+            "role_rank",
+            "world_size",
+            "role_world_size"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.WorkerGroup",
+        "name": "WorkerGroup",
+        "params": [
+            "spec"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent",
+        "name": "LocalElasticAgent",
+        "params": [
+            "spec",
+            "start_method",
+            "exit_barrier_timeout",
+            "log_dir"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.SimpleElasticAgent",
+        "name": "SimpleElasticAgent",
+        "params": [
+            "spec",
+            "exit_barrier_timeout"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.agent.server.api.RunResult",
+        "name": "RunResult",
+        "params": [
+            "state",
+            "return_values",
+            "failures"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.api.PContext",
+        "name": "PContext",
+        "params": [
+            "name",
+            "entrypoint",
+            "args",
+            "envs",
+            "stdouts",
+            "stderrs",
+            "tee_stdouts",
+            "tee_stderrs",
+            "error_files"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.api.MultiprocessContext",
+        "name": "MultiprocessContext",
+        "params": [
+            "name",
+            "entrypoint",
+            "args",
+            "envs",
+            "stdouts",
+            "stderrs",
+            "tee_stdouts",
+            "tee_stderrs",
+            "error_files",
+            "start_method"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.api.SubprocessContext",
+        "name": "SubprocessContext",
+        "params": [
+            "name",
+            "entrypoint",
+            "args",
+            "envs",
+            "stdouts",
+            "stderrs",
+            "tee_stdouts",
+            "tee_stderrs",
+            "error_files"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.api.RunProcsResult",
+        "name": "RunProcsResult",
+        "params": [
+            "return_values",
+            "failures",
+            "stdouts",
+            "stderrs"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.errors.ChildFailedError",
+        "name": "ChildFailedError",
+        "params": [
+            "name",
+            "failures"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.errors.ErrorHandler",
+        "name": "ErrorHandler",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.multiprocessing.errors.ProcessFailure",
+        "name": "ProcessFailure",
+        "params": [
+            "local_rank",
+            "pid",
+            "exitcode",
+            "error_file"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousParameters",
+        "name": "RendezvousParameters",
+        "params": [
+            "backend",
+            "endpoint",
+            "run_id",
+            "min_nodes",
+            "max_nodes",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry",
+        "name": "RendezvousHandlerRegistry",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousHandler",
+        "name": "RendezvousHandler",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousError",
+        "name": "RendezvousError",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousClosedError",
+        "name": "RendezvousClosedError",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousTimeoutError",
+        "name": "RendezvousTimeoutError",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousConnectionError",
+        "name": "RendezvousConnectionError",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.RendezvousStateError",
+        "name": "RendezvousStateError",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler",
+        "name": "DynamicRendezvousHandler",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousBackend",
+        "name": "RendezvousBackend",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout",
+        "name": "RendezvousTimeout",
+        "params": [
+            "join",
+            "last_call",
+            "close",
+            "heartbeat"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend",
+        "name": "C10dRendezvousBackend",
+        "params": [
+            "store",
+            "run_id"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend",
+        "name": "EtcdRendezvousBackend",
+        "params": [
+            "client",
+            "run_id",
+            "key_prefix",
+            "ttl"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler",
+        "name": "EtcdRendezvousHandler",
+        "params": [
+            "rdzv_impl"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.etcd_store.EtcdStore",
+        "name": "EtcdStore",
+        "params": [
+            "etcd_client",
+            "etcd_store_prefix",
+            "timeout"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.rendezvous.etcd_server.EtcdServer",
+        "name": "EtcdServer",
+        "params": [
+            "data_dir"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.timer.LocalTimerServer",
+        "name": "LocalTimerServer",
+        "params": [
+            "mp_queue",
+            "max_interval",
+            "daemon"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.timer.LocalTimerClient",
+        "name": "LocalTimerClient",
+        "params": [
+            "mp_queue"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.timer.TimerRequest",
+        "name": "TimerRequest",
+        "params": [
+            "worker_id",
+            "scope_id",
+            "expiration_time"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.timer.TimerServer",
+        "name": "TimerServer",
+        "params": [
+            "request_queue",
+            "max_interval",
+            "daemon"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.timer.TimerClient",
+        "name": "TimerClient",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.metrics.api.MetricHandler",
+        "name": "MetricHandler",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.metrics.api.ConsoleMetricHandler",
+        "name": "ConsoleMetricHandler",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.metrics.api.NullMetricHandler",
+        "name": "NullMetricHandler",
+        "params": []
+    },
+    {
+        "full_name:": "torch.distributed.elastic.events.api.Event",
+        "name": "Event",
+        "params": [
+            "name",
+            "source",
+            "timestamp",
+            "metadata"
+        ]
+    },
+    {
+        "full_name:": "torch.distributed.elastic.events.api.EventSource",
+        "name": "EventSource",
+        "params": [
+            "value"
+        ]
+    },
+    {
+        "full_name:": "torch.jit.ScriptModule",
+        "name": "ScriptModule",
+        "params": []
+    },
+    {
+        "full_name:": "torch.jit.ScriptFunction",
+        "name": "ScriptFunction",
+        "params": []
+    },
+    {
+        "full_name:": "torch.jit.Attribute",
+        "name": "Attribute",
+        "params": [
+            "value",
+            "type"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.Adadelta",
+        "name": "Adadelta",
+        "params": [
+            "params",
+            "lr",
+            "rho",
+            "eps",
+            "weight_decay"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.Adagrad",
+        "name": "Adagrad",
+        "params": [
+            "params",
+            "lr",
+            "lr_decay",
+            "weight_decay",
+            "initial_accumulator_value",
+            "eps"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.Adam",
+        "name": "Adam",
+        "params": [
+            "params",
+            "lr",
+            "betas",
+            "eps",
+            "weight_decay",
+            "amsgrad"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.AdamW",
+        "name": "AdamW",
+        "params": [
+            "params",
+            "lr",
+            "betas",
+            "eps",
+            "weight_decay",
+            "amsgrad"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.SparseAdam",
+        "name": "SparseAdam",
+        "params": [
+            "params",
+            "lr",
+            "betas",
+            "eps"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.Adamax",
+        "name": "Adamax",
+        "params": [
+            "params",
+            "lr",
+            "betas",
+            "eps",
+            "weight_decay"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.ASGD",
+        "name": "ASGD",
+        "params": [
+            "params",
+            "lr",
+            "lambd",
+            "alpha",
+            "t0",
+            "weight_decay"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.LBFGS",
+        "name": "LBFGS",
+        "params": [
+            "params",
+            "lr",
+            "max_iter",
+            "max_eval",
+            "tolerance_grad",
+            "tolerance_change",
+            "history_size",
+            "line_search_fn"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.NAdam",
+        "name": "NAdam",
+        "params": [
+            "params",
+            "lr",
+            "betas",
+            "eps",
+            "weight_decay",
+            "momentum_decay"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.RAdam",
+        "name": "RAdam",
+        "params": [
+            "params",
+            "lr",
+            "betas",
+            "eps",
+            "weight_decay"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.RMSprop",
+        "name": "RMSprop",
+        "params": [
+            "params",
+            "lr",
+            "alpha",
+            "eps",
+            "weight_decay",
+            "momentum",
+            "centered"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.Rprop",
+        "name": "Rprop",
+        "params": [
+            "params",
+            "lr",
+            "etas",
+            "step_sizes"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.SGD",
+        "name": "SGD",
+        "params": [
+            "params",
+            "lr",
+            "momentum",
+            "dampening",
+            "weight_decay",
+            "nesterov"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.LambdaLR",
+        "name": "LambdaLR",
+        "params": [
+            "optimizer",
+            "lr_lambda",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.MultiplicativeLR",
+        "name": "MultiplicativeLR",
+        "params": [
+            "optimizer",
+            "lr_lambda",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.StepLR",
+        "name": "StepLR",
+        "params": [
+            "optimizer",
+            "step_size",
+            "gamma",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.MultiStepLR",
+        "name": "MultiStepLR",
+        "params": [
+            "optimizer",
+            "milestones",
+            "gamma",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.ConstantLR",
+        "name": "ConstantLR",
+        "params": [
+            "optimizer",
+            "factor",
+            "total_iters",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.LinearLR",
+        "name": "LinearLR",
+        "params": [
+            "optimizer",
+            "start_factor",
+            "end_factor",
+            "total_iters",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.ExponentialLR",
+        "name": "ExponentialLR",
+        "params": [
+            "optimizer",
+            "gamma",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.CosineAnnealingLR",
+        "name": "CosineAnnealingLR",
+        "params": [
+            "optimizer",
+            "T_max",
+            "eta_min",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.ChainedScheduler",
+        "name": "ChainedScheduler",
+        "params": [
+            "schedulers"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.SequentialLR",
+        "name": "SequentialLR",
+        "params": [
+            "optimizer",
+            "schedulers",
+            "milestones",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.ReduceLROnPlateau",
+        "name": "ReduceLROnPlateau",
+        "params": [
+            "optimizer",
+            "mode",
+            "factor",
+            "patience",
+            "threshold",
+            "threshold_mode",
+            "cooldown",
+            "min_lr",
+            "eps",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.CyclicLR",
+        "name": "CyclicLR",
+        "params": [
+            "optimizer",
+            "base_lr",
+            "max_lr",
+            "step_size_up",
+            "step_size_down",
+            "mode",
+            "gamma",
+            "scale_fn",
+            "scale_mode",
+            "cycle_momentum",
+            "base_momentum",
+            "max_momentum",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.OneCycleLR",
+        "name": "OneCycleLR",
+        "params": [
+            "optimizer",
+            "max_lr",
+            "total_steps",
+            "epochs",
+            "steps_per_epoch",
+            "pct_start",
+            "anneal_strategy",
+            "cycle_momentum",
+            "base_momentum",
+            "max_momentum",
+            "div_factor",
+            "final_div_factor",
+            "three_phase",
+            "last_epoch",
+            "verbose"
+        ]
+    },
+    {
+        "full_name:": "torch.optim.lr_scheduler.CosineAnnealingWarmRestarts",
+        "name": "CosineAnnealingWarmRestarts",
+        "params": [
+            "optimizer",
+            "T_0",
+            "T_mult",
+            "eta_min",
+            "last_epoch",
+            "verbose"
+        ]
+    }
+]

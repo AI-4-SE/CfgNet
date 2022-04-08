@@ -42,7 +42,7 @@ linter: poetry.lock
 
 .PHONY: mypy
 mypy: poetry.lock
-	poetry run mypy --ignore-missing-imports src/ tests/
+	poetry run mypy --ignore-missing-imports src/ tests/cfgnet
 
 .PHONY: docs
 docs: $(DOCS) install

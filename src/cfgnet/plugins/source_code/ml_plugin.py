@@ -94,7 +94,7 @@ class MLPlugin(Plugin):
                         MLPlugin._parse_call(artifact, node, None, modules)
 
         except Exception as error:
-            logging.error("Failed to parse %s due to %s", abs_file_path, error)
+            logging.error("Failed to parse %s due to %s: %s", abs_file_path, type(error).__name__, error)
 
         return artifact
 

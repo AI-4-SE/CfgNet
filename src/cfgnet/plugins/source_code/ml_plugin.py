@@ -88,13 +88,24 @@ class MLPlugin(Plugin):
                                 MLPlugin._parse_call(
                                     artifact, arg, None, modules
                                 )
+                if isinstance(node, ast.Return):
+                    if isinstance(node.value, ast.Call):
+                        SEEN.add(node.value)
+                        MLPlugin._parse_call(
+                            artifact, node.value, None, modules
+                        )
 
                 if isinstance(node, ast.Call):
                     if node not in SEEN:
                         MLPlugin._parse_call(artifact, node, None, modules)
 
         except Exception as error:
-            logging.error("Failed to parse %s due to %s: %s", abs_file_path, type(error).__name__, error)
+            logging.error(
+                "Failed to parse %s due to %s: %s",
+                abs_file_path,
+                type(error).__name__,
+                error,
+            )
 
         return artifact
 
@@ -150,8 +161,12 @@ class MLPlugin(Plugin):
                     MLPlugin._parse_keywords(keywords, option)
 
                 if not args and not keywords:
+                    params = OptionNode(
+                        name="params", location=str(func.lineno)
+                    )
+                    option.add_child(params)
                     value_node = ValueNode(name="default")
-                    option.add_child(value_node)
+                    params.add_child(value_node)
 
     @staticmethod
     def _parse_variable(var: ast.Name, parent: OptionNode) -> None:
@@ -212,14 +227,17 @@ class MLPlugin(Plugin):
                     name=option_name, location=str(arg.lineno)
                 )
                 parent.add_child(arg_option)
-                print(arg)
-                if isinstance(args[i], ast.Constant):
+                if isinstance(arg, ast.Compare):
+                    if isinstance(arg.comparators[0], ast.Name):
+                        arg_value = ValueNode(name=arg.comparators[0].id)
+                        arg_option.add_child(arg_value)
+                elif isinstance(args[i], ast.Constant):
                     arg_value = ValueNode(name=arg.value)
                     arg_option.add_child(arg_value)
-                if isinstance(arg, ast.Name):
+                elif isinstance(arg, ast.Name):
                     arg_value = ValueNode(name=arg.id)
                     arg_option.add_child(arg_value)
-                if isinstance(arg, (ast.List, ast.Dict, ast.Attribute)):
+                else:
                     value_name = ast.unparse(arg)
                     if value_name.startswith("'") and value_name.endswith("'"):
                         value_name = value_name.replace("'", "")

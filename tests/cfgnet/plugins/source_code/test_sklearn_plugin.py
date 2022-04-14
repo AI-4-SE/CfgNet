@@ -173,4 +173,4 @@ def test_parse_dockerfile(get_plugin):
 
     # LinearSVC
     assert make_id("sklearn.py", "LinearSVC", "variable", "linear_svc") in ids
-    assert make_id("sklearn.py", "LinearSVC", "default") in ids
+    assert make_id("sklearn.py", "LinearSVC", "params", "default") in ids

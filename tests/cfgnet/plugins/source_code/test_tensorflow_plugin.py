@@ -156,7 +156,9 @@ def test_parse_dockerfile(get_plugin):
     assert make_id("tensorflow.py", "RNNEstimator", "cell_type", "lstm") in ids
 
     # Graph
-    assert make_id("tensorflow.py", "Graph", "default") in ids
+    assert make_id("tensorflow.py", "Graph", "params", "default") in ids
 
     # RegressionHead
-    assert make_id("tensorflow.py", "RegressionHead", "default") in ids
+    assert (
+        make_id("tensorflow.py", "RegressionHead", "params", "default") in ids
+    )

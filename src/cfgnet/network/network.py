@@ -37,6 +37,7 @@ from cfgnet.network.nodes import (
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.exporter.exporter import DotExporter, JSONExporter
+from cfgnet.utility.stats import Stats
 
 
 class Network:
@@ -233,6 +234,14 @@ class Network:
         file_path = os.path.join(self.cfg.export_dir_path(), name)
 
         DotExporter(self).visualize(file_path, export_format, include_unlinked)
+
+    def get_stats(self) -> None:
+        """Calculate stats for the configuration network."""
+        if not os.path.isdir(self.cfg.statistic_path()):
+            os.mkdir(self.cfg.statistic_path())
+
+        stats = Stats(self, self.cfg.statistic_path())
+        stats.calculate()
 
     @staticmethod
     def load_network(project_root: str) -> Network:

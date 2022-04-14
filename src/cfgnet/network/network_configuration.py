@@ -33,3 +33,6 @@ class NetworkConfiguration:
 
     def logfile_path(self):
         return os.path.join(self.data_dir_path(), f"{self.project_name()}.log")
+
+    def statistic_path(self):
+        return os.path.join(self.data_dir_path(), "statistics")

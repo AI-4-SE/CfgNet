@@ -20,7 +20,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(set(all_plugins)) == 12
+    assert len(set(all_plugins)) == 11
 
 
 def test_get_responsible_plugin():
@@ -49,9 +49,6 @@ def test_get_responsible_plugin():
     sklearn_plugin = PluginManager.get_responsible_plugin(
         os.path.abspath("tests/files/sklearn.py")
     )
-    tensorflow_plugin = PluginManager.get_responsible_plugin(
-        os.path.abspath("tests/files/tensorflow.py")
-    )
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -65,4 +62,3 @@ def test_get_responsible_plugin():
     assert cypress_plugin.concept_name == "cypress"
     assert tsconfig_plugin.concept_name == "tsconfig"
     assert sklearn_plugin.concept_name == "sklearn"
-    assert tensorflow_plugin.concept_name == "tensorflow"

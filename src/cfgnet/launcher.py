@@ -84,6 +84,8 @@ def init(
 
     completion_time = round((time.time() - start), 2)
 
+    network.get_stats()
+
     logging.info("Done in [%s s]", str(completion_time))
 
 

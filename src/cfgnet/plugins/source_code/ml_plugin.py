@@ -113,6 +113,14 @@ class MLPlugin(Plugin):
     def _parse_call(
         self, parent: ArtifactNode, obj: ast.Call, target: Any, data: Dict
     ):
+        """
+        Parse ast.Call object and extract corresponding nodes.
+
+        :param parent: artifact node of the file to be parsed
+        :param obj: ast.Call object
+        :param target: variable name if obj come from ast.Assign else None
+        :param data: data dictionary of ML modules
+        """
         func = obj.func
         keywords = obj.keywords
         args = obj.args
@@ -254,6 +262,12 @@ class MLPlugin(Plugin):
 
     @staticmethod
     def _find_module(name: str, data: Dict) -> Dict:
-        """Find the correct sci kit learn module based on a given name."""
+        """
+        Find the correct sci kit learn module based on a given name.
+
+        :param name: Name if module to be found
+        :param data: data dictionary of ML modules
+        :return: dictionary of the ML module
+        """
         module = next(filter(lambda x: name == x["name"], data))
         return module

@@ -25,7 +25,23 @@ if TYPE_CHECKING:
 
 
 class Node:
-    """Base class of a node in the network."""
+    """
+    Base class of a node in the network.
+
+    Parameters
+    ----------
+    name: str
+        name of a node.
+    parent: str
+        Parent of a node.
+    children: bool
+        List of children nodes.
+    id: Optional[ProjectNode]
+        ID of a node.
+    network: Optional[Network]
+        Network in which a node is contained.
+
+    """
 
     def __init__(self, name: str, parent: Node = None):
         self.name: str = name
@@ -61,7 +77,15 @@ class Node:
 
 
 class ProjectNode(Node):
-    """Root node of a network that represents the whole software system."""
+    """
+    Root node of a network that represents the whole software system.
+
+    Parameters
+    ----------
+    root_dir: str
+        Root directory of the project.
+
+    """
 
     def __init__(self, name: str, root_dir: str):
         super().__init__(name)
@@ -77,7 +101,21 @@ class ProjectNode(Node):
 
 
 class ArtifactNode(Node):
-    """Represent configuration artifacts."""
+    """
+    Represent configuration artifacts.
+
+    Parameters
+    ----------
+    file_path: str
+        Absolute file path of the file.
+    rel_file_path: str
+        Relative file path of the file.
+    concept_name: bool
+        Name of the concept of the file.
+    project_root: Optional[ProjectNode]
+        Project node of the network.
+
+    """
 
     def __init__(
         self,
@@ -136,7 +174,21 @@ class ArtifactNode(Node):
 
 
 class OptionNode(Node):
-    """Option nodes refer to commands or lines of code in an artifact."""
+    """
+    Option nodes refer to commands or lines of code in an artifact.
+
+    Parameters
+    ----------
+    display_option_id: str
+        Option ID for nested options.
+    location: int
+        Line number of the option.
+    prevalue_node: bool
+        Indicates whether the option is a prevalue node.
+    config_type: ConfigType
+        Type of configuration option/value.
+
+    """
 
     def __init__(
         self,
@@ -176,7 +228,18 @@ class OptionNode(Node):
 
 
 class ValueNode(Node):
-    """Value nodes represent actual parameters associated to an option node."""
+    """
+    Value nodes represent actual parameters associated to an option node.
+
+    Parameters
+    ----------
+    config_type: ConfigType
+        Type of configuration option/value.
+    possible_values: Dict[Tuple, Str]
+        Dictionary of possible values for a source code config option computed
+        using a control flow graph and constant propagation.
+
+    """
 
     def __init__(self, name: str, possible_values: Optional[Dict] = None):
         super().__init__(str(name))

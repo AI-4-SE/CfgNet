@@ -16,7 +16,7 @@
 
 import ast
 from typing import Dict
-from scalpel.cfg import CFGBuilder
+from scalpel.cfg import CFGBuilder, CFG
 from scalpel.SSA.const import SSA
 
 
@@ -24,14 +24,15 @@ class Cfg:
     """Control flow graph module."""
 
     def __init__(self, code_str: str) -> None:
-        self.cfg = CFGBuilder().build_from_src(name="", src=code_str)
-        self.ssa = SSA()
+        self.cfg: CFG = CFGBuilder().build_from_src(name="", src=code_str)
+        self.ssa: SSA = SSA()
 
     def compute_values(self, var: str) -> Dict:
         """
         Compute all possible values of a variable.
 
         :param var: variable for which all values should be identified
+        :return: dictionary of possible values
         """
         _, const_dict = self.ssa.compute_SSA(self.cfg)
 

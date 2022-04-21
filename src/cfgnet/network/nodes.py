@@ -16,7 +16,7 @@
 """Datastructure for nodes of a configuration network."""
 
 from __future__ import annotations
-from typing import List, Any, Optional, Union, TYPE_CHECKING
+from typing import List, Any, Optional, Union, Dict, TYPE_CHECKING
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.exceptions.exceptions import NetworkConstructionException
 
@@ -178,9 +178,10 @@ class OptionNode(Node):
 class ValueNode(Node):
     """Value nodes represent actual parameters associated to an option node."""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, possible_values: Optional[Dict] = None):
         super().__init__(str(name))
         self.config_type = ConfigType.UNKNOWN
+        self.possible_values = possible_values
 
     def __eq__(self, other):
         return self.name == other.name

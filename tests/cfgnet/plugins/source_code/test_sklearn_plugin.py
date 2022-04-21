@@ -48,9 +48,6 @@ def test_parse_dockerfile(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
-    for id in ids:
-        print(id)
-
     assert artifact is not None
     assert len(nodes) == 31
 
@@ -74,7 +71,7 @@ def test_parse_dockerfile(get_plugin):
     assert (
         make_id("sklearn.py", "LogisticRegression", "solver", "lbfgs") in ids
     )
-    assert make_id("sklearn.py", "LogisticRegression", "C", "5") in ids
+    assert make_id("sklearn.py", "LogisticRegression", "C", "a") in ids
 
     # RandomForestClassifier
     assert (
@@ -174,3 +171,21 @@ def test_parse_dockerfile(get_plugin):
     # LinearSVC
     assert make_id("sklearn.py", "LinearSVC", "variable", "linear_svc") in ids
     assert make_id("sklearn.py", "LinearSVC", "params", "default") in ids
+
+
+def test_possible_values(get_plugin):
+    sklearn_plugin = get_plugin
+    sklearn_file = os.path.abspath("tests/files/sklearn.py")
+
+    artifact = sklearn_plugin.parse_file(sklearn_file, "sklearn.py")
+    nodes = artifact.get_nodes()
+
+    param = next(
+        filter(
+            lambda x: x.id
+            == make_id("sklearn.py", "LogisticRegression", "C", "a"),
+            nodes,
+        )
+    )
+
+    assert len(param.possible_values) == 3

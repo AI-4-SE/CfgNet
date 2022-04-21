@@ -24,6 +24,7 @@ from cfgnet.network.nodes import (
     OptionNode,
     ValueNode,
 )
+from cfgnet.utility.cfg import Cfg
 
 
 SEEN: Set[ast.Call] = set()
@@ -31,6 +32,7 @@ SEEN: Set[ast.Call] = set()
 
 class MLPlugin(Plugin):
     modules_file: str
+    cfg: Cfg
 
     def __init__(self, name: str):
         super().__init__(name)
@@ -54,6 +56,9 @@ class MLPlugin(Plugin):
         rel_file_path: str,
         root: Optional[ProjectNode],
     ) -> ArtifactNode:
+
+        SEEN.clear()
+
         artifact = ArtifactNode(
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
@@ -65,9 +70,9 @@ class MLPlugin(Plugin):
 
         try:
             with open(abs_file_path, "r", encoding="utf-8") as source:
-                tree = ast.parse(source.read())
-
-            SEEN.clear()
+                code_str = source.read()
+                tree = ast.parse(code_str)
+                self.cfg = Cfg(code_str=code_str)
 
             for node in ast.walk(tree):
                 if isinstance(node, ast.Assign):
@@ -75,7 +80,7 @@ class MLPlugin(Plugin):
                     target = node.targets[0]
                     if isinstance(obj, ast.Call):
                         SEEN.add(obj)
-                        MLPlugin._parse_call(artifact, obj, target, modules)
+                        self._parse_call(artifact, obj, target, modules)
 
                 if isinstance(node, ast.Expr):
                     obj = node.value
@@ -85,19 +90,15 @@ class MLPlugin(Plugin):
                             SEEN.add(obj)
                             if isinstance(arg, ast.Call):
                                 SEEN.add(arg)
-                                MLPlugin._parse_call(
-                                    artifact, arg, None, modules
-                                )
+                                self._parse_call(artifact, arg, None, modules)
                 if isinstance(node, ast.Return):
                     if isinstance(node.value, ast.Call):
                         SEEN.add(node.value)
-                        MLPlugin._parse_call(
-                            artifact, node.value, None, modules
-                        )
+                        self._parse_call(artifact, node.value, None, modules)
 
                 if isinstance(node, ast.Call):
                     if node not in SEEN:
-                        MLPlugin._parse_call(artifact, node, None, modules)
+                        self._parse_call(artifact, node, None, modules)
 
         except Exception as error:
             logging.error(
@@ -109,9 +110,8 @@ class MLPlugin(Plugin):
 
         return artifact
 
-    @staticmethod
     def _parse_call(
-        parent: ArtifactNode, obj: ast.Call, target: Any, data: Dict
+        self, parent: ArtifactNode, obj: ast.Call, target: Any, data: Dict
     ):
         func = obj.func
         keywords = obj.keywords
@@ -129,11 +129,11 @@ class MLPlugin(Plugin):
 
                 # Arguments
                 if args:
-                    MLPlugin._parse_args(args, option, module)
+                    self._parse_args(args, option, module)
 
                 # Keywords
                 if keywords:
-                    MLPlugin._parse_keywords(keywords, option)
+                    self._parse_keywords(keywords, option)
 
                 if not option.children:
                     parent.children.remove(option)
@@ -141,7 +141,7 @@ class MLPlugin(Plugin):
         if isinstance(func, ast.Attribute):
             if isinstance(func.value, ast.Call):
                 SEEN.add(func.value)
-                MLPlugin._parse_call(parent, func.value, target, data)
+                self._parse_call(parent, func.value, target, data)
             if any(func.attr == module["name"] for module in data):
                 module = MLPlugin._find_module(func.attr, data)
                 option = OptionNode(name=func.attr, location=str(func.lineno))
@@ -154,11 +154,11 @@ class MLPlugin(Plugin):
 
                 # Arguments
                 if args:
-                    MLPlugin._parse_args(args, option, module)
+                    self._parse_args(args, option, module)
 
                 # Keywords
                 if keywords:
-                    MLPlugin._parse_keywords(keywords, option)
+                    self._parse_keywords(keywords, option)
 
                 if not args and not keywords:
                     params = OptionNode(
@@ -181,8 +181,7 @@ class MLPlugin(Plugin):
         var_name = ValueNode(name=var.id)
         option_var.add_child(var_name)
 
-    @staticmethod
-    def _parse_keywords(keywords: List, parent: OptionNode) -> None:
+    def _parse_keywords(self, keywords: List, parent: OptionNode) -> None:
         """
         Extract all parameters and their values and create corresponding nodes.
 
@@ -200,7 +199,12 @@ class MLPlugin(Plugin):
                         arg_value = ValueNode(name=key.value.value)
                         argument.add_child(arg_value)
                     elif isinstance(key.value, ast.Name):
-                        arg_value = ValueNode(name=key.value.id)
+                        possible_values = self.cfg.compute_values(
+                            var=key.value.id
+                        )
+                        arg_value = ValueNode(
+                            name=key.value.id, possible_values=possible_values
+                        )
                         argument.add_child(arg_value)
                     else:
                         value_name = ast.unparse(key.value)
@@ -211,8 +215,9 @@ class MLPlugin(Plugin):
                         value = ValueNode(name=value_name)
                         argument.add_child(value)
 
-    @staticmethod
-    def _parse_args(args: List, parent: OptionNode, module: Dict) -> None:
+    def _parse_args(
+        self, args: List, parent: OptionNode, module: Dict
+    ) -> None:
         """
         Extract all arguments and create corresponding nodes.
 
@@ -235,7 +240,10 @@ class MLPlugin(Plugin):
                     arg_value = ValueNode(name=arg.value)
                     arg_option.add_child(arg_value)
                 elif isinstance(arg, ast.Name):
-                    arg_value = ValueNode(name=arg.id)
+                    possible_values = self.cfg.compute_values(var=arg.id)
+                    arg_value = ValueNode(
+                        name=arg.id, possible_values=possible_values
+                    )
                     arg_option.add_child(arg_value)
                 else:
                     value_name = ast.unparse(arg)

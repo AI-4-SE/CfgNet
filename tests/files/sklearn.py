@@ -11,8 +11,14 @@ from sklearn.cluster import DBSCAN
 
 bin_cols = ["is_male"]
 
+a = 5
+if bin_cols:
+    a = 7
+else:
+    a = 3
+
 logistic_reg = LogisticRegression(
-    multi_class="multinomial", solver="lbfgs", C=5
+    multi_class="multinomial", solver="lbfgs", C=a
 )
 
 rnd_forest = RandomForestClassifier(100, 2)

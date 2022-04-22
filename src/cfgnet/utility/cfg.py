@@ -15,7 +15,7 @@
 
 
 import ast
-from typing import Dict
+from typing import Callable, Dict, List
 from scalpel.cfg import CFGBuilder, CFG
 from scalpel.SSA.const import SSA
 
@@ -26,6 +26,30 @@ class Cfg:
     def __init__(self, code_str: str) -> None:
         self.cfg: CFG = CFGBuilder().build_from_src(name="", src=code_str)
         self.ssa: SSA = SSA()
+        self.all_cfgs: List[CFG] = []
+        self._traverse(self.cfg, self._add_cfg)
+
+    def _traverse(self, current_cfg: CFG, callback: Callable) -> None:
+        """
+        Traverse the control flow graph.
+
+        :param current: Starting point of traversal
+        :param callback: Callback called on every visited cfg
+        :return: None
+        """
+        callback(current_cfg)
+
+        for _, fun_cfg in current_cfg.functioncfgs.items():
+            if fun_cfg is not None:
+                self._traverse(fun_cfg, callback)
+
+    def _add_cfg(self, cfg: CFG):
+        """
+        Add cfg object to the list of all cfgs.
+
+        :param cfg: Cfg object
+        """
+        self.all_cfgs.append(cfg)
 
     def compute_values(self, var: str) -> Dict:
         """
@@ -34,12 +58,13 @@ class Cfg:
         :param var: variable for which all values should be identified
         :return: dictionary of possible values
         """
-        _, const_dict = self.ssa.compute_SSA(self.cfg)
-
         final_const_dict = {}
 
-        for name, value in const_dict.items():
-            if name[0] == var:
-                final_const_dict[name] = ast.unparse(value)
+        for cfg in self.all_cfgs:
+            _, const_dict = self.ssa.compute_SSA(cfg)
+            for name, value in const_dict.items():
+                if name[0] == var:
+                    key = (var, value.lineno)
+                    final_const_dict[key] = ast.unparse(value)
 
         return final_const_dict

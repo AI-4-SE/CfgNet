@@ -11,11 +11,25 @@ from sklearn.cluster import DBSCAN
 
 bin_cols = ["is_male"]
 
-a = 5
+a = 3
 if bin_cols:
-    a = 7
+    a = 4
 else:
-    a = 3
+    a = 5
+
+
+def outer_func(a):
+    if a == 5:
+        a = 6
+
+    def inner_func(a):
+        if a == 6:
+            a = 7
+
+    inner_func()
+
+
+outer_func()
 
 logistic_reg = LogisticRegression(
     multi_class="multinomial", solver="lbfgs", C=a

@@ -1,0 +1,22 @@
+[tool.poetry]
+name = 'CfgNet'
+version = '1.0.0'
+description = 'A Framework for Tracking Configuration Dependencies Across a Software Project'
+license='GPL-3.0+'
+homepage= 'https://github.com'
+packages = [
+    { include = 'cfgnet', from = 'src' },
+]
+
+include = ['test.py']
+exclude = ['hello.py']
+
+[tool.poetry.dependencies]
+python = '^3.8'
+
+[tool.poetry.dev-dependencies]
+cov = '5.1'
+
+[tool.poetry.scripts]
+cfgnet = 'main'
+

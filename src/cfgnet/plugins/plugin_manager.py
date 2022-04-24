@@ -23,6 +23,7 @@ from cfgnet.plugins.concept.cypress_plugin import CypressPlugin
 from cfgnet.plugins.concept.tsconfig_plugin import TsconfigPlugin
 from cfgnet.plugins.concept.travis_plugin import TravisPlugin
 from cfgnet.plugins.concept.docker_compose_plugin import DockerComposePlugin
+from cfgnet.plugins.concept.pyproject_plugin import PyprojectPlugin
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
@@ -39,6 +40,7 @@ class PluginManager:
         TsconfigPlugin(),
         DockerComposePlugin(),
         TravisPlugin(),
+        PyprojectPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

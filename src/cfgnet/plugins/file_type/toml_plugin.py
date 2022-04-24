@@ -14,15 +14,21 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
+from typing import List
 import toml
 from toml import TomlDecodeError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
+from cfgnet.config_types.config_types import ConfigType
 
 
 class TomlPlugin(Plugin):
-    def __init__(self):
-        super().__init__("toml")
+    def __init__(self, name=None):
+        if name is None:
+            super().__init__("toml")
+        else:
+            super().__init__(name)
+        self.excluded_keys: List[str] = []
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
 
@@ -70,24 +76,41 @@ class TomlPlugin(Plugin):
                     del line_number_dict[line]
                     break
 
-            option = OptionNode(argument, lineno)
-            parent.add_child(option)
+            if argument not in self.excluded_keys:
+                config_type = self.get_config_type(argument)
+                option = OptionNode(
+                    name=argument,
+                    location=str(lineno),
+                    config_type=config_type,
+                )
+                parent.add_child(option)
 
-            if isinstance(value, dict):
-                self._iter_data(value, line_number_dict, option)
-            elif isinstance(value, list):
-                index = 0
-                for entry in value:
-                    if isinstance(entry, dict):
-                        virtual_option = OptionNode(
-                            option.name + "_" + str(index), lineno
-                        )
-                        option.add_child(virtual_option)
-                        self._iter_data(
-                            entry, line_number_dict, virtual_option
-                        )
-                        index += 1
-                    else:
-                        option.add_child(ValueNode(entry))
-            else:
-                option.add_child(ValueNode(value))
+                if isinstance(value, dict):
+                    self._iter_data(value, line_number_dict, option)
+                elif isinstance(value, list):
+                    index = 0
+                    for entry in value:
+                        if isinstance(entry, dict):
+                            virtual_option = OptionNode(
+                                option.name + "_" + str(index), lineno
+                            )
+                            option.add_child(virtual_option)
+                            self._iter_data(
+                                entry, line_number_dict, virtual_option
+                            )
+                            index += 1
+                        else:
+                            option.add_child(ValueNode(entry))
+                else:
+                    option.add_child(ValueNode(value))
+
+    # pylint: disable=unused-argument
+    @staticmethod
+    def get_config_type(option_name: str) -> ConfigType:
+        """
+        Find config type based on option name.
+
+        :param option_name: name of option
+        :return: config type
+        """
+        return ConfigType.UNKNOWN

@@ -52,7 +52,8 @@ def test_parsing_package_json_file(get_plugin):
     assert make_id("pyproject.toml", "file", "pyproject.toml") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "name", "CfgNet") in ids
     assert (
-        make_id("pyproject.toml", "tool", "poetry", "version", "1.0.0") in ids
+        make_id("pyproject.toml", "tool", "poetry", "version", "version:1.0.0")
+        in ids
     )
     assert (
         make_id("pyproject.toml", "tool", "poetry", "include", "test.py")
@@ -107,7 +108,7 @@ def test_parsing_package_json_file(get_plugin):
             "poetry",
             "dependencies",
             "python",
-            "^3.8",
+            "python:^3.8",
         )
         in ids
     )
@@ -118,7 +119,7 @@ def test_parsing_package_json_file(get_plugin):
             "poetry",
             "dev-dependencies",
             "cov",
-            "5.1",
+            "cov:5.1",
         )
         in ids
     )

@@ -12,8 +12,6 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
 import ast
 from typing import Callable, Dict, List
 from scalpel.cfg import CFGBuilder, CFG
@@ -63,6 +61,9 @@ class Cfg:
         for cfg in self.all_cfgs:
             _, const_dict = self.ssa.compute_SSA(cfg)
             for name, value in const_dict.items():
+                # current workaround for loop variable
+                if not value:
+                    continue
                 if name[0] == var:
                     key = (var, value.lineno)
                     final_const_dict[key] = ast.unparse(value)

@@ -100,9 +100,20 @@ class TomlPlugin(Plugin):
                             )
                             index += 1
                         else:
-                            option.add_child(ValueNode(entry))
+                            name = (
+                                f"{option.name}:{entry}"
+                                if option.config_type
+                                == ConfigType.VERSION_NUMBER
+                                else entry
+                            )
+                            option.add_child(ValueNode(name))
                 else:
-                    option.add_child(ValueNode(value))
+                    name = (
+                        f"{option.name}:{value}"
+                        if option.config_type == ConfigType.VERSION_NUMBER
+                        else value
+                    )
+                    option.add_child(ValueNode(name))
 
     # pylint: disable=unused-argument
     @staticmethod

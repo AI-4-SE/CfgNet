@@ -68,3 +68,10 @@ That means we only want to have nodes in our network that potentially are involv
 This, in particular, concerns option nodes, that don't lead to any value nodes.
 Therefore childless option nodes should be removed by the responsible plugin.
 Also keep in mind, that removing such option nodes might result in other childless option nodes that than have to be removed as well.
+
+
+Value Nodes with type Version Number
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Since we rely on a equality-based linker, we need to modify the name of values nodes with the type :code:`VERSION_NUMBER`. Otherwise, we would link options that do not depend on each other but share the same version.
+This is often the case in projects that use multiple :code:`pom.xml` or :code:`package.json` files. Therefore, when adding value nodes with the type :code:`VERSION_NUMBER` to the network, we use the following pattern for the name of the node :code:`<parent.name>:<value>`

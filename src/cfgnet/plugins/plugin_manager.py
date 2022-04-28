@@ -50,19 +50,24 @@ class PluginManager:
     ]
 
     @staticmethod
-    def get_plugins() -> List:
+    def get_plugins(only_concept_plugins: bool = False) -> List:
         """Return all plugins except vcs plugins."""
+        if only_concept_plugins:
+            return PluginManager.concept_plugins
+
         return PluginManager.concept_plugins + PluginManager.file_type_plugins
 
     @staticmethod
-    def get_responsible_plugin(artifact_path: str) -> Optional[Plugin]:
+    def get_responsible_plugin(
+        plugins: List[Plugin], artifact_path: str
+    ) -> Optional[Plugin]:
         """
         Identify plugin that is responsible for an artifact.
 
         :param artifact_path: Absolute path to the artifact
         :return: Responsible plugin or None if there is no such plugin
         """
-        for plugin in PluginManager.get_plugins():
+        for plugin in plugins:
             if plugin.is_responsible(artifact_path):
                 return plugin
 

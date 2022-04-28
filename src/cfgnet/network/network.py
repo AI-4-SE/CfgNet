@@ -273,10 +273,13 @@ class Network:
         network = Network(project_name=project_name, root=root, cfg=cfg)
 
         tracked_files = IgnoreFile.filter(tracked_files)
+        plugins = PluginManager.get_plugins(cfg.only_concept_plugins)
 
         for file in sorted(tracked_files):
             abs_file_path = os.path.join(cfg.project_root_abs, file)
-            plugin = PluginManager.get_responsible_plugin(abs_file_path)
+            plugin = PluginManager.get_responsible_plugin(
+                plugins, abs_file_path
+            )
 
             if plugin:
                 try:

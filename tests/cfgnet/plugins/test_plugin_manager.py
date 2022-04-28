@@ -18,34 +18,50 @@ from cfgnet.plugins.plugin_manager import PluginManager
 
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
+    concept_plugins = PluginManager.get_plugins(only_concept_plugins=True)
 
-    assert len(set(all_plugins)) == 11
+    assert len(all_plugins) == 11
+    assert len(concept_plugins) == 8
 
 
 def test_get_responsible_plugin():
-    docker_plugin = PluginManager.get_responsible_plugin("path/to/Dockerfile")
-    maven_plugin = PluginManager.get_responsible_plugin("path/to/pom.xml")
+    plugins = PluginManager.get_plugins()
+
+    docker_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/Dockerfile"
+    )
+    maven_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/pom.xml"
+    )
     nodejs_plugin = PluginManager.get_responsible_plugin(
-        "path/to/package.json"
+        plugins, "path/to/package.json"
     )
     docker_compose_plugin = PluginManager.get_responsible_plugin(
-        "path/to/docker-compose.yml"
+        plugins, "path/to/docker-compose.yml"
     )
-    travis_plugin = PluginManager.get_responsible_plugin("path/to/.travis.yml")
-    yaml_plugin = PluginManager.get_responsible_plugin("path/to/test.yaml")
-    ini_plugin = PluginManager.get_responsible_plugin("path/to/tox.ini")
+    travis_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/.travis.yml"
+    )
+    yaml_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/test.yaml"
+    )
+    ini_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/tox.ini"
+    )
     properties_plugin = PluginManager.get_responsible_plugin(
-        "path/to/applications.properties"
+        plugins, "path/to/applications.properties"
     )
-    toml_plugin = PluginManager.get_responsible_plugin("path/to/test.toml")
+    toml_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/test.toml"
+    )
     cypress_plugin = PluginManager.get_responsible_plugin(
-        "path/to/cypress.json"
+        plugins, "path/to/cypress.json"
     )
     tsconfig_plugin = PluginManager.get_responsible_plugin(
-        "path/to/tsconfig.json"
+        plugins, "path/to/tsconfig.json"
     )
     pyproject_plugin = PluginManager.get_responsible_plugin(
-        "path/to/pyproject.toml"
+        plugins, "path/to/pyproject.toml"
     )
 
     assert docker_plugin.concept_name == "docker"

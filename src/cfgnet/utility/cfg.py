@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
+import logging
 import ast
 from typing import Callable, Dict, List
 from scalpel.cfg import CFGBuilder, CFG
@@ -49,6 +50,7 @@ class Cfg:
         """
         self.all_cfgs.append(cfg)
 
+    # pylint: disable=broad-except
     def compute_values(self, var: str) -> Dict:
         """
         Compute all possible values of a variable.
@@ -57,15 +59,23 @@ class Cfg:
         :return: dictionary of possible values
         """
         final_const_dict = {}
+        try:
+            for cfg in self.all_cfgs:
+                _, const_dict = self.ssa.compute_SSA(cfg)
+                for name, value in const_dict.items():
+                    # current workaround for loop variable
+                    if not value:
+                        continue
+                    if name[0] == var:
+                        key = (var, value.lineno)
+                        final_const_dict[key] = ast.unparse(value)
 
-        for cfg in self.all_cfgs:
-            _, const_dict = self.ssa.compute_SSA(cfg)
-            for name, value in const_dict.items():
-                # current workaround for loop variable
-                if not value:
-                    continue
-                if name[0] == var:
-                    key = (var, value.lineno)
-                    final_const_dict[key] = ast.unparse(value)
-
-        return final_const_dict
+            return final_const_dict
+        except Exception as error:
+            logging.error(
+                "Data flow analysis failed. Couldn't compute values for %s due to %s: %s",
+                var,
+                type(error).__name__,
+                error,
+            )
+            return final_const_dict

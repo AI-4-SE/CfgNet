@@ -41,7 +41,7 @@ class ConfigParserPlugin(Plugin):
                 interpolation=None, allow_no_value=True
             )
             config.read_string(dummy_section + file_content)
-        except configparser.Error as error:
+        except (AttributeError, configparser.Error) as error:
             logging.warning(
                 'Failed to parse ini file "%s"'
                 '" with configparser due to "%s"',

@@ -46,8 +46,8 @@ class MLPlugin(Plugin):
         :return: dict of modules
         """
         with open(file_path, "r", encoding="utf-8") as json_file:
-            modules = json.load(json_file)
-        return modules
+            module_data = json.load(json_file)
+        return module_data
 
     # pylint: disable=W0703
     def _parse_config_file(
@@ -66,12 +66,14 @@ class MLPlugin(Plugin):
             project_root=root,
         )
 
-        modules = MLPlugin.read_json(self.modules_file)
+        module_data = MLPlugin.read_json(self.modules_file)
 
         try:
             with open(abs_file_path, "r", encoding="utf-8") as source:
                 code_str = source.read()
                 tree = ast.parse(code_str)
+                imports = MLPlugin.get_imports(tree)
+
                 self.cfg = Cfg(code_str=code_str)
 
             for node in ast.walk(tree):
@@ -80,7 +82,9 @@ class MLPlugin(Plugin):
                     target = node.targets[0]
                     if isinstance(obj, ast.Call):
                         SEEN.add(obj)
-                        self._parse_call(artifact, obj, target, modules)
+                        self._parse_call(
+                            artifact, obj, target, module_data, imports
+                        )
 
                 if isinstance(node, ast.Expr):
                     obj = node.value
@@ -90,15 +94,21 @@ class MLPlugin(Plugin):
                             SEEN.add(obj)
                             if isinstance(arg, ast.Call):
                                 SEEN.add(arg)
-                                self._parse_call(artifact, arg, None, modules)
+                                self._parse_call(
+                                    artifact, arg, None, module_data, imports
+                                )
                 if isinstance(node, ast.Return):
                     if isinstance(node.value, ast.Call):
                         SEEN.add(node.value)
-                        self._parse_call(artifact, node.value, None, modules)
+                        self._parse_call(
+                            artifact, node.value, None, module_data, imports
+                        )
 
                 if isinstance(node, ast.Call):
                     if node not in SEEN:
-                        self._parse_call(artifact, node, None, modules)
+                        self._parse_call(
+                            artifact, node, None, module_data, imports
+                        )
 
         except Exception as error:
             logging.error(
@@ -110,8 +120,14 @@ class MLPlugin(Plugin):
 
         return artifact
 
+    # flake8: noqa: C901
     def _parse_call(
-        self, parent: ArtifactNode, obj: ast.Call, target: Any, data: Dict
+        self,
+        parent: ArtifactNode,
+        obj: ast.Call,
+        target: Any,
+        data: Dict,
+        imports: List,
     ):
         """
         Parse ast.Call object and extract corresponding nodes.
@@ -126,55 +142,69 @@ class MLPlugin(Plugin):
         args = obj.args
         if isinstance(func, ast.Name):
             if any(func.id == module["name"] for module in data):
-                module = MLPlugin._find_module(func.id, data)
-                option = OptionNode(name=func.id, location=str(func.lineno))
-                parent.add_child(option)
+                module = MLPlugin._find_module(func.id, data, imports)
+                if module:
+                    option = OptionNode(
+                        name=func.id, location=str(func.lineno)
+                    )
+                    parent.add_child(option)
 
-                # Variable
-                if target:
-                    if isinstance(target, ast.Name):
-                        MLPlugin._parse_variable(target, option)
+                    # Variable
+                    if target:
+                        if isinstance(target, ast.Name):
+                            MLPlugin._parse_variable(target, option)
 
-                # Arguments
-                if args:
-                    self._parse_args(args, option, module)
+                    # Arguments
+                    if args:
+                        self._parse_args(args, option, module)
 
-                # Keywords
-                if keywords:
-                    self._parse_keywords(keywords, option)
+                    # Keywords
+                    if keywords:
+                        self._parse_keywords(keywords, option)
 
-                if not option.children:
-                    parent.children.remove(option)
+                    if not args and not keywords:
+                        params = OptionNode(
+                            name="params", location=str(func.lineno)
+                        )
+                        option.add_child(params)
+                        value_node = ValueNode(name="default")
+                        params.add_child(value_node)
+
+                    if not option.children:
+                        parent.children.remove(option)
 
         if isinstance(func, ast.Attribute):
             if isinstance(func.value, ast.Call):
                 SEEN.add(func.value)
-                self._parse_call(parent, func.value, target, data)
+                self._parse_call(parent, func.value, target, data, imports)
             if any(func.attr == module["name"] for module in data):
-                module = MLPlugin._find_module(func.attr, data)
-                option = OptionNode(name=func.attr, location=str(func.lineno))
-                parent.add_child(option)
-
-                # Variable
-                if target:
-                    if isinstance(target, ast.Name):
-                        MLPlugin._parse_variable(target, option)
-
-                # Arguments
-                if args:
-                    self._parse_args(args, option, module)
-
-                # Keywords
-                if keywords:
-                    self._parse_keywords(keywords, option)
-
-                if not args and not keywords:
-                    params = OptionNode(
-                        name="params", location=str(func.lineno)
+                module = MLPlugin._find_module(func.attr, data, imports)
+                if module:
+                    option = OptionNode(
+                        name=func.attr, location=str(func.lineno)
                     )
-                    option.add_child(params)
-                    value_node = ValueNode(name="default")
-                    params.add_child(value_node)
+                    parent.add_child(option)
+
+                    # Variable
+                    if target:
+                        if isinstance(target, ast.Name):
+                            MLPlugin._parse_variable(target, option)
+
+                    # Arguments
+                    if args:
+                        self._parse_args(args, option, module)
+
+                    # Keywords
+                    if keywords:
+                        self._parse_keywords(keywords, option)
+
+                    if not args and not keywords:
+                        params = OptionNode(
+                            name="params", location=str(func.lineno)
+                        )
+                        option.add_child(params)
+                        value_node = ValueNode(name="default")
+                        params.add_child(value_node)
 
     @staticmethod
     def _parse_variable(var: ast.Name, parent: OptionNode) -> None:
@@ -261,13 +291,48 @@ class MLPlugin(Plugin):
                     arg_option.add_child(value)
 
     @staticmethod
-    def _find_module(name: str, data: Dict) -> Dict:
+    def _find_module(name: str, data: Dict, imports) -> Optional[Dict]:
         """
-        Find the correct sci kit learn module based on a given name.
+        Find the correct sci kit learn module based on a given name the extracted imports.
 
         :param name: Name if module to be found
         :param data: data dictionary of ML modules
+        :param imports: list of ML import
         :return: dictionary of the ML module
         """
         module = next(filter(lambda x: name == x["name"], data))
-        return module
+
+        full_name = module["full_name"]
+
+        if any(name in full_name for name in imports):
+            return module
+
+        return None
+
+    # pylint: disable=cell-var-from-loop
+    @staticmethod
+    def get_imports(tree: ast.Module) -> List:
+        """
+        Find all used ML modules and return dict with their data.
+
+        :param tree: ast tree
+        :param modules_data: dictionary of the ML module data
+        :return: list of imports
+        """
+        imports = []
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                name = node.module
+                alias_list = node.names
+                for alias in alias_list:
+                    if isinstance(alias, ast.alias):
+                        full_name = f"{name}.{alias.name}"
+                        imports.append(full_name)
+            if isinstance(node, ast.Import):
+                alias_list = node.names
+                for alias in alias_list:
+                    if isinstance(alias, ast.alias):
+                        imports.append(alias.name)
+
+        return imports

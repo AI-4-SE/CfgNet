@@ -1,13 +1,13 @@
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 import warnings
-import sklearn.ensemble
 from sklearn.model_selection import GridSearchCV
 from sklearn.cluster import DBSCAN
+from sklearn import svm as sklearn_svm
 
 bin_cols = ["is_male"]
 
@@ -56,16 +56,16 @@ grid = {
 }
 
 with warnings.catch_warnings():
-    grid_SCV = sklearn.model_selection.GridSearchCV(pre, grid)
+    grid_SCV = GridSearchCV(pre, grid)
 
-linear_svc = sklearn.svm.LinearSVC()
+linear_svc = sklearn_svm.LinearSVC()
 
 
 def available_cpu_count():
     return 1
 
 
-rf = sklearn.ensemble.RandomForestRegressor(n_jobs=available_cpu_count())
+rf = RandomForestRegressor(n_jobs=available_cpu_count())
 
 onehotencoder = OneHotEncoder(categorical_features=[0])
 

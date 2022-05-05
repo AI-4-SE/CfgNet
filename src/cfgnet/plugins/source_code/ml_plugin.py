@@ -46,8 +46,8 @@ class MLPlugin(Plugin):
         :return: dict of modules
         """
         with open(file_path, "r", encoding="utf-8") as json_file:
-            modules = json.load(json_file)
-        return modules
+            module_data = json.load(json_file)
+        return module_data
 
     # pylint: disable=W0703
     def _parse_config_file(
@@ -66,12 +66,14 @@ class MLPlugin(Plugin):
             project_root=root,
         )
 
-        modules = MLPlugin.read_json(self.modules_file)
+        module_data = MLPlugin.read_json(self.modules_file)
 
         try:
             with open(abs_file_path, "r", encoding="utf-8") as source:
                 code_str = source.read()
                 tree = ast.parse(code_str)
+                modules = MLPlugin.get_modules_used(tree, module_data)
+
                 self.cfg = Cfg(code_str=code_str)
 
             for node in ast.walk(tree):
@@ -111,7 +113,7 @@ class MLPlugin(Plugin):
         return artifact
 
     def _parse_call(
-        self, parent: ArtifactNode, obj: ast.Call, target: Any, data: Dict
+        self, parent: ArtifactNode, obj: ast.Call, target: Any, data: List
     ):
         """
         Parse ast.Call object and extract corresponding nodes.
@@ -143,6 +145,14 @@ class MLPlugin(Plugin):
                 if keywords:
                     self._parse_keywords(keywords, option)
 
+                if not args and not keywords:
+                    params = OptionNode(
+                        name="params", location=str(func.lineno)
+                    )
+                    option.add_child(params)
+                    value_node = ValueNode(name="default")
+                    params.add_child(value_node)
+
                 if not option.children:
                     parent.children.remove(option)
 
@@ -169,6 +179,7 @@ class MLPlugin(Plugin):
                     self._parse_keywords(keywords, option)
 
                 if not args and not keywords:
+                    print("option: ", option)
                     params = OptionNode(
                         name="params", location=str(func.lineno)
                     )
@@ -261,7 +272,7 @@ class MLPlugin(Plugin):
                     arg_option.add_child(value)
 
     @staticmethod
-    def _find_module(name: str, data: Dict) -> Dict:
+    def _find_module(name: str, data: List) -> Dict:
         """
         Find the correct sci kit learn module based on a given name.
 
@@ -271,3 +282,39 @@ class MLPlugin(Plugin):
         """
         module = next(filter(lambda x: name == x["name"], data))
         return module
+
+    # pylint: disable=cell-var-from-loop
+    @staticmethod
+    def get_modules_used(tree: ast.Module, modules_data: Dict) -> List:
+        """
+        Find all used ML modules and return dict with their data.
+
+        :param tree: ast tree
+        :param modules_data: dictionary of the ML module data
+        :return: list of ML modules that are of interest
+        """
+        target_modules = []
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                name = node.module
+                try:
+                    possible_modules = list(
+                        filter(lambda x: name in x["full_name"], modules_data)
+                    )
+                    alias = node.names
+                    for alias_name in alias:
+                        if isinstance(alias_name, ast.alias):
+                            full_name = f"{name}.{alias_name.name}"
+                            module = next(
+                                filter(
+                                    lambda x: full_name == x["full_name"],
+                                    possible_modules,
+                                )
+                            )
+                            if module["name"] == alias_name.name:
+                                target_modules.append(module)
+                except StopIteration:
+                    pass
+
+        return target_modules

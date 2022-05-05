@@ -40,7 +40,7 @@ def test_is_responsible(get_plugin):
     assert not not_sklearn_file
 
 
-def test_parse_dockerfile(get_plugin):
+def test_parse_sklearn_file(get_plugin):
     sklearn_plugin = get_plugin
     sklearn_file = os.path.abspath("tests/files/sklearn.py")
 
@@ -49,7 +49,8 @@ def test_parse_dockerfile(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 31
+    assert len(nodes) == 32
+    
 
     # FILE PATH
     assert make_id("sklearn.py", "file", "sklearn.py") in ids
@@ -123,6 +124,9 @@ def test_parse_dockerfile(get_plugin):
         make_id("sklearn.py", "ColumnTransformer", "remainder", "passthrough")
         in ids
     )
+
+    # StandardScaler
+    assert make_id("sklearn.py", "StandardScaler", "params", "default") in ids
 
     # GridSearchCV
     assert make_id("sklearn.py", "GridSearchCV", "variable", "grid_SCV") in ids

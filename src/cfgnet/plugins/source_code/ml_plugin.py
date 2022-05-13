@@ -142,7 +142,7 @@ class MLPlugin(Plugin):
         args = obj.args
         if isinstance(func, ast.Name):
             if any(func.id == module["name"] for module in data):
-                module = MLPlugin._find_module(func.id, data, imports)
+                module = MLPlugin.find_module(func.id, data, imports)
                 if module:
                     option = OptionNode(
                         name=func.id, location=str(func.lineno)
@@ -178,7 +178,7 @@ class MLPlugin(Plugin):
                 SEEN.add(func.value)
                 self._parse_call(parent, func.value, target, data, imports)
             if any(func.attr == module["name"] for module in data):
-                module = MLPlugin._find_module(func.attr, data, imports)
+                module = MLPlugin.find_module(func.attr, data, imports)
                 if module:
                     option = OptionNode(
                         name=func.attr, location=str(func.lineno)
@@ -291,7 +291,7 @@ class MLPlugin(Plugin):
                     arg_option.add_child(value)
 
     @staticmethod
-    def _find_module(name: str, data: Dict, imports) -> Optional[Dict]:
+    def find_module(name: str, data: Dict, imports) -> Optional[Dict]:
         """
         Find the correct sci kit learn module based on a given name the extracted imports.
 

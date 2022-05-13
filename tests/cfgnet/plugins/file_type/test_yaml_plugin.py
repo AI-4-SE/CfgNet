@@ -53,16 +53,12 @@ def test_parse_yaml_file(get_plugin):
     assert artifact is not None
     assert len(nodes) == 10
     assert make_id("test.yaml", "file", "test.yaml") in ids
-    assert make_id("test.yaml", "test.yaml_0", "name", "Port") in ids
-    assert make_id("test.yaml", "test.yaml_0", "args", "number", "8000") in ids
-    assert make_id("test.yaml", "test.yaml_0", "register", "Port") in ids
-    assert make_id("test.yaml", "test.yaml_1", "name", "Test") in ids
-    assert make_id("test.yaml", "test.yaml_1", "ignore_errors", "true") in ids
-    assert (
-        make_id("test.yaml", "test.yaml_1", "copy", "src", "./tmp.sh") in ids
-    )
-    assert (
-        make_id("test.yaml", "test.yaml_1", "copy", "dest", "./tmp.sh") in ids
-    )
-    assert make_id("test.yaml", "test.yaml_2", "runs-on", "matrix.os") in ids
-    assert make_id("test.yaml", "test.yaml_3", "test", "empty", "") in ids
+    assert make_id("test.yaml", "name", "Port") in ids
+    assert make_id("test.yaml", "args", "number", "8000") in ids
+    assert make_id("test.yaml", "register", "Port") in ids
+    assert make_id("test.yaml", "name", "Test") in ids
+    assert make_id("test.yaml", "ignore_errors", "true") in ids
+    assert make_id("test.yaml", "copy", "src", "./tmp.sh") in ids
+    assert make_id("test.yaml", "copy", "dest", "./tmp.sh") in ids
+    assert make_id("test.yaml", "runs-on", "matrix.os") in ids
+    assert make_id("test.yaml", "test", "empty", "") in ids

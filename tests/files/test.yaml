@@ -1,16 +1,16 @@
-- name: Port
-  args:
-    number: 8000
-  register: Port
+name: Port
+args:
+  number: 8000
+register: Port
 
-- name: Test
-  copy:
-    src: "./tmp.sh"
-    dest: "./tmp.sh"
-  ignore_errors: true
+name: Test
+copy:
+  src: "./tmp.sh"
+  dest: "./tmp.sh"
+ignore_errors: true
 
-- runs-on: {{ matrix.os }}
+runs-on: {{ matrix.os }}
 
-- test:
-    empty:
-      - ''
+test:
+  empty:
+    - ''

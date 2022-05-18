@@ -51,127 +51,36 @@ def test_parse_sklearn_file(get_plugin):
     assert artifact is not None
     assert len(nodes) == 32
 
-    # FILE PATH
     assert make_id("sklearn.py", "file", "sklearn.py") in ids
-
-    # LogisticRegression
-    assert (
-        make_id("sklearn.py", "LogisticRegression", "variable", "logistic_reg")
-        in ids
-    )
-    assert (
-        make_id(
-            "sklearn.py",
-            "LogisticRegression",
-            "multi_class",
-            "multinomial",
-        )
-        in ids
-    )
-    assert (
-        make_id("sklearn.py", "LogisticRegression", "solver", "lbfgs") in ids
-    )
+    assert make_id("sklearn.py", "LogisticRegression", "variable", "logistic_reg") in ids
+    assert make_id("sklearn.py", "LogisticRegression", "multi_class", "multinomial") in ids
+    assert make_id("sklearn.py", "LogisticRegression", "solver", "lbfgs") in ids
     assert make_id("sklearn.py", "LogisticRegression", "C", "a") in ids
-
-    # RandomForestClassifier
-    assert (
-        make_id(
-            "sklearn.py",
-            "RandomForestClassifier",
-            "variable",
-            "rnd_forest",
-        )
-        in ids
-    )
-    assert (
-        make_id("sklearn.py", "RandomForestClassifier", "n_estimators", "100")
-        in ids
-    )
-    assert (
-        make_id("sklearn.py", "RandomForestClassifier", "criterion", "2")
-        in ids
-    )
-
-    # MLPCLassifier
+    assert make_id("sklearn.py", "RandomForestClassifier", "variable", "rnd_forest" )
+    assert make_id("sklearn.py", "RandomForestClassifier", "n_estimators", "100") in ids
+    assert make_id("sklearn.py", "RandomForestClassifier", "criterion", "2") in ids
     assert make_id("sklearn.py", "MLPClassifier", "variable", "mlp") in ids
-    assert (
-        make_id(
-            "sklearn.py",
-            "MLPClassifier",
-            "hidden_layer_sizes",
-            "(13, 13)",
-        )
-        in ids
-    )
-
-    # SVC
+    assert make_id("sklearn.py", "MLPClassifier", "hidden_layer_sizes", "(13, 13)") in ids
     assert make_id("sklearn.py", "SVC", "class_weight", "None") in ids
     assert make_id("sklearn.py", "SVC", "probability", "True") in ids
-
-    # ColumnTransformer
     assert make_id("sklearn.py", "ColumnTransformer", "variable", "pre") in ids
-    assert (
-        make_id(
-            "sklearn.py",
-            "ColumnTransformer",
-            "transformers",
-            "[('OneHotEncoder', OneHotEncoder(drop=bin_cols)), ('Scale', StandardScaler())]",
-        )
-        in ids
-    )
-    assert (
-        make_id("sklearn.py", "ColumnTransformer", "remainder", "passthrough")
-        in ids
-    )
-
-    # StandardScaler
+    assert make_id("sklearn.py", "ColumnTransformer", "transformers", "[('OneHotEncoder', OneHotEncoder(drop=bin_cols)), ('Scale', StandardScaler())]") in ids
+    assert make_id("sklearn.py", "ColumnTransformer", "remainder", "passthrough") in ids
     assert make_id("sklearn.py", "StandardScaler", "params", "default") in ids
-
-    # GridSearchCV
     assert make_id("sklearn.py", "GridSearchCV", "variable", "grid_SCV") in ids
     assert make_id("sklearn.py", "GridSearchCV", "estimator", "pre") in ids
     assert make_id("sklearn.py", "GridSearchCV", "param_grid", "grid") in ids
-
-    # OneHotEncoder
     assert make_id("sklearn.py", "OneHotEncoder", "drop", "bin_cols") in ids
-
-    # RandomForrestGenerator
-    assert (
-        make_id("sklearn.py", "RandomForestRegressor", "variable", "rf") in ids
-    )
-    assert (
-        make_id(
-            "sklearn.py",
-            "RandomForestRegressor",
-            "n_jobs",
-            "available_cpu_count()",
-        )
-        in ids
-    )
-
-    # OneHotEncoder
-    assert (
-        make_id("sklearn.py", "OneHotEncoder", "variable", "onehotencoder")
-        in ids
-    )
-    assert (
-        make_id("sklearn.py", "OneHotEncoder", "categorical_features", "[0]")
-        in ids
-    )
-
-    # GridSearchCV
-    assert (
-        make_id("sklearn.py", "GridSearchCV", "variable", "grid_search") in ids
-    )
+    assert make_id("sklearn.py", "RandomForestRegressor", "variable", "rf") in ids
+    assert make_id("sklearn.py", "RandomForestRegressor", "n_jobs", "available_cpu_count()") in ids
+    assert make_id("sklearn.py", "OneHotEncoder", "variable", "onehotencoder") in ids
+    assert make_id("sklearn.py", "OneHotEncoder", "categorical_features", "[0]") in ids
+    assert make_id("sklearn.py", "GridSearchCV", "variable", "grid_search") in ids
     assert make_id("sklearn.py", "GridSearchCV", "n_jobs", "-1") in ids
-
-    # DBSCAN
     assert make_id("sklearn.py", "DBSCAN", "variable", "db") in ids
     assert make_id("sklearn.py", "DBSCAN", "eps", "0.1") in ids
     assert make_id("sklearn.py", "DBSCAN", "min_samples", "1") in ids
     assert make_id("sklearn.py", "DBSCAN", "metric", "precomputed") in ids
-
-    # LinearSVC
     assert make_id("sklearn.py", "LinearSVC", "variable", "linear_svc") in ids
     assert make_id("sklearn.py", "LinearSVC", "params", "default") in ids
 

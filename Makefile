@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-SOURCE_FOLDERS = src tests
+SOURCE_FOLDERS = src
 MODULE_NAME = sample_package
 
 SOURCES = $(shell find $(SOURCE_FOLDERS) -type f -name '*.py')

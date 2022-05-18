@@ -12,13 +12,19 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
-
+import ast
 import os
 import re
-from cfgnet.plugins.plugin import Plugin
+from typing import List, Dict
+
+from cfgnet.network.nodes import OptionNode, ValueNode
+from cfgnet.plugins.source_code.ml_plugin import MLPlugin
 
 
-class PytorchPLugin(Plugin):
+class PytorchPLugin(MLPlugin):
+    modules_file = os.path.join(
+        os.path.dirname(__file__), "modules", "pytorch.json"
+    )
     import_regex = re.compile(r"import torch")
     import_from_regex = re.compile(r"from torch[a-zA-z._]* import [a-zA-Z_]*")
 
@@ -39,3 +45,26 @@ class PytorchPLugin(Plugin):
                     return True
 
         return False
+
+    def parse_arguments(
+        self, args: List, parent: OptionNode, module: Dict
+    ) -> None:
+        params = module["params"]
+        if params:
+            if len(params) == 1:
+                if params[0].startswith("*") or params[0].startswith("**"):
+                    option = OptionNode(
+                        name=params[0], location=parent.location
+                    )
+                    parent.add_child(option)
+                    for arg in args:
+                        value_name = ast.unparse(arg)
+                        if value_name.startswith("'") and value_name.endswith(
+                            "'"
+                        ):
+                            value_name = value_name.replace("'", "")
+                        value = ValueNode(name=value_name)
+                        option.add_child(value)
+
+            else:
+                super().parse_arguments(args, parent, module)

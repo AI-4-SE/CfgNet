@@ -27,6 +27,7 @@ from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
 from cfgnet.plugins.source_code.sklearn_plugin import SklearnPlugin
 from cfgnet.plugins.source_code.tensorflow_plugin import TensorflowPLugin
+from cfgnet.plugins.source_code.pytorch_plugin import PytorchPLugin
 
 
 class PluginManager:
@@ -48,7 +49,11 @@ class PluginManager:
         TomlPlugin(),
     ]
 
-    source_code_plugion: List[Plugin] = [SklearnPlugin(), TensorflowPLugin()]
+    source_code_plugion: List[Plugin] = [
+        SklearnPlugin(),
+        TensorflowPLugin(),
+        PytorchPLugin(),
+    ]
 
     @staticmethod
     def get_plugins() -> List:

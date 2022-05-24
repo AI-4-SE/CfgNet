@@ -27,6 +27,9 @@ from cfgnet.plugins.concept.pyproject_plugin import PyprojectPlugin
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
+from cfgnet.plugins.source_code.sklearn_plugin import SklearnPlugin
+from cfgnet.plugins.source_code.tensorflow_plugin import TensorflowPLugin
+from cfgnet.plugins.source_code.pytorch_plugin import PytorchPLugin
 
 
 class PluginManager:
@@ -49,13 +52,23 @@ class PluginManager:
         TomlPlugin(),
     ]
 
+    source_code_plugins: List[Plugin] = [
+        SklearnPlugin(),
+        TensorflowPLugin(),
+        PytorchPLugin(),
+    ]
+
     @staticmethod
     def get_plugins(only_concept_plugins: bool = False) -> List:
         """Return all plugins except vcs plugins."""
         if only_concept_plugins:
             return PluginManager.concept_plugins
 
-        return PluginManager.concept_plugins + PluginManager.file_type_plugins
+        return (
+            PluginManager.concept_plugins
+            + PluginManager.file_type_plugins
+            + PluginManager.source_code_plugins
+        )
 
     @staticmethod
     def get_responsible_plugin(

@@ -47,7 +47,7 @@ def test_parse_pytorch_file(get_plugin):
     artifact = tf_plugin.parse_file(tf_file, "pytorch.py")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
-    
+
     assert len(nodes) == 26
 
     assert make_id("pytorch.py", "file", "pytorch.py") in ids

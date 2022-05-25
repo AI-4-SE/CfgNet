@@ -11,6 +11,7 @@ from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.launcher_configuration import LauncherConfiguration
 from cfgnet.analyze.analyzer import Analyzer
 from cfgnet.linker.linker_manager import LinkerManager
+from cfgnet.utility.stats import Stats
 
 
 add_project_root_argument = click.argument(
@@ -86,6 +87,8 @@ def init(
     network.save()
 
     completion_time = round((time.time() - start), 2)
+
+    Stats.get_stats(network=network)
 
     logging.info("Done in [%s s]", str(completion_time))
 

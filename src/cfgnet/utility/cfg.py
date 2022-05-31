@@ -66,10 +66,11 @@ class Cfg:
                     # current workaround for loop variable
                     if not value:
                         continue
-                    if isinstance(value, ast.Call):
-                        continue
                     if name[0] == var:
-                        key = (var, value.lineno)
+                        if not hasattr(value, "lineno"):
+                            key = (var, None)
+                        else:
+                            key = (var, value.lineno)
                         final_const_dict[key] = ast.unparse(value)
 
             return final_const_dict

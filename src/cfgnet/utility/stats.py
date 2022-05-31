@@ -86,12 +86,15 @@ class Stats:
                                     values = []
                                     for value in node.possible_values.values():
                                         values.append(value)
-                                    parameters[param.name] = (
-                                        node.name,
-                                        values,
-                                    )
+                                    parameters[param.name] = {
+                                        "value": node.name,
+                                        "possible_values": values,
+                                    }
                                 else:
-                                    parameters[param.name] = (node.name, [])
+                                    parameters[param.name] = {
+                                        "value": node.name,
+                                        "possible_values": [],
+                                    }
                             else:
                                 logging.warning(
                                     "Option node %s contain a node which is not of type ValueNode.",

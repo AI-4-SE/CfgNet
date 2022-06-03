@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import re
 import ast
 import json
 import logging
@@ -29,6 +30,7 @@ from cfgnet.utility.cfg import Cfg
 
 
 SEEN: Set[Any] = set()
+MODULE_REGEX = re.compile(r"(?P<call>(\w+\._*)*(\w+){1})(?P<params>\(.*\))")
 
 
 class MLPlugin(Plugin):
@@ -86,7 +88,10 @@ class MLPlugin(Plugin):
                     self.parse_assign(node=node, parent=artifact)
 
                 if isinstance(node, ast.Call) and node not in SEEN:
-                    self.parse_call(node=node, parent=artifact, target=None)
+                    if self.is_module(node):
+                        self.parse_call(
+                            node=node, parent=artifact, target=None
+                        )
 
         except Exception as error:
             logging.error(
@@ -106,20 +111,24 @@ class MLPlugin(Plugin):
 
         base_counter = 0
         for base in node.bases:
-            base_name = ast.unparse(base).rsplit(".", maxsplit=1)[-1]
-            module = self.find_module(base_name)
-            if module:
-                base_class = OptionNode(
-                    name=f"base_class_{base_counter}",
-                    location=str(node.lineno),
-                )
-                class_option.add_child(base_class)
-                base_class.add_child(ValueNode(name=module["full_name"]))
-                base_counter += 1
-                is_ml_class = True
+            if self.is_module(base):
+                base_name = ast.unparse(base).rsplit(".", maxsplit=1)[-1]
+                module = self.find_module(base_name)
+                if module:
+                    base_class = OptionNode(
+                        name=f"base_class_{base_counter}",
+                        location=str(node.lineno),
+                    )
+                    class_option.add_child(base_class)
+                    base_class.add_child(ValueNode(name=module["full_name"]))
+                    base_counter += 1
+                    is_ml_class = True
 
-        if is_ml_class:
-            self.parse_class_body(body=node.body, parent=class_option)
+        if class_option.children:
+            if is_ml_class:
+                self.parse_class_body(body=node.body, parent=class_option)
+        else:
+            parent.children.remove(class_option)
 
     def parse_class_body(self, body: List, parent: Node) -> None:
         for node in body:
@@ -138,7 +147,8 @@ class MLPlugin(Plugin):
         target = node.targets[0]
         if isinstance(obj, ast.Call):
             SEEN.add(obj)
-            self.parse_call(node=obj, parent=parent, target=target)
+            if self.is_module(obj):
+                self.parse_call(node=obj, parent=parent, target=target)
 
     # flake8: noqa: C901
     def parse_call(self, node: ast.Call, parent: Node, target: Any):
@@ -187,7 +197,10 @@ class MLPlugin(Plugin):
         if isinstance(func, ast.Attribute):
             if isinstance(func.value, ast.Call):
                 SEEN.add(func.value)
-                self.parse_call(node=func.value, parent=parent, target=target)
+                if self.is_module(func.value):
+                    self.parse_call(
+                        node=func.value, parent=parent, target=target
+                    )
             if any(func.attr == module["name"] for module in self.module_data):
                 module = self.find_module(func.attr)
                 if module:
@@ -289,6 +302,33 @@ class MLPlugin(Plugin):
         var_node = ValueNode(name=name)
         option_var.add_child(var_node)
 
+    def is_module(self, node: Any) -> bool:
+        """
+        Check if the given node belongs to the imported ML algorithms.
+
+        The call of an ML algorithm needs to match an import statement.
+        ML modules can either be directly imported or invoked using an alias.
+        For instance, we check the first element as an alias might be used
+        to call the ML algorithm.
+
+        :param node: node to check
+        :return: True if node belongs to imported ML algorithm else False
+        """
+        match = MODULE_REGEX.fullmatch(ast.unparse(node))
+        if match:
+            node_str = match.group("call")
+            node_parts = node_str.split(".")
+        else:
+            node_parts = ast.unparse(node).split(".")
+
+        if any(name == node_parts[0] for name in self.imports):
+            return True
+
+        if any(name == node_parts[-1] for name in self.imports):
+            return False
+
+        return False
+
     def find_module(self, name: str) -> Optional[Dict]:
         """
         Find the correct sci kit learn module based on a given name the extracted imports.
@@ -302,12 +342,7 @@ class MLPlugin(Plugin):
             module = next(
                 filter(lambda x: name == x["name"], self.module_data)
             )
-            full_name = module["full_name"]
-
-            if any(name in full_name for name in self.imports):
-                return module
-
-            return None
+            return module
         except StopIteration:
             return None
 
@@ -323,15 +358,22 @@ class MLPlugin(Plugin):
         self.imports = []
 
         for node in ast.walk(tree):
-            if isinstance(node, ast.ImportFrom):
-                name = node.module
-                alias_list = node.names
-                for alias in alias_list:
-                    if isinstance(alias, ast.alias):
-                        full_name = f"{name}.{alias.name}"
-                        self.imports.append(full_name)
             if isinstance(node, ast.Import):
-                alias_list = node.names
-                for alias in alias_list:
-                    if isinstance(alias, ast.alias):
-                        self.imports.append(alias.name)
+                for package in node.names:
+                    if self.concept_name == package.name:
+                        if package.asname:
+                            self.imports.append(package.asname)
+                        else:
+                            self.imports.append(package.name)
+
+            if isinstance(node, ast.ImportFrom):
+                for package in node.names:
+                    if node.module:
+                        module = node.module.split(".")[0]
+                        if self.concept_name == module:
+                            if package.asname:
+                                self.imports.append(package.asname)
+                            else:
+                                self.imports.append(package.name)
+
+        print(self.imports)

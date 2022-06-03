@@ -87,4 +87,4 @@ def test_get_responsible_plugin():
     assert pyproject_plugin.concept_name == "pyproject"
     assert sklearn_plugin.concept_name == "sklearn"
     assert tf_plugin.concept_name == "tensorflow"
-    assert pytorch_plugin.concept_name == "pytorch"
+    assert pytorch_plugin.concept_name == "torch"

@@ -29,7 +29,7 @@ class PytorchPLugin(MLPlugin):
     import_from_regex = re.compile(r"from torch[a-zA-z._]* import [a-zA-Z_]*")
 
     def __init__(self):
-        super().__init__("pytorch")
+        super().__init__("torch")
 
     def is_responsible(self, abs_file_path):
         file_name = os.path.basename(abs_file_path)

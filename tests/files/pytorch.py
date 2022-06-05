@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import torchnet as tnt
 from collections import OrderedDict
 
 
@@ -33,3 +34,6 @@ class Polynomial3(torch.nn.Module, Test):
 
     def test(self):
         pass
+
+
+data_source = tnt.dataset.TensorDataset()

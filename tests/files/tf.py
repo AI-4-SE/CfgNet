@@ -1,3 +1,5 @@
+from keras.layers.core import Dropout
+from keras.layers import Dense
 import tensorflow as tf
 
 writer = tf.python_io.TFRecordWriter("path/to/file")
@@ -18,3 +20,7 @@ estm = tf.estimator.experimental.RNNEstimator(
     units=[32, 16],
     cell_type="lstm",
 )
+
+dimension = Dense(512)
+
+orientation = Dropout(0.5)

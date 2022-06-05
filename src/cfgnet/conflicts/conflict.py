@@ -32,6 +32,7 @@ class Conflict(abc.ABC):
         self.fixed: bool = False
         self.occurred_at: Optional[str] = None
         self.fixed_at: Optional[str] = None
+        self._count = 1
 
     @abc.abstractmethod
     def __str__(self):
@@ -44,7 +45,6 @@ class Conflict(abc.ABC):
     def __eq__(self, other):
         return self.__hash__() == other.__hash__()
 
-    # pylint: disable=no-self-use
     def count(self) -> int:
         """
         Conflict count for evaluation.
@@ -52,7 +52,7 @@ class Conflict(abc.ABC):
         ModifiedOptionConflicts are counted as the number of dependents.
         All other conflicts count as one.
         """
-        return 1
+        return self._count
 
     @abc.abstractmethod
     def is_involved(self, node: Any) -> bool:
@@ -66,7 +66,7 @@ class Conflict(abc.ABC):
     @staticmethod
     def count_total(conflicts: List[Conflict]) -> int:
         """Total conflict count across a list."""
-        return sum([conflict.count() for conflict in conflicts])
+        return sum((conflict.count() for conflict in conflicts))
 
 
 class MissingArtifactConflict(Conflict):

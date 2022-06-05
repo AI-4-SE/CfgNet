@@ -15,6 +15,15 @@
 from cfgnet.utility.cfg import Cfg
 
 
+def test_number_cfgs():
+    with open("tests/files/cfg.py", "r", encoding="utf-8") as source:
+        code_str = source.read()
+
+    cfg = Cfg(code_str=code_str)
+
+    assert len(cfg.all_cfgs) == 6
+
+
 def test_compute_values():
     with open("tests/files/cfg.py", "r", encoding="utf-8") as source:
         code_str = source.read()

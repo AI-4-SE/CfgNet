@@ -1,6 +1,15 @@
 import pandas as pd
 from sklearn.cluster import KMeans
 
+
+class Test:
+    def __init__(self, x):
+        self.x = x
+
+    def update(self, z):
+        self.x = z
+
+
 bin_cols = ["is_male"]
 
 z = "test"

@@ -42,6 +42,10 @@ class Cfg:
             if fun_cfg is not None:
                 self._traverse(fun_cfg, callback)
 
+        for _, class_cfg in current_cfg.class_cfgs.items():
+            if class_cfg is not None:
+                self._traverse(class_cfg, callback)
+
     def _add_cfg(self, cfg: CFG):
         """
         Add cfg object to the list of all cfgs.

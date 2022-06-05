@@ -12,9 +12,10 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
-
+import ast
 import os
 import re
+from typing import List
 from cfgnet.plugins.source_code.ml_plugin import MLPlugin
 
 
@@ -22,25 +23,6 @@ class SklearnPlugin(MLPlugin):
     modules_file = os.path.join(
         os.path.dirname(__file__), "modules", "sklearn.json"
     )
-    import_regex = re.compile(r"import sklearn")
-    import_from_regex = re.compile(
-        r"from sklearn[a-zA-z._]* import [a-zA-Z_]*"
-    )
 
     def __init__(self):
         super().__init__("sklearn")
-
-    def is_responsible(self, abs_file_path):
-        file_name = os.path.basename(abs_file_path)
-
-        if not file_name.endswith(".py"):
-            return False
-
-        with open(abs_file_path, "r", encoding="utf-8") as source:
-            for line in source.readlines():
-                if self.import_regex.search(line):
-                    return True
-                if self.import_from_regex.search(line):
-                    return True
-
-        return False

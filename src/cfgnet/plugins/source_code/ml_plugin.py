@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import os
 import re
 import ast
 import json
@@ -41,6 +42,22 @@ class MLPlugin(Plugin):
 
     def __init__(self, name: str):
         super().__init__(name)
+
+    def is_responsible(self, abs_file_path):
+        file_name = os.path.basename(abs_file_path)
+
+        if not file_name.endswith(".py"):
+            return False
+
+        with open(abs_file_path, "r", encoding="utf-8") as source:
+            code_str = source.read()
+            tree = ast.parse(code_str)
+            self.get_imports(tree)
+
+        if self.imports:
+            return True
+
+        return False
 
     @staticmethod
     def read_json(file_path: str) -> Dict:

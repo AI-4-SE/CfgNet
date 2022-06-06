@@ -11,6 +11,8 @@ class NetworkConfiguration:
     enable_static_blacklist: bool
     enable_dynamic_blacklist: bool
     enable_internal_links: bool
+    # Enable machine learning plugins
+    enable_ml_plugins: bool = False
     # Only allow the use of concept plugins
     only_concept_plugins: bool = False
     # Path to CfgNet data directory relative to project_root

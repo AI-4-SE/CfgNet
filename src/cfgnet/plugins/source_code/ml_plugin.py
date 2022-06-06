@@ -49,10 +49,18 @@ class MLPlugin(Plugin):
         if not file_name.endswith(".py"):
             return False
 
-        with open(abs_file_path, "r", encoding="utf-8") as source:
-            code_str = source.read()
-            tree = ast.parse(code_str)
-            self.get_imports(tree)
+        with open(abs_file_path, "r", encoding="utf-8-sig") as source:
+            try:
+                code_str = source.read()
+                tree = ast.parse(code_str)
+                self.get_imports(tree)
+            except SyntaxError as error:
+                logging.error(
+                    "Failed to parse %s due to %s: %s",
+                    abs_file_path,
+                    type(error).__name__,
+                    error,
+                )
 
         if self.imports:
             return True
@@ -301,23 +309,33 @@ class MLPlugin(Plugin):
         params = module["params"]
         if params:
             for i, arg in enumerate(args):
-                option_name = params[i]
-                arg_option = OptionNode(
-                    name=option_name, location=str(arg.lineno)
-                )
-                parent.add_child(arg_option)
-                if isinstance(arg, ast.Name):
-                    possible_values = self.cfg.compute_values(var=arg.id)
-                    arg_value = ValueNode(
-                        name=arg.id, possible_values=possible_values
+                try:
+                    option_name = params[i]
+                    arg_option = OptionNode(
+                        name=option_name, location=str(arg.lineno)
                     )
-                    arg_option.add_child(arg_value)
-                else:
-                    value_name = ast.unparse(arg)
-                    if value_name.startswith("'") and value_name.endswith("'"):
-                        value_name = value_name.replace("'", "")
-                    value = ValueNode(name=value_name)
-                    arg_option.add_child(value)
+                    parent.add_child(arg_option)
+                    if isinstance(arg, ast.Name):
+                        possible_values = self.cfg.compute_values(var=arg.id)
+                        arg_value = ValueNode(
+                            name=arg.id, possible_values=possible_values
+                        )
+                        arg_option.add_child(arg_value)
+                    else:
+                        value_name = ast.unparse(arg)
+                        if value_name.startswith("'") and value_name.endswith(
+                            "'"
+                        ):
+                            value_name = value_name.replace("'", "")
+                        value = ValueNode(name=value_name)
+                        arg_option.add_child(value)
+                except IndexError as error:
+                    logging.error(
+                        "Number of parameter does not match API data of module %s. %s: %s",
+                        module["full_name"],
+                        type(error).__name__,
+                        error,
+                    )
 
     @staticmethod
     def parse_target(var: Any, parent: Node) -> None:

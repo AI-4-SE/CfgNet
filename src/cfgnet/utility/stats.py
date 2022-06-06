@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import os
 import json
 import logging
@@ -70,7 +71,7 @@ class Stats:
             )
         )
 
-        project_data = {}
+        project_data: Dict = {}
 
         for artifact in artifacts:
             artifact_data = {}
@@ -109,6 +110,13 @@ class Stats:
                         f"{option.name}_{option.location}"
                     ] = parameters
 
-            project_data[artifact.rel_file_path] = artifact_data
+            if artifact.rel_file_path in project_data:
+                project_data[artifact.rel_file_path].update(
+                    {artifact.concept_name: artifact_data}
+                )
+            else:
+                project_data[artifact.rel_file_path] = {
+                    artifact.concept_name: artifact_data
+                }
 
         return project_data

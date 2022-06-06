@@ -296,6 +296,28 @@ class Network:
                         file,
                     )
 
+        if cfg.enable_ml_plugins:
+            ml_plugins = PluginManager.source_code_plugins
+            py_files = list(filter(lambda x: x.endswith(".py"), tracked_files))
+
+            for plugin in ml_plugins:
+                for file in sorted(py_files):
+                    abs_file_path = os.path.join(cfg.project_root_abs, file)
+                    if plugin.is_responsible(abs_file_path):
+                        try:
+                            plugin.parse_file(
+                                abs_file_path=abs_file_path,
+                                rel_file_path=file,
+                                root=root,
+                            )
+                        except UnicodeDecodeError as error:
+                            logging.warning(
+                                "%s: %s (%s)",
+                                plugin.__class__.__name__,
+                                error.reason,
+                                file,
+                            )
+
         LinkerManager.apply_linkers(network)
 
         return network

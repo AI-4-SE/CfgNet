@@ -52,7 +52,8 @@ def main(verbose: bool):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
-@click.option("-c", "--only-concept-plugins", is_flag=False)
+@click.option("-c", "--only-concept-plugins", is_flag=True)
+@click.option("-m", "--enable-ml-plugins", is_flag=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -61,6 +62,7 @@ def init(
     enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
     only_concept_plugins: bool,
+    enable_ml_plugins: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -74,6 +76,7 @@ def init(
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
         only_concept_plugins=only_concept_plugins,
+        enable_ml_plugins=enable_ml_plugins,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
@@ -88,7 +91,8 @@ def init(
 
     completion_time = round((time.time() - start), 2)
 
-    Stats.get_stats(network=network)
+    if enable_ml_plugins:
+        Stats.get_stats(network=network)
 
     logging.info("Done in [%s s]", str(completion_time))
 
@@ -96,6 +100,7 @@ def init(
 @main.command()
 @add_project_root_argument
 def validate(project_root: str):
+    """Validate network against reference network."""
     project_name = os.path.basename(project_root)
     logging.info("Validate configuration network for %s.", project_name)
 
@@ -193,6 +198,7 @@ def export(
     visualize_dot: bool,
     project_root: str,
 ):
+    """Export configuration network."""
     LauncherConfiguration.export_output = output
     LauncherConfiguration.export_format = export_format
     LauncherConfiguration.export_include_unlinked = include_unlinked

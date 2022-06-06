@@ -100,15 +100,18 @@ class MLPlugin(Plugin):
             for node in ast.walk(tree):
                 if isinstance(node, ast.ClassDef) and node not in SEEN:
                     self.parse_class_def(node=node, parent=artifact)
+                    SEEN.add(node)
 
                 if isinstance(node, ast.Assign) and node not in SEEN:
                     self.parse_assign(node=node, parent=artifact)
+                    SEEN.add(node)
 
                 if isinstance(node, ast.Call) and node not in SEEN:
                     if self.is_module(node):
                         self.parse_call(
                             node=node, parent=artifact, target=None
                         )
+                    SEEN.add(node)
 
         except Exception as error:
             logging.error(
@@ -121,31 +124,39 @@ class MLPlugin(Plugin):
         return artifact
 
     def parse_class_def(self, node: ast.ClassDef, parent: Node) -> None:
-        class_option = OptionNode(name=node.name, location=str(node.lineno))
-        parent.add_child(class_option)
+        is_class = False
 
-        is_ml_class = False
-
-        base_counter = 0
         for base in node.bases:
-            if self.is_module(base):
-                base_name = ast.unparse(base).rsplit(".", maxsplit=1)[-1]
-                module = self.find_module(base_name)
-                if module:
-                    base_class = OptionNode(
-                        name=f"base_class_{base_counter}",
-                        location=str(node.lineno),
-                    )
-                    class_option.add_child(base_class)
-                    base_class.add_child(ValueNode(name=module["full_name"]))
-                    base_counter += 1
-                    is_ml_class = True
+            for base in node.bases:
+                if self.is_module(base):
+                    is_class = True
 
-        if class_option.children:
-            if is_ml_class:
+        if is_class:
+            class_option = OptionNode(
+                name=node.name, location=str(node.lineno)
+            )
+            parent.add_child(class_option)
+
+            base_counter = 0
+            for base in node.bases:
+                if self.is_module(base):
+                    base_name = ast.unparse(base).rsplit(".", maxsplit=1)[-1]
+                    module = self.find_module(base_name)
+                    if module:
+                        base_class = OptionNode(
+                            name=f"base_class_{base_counter}",
+                            location=str(node.lineno),
+                        )
+                        class_option.add_child(base_class)
+                        base_class.add_child(
+                            ValueNode(name=module["full_name"])
+                        )
+                        base_counter += 1
+
+            if class_option.children:
                 self.parse_class_body(body=node.body, parent=class_option)
-        else:
-            parent.children.remove(class_option)
+            else:
+                parent.remove_child(class_option)
 
     def parse_class_body(self, body: List, parent: Node) -> None:
         for node in body:
@@ -209,7 +220,7 @@ class MLPlugin(Plugin):
                         params.add_child(value_node)
 
                     if not option.children:
-                        parent.children.remove(option)
+                        parent.remove_child(option)
 
         if isinstance(func, ast.Attribute):
             if isinstance(func.value, ast.Call):
@@ -245,6 +256,9 @@ class MLPlugin(Plugin):
                         option.add_child(params)
                         value_node = ValueNode(name="default")
                         params.add_child(value_node)
+
+                    if not option.children:
+                        parent.remove_child(option)
 
     def parse_keywords(self, keywords: List, parent: OptionNode) -> None:
         """

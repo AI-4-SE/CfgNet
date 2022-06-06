@@ -64,7 +64,7 @@ class Node:
         """
         Add a child to this node.
 
-        :parameter node: The node that should be added to this node.
+        :param node: The node that should be added to this node.
         """
         node.parent = self
         node.id = self.id + "::::" + str(node.id)
@@ -74,6 +74,19 @@ class Node:
 
         if self.network is not None:
             self.network.nodes[node.id].append(node)
+
+    def remove_child(self, node):
+        """
+        Remove a child from this node.
+
+        :param node: The node that should be removed from this node.
+        """
+        self.children.remove(node)
+
+        if self.network is not None:
+            node_list = self.network.nodes[node.id]
+            if node_list:
+                node_list.remove(node)
 
 
 class ProjectNode(Node):
@@ -94,10 +107,18 @@ class ProjectNode(Node):
     def add_child(self, node: ArtifactNode) -> None:
         if not isinstance(node, ArtifactNode):
             raise NetworkConstructionException(
-                "Project nodes accept concept nodes only."
+                "Only Artifact nodes can be added to the Project node."
             )
 
         super().add_child(node)
+
+    def remove_child(self, node: ArtifactNode) -> None:
+        if not isinstance(node, ArtifactNode):
+            raise NetworkConstructionException(
+                "Only Artifact nodes can be removed from the Project node."
+            )
+
+        super().remove_child(node)
 
 
 class ArtifactNode(Node):
@@ -158,10 +179,18 @@ class ArtifactNode(Node):
     def add_child(self, node: OptionNode) -> None:
         if not isinstance(node, OptionNode):
             raise NetworkConstructionException(
-                "Artifact nodes accept artifact nodes and option nodes only."
+                "Only Option nodes can be added to Artifact nodes."
             )
 
         super().add_child(node)
+
+    def remove_child(self, node: OptionNode) -> None:
+        if not isinstance(node, OptionNode):
+            raise NetworkConstructionException(
+                "Only Option nodes can be removed to Artifact nodes."
+            )
+
+        super().remove_child(node)
 
     def _add_file_name_option(self) -> None:
         """Add default option to the artifact node."""
@@ -210,7 +239,7 @@ class OptionNode(Node):
             node, ValueNode
         ):
             raise NetworkConstructionException(
-                "Option nodes accept option nodes and Value nodes only."
+                "Only Option and Value nodes can be added to Option nodes only."
             )
 
         if isinstance(node, OptionNode):
@@ -225,6 +254,16 @@ class OptionNode(Node):
             node.config_type = self.config_type
 
         super().add_child(node)
+
+    def remove_child(self, node: Union[OptionNode, ValueNode]) -> None:
+        if not isinstance(node, OptionNode) and not isinstance(
+            node, ValueNode
+        ):
+            raise NetworkConstructionException(
+                "Only Option and Value nodes can be removed from Option nodes."
+            )
+
+        super().remove_child(node)
 
 
 class ValueNode(Node):
@@ -258,3 +297,6 @@ class ValueNode(Node):
         raise NetworkConstructionException(
             "Value nodes do not accept children."
         )
+
+    def remove_child(self, node: Node) -> None:
+        raise NetworkConstructionException("Value nodes do not have children.")

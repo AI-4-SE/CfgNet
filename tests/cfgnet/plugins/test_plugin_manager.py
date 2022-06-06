@@ -17,11 +17,13 @@ from cfgnet.plugins.plugin_manager import PluginManager
 
 
 def test_get_all_plugins():
-    all_plugins = PluginManager.get_plugins()
+    plugins = PluginManager.get_plugins()
+    ml_plugins = PluginManager.source_code_plugins
     concept_plugins = PluginManager.get_plugins(only_concept_plugins=True)
 
-    assert len(all_plugins) == 14
+    assert len(plugins) == 11
     assert len(concept_plugins) == 8
+    assert len(ml_plugins) == 3
 
 
 def test_get_responsible_plugin():
@@ -63,15 +65,6 @@ def test_get_responsible_plugin():
     pyproject_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/pyproject.toml"
     )
-    sklearn_plugin = PluginManager.get_responsible_plugin(
-        plugins, "tests/files/sklearn.py"
-    )
-    tf_plugin = PluginManager.get_responsible_plugin(
-        plugins, "tests/files/tf.py"
-    )
-    pytorch_plugin = PluginManager.get_responsible_plugin(
-        plugins, "tests/files/pytorch.py"
-    )
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -85,6 +78,21 @@ def test_get_responsible_plugin():
     assert cypress_plugin.concept_name == "cypress"
     assert tsconfig_plugin.concept_name == "tsconfig"
     assert pyproject_plugin.concept_name == "pyproject"
+
+
+def test_ml_plugins():
+    ml_plugins = PluginManager.source_code_plugins
+
+    sklearn_plugin = PluginManager.get_responsible_plugin(
+        ml_plugins, "tests/files/sklearn.py"
+    )
+    tf_plugin = PluginManager.get_responsible_plugin(
+        ml_plugins, "tests/files/tf.py"
+    )
+    pytorch_plugin = PluginManager.get_responsible_plugin(
+        ml_plugins, "tests/files/pytorch.py"
+    )
+
     assert sklearn_plugin.concept_name == "sklearn"
     assert tf_plugin.concept_name == "tensorflow"
     assert pytorch_plugin.concept_name == "torch"

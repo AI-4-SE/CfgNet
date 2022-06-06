@@ -13,9 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import ast
 import os
-import re
 from cfgnet.plugins.source_code.ml_plugin import MLPlugin
 
 
@@ -26,4 +24,3 @@ class TensorflowPLugin(MLPlugin):
 
     def __init__(self):
         super().__init__("tensorflow")
-

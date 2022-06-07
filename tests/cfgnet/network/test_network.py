@@ -195,3 +195,19 @@ def test_visualize_network(get_config):
     network.visualize("png_file", "png", False)
 
     assert os.path.exists(export_file)
+
+
+def test_init_network_from_file():
+    file_path = os.path.abspath("tests/files/sklearn.py")
+    file_name = os.path.basename(file_path)
+    
+    cfg = NetworkConfiguration(
+        project_root_abs=file_path,
+    )
+
+    network = Network.init_network_from_file(cfg=cfg)
+    project_name = file_name.split(".")[0]
+    root = ProjectNode(name=project_name, root_dir=file_path)
+
+    assert network
+    assert network.root == root

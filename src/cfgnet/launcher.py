@@ -99,6 +99,31 @@ def init(
 
 @main.command()
 @add_project_root_argument
+def init_from_file(
+    project_root: str,
+):
+    """Initialize configuration network."""
+    file_name = os.path.basename(project_root)
+    logging.info("Initialize configuration network for file: %s.", file_name)
+
+    network_configuration = NetworkConfiguration(
+        project_root_abs=os.path.abspath(project_root),
+    )
+
+    logger.configure_repo_logger(network_configuration.logfile_path())
+    start = time.time()
+
+    network = Network.init_network_from_file(cfg=network_configuration)
+
+    completion_time = round((time.time() - start), 2)
+
+    Stats.get_stats(network=network)
+
+    logging.info("Done in [%s s]", str(completion_time))
+
+
+@main.command()
+@add_project_root_argument
 def validate(project_root: str):
     """Validate network against reference network."""
     project_name = os.path.basename(project_root)

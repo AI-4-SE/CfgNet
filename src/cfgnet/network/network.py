@@ -321,3 +321,43 @@ class Network:
         LinkerManager.apply_linkers(network)
 
         return network
+
+    @staticmethod
+    def init_network_from_file(cfg: NetworkConfiguration):
+        """
+        Initialize a configuration network from a file.
+
+        This method is expected to analyze jupyter notebooks that
+        are converted to python files. Hence, we do not require a git
+        repository.
+
+        :param cfg: network configuration
+        :return: configuration network
+        """
+        project_name = cfg.project_name()
+        root = ProjectNode(name=project_name, root_dir=cfg.project_root_abs)
+        network = Network(project_name=project_name, root=root, cfg=cfg)
+
+        ml_plugins = PluginManager.source_code_plugins
+
+        for plugin in ml_plugins:
+            abs_file_path = cfg.project_root_abs
+            file_name = os.path.basename(abs_file_path)
+            if plugin.is_responsible(abs_file_path):
+                try:
+                    plugin.parse_file(
+                        abs_file_path=abs_file_path,
+                        rel_file_path=file_name,
+                        root=root,
+                    )
+                except UnicodeDecodeError as error:
+                    logging.warning(
+                        "%s: %s (%s)",
+                        plugin.__class__.__name__,
+                        error.reason,
+                        file_name,
+                    )
+
+        LinkerManager.apply_linkers(network)
+
+        return network

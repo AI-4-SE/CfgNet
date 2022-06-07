@@ -37,17 +37,16 @@ class PytorchPLugin(MLPlugin):
             if len(params) == 1 and (
                 params[0].startswith("*") or params[0].startswith("**")
             ):
-                self._parse_args(args, params, parent)
+                PytorchPLugin._parse_args(args, params, parent)
             elif len(params) == 2 and (
                 params[0] == "*args" and params[1] == "**kwargs"
             ):
-                self._parse_args(args, params, parent)
+                PytorchPLugin._parse_args(args, params, parent)
             else:
                 super().parse_arguments(args, parent, module)
 
-    def _parse_args(
-        self, args: List, params: Dict, parent: OptionNode
-    ) -> None:
+    @staticmethod
+    def _parse_args(args: List, params: Dict, parent: OptionNode) -> None:
         option = OptionNode(name=params[0], location=parent.location)
         parent.add_child(option)
         for arg in args:

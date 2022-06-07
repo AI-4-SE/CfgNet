@@ -135,9 +135,8 @@ class MLPlugin(Plugin):
         is_class = False
 
         for base in node.bases:
-            for base in node.bases:
-                if self.is_module(base):
-                    is_class = True
+            if self.is_module(base):
+                is_class = True
 
         if is_class:
             class_option = OptionNode(

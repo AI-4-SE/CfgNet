@@ -123,8 +123,9 @@ class MLPlugin(Plugin):
 
         except Exception as error:
             logging.error(
-                "Failed to parse %s due to %s: %s",
+                "Failed to parse %s with %s plugin due to %s: %s",
                 abs_file_path,
+                self.concept_name,
                 type(error).__name__,
                 error,
             )

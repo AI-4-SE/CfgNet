@@ -14,7 +14,7 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import logging
 import ast
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Any
 from scalpel.cfg import CFGBuilder, CFG
 from scalpel.SSA.const import SSA
 
@@ -63,6 +63,7 @@ class Cfg:
         :return: dictionary of possible values
         """
         final_const_dict = {}
+        val: Any = None
         try:
             for cfg in self.all_cfgs:
                 _, const_dict = self.ssa.compute_SSA(cfg)
@@ -75,7 +76,16 @@ class Cfg:
                             key = (var, None)
                         else:
                             key = (var, value.lineno)
-                        final_const_dict[key] = ast.unparse(value)
+
+                        if isinstance(value, ast.Call):
+                            if isinstance(value.func, ast.Name):
+                                if value.func.id == "range":
+                                    val = self.parse_range_call(value)
+                                else:
+                                    val = ast.unparse(value)
+                        else:
+                            val = ast.unparse(value)
+                        final_const_dict[key] = val
 
             return final_const_dict
         except Exception as error:
@@ -86,3 +96,25 @@ class Cfg:
                 error,
             )
             return final_const_dict
+
+    @staticmethod
+    def parse_range_call(node: ast.Call) -> Any:
+        """
+        Parse range call.
+
+        :param: ast node of range()
+        :return: list of range values
+        """
+        values = [
+            arg.value for arg in node.args if isinstance(arg, ast.Constant)
+        ]
+
+        if all(isinstance(arg, ast.Constant) for arg in node.args):
+            if len(node.args) == 1:
+                return list(range(values[0]))
+            if len(node.args) == 2:
+                return list(range(values[0], values[1]))
+            if len(node.args) == 3:
+                return list(range(values[0], values[1], values[2]))
+
+        return ast.unparse(node)

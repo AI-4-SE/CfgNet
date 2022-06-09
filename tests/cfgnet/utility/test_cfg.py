@@ -32,11 +32,31 @@ def test_compute_values():
 
     values_a = cfg.compute_values("a")
     values_x = cfg.compute_values("x")
-    # values_i = cfg.compute_values("i") -> https://github.com/SMAT-Lab/Scalpel/issues/37
-    # values_z = cfg.compute_values("z") -> https://github.com/SMAT-Lab/Scalpel/issues/38
+    values_z = cfg.compute_values("z")
+    values_i = cfg.compute_values("i")
+    values_j = cfg.compute_values("j")
+    values_c = cfg.compute_values("c")
+    # values_selfx = cfg.compute_values("self.x") -> https://github.com/SMAT-Lab/Scalpel/issues/39
+    # values_k = cfg.compute_values("k") -> https://github.com/SMAT-Lab/Scalpel/issues/42
+    # values_p = cfg.compute_values("p") -> https://github.com/SMAT-Lab/Scalpel/issues/42
+
+    print(values_i)
 
     assert len(values_a) == 5
     assert len(values_x) == 1
-    # assert len(values_i) == 3
-    # assert len(values_z) == 2
-    # assert values_z[('z', 7)] == 1
+
+    assert len(values_z) == 2
+    assert values_z[('z', 19)] == "'hello'"
+
+    assert len(values_i) == 1
+    assert values_i[('i', 44)] == [0, 1, 2]
+
+    assert len(values_j) == 1
+    assert values_j[('j', 47)] == [1, 2, 3, 4]
+
+    assert len(values_c) == 1
+    assert values_c[('c', 50)] == [1, 3, 5, 7, 9]
+
+    # assert len(values_selfx) == 2
+    # assert len(values_k) == 1
+    # assert len(values_p) == 1

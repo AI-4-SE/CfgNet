@@ -2,6 +2,9 @@ import pandas as pd
 from sklearn.cluster import KMeans
 
 
+k, p = 1, 2
+
+
 class Test:
     def __init__(self, x):
         self.x = x
@@ -40,3 +43,9 @@ x = dataset.iloc[:, [3, 4]].values
 
 for i in range(3):
     kmeans = KMeans(n_clusters=i)
+
+for j in range(1, 5):
+    kmeans = KMeans(n_clusters=j)
+
+for c in range(1, 10, 2):
+    kmeans = KMeans(n_clusters=c)

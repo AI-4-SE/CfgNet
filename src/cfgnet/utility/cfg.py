@@ -83,7 +83,8 @@ class Cfg:
                                     val = self.parse_range_call(value)
                                 else:
                                     val = ast.unparse(value)
-                        else:
+
+                        if not val:
                             val = ast.unparse(value)
                         final_const_dict[key] = val
 

@@ -46,7 +46,7 @@ def test_compute_values():
     assert len(values_x) == 1
 
     assert len(values_z) == 2
-    assert values_z[('z', 19)] == "'hello'"
+    assert values_z[('z', 19)] == "'test'"
 
     assert len(values_i) == 1
     assert values_i[('i', 44)] == [0, 1, 2]

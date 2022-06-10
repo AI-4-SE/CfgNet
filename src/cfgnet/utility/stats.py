@@ -16,7 +16,7 @@
 import os
 import json
 import logging
-from typing import Dict
+from typing import Dict, Any
 from cfgnet.network.network import Network
 from cfgnet.network.nodes import ArtifactNode, ValueNode
 
@@ -77,7 +77,7 @@ class Stats:
             artifact_data = {}
             for option in artifact.children:
                 if option.name != "file":
-                    parameters = {}
+                    parameters: Dict[Any, Any] = {}
                     try:
                         for param in option.children:
                             node = param.children[0]
@@ -97,13 +97,35 @@ class Stats:
                                         "possible_values": [],
                                     }
                             else:
-                                logging.warning(
-                                    "Option node %s contain a node which is not of type ValueNode.",
-                                    param.name,
-                                )
+                                # This part will cover classes created using pytorch
+                                data = {}
+                                for child in param.children:
+                                    node = child.children[0]
+                                    if isinstance(node, ValueNode):
+                                        if node.possible_values:
+                                            values = []
+                                            for (
+                                                value
+                                            ) in node.possible_values.values():
+                                                values.append(value)
+                                            data[child.name] = {
+                                                "value": node.name,
+                                                "possible_values": values,
+                                            }
+                                        else:
+                                            data[child.name] = {
+                                                "value": node.name,
+                                                "possible_values": [],
+                                            }
+                                parameters[
+                                    f"{param.name}_{param.location}"
+                                ] = data
+
                     except (IndexError, AttributeError) as error:
-                        logging.warning(
-                            "Option cannot be extracted due to %s.", error
+                        logging.error(
+                            "Stats from %s cannot be extracted due to %s.",
+                            artifact.concept_name,
+                            error,
                         )
 
                     artifact_data[

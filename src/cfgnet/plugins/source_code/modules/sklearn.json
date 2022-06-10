@@ -2,9 +2,7 @@
     {
         "full_name": "sklearn.base.BaseEstimator",
         "name": "BaseEstimator",
-        "params": [
-            "deep"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.base.BiclusterMixin",
@@ -14,54 +12,32 @@
     {
         "full_name": "sklearn.base.ClassifierMixin",
         "name": "ClassifierMixin",
-        "params": [
-            "X",
-            "y",
-            "sample_weight"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.base.ClusterMixin",
         "name": "ClusterMixin",
-        "params": [
-            "X",
-            "y"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.base.DensityMixin",
         "name": "DensityMixin",
-        "params": [
-            "X",
-            "y"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.base.RegressorMixin",
         "name": "RegressorMixin",
-        "params": [
-            "X",
-            "y",
-            "sample_weight"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.base.TransformerMixin",
         "name": "TransformerMixin",
-        "params": [
-            "X",
-            "y",
-            "**fit_params"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.feature_selection.SelectorMixin",
         "name": "SelectorMixin",
-        "params": [
-            "X",
-            "y",
-            "**fit_params"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.calibration.CalibratedClassifierCV",
@@ -155,6 +131,22 @@
             "random_state",
             "copy_x",
             "algorithm"
+        ]
+    },
+    {
+        "full_name": "sklearn.cluster.BisectingKMeans",
+        "name": "BisectingKMeans",
+        "params": [
+            "n_clusters",
+            "init",
+            "n_init",
+            "random_state",
+            "max_iter",
+            "verbose",
+            "tol",
+            "copy_x",
+            "algorithm",
+            "bisecting_strategy"
         ]
     },
     {
@@ -523,6 +515,7 @@
             "n_components",
             "alpha",
             "n_iter",
+            "max_iter",
             "fit_algorithm",
             "n_jobs",
             "batch_size",
@@ -536,7 +529,10 @@
             "random_state",
             "positive_code",
             "positive_dict",
-            "transform_max_iter"
+            "transform_max_iter",
+            "callback",
+            "tol",
+            "max_no_improvement"
         ]
     },
     {
@@ -577,6 +573,28 @@
         ]
     },
     {
+        "full_name": "sklearn.decomposition.MiniBatchNMF",
+        "name": "MiniBatchNMF",
+        "params": [
+            "n_components",
+            "init",
+            "batch_size",
+            "beta_loss",
+            "tol",
+            "max_no_improvement",
+            "max_iter",
+            "alpha_W",
+            "alpha_H",
+            "l1_ratio",
+            "forget_factor",
+            "fresh_restarts",
+            "fresh_restarts_max_iter",
+            "transform_max_iter",
+            "random_state",
+            "verbose"
+        ]
+    },
+    {
         "full_name": "sklearn.decomposition.PCA",
         "name": "PCA",
         "params": [
@@ -586,6 +604,8 @@
             "svd_solver",
             "tol",
             "iterated_power",
+            "n_oversamples",
+            "power_iteration_normalizer",
             "random_state"
         ]
     },
@@ -627,6 +647,8 @@
             "n_components",
             "algorithm",
             "n_iter",
+            "n_oversamples",
+            "power_iteration_normalizer",
             "random_state",
             "tol"
         ]
@@ -960,6 +982,7 @@
         "name": "HistGradientBoostingRegressor",
         "params": [
             "loss",
+            "quantile",
             "learning_rate",
             "max_iter",
             "max_leaf_nodes",
@@ -1216,6 +1239,7 @@
         "params": [
             "estimator",
             "n_features_to_select",
+            "tol",
             "direction",
             "scoring",
             "cv",
@@ -1326,7 +1350,13 @@
     {
         "full_name": "sklearn.gaussian_process.kernels.Hyperparameter",
         "name": "Hyperparameter",
-        "params": []
+        "params": [
+            "name",
+            "value_type",
+            "bounds",
+            "n_elements",
+            "fixed"
+        ]
     },
     {
         "full_name": "sklearn.gaussian_process.kernels.Kernel",
@@ -1449,6 +1479,17 @@
         ]
     },
     {
+        "full_name": "sklearn.inspection.DecisionBoundaryDisplay",
+        "name": "DecisionBoundaryDisplay",
+        "params": [
+            "xx0",
+            "xx1",
+            "response",
+            "xlabel",
+            "ylabel"
+        ]
+    },
+    {
         "full_name": "sklearn.inspection.PartialDependenceDisplay",
         "name": "PartialDependenceDisplay",
         "params": [
@@ -1456,8 +1497,8 @@
             "features",
             "feature_names",
             "target_idx",
-            "pdp_lim",
             "deciles",
+            "pdp_lim",
             "kind",
             "subsample",
             "random_state"
@@ -1919,7 +1960,8 @@
             "max_iter",
             "eps",
             "copy_X",
-            "positive"
+            "positive",
+            "noise_variance"
         ]
     },
     {
@@ -2080,7 +2122,7 @@
         "full_name": "sklearn.linear_model.RANSACRegressor",
         "name": "RANSACRegressor",
         "params": [
-            "base_estimator",
+            "estimator",
             "min_samples",
             "residual_threshold",
             "is_data_valid",
@@ -2091,7 +2133,8 @@
             "stop_score",
             "stop_probability",
             "loss",
-            "random_state"
+            "random_state",
+            "base_estimator"
         ]
     },
     {
@@ -2172,6 +2215,7 @@
         "name": "Isomap",
         "params": [
             "n_neighbors",
+            "radius",
             "n_components",
             "eigen_solver",
             "tol",
@@ -2242,6 +2286,7 @@
             "n_iter_without_progress",
             "min_grad_norm",
             "metric",
+            "metric_params",
             "init",
             "verbose",
             "random_state",
@@ -2250,6 +2295,11 @@
             "n_jobs",
             "square_distances"
         ]
+    },
+    {
+        "full_name": "sklearn.metrics.DistanceMetric",
+        "name": "DistanceMetric",
+        "params": []
     },
     {
         "full_name": "sklearn.metrics.ConfusionMatrixDisplay",
@@ -2298,7 +2348,8 @@
             "prob_true",
             "prob_pred",
             "y_prob",
-            "estimator_name"
+            "estimator_name",
+            "pos_label"
         ]
     },
     {
@@ -2373,11 +2424,7 @@
     {
         "full_name": "sklearn.model_selection.LeaveOneGroupOut",
         "name": "LeaveOneGroupOut",
-        "params": [
-            "X",
-            "y",
-            "groups"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.model_selection.LeavePGroupsOut",
@@ -2389,11 +2436,7 @@
     {
         "full_name": "sklearn.model_selection.LeaveOneOut",
         "name": "LeaveOneOut",
-        "params": [
-            "X",
-            "y",
-            "groups"
-        ]
+        "params": []
     },
     {
         "full_name": "sklearn.model_selection.LeavePOut",
@@ -2573,7 +2616,8 @@
         "name": "OneVsRestClassifier",
         "params": [
             "estimator",
-            "n_jobs"
+            "n_jobs",
+            "verbose"
         ]
     },
     {
@@ -2684,16 +2728,7 @@
             "X",
             "leaf_size",
             "metric",
-            "Additional keywords are passed to the distance metric class.",
-            "Note: Callable functions in the metric parameter are NOT supported for KDTree",
-            "and Ball Tree. Function call overhead will result in very poor performance."
-        ]
-    },
-    {
-        "full_name": "sklearn.neighbors.DistanceMetric",
-        "name": "DistanceMetric",
-        "params": [
-            "dist"
+            "**kwargs"
         ]
     },
     {
@@ -2703,9 +2738,7 @@
             "X",
             "leaf_size",
             "metric",
-            "Additional keywords are passed to the distance metric class.",
-            "Note: Callable functions in the metric parameter are NOT supported for KDTree",
-            "and Ball Tree. Function call overhead will result in very poor performance."
+            "**kwargs"
         ]
     },
     {
@@ -2966,6 +2999,7 @@
             "validate",
             "accept_sparse",
             "check_inverse",
+            "feature_names_out",
             "kw_args",
             "inv_kw_args"
         ]
@@ -2977,7 +3011,9 @@
             "n_bins",
             "encode",
             "strategy",
-            "dtype"
+            "dtype",
+            "subsample",
+            "random_state"
         ]
     },
     {
@@ -3039,7 +3075,9 @@
             "drop",
             "sparse",
             "dtype",
-            "handle_unknown"
+            "handle_unknown",
+            "min_frequency",
+            "max_categories"
         ]
     },
     {
@@ -3049,7 +3087,8 @@
             "categories",
             "dtype",
             "handle_unknown",
-            "unknown_value"
+            "unknown_value",
+            "encoded_missing_value"
         ]
     },
     {
@@ -3121,6 +3160,7 @@
         "params": [
             "n_components",
             "eps",
+            "compute_inverse_components",
             "random_state"
         ]
     },
@@ -3132,6 +3172,7 @@
             "density",
             "eps",
             "dense_output",
+            "compute_inverse_components",
             "random_state"
         ]
     },
@@ -3371,6 +3412,8 @@
     {
         "full_name": "sklearn.utils.Bunch",
         "name": "Bunch",
-        "params": []
+        "params": [
+            "**kwargs"
+        ]
     }
 ]

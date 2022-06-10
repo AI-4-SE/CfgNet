@@ -764,75 +764,6 @@
         ]
     },
     {
-        "full_name": "tensorflow.estimator.BoostedTreesClassifier",
-        "name": "BoostedTreesClassifier",
-        "params": [
-            "feature_columns",
-            "n_batches_per_layer",
-            "model_dir",
-            "n_classes",
-            "weight_column",
-            "label_vocabulary",
-            "n_trees",
-            "max_depth",
-            "learning_rate",
-            "l1_regularization",
-            "l2_regularization",
-            "tree_complexity",
-            "min_node_weight",
-            "config",
-            "center_bias",
-            "pruning_mode",
-            "quantile_sketch_epsilon",
-            "train_in_memory"
-        ]
-    },
-    {
-        "full_name": "tensorflow.estimator.BoostedTreesEstimator",
-        "name": "BoostedTreesEstimator",
-        "params": [
-            "feature_columns",
-            "n_batches_per_layer",
-            "head",
-            "model_dir",
-            "weight_column",
-            "n_trees",
-            "max_depth",
-            "learning_rate",
-            "l1_regularization",
-            "l2_regularization",
-            "tree_complexity",
-            "min_node_weight",
-            "config",
-            "center_bias",
-            "pruning_mode",
-            "quantile_sketch_epsilon"
-        ]
-    },
-    {
-        "full_name": "tensorflow.estimator.BoostedTreesRegressor",
-        "name": "BoostedTreesRegressor",
-        "params": [
-            "feature_columns",
-            "n_batches_per_layer",
-            "model_dir",
-            "label_dimension",
-            "weight_column",
-            "n_trees",
-            "max_depth",
-            "learning_rate",
-            "l1_regularization",
-            "l2_regularization",
-            "tree_complexity",
-            "min_node_weight",
-            "config",
-            "center_bias",
-            "pruning_mode",
-            "quantile_sketch_epsilon",
-            "train_in_memory"
-        ]
-    },
-    {
         "full_name": "tensorflow.estimator.CheckpointSaverHook",
         "name": "CheckpointSaverHook",
         "params": [
@@ -1346,6 +1277,16 @@
         ]
     },
     {
+        "full_name": "tensorflow.experimental.DynamicRaggedShape",
+        "name": "DynamicRaggedShape",
+        "params": [
+            "row_partitions",
+            "inner_shape",
+            "dtype",
+            "validate"
+        ]
+    },
+    {
         "full_name": "tensorflow.experimental.ExtensionType",
         "name": "ExtensionType",
         "params": [
@@ -1364,124 +1305,21 @@
         "params": []
     },
     {
+        "full_name": "tensorflow.experimental.RowPartition",
+        "name": "RowPartition",
+        "params": [
+            "row_splits",
+            "row_lengths",
+            "value_rowids",
+            "nrows",
+            "uniform_row_length",
+            "nvals",
+            "internal"
+        ]
+    },
+    {
         "full_name": "tensorflow.image.ResizeMethod",
         "name": "ResizeMethod",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.Constant",
-        "name": "Constant",
-        "params": [
-            "value"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.GlorotNormal",
-        "name": "GlorotNormal",
-        "params": [
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.GlorotUniform",
-        "name": "GlorotUniform",
-        "params": [
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.HeNormal",
-        "name": "HeNormal",
-        "params": [
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.HeUniform",
-        "name": "HeUniform",
-        "params": [
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.Identity",
-        "name": "Identity",
-        "params": [
-            "gain"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.Initializer",
-        "name": "Initializer",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.LecunNormal",
-        "name": "LecunNormal",
-        "params": [
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.LecunUniform",
-        "name": "LecunUniform",
-        "params": [
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.Ones",
-        "name": "Ones",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.Orthogonal",
-        "name": "Orthogonal",
-        "params": [
-            "gain",
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.RandomNormal",
-        "name": "RandomNormal",
-        "params": [
-            "mean",
-            "stddev",
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.RandomUniform",
-        "name": "RandomUniform",
-        "params": [
-            "minval",
-            "maxval",
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.TruncatedNormal",
-        "name": "TruncatedNormal",
-        "params": [
-            "mean",
-            "stddev",
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.VarianceScaling",
-        "name": "VarianceScaling",
-        "params": [
-            "scale",
-            "mode",
-            "distribution",
-            "seed"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.initializers.Zeros",
-        "name": "Zeros",
         "params": []
     },
     {
@@ -1944,538 +1782,6 @@
         ]
     },
     {
-        "full_name": "tensorflow.keras.losses.BinaryCrossentropy",
-        "name": "BinaryCrossentropy",
-        "params": [
-            "from_logits",
-            "label_smoothing",
-            "axis",
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.BinaryFocalCrossentropy",
-        "name": "BinaryFocalCrossentropy",
-        "params": [
-            "gamma",
-            "from_logits",
-            "label_smoothing",
-            "axis",
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.CategoricalCrossentropy",
-        "name": "CategoricalCrossentropy",
-        "params": [
-            "from_logits",
-            "label_smoothing",
-            "axis",
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.CategoricalHinge",
-        "name": "CategoricalHinge",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.CosineSimilarity",
-        "name": "CosineSimilarity",
-        "params": [
-            "axis",
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.Hinge",
-        "name": "Hinge",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.Huber",
-        "name": "Huber",
-        "params": [
-            "delta",
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.KLDivergence",
-        "name": "KLDivergence",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.LogCosh",
-        "name": "LogCosh",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.Loss",
-        "name": "Loss",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.MeanAbsoluteError",
-        "name": "MeanAbsoluteError",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.MeanAbsolutePercentageError",
-        "name": "MeanAbsolutePercentageError",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.MeanSquaredError",
-        "name": "MeanSquaredError",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.MeanSquaredLogarithmicError",
-        "name": "MeanSquaredLogarithmicError",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.Poisson",
-        "name": "Poisson",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.Reduction",
-        "name": "Reduction",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.losses.SparseCategoricalCrossentropy",
-        "name": "SparseCategoricalCrossentropy",
-        "params": [
-            "from_logits",
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.losses.SquaredHinge",
-        "name": "SquaredHinge",
-        "params": [
-            "reduction",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.AUC",
-        "name": "AUC",
-        "params": [
-            "num_thresholds",
-            "curve",
-            "summation_method",
-            "name",
-            "dtype",
-            "thresholds",
-            "multi_label",
-            "num_labels",
-            "label_weights",
-            "from_logits"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Accuracy",
-        "name": "Accuracy",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.BinaryAccuracy",
-        "name": "BinaryAccuracy",
-        "params": [
-            "name",
-            "dtype",
-            "threshold"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.BinaryCrossentropy",
-        "name": "BinaryCrossentropy",
-        "params": [
-            "name",
-            "dtype",
-            "from_logits",
-            "label_smoothing"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.BinaryIoU",
-        "name": "BinaryIoU",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.CategoricalAccuracy",
-        "name": "CategoricalAccuracy",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.CategoricalCrossentropy",
-        "name": "CategoricalCrossentropy",
-        "params": [
-            "name",
-            "dtype",
-            "from_logits",
-            "label_smoothing"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.CategoricalHinge",
-        "name": "CategoricalHinge",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.CosineSimilarity",
-        "name": "CosineSimilarity",
-        "params": [
-            "name",
-            "dtype",
-            "axis"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.FalseNegatives",
-        "name": "FalseNegatives",
-        "params": [
-            "thresholds",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.FalsePositives",
-        "name": "FalsePositives",
-        "params": [
-            "thresholds",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Hinge",
-        "name": "Hinge",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.IoU",
-        "name": "IoU",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.KLDivergence",
-        "name": "KLDivergence",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.LogCoshError",
-        "name": "LogCoshError",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Mean",
-        "name": "Mean",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanAbsoluteError",
-        "name": "MeanAbsoluteError",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanAbsolutePercentageError",
-        "name": "MeanAbsolutePercentageError",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanIoU",
-        "name": "MeanIoU",
-        "params": [
-            "num_classes",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanMetricWrapper",
-        "name": "MeanMetricWrapper",
-        "params": [
-            "fn",
-            "name",
-            "dtype",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanRelativeError",
-        "name": "MeanRelativeError",
-        "params": [
-            "normalizer",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanSquaredError",
-        "name": "MeanSquaredError",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanSquaredLogarithmicError",
-        "name": "MeanSquaredLogarithmicError",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.MeanTensor",
-        "name": "MeanTensor",
-        "params": [
-            "name",
-            "dtype",
-            "shape"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Metric",
-        "name": "Metric",
-        "params": [
-            "name",
-            "dtype",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.OneHotIoU",
-        "name": "OneHotIoU",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.OneHotMeanIoU",
-        "name": "OneHotMeanIoU",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Poisson",
-        "name": "Poisson",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Precision",
-        "name": "Precision",
-        "params": [
-            "thresholds",
-            "top_k",
-            "class_id",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.PrecisionAtRecall",
-        "name": "PrecisionAtRecall",
-        "params": [
-            "recall",
-            "num_thresholds",
-            "class_id",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Recall",
-        "name": "Recall",
-        "params": [
-            "thresholds",
-            "top_k",
-            "class_id",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.RecallAtPrecision",
-        "name": "RecallAtPrecision",
-        "params": [
-            "precision",
-            "num_thresholds",
-            "class_id",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.RootMeanSquaredError",
-        "name": "RootMeanSquaredError",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.SensitivityAtSpecificity",
-        "name": "SensitivityAtSpecificity",
-        "params": [
-            "specificity",
-            "num_thresholds",
-            "class_id",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.SparseCategoricalAccuracy",
-        "name": "SparseCategoricalAccuracy",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.SparseCategoricalCrossentropy",
-        "name": "SparseCategoricalCrossentropy",
-        "params": [
-            "name",
-            "dtype",
-            "from_logits",
-            "axis"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.SparseTopKCategoricalAccuracy",
-        "name": "SparseTopKCategoricalAccuracy",
-        "params": [
-            "k",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.SpecificityAtSensitivity",
-        "name": "SpecificityAtSensitivity",
-        "params": [
-            "sensitivity",
-            "num_thresholds",
-            "class_id",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.SquaredHinge",
-        "name": "SquaredHinge",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.Sum",
-        "name": "Sum",
-        "params": [
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.TopKCategoricalAccuracy",
-        "name": "TopKCategoricalAccuracy",
-        "params": [
-            "k",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.TrueNegatives",
-        "name": "TrueNegatives",
-        "params": [
-            "thresholds",
-            "name",
-            "dtype"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.metrics.TruePositives",
-        "name": "TruePositives",
-        "params": [
-            "thresholds",
-            "name",
-            "dtype"
-        ]
-    },
-    {
         "full_name": "tensorflow.nn.RNNCellDeviceWrapper",
         "name": "RNNCellDeviceWrapper",
         "params": [
@@ -2496,114 +1802,6 @@
         "name": "RNNCellResidualWrapper",
         "params": [
             "*args",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Adadelta",
-        "name": "Adadelta",
-        "params": [
-            "learning_rate",
-            "rho",
-            "epsilon",
-            "name",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Adagrad",
-        "name": "Adagrad",
-        "params": [
-            "learning_rate",
-            "initial_accumulator_value",
-            "epsilon",
-            "name",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Adam",
-        "name": "Adam",
-        "params": [
-            "learning_rate",
-            "beta_1",
-            "beta_2",
-            "epsilon",
-            "amsgrad",
-            "name",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Adamax",
-        "name": "Adamax",
-        "params": [
-            "learning_rate",
-            "beta_1",
-            "beta_2",
-            "epsilon",
-            "name",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Ftrl",
-        "name": "Ftrl",
-        "params": [
-            "learning_rate",
-            "learning_rate_power",
-            "initial_accumulator_value",
-            "l1_regularization_strength",
-            "l2_regularization_strength",
-            "name",
-            "l2_shrinkage_regularization_strength",
-            "beta",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Nadam",
-        "name": "Nadam",
-        "params": [
-            "learning_rate",
-            "beta_1",
-            "beta_2",
-            "epsilon",
-            "name",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.Optimizer",
-        "name": "Optimizer",
-        "params": [
-            "name",
-            "gradient_aggregator",
-            "gradient_transformers",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.RMSprop",
-        "name": "RMSprop",
-        "params": [
-            "learning_rate",
-            "rho",
-            "momentum",
-            "epsilon",
-            "centered",
-            "name",
-            "**kwargs"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.SGD",
-        "name": "SGD",
-        "params": [
-            "learning_rate",
-            "momentum",
-            "nesterov",
-            "name",
             "**kwargs"
         ]
     },
@@ -2765,7 +1963,8 @@
         "full_name": "tensorflow.train.CheckpointOptions",
         "name": "CheckpointOptions",
         "params": [
-            "experimental_io_device"
+            "experimental_io_device",
+            "experimental_enable_async_checkpoint"
         ]
     },
     {
@@ -2880,7 +2079,25 @@
     {
         "full_name": "tensorflow.compat.v1.ConfigProto",
         "name": "ConfigProto",
-        "params": []
+        "params": [
+            "allow_soft_placement",
+            "cluster_def",
+            "device_count",
+            "device_filters",
+            "experimental",
+            "gpu_options",
+            "graph_options",
+            "inter_op_parallelism_threads",
+            "intra_op_parallelism_threads",
+            "isolate_session_state",
+            "log_device_placement",
+            "operation_timeout_in_ms",
+            "placement_period",
+            "rpc_options",
+            "session_inter_op_thread_pool",
+            "share_cluster_devices_in_session",
+            "use_per_session_threads"
+        ]
     },
     {
         "full_name": "tensorflow.compat.v1.DeviceSpec",
@@ -3628,6 +2845,31 @@
         ]
     },
     {
+        "full_name": "tensorflow.experimental.dtensor.DTensorCheckpoint",
+        "name": "DTensorCheckpoint",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.experimental.dtensor.DVariable",
+        "name": "DVariable",
+        "params": [
+            "initial_value",
+            "*args",
+            "dtype",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.experimental.dtensor.Layout",
+        "name": "Layout",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.experimental.dtensor.Mesh",
+        "name": "Mesh",
+        "params": []
+    },
+    {
         "full_name": "tensorflow.experimental.numpy.bool_",
         "name": "bool_",
         "params": [
@@ -3849,7 +3091,7 @@
             "add_history",
             "add_progbar",
             "model",
-            "null"
+            null
         ]
     },
     {
@@ -4039,29 +3281,6 @@
         ]
     },
     {
-        "full_name": "tensorflow.keras.experimental.PeepholeLSTMCell",
-        "name": "PeepholeLSTMCell",
-        "params": [
-            "units",
-            "activation",
-            "recurrent_activation",
-            "use_bias",
-            "kernel_initializer",
-            "recurrent_initializer",
-            "bias_initializer",
-            "unit_forget_bias",
-            "kernel_regularizer",
-            "recurrent_regularizer",
-            "bias_regularizer",
-            "kernel_constraint",
-            "recurrent_constraint",
-            "bias_constraint",
-            "dropout",
-            "recurrent_dropout",
-            "**kwargs"
-        ]
-    },
-    {
         "full_name": "tensorflow.keras.experimental.SequenceFeatures",
         "name": "SequenceFeatures",
         "params": [
@@ -4088,6 +3307,122 @@
             "activation",
             "**kwargs"
         ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.Constant",
+        "name": "Constant",
+        "params": [
+            "value"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.GlorotNormal",
+        "name": "GlorotNormal",
+        "params": [
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.GlorotUniform",
+        "name": "GlorotUniform",
+        "params": [
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.HeNormal",
+        "name": "HeNormal",
+        "params": [
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.HeUniform",
+        "name": "HeUniform",
+        "params": [
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.Identity",
+        "name": "Identity",
+        "params": [
+            "gain"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.Initializer",
+        "name": "Initializer",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.LecunNormal",
+        "name": "LecunNormal",
+        "params": [
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.LecunUniform",
+        "name": "LecunUniform",
+        "params": [
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.Ones",
+        "name": "Ones",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.Orthogonal",
+        "name": "Orthogonal",
+        "params": [
+            "gain",
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.RandomNormal",
+        "name": "RandomNormal",
+        "params": [
+            "mean",
+            "stddev",
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.RandomUniform",
+        "name": "RandomUniform",
+        "params": [
+            "minval",
+            "maxval",
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.TruncatedNormal",
+        "name": "TruncatedNormal",
+        "params": [
+            "mean",
+            "stddev",
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.VarianceScaling",
+        "name": "VarianceScaling",
+        "params": [
+            "scale",
+            "mode",
+            "distribution",
+            "seed"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.initializers.Zeros",
+        "name": "Zeros",
+        "params": []
     },
     {
         "full_name": "tensorflow.keras.layers.AbstractRNNCell",
@@ -4147,6 +3482,7 @@
         "name": "Attention",
         "params": [
             "use_scale",
+            "score_mode",
             "**kwargs"
         ]
     },
@@ -5098,6 +4434,16 @@
         ]
     },
     {
+        "full_name": "tensorflow.keras.layers.RandomBrightness",
+        "name": "RandomBrightness",
+        "params": [
+            "factor",
+            "value_range",
+            "seed",
+            "**kwargs"
+        ]
+    },
+    {
         "full_name": "tensorflow.keras.layers.RandomContrast",
         "name": "RandomContrast",
         "params": [
@@ -5431,6 +4777,14 @@
         ]
     },
     {
+        "full_name": "tensorflow.keras.layers.UnitNormalization",
+        "name": "UnitNormalization",
+        "params": [
+            "axis",
+            "**kwargs"
+        ]
+    },
+    {
         "full_name": "tensorflow.keras.layers.UpSampling1D",
         "name": "UpSampling1D",
         "params": [
@@ -5492,20 +4846,655 @@
         ]
     },
     {
+        "full_name": "tensorflow.keras.losses.BinaryCrossentropy",
+        "name": "BinaryCrossentropy",
+        "params": [
+            "from_logits",
+            "label_smoothing",
+            "axis",
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.BinaryFocalCrossentropy",
+        "name": "BinaryFocalCrossentropy",
+        "params": [
+            "gamma",
+            "from_logits",
+            "label_smoothing",
+            "axis",
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.CategoricalCrossentropy",
+        "name": "CategoricalCrossentropy",
+        "params": [
+            "from_logits",
+            "label_smoothing",
+            "axis",
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.CategoricalHinge",
+        "name": "CategoricalHinge",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.CosineSimilarity",
+        "name": "CosineSimilarity",
+        "params": [
+            "axis",
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.Hinge",
+        "name": "Hinge",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.Huber",
+        "name": "Huber",
+        "params": [
+            "delta",
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.KLDivergence",
+        "name": "KLDivergence",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.LogCosh",
+        "name": "LogCosh",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.Loss",
+        "name": "Loss",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.MeanAbsoluteError",
+        "name": "MeanAbsoluteError",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.MeanAbsolutePercentageError",
+        "name": "MeanAbsolutePercentageError",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.MeanSquaredError",
+        "name": "MeanSquaredError",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.MeanSquaredLogarithmicError",
+        "name": "MeanSquaredLogarithmicError",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.Poisson",
+        "name": "Poisson",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.Reduction",
+        "name": "Reduction",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.losses.SparseCategoricalCrossentropy",
+        "name": "SparseCategoricalCrossentropy",
+        "params": [
+            "from_logits",
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.losses.SquaredHinge",
+        "name": "SquaredHinge",
+        "params": [
+            "reduction",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.AUC",
+        "name": "AUC",
+        "params": [
+            "num_thresholds",
+            "curve",
+            "summation_method",
+            "name",
+            "dtype",
+            "thresholds",
+            "multi_label",
+            "num_labels",
+            "label_weights",
+            "from_logits"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Accuracy",
+        "name": "Accuracy",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.BinaryAccuracy",
+        "name": "BinaryAccuracy",
+        "params": [
+            "name",
+            "dtype",
+            "threshold"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.BinaryCrossentropy",
+        "name": "BinaryCrossentropy",
+        "params": [
+            "name",
+            "dtype",
+            "from_logits",
+            "label_smoothing"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.BinaryIoU",
+        "name": "BinaryIoU",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.CategoricalAccuracy",
+        "name": "CategoricalAccuracy",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.CategoricalCrossentropy",
+        "name": "CategoricalCrossentropy",
+        "params": [
+            "name",
+            "dtype",
+            "from_logits",
+            "label_smoothing"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.CategoricalHinge",
+        "name": "CategoricalHinge",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.CosineSimilarity",
+        "name": "CosineSimilarity",
+        "params": [
+            "name",
+            "dtype",
+            "axis"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.FalseNegatives",
+        "name": "FalseNegatives",
+        "params": [
+            "thresholds",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.FalsePositives",
+        "name": "FalsePositives",
+        "params": [
+            "thresholds",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Hinge",
+        "name": "Hinge",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.IoU",
+        "name": "IoU",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.KLDivergence",
+        "name": "KLDivergence",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.LogCoshError",
+        "name": "LogCoshError",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Mean",
+        "name": "Mean",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanAbsoluteError",
+        "name": "MeanAbsoluteError",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanAbsolutePercentageError",
+        "name": "MeanAbsolutePercentageError",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanIoU",
+        "name": "MeanIoU",
+        "params": [
+            "num_classes",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanMetricWrapper",
+        "name": "MeanMetricWrapper",
+        "params": [
+            "fn",
+            "name",
+            "dtype",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanRelativeError",
+        "name": "MeanRelativeError",
+        "params": [
+            "normalizer",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanSquaredError",
+        "name": "MeanSquaredError",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanSquaredLogarithmicError",
+        "name": "MeanSquaredLogarithmicError",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.MeanTensor",
+        "name": "MeanTensor",
+        "params": [
+            "name",
+            "dtype",
+            "shape"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Metric",
+        "name": "Metric",
+        "params": [
+            "name",
+            "dtype",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.OneHotIoU",
+        "name": "OneHotIoU",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.OneHotMeanIoU",
+        "name": "OneHotMeanIoU",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Poisson",
+        "name": "Poisson",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Precision",
+        "name": "Precision",
+        "params": [
+            "thresholds",
+            "top_k",
+            "class_id",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.PrecisionAtRecall",
+        "name": "PrecisionAtRecall",
+        "params": [
+            "recall",
+            "num_thresholds",
+            "class_id",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Recall",
+        "name": "Recall",
+        "params": [
+            "thresholds",
+            "top_k",
+            "class_id",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.RecallAtPrecision",
+        "name": "RecallAtPrecision",
+        "params": [
+            "precision",
+            "num_thresholds",
+            "class_id",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.RootMeanSquaredError",
+        "name": "RootMeanSquaredError",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.SensitivityAtSpecificity",
+        "name": "SensitivityAtSpecificity",
+        "params": [
+            "specificity",
+            "num_thresholds",
+            "class_id",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.SparseCategoricalAccuracy",
+        "name": "SparseCategoricalAccuracy",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.SparseCategoricalCrossentropy",
+        "name": "SparseCategoricalCrossentropy",
+        "params": [
+            "name",
+            "dtype",
+            "from_logits",
+            "axis"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.SparseTopKCategoricalAccuracy",
+        "name": "SparseTopKCategoricalAccuracy",
+        "params": [
+            "k",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.SpecificityAtSensitivity",
+        "name": "SpecificityAtSensitivity",
+        "params": [
+            "sensitivity",
+            "num_thresholds",
+            "class_id",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.SquaredHinge",
+        "name": "SquaredHinge",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.Sum",
+        "name": "Sum",
+        "params": [
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.TopKCategoricalAccuracy",
+        "name": "TopKCategoricalAccuracy",
+        "params": [
+            "k",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.TrueNegatives",
+        "name": "TrueNegatives",
+        "params": [
+            "thresholds",
+            "name",
+            "dtype"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.metrics.TruePositives",
+        "name": "TruePositives",
+        "params": [
+            "thresholds",
+            "name",
+            "dtype"
+        ]
+    },
+    {
         "full_name": "tensorflow.keras.mixed_precision.LossScaleOptimizer",
         "name": "LossScaleOptimizer",
-        "params": [
-            "inner_optimizer",
-            "dynamic",
-            "initial_scale",
-            "dynamic_growth_steps"
-        ]
+        "params": []
     },
     {
         "full_name": "tensorflow.keras.mixed_precision.Policy",
         "name": "Policy",
         "params": [
             "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Adadelta",
+        "name": "Adadelta",
+        "params": [
+            "learning_rate",
+            "rho",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Adagrad",
+        "name": "Adagrad",
+        "params": [
+            "learning_rate",
+            "initial_accumulator_value",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Adam",
+        "name": "Adam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "amsgrad",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Adamax",
+        "name": "Adamax",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Ftrl",
+        "name": "Ftrl",
+        "params": [
+            "learning_rate",
+            "learning_rate_power",
+            "initial_accumulator_value",
+            "l1_regularization_strength",
+            "l2_regularization_strength",
+            "name",
+            "l2_shrinkage_regularization_strength",
+            "beta",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Nadam",
+        "name": "Nadam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.Optimizer",
+        "name": "Optimizer",
+        "params": [
+            "name",
+            "gradient_aggregator",
+            "gradient_transformers",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.RMSprop",
+        "name": "RMSprop",
+        "params": [
+            "learning_rate",
+            "rho",
+            "momentum",
+            "epsilon",
+            "centered",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.SGD",
+        "name": "SGD",
+        "params": [
+            "learning_rate",
+            "momentum",
+            "nesterov",
+            "name",
+            "**kwargs"
         ]
     },
     {
@@ -5530,6 +5519,14 @@
         "params": [
             "l2",
             "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.regularizers.OrthogonalRegularizer",
+        "name": "OrthogonalRegularizer",
+        "params": [
+            "factor",
+            "mode"
         ]
     },
     {
@@ -5662,75 +5659,6 @@
         ]
     },
     {
-        "full_name": "tensorflow.mixed_precision.experimental.DynamicLossScale",
-        "name": "DynamicLossScale",
-        "params": [
-            "initial_loss_scale",
-            "increment_period",
-            "multiplier"
-        ]
-    },
-    {
-        "full_name": "tensorflow.mixed_precision.experimental.FixedLossScale",
-        "name": "FixedLossScale",
-        "params": [
-            "loss_scale_value"
-        ]
-    },
-    {
-        "full_name": "tensorflow.mixed_precision.experimental.LossScale",
-        "name": "LossScale",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.schedules.ExponentialDecay",
-        "name": "ExponentialDecay",
-        "params": [
-            "initial_learning_rate",
-            "decay_steps",
-            "decay_rate",
-            "staircase",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.schedules.InverseTimeDecay",
-        "name": "InverseTimeDecay",
-        "params": [
-            "initial_learning_rate",
-            "decay_steps",
-            "decay_rate",
-            "staircase",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.schedules.LearningRateSchedule",
-        "name": "LearningRateSchedule",
-        "params": []
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.schedules.PiecewiseConstantDecay",
-        "name": "PiecewiseConstantDecay",
-        "params": [
-            "boundaries",
-            "values",
-            "name"
-        ]
-    },
-    {
-        "full_name": "tensorflow.keras.optimizers.schedules.PolynomialDecay",
-        "name": "PolynomialDecay",
-        "params": [
-            "initial_learning_rate",
-            "decay_steps",
-            "end_learning_rate",
-            "power",
-            "cycle",
-            "name"
-        ]
-    },
-    {
         "full_name": "tensorflow.profiler.experimental.Profile",
         "name": "Profile",
         "params": [
@@ -5774,6 +5702,13 @@
         "params": []
     },
     {
+        "full_name": "tensorflow.tpu.experimental.HardwareFeature",
+        "name": "HardwareFeature",
+        "params": [
+            "tpu_hardware_feature_proto"
+        ]
+    },
+    {
         "full_name": "tensorflow.tpu.experimental.TPUSystemMetadata",
         "name": "TPUSystemMetadata",
         "params": [
@@ -5811,6 +5746,21 @@
     {
         "full_name": "tensorflow.types.experimental.GenericFunction",
         "name": "GenericFunction",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.types.experimental.SupportsTracingProtocol",
+        "name": "SupportsTracingProtocol",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.types.experimental.TraceType",
+        "name": "TraceType",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.types.experimental.TracingContext",
+        "name": "TracingContext",
         "params": []
     },
     {
@@ -6308,7 +6258,7 @@
             "default",
             "help",
             "short_name",
-            "null"
+            null
         ]
     },
     {
@@ -6343,7 +6293,7 @@
             "enum_class",
             "short_name",
             "case_sensitive",
-            "null"
+            null
         ]
     },
     {
@@ -6379,7 +6329,7 @@
             "enum_values",
             "short_name",
             "case_sensitive",
-            "null"
+            null
         ]
     },
     {
@@ -6474,7 +6424,7 @@
             "help_string",
             "enum_class",
             "case_sensitive",
-            "null"
+            null
         ]
     },
     {
@@ -6910,6 +6860,27 @@
     {
         "full_name": "tensorflow.compat.v1.losses.Reduction",
         "name": "Reduction",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.compat.v1.mixed_precision.DynamicLossScale",
+        "name": "DynamicLossScale",
+        "params": [
+            "initial_loss_scale",
+            "increment_period",
+            "multiplier"
+        ]
+    },
+    {
+        "full_name": "tensorflow.compat.v1.mixed_precision.FixedLossScale",
+        "name": "FixedLossScale",
+        "params": [
+            "loss_scale_value"
+        ]
+    },
+    {
+        "full_name": "tensorflow.compat.v1.mixed_precision.LossScale",
+        "name": "LossScale",
         "params": []
     },
     {
@@ -7413,6 +7384,13 @@
         ]
     },
     {
+        "full_name": "tensorflow.keras.dtensor.experimental.LayoutMap",
+        "name": "LayoutMap",
+        "params": [
+            "mesh"
+        ]
+    },
+    {
         "full_name": "tensorflow.keras.layers.experimental.EinsumDense",
         "name": "EinsumDense",
         "params": [
@@ -7463,19 +7441,350 @@
         ]
     },
     {
-        "full_name": "tensorflow.keras.mixed_precision.experimental.LossScaleOptimizer",
-        "name": "LossScaleOptimizer",
+        "full_name": "tensorflow.keras.optimizers.experimental.Adadelta",
+        "name": "Adadelta",
         "params": [
-            "optimizer",
-            "loss_scale"
+            "learning_rate",
+            "rho",
+            "epsilon",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
         ]
     },
     {
-        "full_name": "tensorflow.keras.mixed_precision.experimental.Policy",
-        "name": "Policy",
+        "full_name": "tensorflow.keras.optimizers.experimental.Adagrad",
+        "name": "Adagrad",
+        "params": [
+            "learning_rate",
+            "initial_accumulator_value",
+            "epsilon",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.Adam",
+        "name": "Adam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "amsgrad",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.AdamW",
+        "name": "AdamW",
+        "params": [
+            "learning_rate",
+            "weight_decay",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "amsgrad",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.Adamax",
+        "name": "Adamax",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.Ftrl",
+        "name": "Ftrl",
+        "params": [
+            "learning_rate",
+            "learning_rate_power",
+            "initial_accumulator_value",
+            "l1_regularization_strength",
+            "l2_regularization_strength",
+            "l2_shrinkage_regularization_strength",
+            "beta",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.Nadam",
+        "name": "Nadam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.Optimizer",
+        "name": "Optimizer",
         "params": [
             "name",
-            "loss_scale"
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.RMSprop",
+        "name": "RMSprop",
+        "params": [
+            "learning_rate",
+            "rho",
+            "momentum",
+            "epsilon",
+            "centered",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.experimental.SGD",
+        "name": "SGD",
+        "params": [
+            "learning_rate",
+            "momentum",
+            "nesterov",
+            "amsgrad",
+            "clipnorm",
+            "clipvalue",
+            "global_clipnorm",
+            "use_ema",
+            "ema_momentum",
+            "ema_overwrite_frequency",
+            "jit_compile",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Adadelta",
+        "name": "Adadelta",
+        "params": [
+            "learning_rate",
+            "rho",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Adagrad",
+        "name": "Adagrad",
+        "params": [
+            "learning_rate",
+            "initial_accumulator_value",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Adam",
+        "name": "Adam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "amsgrad",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Adamax",
+        "name": "Adamax",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Ftrl",
+        "name": "Ftrl",
+        "params": [
+            "learning_rate",
+            "learning_rate_power",
+            "initial_accumulator_value",
+            "l1_regularization_strength",
+            "l2_regularization_strength",
+            "name",
+            "l2_shrinkage_regularization_strength",
+            "beta",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Nadam",
+        "name": "Nadam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.Optimizer",
+        "name": "Optimizer",
+        "params": [
+            "name",
+            "gradient_aggregator",
+            "gradient_transformers",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.RMSprop",
+        "name": "RMSprop",
+        "params": [
+            "learning_rate",
+            "rho",
+            "momentum",
+            "epsilon",
+            "centered",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.legacy.SGD",
+        "name": "SGD",
+        "params": [
+            "learning_rate",
+            "momentum",
+            "nesterov",
+            "name",
+            "**kwargs"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.schedules.ExponentialDecay",
+        "name": "ExponentialDecay",
+        "params": [
+            "initial_learning_rate",
+            "decay_steps",
+            "decay_rate",
+            "staircase",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.schedules.InverseTimeDecay",
+        "name": "InverseTimeDecay",
+        "params": [
+            "initial_learning_rate",
+            "decay_steps",
+            "decay_rate",
+            "staircase",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.schedules.LearningRateSchedule",
+        "name": "LearningRateSchedule",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.schedules.PiecewiseConstantDecay",
+        "name": "PiecewiseConstantDecay",
+        "params": [
+            "boundaries",
+            "values",
+            "name"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.optimizers.schedules.PolynomialDecay",
+        "name": "PolynomialDecay",
+        "params": [
+            "initial_learning_rate",
+            "decay_steps",
+            "end_learning_rate",
+            "power",
+            "cycle",
+            "name"
         ]
     },
     {
@@ -7498,6 +7807,7 @@
             "follow_links",
             "subset",
             "interpolation",
+            "keep_aspect_ratio",
             "dtype"
         ]
     },
@@ -7526,6 +7836,7 @@
             "preprocessing_function",
             "data_format",
             "validation_split",
+            "interpolation_order",
             "dtype"
         ]
     },
@@ -7555,6 +7866,7 @@
             "save_prefix",
             "save_format",
             "subset",
+            "ignore_class_split",
             "dtype"
         ]
     },
@@ -7584,7 +7896,7 @@
             "split",
             "char_level",
             "oov_token",
-            "document_count",
+            "analyzer",
             "**kwargs"
         ]
     },
@@ -7599,6 +7911,11 @@
     {
         "full_name": "tensorflow.tpu.experimental.embedding.Adagrad",
         "name": "Adagrad",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.tpu.experimental.embedding.AdagradMomentum",
+        "name": "AdagradMomentum",
         "params": []
     },
     {
@@ -7624,6 +7941,16 @@
     {
         "full_name": "tensorflow.tpu.experimental.embedding.TPUEmbedding",
         "name": "TPUEmbedding",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.tpu.experimental.embedding.TPUEmbeddingForServing",
+        "name": "TPUEmbeddingForServing",
+        "params": []
+    },
+    {
+        "full_name": "tensorflow.tpu.experimental.embedding.TPUEmbeddingV0",
+        "name": "TPUEmbeddingV0",
         "params": []
     },
     {
@@ -7783,16 +8110,6 @@
             "training_hooks",
             "evaluation_hooks",
             "prediction_hooks"
-        ]
-    },
-    {
-        "full_name": "tensorflow.compat.v1.flags.tensorflow_decorator.TFDecorator",
-        "name": "TFDecorator",
-        "params": [
-            "decorator_name",
-            "target",
-            "decorator_doc",
-            "decorator_argspec"
         ]
     },
     {
@@ -8094,7 +8411,8 @@
         "full_name": "tensorflow.compat.v1.nn.rnn_cell.DeviceWrapper",
         "name": "DeviceWrapper",
         "params": [
-            "*args",
+            "cell",
+            "device",
             "**kwargs"
         ]
     },
@@ -8102,7 +8420,15 @@
         "full_name": "tensorflow.compat.v1.nn.rnn_cell.DropoutWrapper",
         "name": "DropoutWrapper",
         "params": [
-            "*args",
+            "cell",
+            "input_keep_prob",
+            "output_keep_prob",
+            "state_keep_prob",
+            "variational_recurrent",
+            "input_size",
+            "dtype",
+            "seed",
+            "dropout_state_filter_visitor",
             "**kwargs"
         ]
     },
@@ -8171,7 +8497,8 @@
         "full_name": "tensorflow.compat.v1.nn.rnn_cell.ResidualWrapper",
         "name": "ResidualWrapper",
         "params": [
-            "*args",
+            "cell",
+            "residual_fn",
             "**kwargs"
         ]
     },
@@ -8201,6 +8528,78 @@
         "full_name": "tensorflow.compat.v1.tpu.experimental.StochasticGradientDescentParameters",
         "name": "StochasticGradientDescentParameters",
         "params": []
+    },
+    {
+        "full_name": "tensorflow.keras.dtensor.experimental.optimizers.Adadelta",
+        "name": "Adadelta",
+        "params": [
+            "learning_rate",
+            "rho",
+            "epsilon",
+            "gradients_clip_option",
+            "ema_option",
+            "name",
+            "mesh"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.dtensor.experimental.optimizers.Adagrad",
+        "name": "Adagrad",
+        "params": [
+            "learning_rate",
+            "initial_accumulator_value",
+            "epsilon",
+            "gradients_clip_option",
+            "ema_option",
+            "name",
+            "mesh"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.dtensor.experimental.optimizers.Adam",
+        "name": "Adam",
+        "params": [
+            "learning_rate",
+            "beta_1",
+            "beta_2",
+            "epsilon",
+            "amsgrad",
+            "gradients_clip_option",
+            "ema_option",
+            "name",
+            "mesh"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.dtensor.experimental.optimizers.RMSprop",
+        "name": "RMSprop",
+        "params": [
+            "learning_rate",
+            "rho",
+            "momentum",
+            "epsilon",
+            "centered",
+            "gradients_clip_option",
+            "ema_option",
+            "jit_compile",
+            "name",
+            "mesh"
+        ]
+    },
+    {
+        "full_name": "tensorflow.keras.dtensor.experimental.optimizers.SGD",
+        "name": "SGD",
+        "params": [
+            "learning_rate",
+            "momentum",
+            "nesterov",
+            "amsgrad",
+            "gradients_clip_option",
+            "ema_option",
+            "jit_compile",
+            "name",
+            "mesh"
+        ]
     },
     {
         "full_name": "tensorflow.keras.layers.experimental.preprocessing.HashedCrossing",

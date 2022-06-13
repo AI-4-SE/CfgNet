@@ -27,17 +27,17 @@ def get_plugin_():
 
 
 def is_responsible(get_plugin):
-    sklearn_plugin = get_plugin
+    pytorch_plugin = get_plugin
 
-    sklearn_file = sklearn_plugin.is_responsible(
-        os.path.abspath("tests/files/tensorflow.py")
+    pytorch_file = pytorch_plugin.is_responsible(
+        os.path.abspath("tests/files/pytorch.py")
     )
-    not_sklearn_file = sklearn_plugin.is_responsible(
+    not_pytorch_file = pytorch_plugin.is_responsible(
         os.path.abspath("tests/files/Dockerfile")
     )
 
-    assert sklearn_file
-    assert not not_sklearn_file
+    assert pytorch_file
+    assert not not_pytorch_file
 
 
 def test_parse_pytorch_file(get_plugin):

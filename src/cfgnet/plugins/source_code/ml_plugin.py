@@ -176,7 +176,23 @@ class MLPlugin(Plugin):
         for node in body:
             if isinstance(node, ast.Assign):
                 SEEN.add(node)
-                self.parse_assign(node, parent)
+                obj = node.value
+                target = node.targets[0]
+                if isinstance(obj, ast.Call):
+                    SEEN.add(obj)
+                    if self.is_module(obj):
+                        self.parse_call(node=obj, parent=parent, target=target)
+                elif isinstance(obj, ast.Name):
+                    option_target = OptionNode(
+                        name=ast.unparse(target), location=str(target.lineno)
+                    )
+                    parent.add_child(option_target)
+                    if isinstance(obj, ast.Name):
+                        possible_values = self.cfg.compute_values(var=obj.id)
+                        arg_value = ValueNode(
+                            name=obj.id, possible_values=possible_values
+                        )
+                        option_target.add_child(arg_value)
 
     def parse_assign(self, node: ast.Assign, parent: Node) -> None:
         obj = node.value

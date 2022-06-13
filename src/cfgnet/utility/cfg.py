@@ -23,6 +23,7 @@ class Cfg:
     """Control flow graph module."""
 
     def __init__(self, code_str: str) -> None:
+        self.code_str = code_str
         self.cfg: CFG = CFGBuilder().build_from_src(name="", src=code_str)
         self.ssa: SSA = SSA()
         self.all_cfgs: List[CFG] = []
@@ -62,33 +63,15 @@ class Cfg:
         :param var: variable for which all values should be identified
         :return: dictionary of possible values
         """
-        final_const_dict = {}
-        val: Any = None
+        value_dict: Dict = {}
         try:
             for cfg in self.all_cfgs:
-                _, const_dict = self.ssa.compute_SSA(cfg)
-                for name, value in const_dict.items():
-                    # current workaround for loop variable
-                    if not value:
-                        continue
-                    if name[0] == var:
-                        if not hasattr(value, "lineno"):
-                            key = (var, None)
-                        else:
-                            key = (var, value.lineno)
+                self.get_values_from_ssa(
+                    cfg=cfg, var=var, value_dict=value_dict
+                )
 
-                        if isinstance(value, ast.Call):
-                            if isinstance(value.func, ast.Name):
-                                if value.func.id == "range":
-                                    val = self.parse_range_call(value)
-                                else:
-                                    val = ast.unparse(value)
-
-                        if not val:
-                            val = ast.unparse(value)
-                        final_const_dict[key] = val
-
-            return final_const_dict
+            self.get_values_from_func_calls(var=var, value_dict=value_dict)
+            return value_dict
         except Exception as error:
             logging.error(
                 "Data flow analysis failed. Couldn't compute values for %s due to %s: %s",
@@ -96,7 +79,48 @@ class Cfg:
                 type(error).__name__,
                 error,
             )
-            return final_const_dict
+            return value_dict
+
+    def get_values_from_ssa(
+        self, cfg: CFG, var: str, value_dict: Dict
+    ) -> None:
+        val: Any = None
+        _, const_dict = self.ssa.compute_SSA(cfg)
+        for name, value in const_dict.items():
+            # current workaround for loop variable
+            if not value:
+                continue
+            if name[0] == var:
+                if not hasattr(value, "lineno"):
+                    key = (var, None)
+                else:
+                    key = (var, value.lineno)
+
+                if isinstance(value, ast.Call):
+                    if isinstance(value.func, ast.Name):
+                        if value.func.id == "range":
+                            val = self.parse_range_call(value)
+                        else:
+                            val = ast.unparse(value)
+
+                if not val:
+                    val = ast.unparse(value)
+                value_dict[key] = val
+
+    def get_values_from_func_calls(self, var: str, value_dict: Dict) -> None:
+        for node in ast.walk(ast.parse(self.code_str)):
+            if isinstance(node, ast.FunctionDef):
+                args = ast.unparse(node.args).split(",")
+                parsed_args = map(lambda arg: arg.strip(), args)
+                for arg in parsed_args:
+                    arg_parts = arg.split("=")
+                    if len(arg_parts) == 2:
+                        if arg_parts[0] == var:
+                            if not hasattr(node, "lineno"):
+                                key: Any = (var, None)
+                            else:
+                                key = (var, node.lineno)
+                            value_dict[key] = arg_parts[1]
 
     @staticmethod
     def parse_range_call(node: ast.Call) -> Any:

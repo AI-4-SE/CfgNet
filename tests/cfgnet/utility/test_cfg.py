@@ -21,7 +21,7 @@ def test_number_cfgs():
 
     cfg = Cfg(code_str=code_str)
 
-    assert len(cfg.all_cfgs) == 6
+    assert len(cfg.all_cfgs) == 7
 
 
 def test_compute_values():
@@ -36,26 +36,29 @@ def test_compute_values():
     values_i = cfg.compute_values("i")
     values_j = cfg.compute_values("j")
     values_c = cfg.compute_values("c")
+    values_solver = cfg.compute_values("solver")
     # values_selfx = cfg.compute_values("self.x") -> https://github.com/SMAT-Lab/Scalpel/issues/39
     # values_k = cfg.compute_values("k") -> https://github.com/SMAT-Lab/Scalpel/issues/42
     # values_p = cfg.compute_values("p") -> https://github.com/SMAT-Lab/Scalpel/issues/42
 
-    print(values_i)
-
     assert len(values_a) == 5
     assert len(values_x) == 1
+    assert values_x[('x', 9)] == '5'
 
     assert len(values_z) == 2
     assert values_z[('z', 19)] == "'test'"
 
     assert len(values_i) == 1
-    assert values_i[('i', 44)] == [0, 1, 2]
+    assert values_i[('i', 40)] == [0, 1, 2]
 
     assert len(values_j) == 1
-    assert values_j[('j', 47)] == [1, 2, 3, 4]
+    assert values_j[('j', 43)] == [1, 2, 3, 4]
 
     assert len(values_c) == 1
-    assert values_c[('c', 50)] == [1, 3, 5, 7, 9]
+    assert values_c[('c', 46)] == [1, 3, 5, 7, 9]
+
+    assert len(values_solver) == 1
+    assert values_solver[('solver', 50)] == "'lbfgs'"
 
     # assert len(values_selfx) == 2
     # assert len(values_k) == 1

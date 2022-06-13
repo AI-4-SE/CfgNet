@@ -1,12 +1,12 @@
-import pandas as pd
 from sklearn.cluster import KMeans
+from sklearn.linear_model import LogisticRegression
 
 
 k, p = 1, 2
 
 
 class Test:
-    def __init__(self, x):
+    def __init__(self, x=5):
         self.x = x
 
     def update(self, z):
@@ -37,10 +37,6 @@ def outer_func(a):
     inner_func()
 
 
-dataset = pd.read_csv("test.csv")
-x = dataset.iloc[:, [3, 4]].values
-
-
 for i in range(3):
     kmeans = KMeans(n_clusters=i)
 
@@ -49,3 +45,8 @@ for j in range(1, 5):
 
 for c in range(1, 10, 2):
     kmeans = KMeans(n_clusters=c)
+
+
+def create_kmeans(solver="lbfgs"):
+    logistic_reg = LogisticRegression(solver=solver)
+    return logistic_reg

@@ -299,6 +299,7 @@ class MLPlugin(Plugin):
                     )
                     parent.add_child(argument)
                     if isinstance(key.value, ast.Name):
+
                         possible_values = self.cfg.compute_values(
                             var=key.value.id
                         )
@@ -306,6 +307,20 @@ class MLPlugin(Plugin):
                             name=key.value.id, possible_values=possible_values
                         )
                         argument.add_child(arg_value)
+                    elif isinstance(key.value, ast.Subscript):
+                        subscript_value = ast.unparse(key.value)
+                        value_name = subscript_value.split("[", maxsplit=1)[0]
+
+                        print("Calculate values for: ", value_name)
+                        possible_values = self.cfg.compute_values(
+                            var=value_name
+                        )
+                        print("Possible values: ", possible_values)
+                        value = ValueNode(
+                            name=subscript_value,
+                            possible_values=possible_values,
+                        )
+                        argument.add_child(value)
                     else:
                         value_name = ast.unparse(key.value)
                         if value_name.startswith("'") and value_name.endswith(

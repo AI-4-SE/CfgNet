@@ -37,6 +37,7 @@ def test_compute_values():
     values_j = cfg.compute_values("j")
     values_c = cfg.compute_values("c")
     values_solver = cfg.compute_values("solver")
+    values_anchors = cfg.compute_values("anchors")
     # values_selfx = cfg.compute_values("self.x") -> https://github.com/SMAT-Lab/Scalpel/issues/39
     # values_k = cfg.compute_values("k") -> https://github.com/SMAT-Lab/Scalpel/issues/42
     # values_p = cfg.compute_values("p") -> https://github.com/SMAT-Lab/Scalpel/issues/42
@@ -46,7 +47,7 @@ def test_compute_values():
     assert values_x[('x', 9)] == '5'
 
     assert len(values_z) == 2
-    assert values_z[('z', 19)] == "'test'"
+    assert values_z[('z', 19)] == "'hello'"
 
     assert len(values_i) == 1
     assert values_i[('i', 40)] == [0, 1, 2]
@@ -59,6 +60,9 @@ def test_compute_values():
 
     assert len(values_solver) == 1
     assert values_solver[('solver', 50)] == "'lbfgs'"
+
+    assert len(values_anchors) == 3
+    assert values_anchors[('anchors', 57)] == '[x for x in range(3)]'
 
     # assert len(values_selfx) == 2
     # assert len(values_k) == 1

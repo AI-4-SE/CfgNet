@@ -84,10 +84,9 @@ class Cfg:
     def get_values_from_ssa(
         self, cfg: CFG, var: str, value_dict: Dict
     ) -> None:
-        val: Any = None
         _, const_dict = self.ssa.compute_SSA(cfg)
         for name, value in const_dict.items():
-            # current workaround for loop variable
+            val: Any = None
             if not value:
                 continue
             if name[0] == var:

@@ -50,3 +50,8 @@ for c in range(1, 10, 2):
 def create_kmeans(solver="lbfgs"):
     logistic_reg = LogisticRegression(solver=solver)
     return logistic_reg
+
+
+anchors = [x for x in range(5, 10)]
+anchors = [x for x in range(1, 10, 2)]
+anchors = [x for x in range(3)]

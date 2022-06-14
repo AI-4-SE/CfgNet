@@ -44,25 +44,29 @@ def test_compute_values():
 
     assert len(values_a) == 5
     assert len(values_x) == 1
-    assert values_x[('x', 9)] == '5'
+    assert values_x[('x', 9)][0] == '5'
+    assert values_x[('x', 9)][1] == 'MethodArgument'
 
     assert len(values_z) == 2
-    assert values_z[('z', 19)] == "'hello'"
+    assert values_z[('z', 19)][0] == "'hello'"
 
     assert len(values_i) == 1
-    assert values_i[('i', 40)] == [0, 1, 2]
+    assert values_i[('i', 40)][0] == [0, 1, 2]
+    assert values_i[('i', 40)][1] == 'Call'
 
     assert len(values_j) == 1
-    assert values_j[('j', 43)] == [1, 2, 3, 4]
+    assert values_j[('j', 43)][0] == [1, 2, 3, 4]
 
     assert len(values_c) == 1
-    assert values_c[('c', 46)] == [1, 3, 5, 7, 9]
+    assert values_c[('c', 46)][0] == [1, 3, 5, 7, 9]
 
     assert len(values_solver) == 1
-    assert values_solver[('solver', 50)] == "'lbfgs'"
+    assert values_solver[('solver', 50)][0] == "'lbfgs'"
+    assert values_solver[('solver', 50)][1] == "MethodArgument"
 
     assert len(values_anchors) == 3
-    assert values_anchors[('anchors', 57)] == '[x for x in range(3)]'
+    assert values_anchors[('anchors', 57)][0] == '[x for x in range(3)]'
+    assert values_anchors[('anchors', 57)][1] == 'ListComp'
 
     # assert len(values_selfx) == 2
     # assert len(values_k) == 1

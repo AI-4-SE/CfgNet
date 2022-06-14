@@ -425,7 +425,8 @@ class MLPlugin(Plugin):
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for package in node.names:
-                    if self.concept_name == package.name:
+                    module = package.name.split(".")[0]
+                    if self.concept_name == module:
                         if package.asname:
                             self.imports.append(package.asname)
                         else:

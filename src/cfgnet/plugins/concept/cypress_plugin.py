@@ -34,7 +34,9 @@ class CypressPlugin(JsonPlugin):
         :param option_name: name of option
         :return: config type
         """
-        if option_name in ("baseUrl", "backendUrl"):
+        if option_name == "projectId":
+            return ConfigType.ID
+        if any(x in option_name for x in ["Url", "url", "Hosts"]):
             return ConfigType.URL
         if option_name == "env":
             return ConfigType.ENVIRONMENT
@@ -51,6 +53,7 @@ class CypressPlugin(JsonPlugin):
             "trashAssetsBeforeRuns",
             "chromeWebSecurity",
             "waitForAnimations",
+            "toConsole",
         ):
             return ConfigType.BOOLEAN
         if any(x in option_name for x in ["Folder", "File", "Files"]):
@@ -64,6 +67,30 @@ class CypressPlugin(JsonPlugin):
             "pageLoadTimeout",
             "requestTimeout",
             "responseTimeout",
+            "slowTestThreshold",
         ):
             return ConfigType.TIME
+
+        if option_name == "env":
+            return ConfigType.ENVIRONMENT
+        if option_name in (
+            "numTestsKeptInMemory",
+            "redirectionLimit",
+            "videoCompression",
+            "animationDistanceThreshold",
+        ):
+            return ConfigType.NUMBER
+
+        if option_name in ("runMode", "openMode"):
+            return ConfigType.MODE
+
+        if option_name in ("reporter", "devServer"):
+            return ConfigType.NAME
+
+        if option_name in ("viewportHeight", "viewportWidth"):
+            return ConfigType.SIZE
+
+        if option_name in ("specPattern", "excludeSpecPattern"):
+            return ConfigType.PATTERN
+
         return ConfigType.UNKNOWN

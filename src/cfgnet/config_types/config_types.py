@@ -28,6 +28,8 @@ class ConfigType(Enum):
     COUNT = auto()
     SIZE = auto()
     IP_ADDRESS = auto()
+    NUMBER = auto()
+    ID = auto()
 
     # Strings
     NAME = auto()
@@ -42,6 +44,7 @@ class ConfigType(Enum):
     COMMAND = auto()
     LICENSE = auto()
     ENVIRONMENT = auto()
+    PATTERN = auto()
 
     # Booleans
     BOOLEAN = auto()

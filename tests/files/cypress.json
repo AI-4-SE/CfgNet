@@ -15,5 +15,9 @@
   "retries": {
     "runMode": 2
   },
-  "video": false
+  "video": false,
+  "viewportWidth": 1064,
+  "reporter": "junit",
+  "specPattern": "*.test.js",
+  "nodeVersion": "system"
 }

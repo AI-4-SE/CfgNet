@@ -1,6 +1,21 @@
+version: ">= 1.0.0"
+
+os:
+- linux
+
+dist: trusty
+
+language: ruby
+
 python:
   - '3.8'
   - '3.7'
+
+services:
+- docker
+
+arch:
+- amd64
 
 env:
   - TEST_SUITE=units
@@ -19,3 +34,8 @@ jobs:
     env: TEST_SUITE=suite_pypy
     
 script: ./test.py $TEST_SUITE
+
+env:
+  - FOLDER=integration/user
+
+after_success: "python run pytest"

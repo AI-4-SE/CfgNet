@@ -63,4 +63,55 @@ class TravisPlugin(YAMLPlugin):
         :param option_name: name of option
         :return: config type
         """
+        if option_name in (
+            "before_install",
+            "before_script",
+            "script",
+            "before_script",
+            "install",
+            "before_cache",
+            "after_success",
+            "after_failure",
+            "before_deploy",
+            "after_deploy",
+            "after_script",
+        ):
+            return ConfigType.COMMAND
+
+        if option_name in ("submodules", "quiet", "lfs_skip_smudge"):
+            return ConfigType.BOOLEAN
+
+        if option_name == "hosts":
+            return ConfigType.URL
+
+        if option_name in ("os", "arch"):
+            return ConfigType.PLATFORM
+
+        if option_name in ("name", "services", "hostname", "dist", "compiler"):
+            return ConfigType.NAME
+
+        if option_name == "env":
+            return ConfigType.ENVIRONMENT
+
+        if any(
+            x in option_name
+            for x in ["file", "File", "FILE", "folder", "FOLDER"]
+        ):
+            return ConfigType.PATH
+
+        if option_name == "language":
+            return ConfigType.LANGUAGE
+
+        if option_name == "depth":
+            return ConfigType.NUMBER
+
+        if option_name in (
+            "version",
+            "firefox",
+            "mariadb",
+            "postgresql",
+            "rethinkdb",
+        ):
+            return ConfigType.VERSION_NUMBER
+
         return ConfigType.UNKNOWN

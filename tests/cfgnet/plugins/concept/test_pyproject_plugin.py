@@ -17,14 +17,14 @@ import os
 
 import pytest
 
-from cfgnet.plugins.concept.pyproject_plugin import PyprojectPlugin
+from cfgnet.plugins.concept.poetry_plugin import PoetryPlugin
 from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
 
 
 @pytest.fixture(name="get_plugin")
 def get_plugin_():
-    plugin = PyprojectPlugin()
+    plugin = PoetryPlugin()
     return plugin
 
 

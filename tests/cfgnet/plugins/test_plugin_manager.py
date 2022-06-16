@@ -46,7 +46,7 @@ def test_get_responsible_plugin():
     tsconfig_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/tsconfig.json"
     )
-    pyproject_plugin = PluginManager.get_responsible_plugin(
+    poetry_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/pyproject.toml"
     )
 
@@ -57,4 +57,4 @@ def test_get_responsible_plugin():
     assert travis_plugin.concept_name == "travis"
     assert cypress_plugin.concept_name == "cypress"
     assert tsconfig_plugin.concept_name == "tsconfig"
-    assert pyproject_plugin.concept_name == "pyproject"
+    assert poetry_plugin.concept_name == "poetry"

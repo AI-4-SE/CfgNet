@@ -16,9 +16,9 @@ from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
 from cfgnet.config_types.config_types import ConfigType
 
 
-class PyprojectPlugin(TomlPlugin):
+class PoetryPlugin(TomlPlugin):
     def __init__(self):
-        super().__init__("pyproject")
+        super().__init__("poetry")
         self.excluded_keys = [
             "description",
             "authors",

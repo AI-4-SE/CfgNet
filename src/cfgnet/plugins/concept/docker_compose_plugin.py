@@ -49,7 +49,14 @@ class DockerComposePlugin(YAMLPlugin):
                 option_port_in.add_child(port_in)
                 option_port_out.add_child(port_out)
             else:
-                value = ValueNode(node.value)
+
+                name = (
+                    f"{parent.name}:{node.value}"
+                    if parent.config_type == ConfigType.VERSION_NUMBER
+                    else node.value
+                )
+
+                value = ValueNode(name=name)
 
                 if isinstance(parent, ArtifactNode):
                     option = OptionNode(
@@ -59,3 +66,100 @@ class DockerComposePlugin(YAMLPlugin):
                     option.add_child(value)
                 else:
                     parent.add_child(value)
+
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
+        """
+        Find config type based on option name.
+
+        :param option_name: name of option
+        :return: config type
+        """
+        if option_name == "version":
+            return ConfigType.VERSION_NUMBER
+        if option_name in ("ports", "port", "expose", "PORT", "tmpfs"):
+            return ConfigType.PORT
+        if option_name == "image":
+            return ConfigType.IMAGE
+        if option_name == ("size", "weight", "height"):
+            return ConfigType.SIZE
+        if option_name in ("path", "file", "env_file"):
+            return ConfigType.PATH
+        if option_name == "environment":
+            return ConfigType.ENVIRONMENT
+        if option_name in ("command", "entrypoint", "test"):
+            return ConfigType.COMMAND
+        if option_name in (
+            "name",
+            "driver",
+            "labels",
+            "hostname",
+            "cap_add",
+            "cap_drop",
+            "cgroup_parent",
+            "source",
+            "container_name",
+            "depends_on",
+            "registry",
+            "service",
+            "external_links",
+        ):
+            return ConfigType.NAME
+        if option_name == "rate":
+            return ConfigType.SPEED
+        if option_name in (
+            "cpu_rt_runtime",
+            "cpu_rt_period",
+            "start_period",
+            "interval",
+            "timeout",
+            "stop_grace_period",
+        ):
+            return ConfigType.TIME
+        if option_name in (
+            "cpu_count",
+            "cpu_shares",
+            "uid",
+            "gid",
+            "retries",
+            "priority",
+            "pids_limit",
+            "sysctls",
+        ):
+            return ConfigType.NUMBER
+        if option_name == "cpu_percent":
+            return ConfigType.FRACTION
+        if option_name in ("external", "disable", "init", "attachable"):
+            return ConfigType.BOOLEAN
+        if option_name in (
+            "mode",
+            "condition",
+            "network_mode",
+            "restart",
+            "userns_mode",
+        ):
+            return ConfigType.MODE
+        if option_name in (
+            "dns",
+            "ipv4_address",
+            "ipv6_address",
+            "subnet",
+            "link_local_ips",
+            "host_ip",
+            "ip_range",
+            "gateway",
+            "aux_addresses",
+        ):
+            return ConfigType.IP_ADDRESS
+        if option_name in ("dns_search", "extra_hosts"):
+            return ConfigType.URL
+        if option_name == "user":
+            return ConfigType.USERNAME
+        if option_name in ("memswap_limit", "shm_size"):
+            return ConfigType.MEMORY
+        if option_name == "platform":
+            return ConfigType.PLATFORM
+        if option_name == "protocol":
+            return ConfigType.PROTOCOL
+
+        return ConfigType.UNKNOWN

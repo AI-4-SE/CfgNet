@@ -55,26 +55,125 @@ def test_parsing_docker_compose_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 3
+    assert len(nodes) == 18
 
     assert make_id("docker-compose.yml", "file", "docker-compose.yml") in ids
-    assert make_id("docker-compose.yml", "ports", "in", "5000") in ids
-    assert make_id("docker-compose.yml", "ports", "out", "5000") in ids
+    assert make_id("docker-compose.yml", "version", "version:3.9") in ids
+    assert (
+        make_id("docker-compose.yml", "services", "web", "ports", "in", "5000")
+        in ids
+    )
+    assert (
+        make_id(
+            "docker-compose.yml", "services", "web", "ports", "out", "5000"
+        )
+        in ids
+    )
+    assert (
+        make_id("docker-compose.yml", "services", "web", "init", "true") in ids
+    )
+    assert (
+        make_id("docker-compose.yml", "services", "backend", "image", "/test")
+        in ids
+    )
+    assert make_id("docker-compose.yml", "ipam", "driver", "default") in ids
+    assert (
+        make_id("docker-compose.yml", "ipam", "config", "subnet", "1.1.1.1/1")
+        in ids
+    )
+    assert make_id("docker-compose.yml", "userns_mode", "host") in ids
+    assert make_id("docker-compose.yml", "restart", "no") in ids
+    assert make_id("docker-compose.yml", "healthcheck", "test", "CMD") in ids
+    assert (
+        make_id("docker-compose.yml", "healthcheck", "interval", "1m30s")
+        in ids
+    )
+    assert make_id("docker-compose.yml", "expose", "3000") in ids
+    assert make_id("docker-compose.yml", "env_file", ".env") in ids
+    assert make_id("docker-compose.yml", "entrypoint", "/test.sh") in ids
+    assert make_id("docker-compose.yml", "dns", "8.8.8.8") in ids
+    assert (
+        make_id("docker-compose.yml", "credential_spec", "file", "test.json")
+        in ids
+    )
+    assert make_id("docker-compose.yml", "cpu_rt_runtime", "400ms") in ids
 
 
-def test_nodes_are_ports(get_plugin):
+def test_config_types(get_plugin):
     docker_compose_plugin = get_plugin
     file = os.path.abspath("tests/files/docker-compose.yml")
 
     artifact = docker_compose_plugin.parse_file(file, "docker-compose.yml")
+    nodes = artifact.get_nodes()
 
-    port_in_id = make_id("docker-compose.yml", "ports", "in", "5000")
-    port_out_id = make_id("docker-compose.yml", "ports", "out", "5000")
-
-    port_in = next(filter(lambda x: x.id == port_in_id, artifact.get_nodes()))
-    port_out = next(
-        filter(lambda x: x.id == port_out_id, artifact.get_nodes())
+    port_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "docker-compose.yml",
+                "services",
+                "web",
+                "ports",
+                "in",
+                "5000",
+            ),
+            nodes,
+        )
     )
 
-    assert port_in.config_type == ConfigType.PORT
-    assert port_out.config_type == ConfigType.PORT
+    ip_node = next(
+        filter(
+            lambda x: x.id == make_id("docker-compose.yml", "dns", "8.8.8.8"),
+            nodes,
+        )
+    )
+
+    mode_node = next(
+        filter(
+            lambda x: x.id == make_id("docker-compose.yml", "restart", "no"),
+            nodes,
+        )
+    )
+
+    boolean_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "docker-compose.yml", "services", "web", "init", "true"
+            ),
+            nodes,
+        )
+    )
+
+    time_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "docker-compose.yml",
+                "healthcheck",
+                "interval",
+                "1m30s",
+            ),
+            nodes,
+        )
+    )
+
+    command_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "docker-compose.yml",
+                "healthcheck",
+                "test",
+                "CMD",
+            ),
+            nodes,
+        )
+    )
+
+    assert port_node.config_type == ConfigType.PORT
+    assert ip_node.config_type == ConfigType.IP_ADDRESS
+    assert mode_node.config_type == ConfigType.MODE
+    assert boolean_node.config_type == ConfigType.BOOLEAN
+    assert time_node.config_type == ConfigType.TIME
+    assert command_node.config_type == ConfigType.COMMAND

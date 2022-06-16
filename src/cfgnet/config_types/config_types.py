@@ -45,6 +45,7 @@ class ConfigType(Enum):
     LICENSE = auto()
     ENVIRONMENT = auto()
     PATTERN = auto()
+    PLATFORM = auto()
 
     # Booleans
     BOOLEAN = auto()

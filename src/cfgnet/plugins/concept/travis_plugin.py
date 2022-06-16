@@ -17,6 +17,7 @@ from yaml.nodes import MappingNode, ScalarNode
 
 from cfgnet.network.nodes import OptionNode
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
+from cfgnet.config_types.config_types import ConfigType
 
 
 class TravisPlugin(YAMLPlugin):
@@ -53,3 +54,13 @@ class TravisPlugin(YAMLPlugin):
                 return virtual_option
 
         return None
+
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str) -> ConfigType:
+        """
+        Find config type based on option name.
+
+        :param option_name: name of option
+        :return: config type
+        """
+        return ConfigType.UNKNOWN

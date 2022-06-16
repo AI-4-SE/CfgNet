@@ -18,6 +18,7 @@ import os
 import pytest
 
 from cfgnet.plugins.concept.travis_plugin import TravisPlugin
+from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
 
 
@@ -48,7 +49,7 @@ def test_parsing_travis_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 13
+    assert len(nodes) == 21
 
     assert make_id(".travis.yml", "python", "3.8") in ids
     assert make_id(".travis.yml", "python", "3.7") in ids
@@ -122,3 +123,68 @@ def test_parsing_travis_file(get_plugin):
         )
         in ids
     )
+
+    assert make_id(".travis.yml", "env", "FOLDER=integration/user") in ids
+    assert make_id(".travis.yml", "version", "version:>= 1.0.0") in ids
+    assert make_id(".travis.yml", "os", "linux") in ids
+    assert make_id(".travis.yml", "dist", "trusty") in ids
+    assert make_id(".travis.yml", "language", "ruby") in ids
+    assert make_id(".travis.yml", "services", "docker") in ids
+    assert make_id(".travis.yml", "arch", "amd64") in ids
+    assert make_id(".travis.yml", "after_success", "python run pytest") in ids
+
+
+def test_config_types(get_plugin):
+    travis_plugin = get_plugin
+    file = os.path.abspath("tests/files/.travis.yml")
+
+    artifact = travis_plugin.parse_file(file, ".travis.yml")
+    nodes = artifact.get_nodes()
+
+    version_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                ".travis.yml",
+                "version",
+                "version:>= 1.0.0",
+            ),
+            nodes,
+        )
+    )
+
+    platform_node = next(
+        filter(
+            lambda x: x.id == make_id(".travis.yml", "os", "linux"),
+            nodes,
+        )
+    )
+
+    name_node = next(
+        filter(
+            lambda x: x.id == make_id(".travis.yml", "dist", "trusty"),
+            nodes,
+        )
+    )
+
+    script_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(".travis.yml", "after_success", "python run pytest"),
+            nodes,
+        )
+    )
+
+    env_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(".travis.yml", "env", "TEST_SUITE=units"),
+            nodes,
+        )
+    )
+
+    assert version_node.config_type == ConfigType.VERSION_NUMBER
+    assert name_node.config_type == ConfigType.NAME
+    assert platform_node.config_type == ConfigType.PLATFORM
+    assert script_node.config_type == ConfigType.COMMAND
+    assert env_node.config_type == ConfigType.ENVIRONMENT

@@ -121,6 +121,13 @@ class YAMLPlugin(Plugin):
             node.value == "" and node.tag == "tag:yaml.org,2002:str"
         ):
             name = node.value if node.value != "" else ""
+
+            name = (
+                f"{parent.name}:{node.value}"
+                if parent.config_type == ConfigType.VERSION_NUMBER
+                else node.value
+            )
+
             value = ValueNode(name=name)
             if isinstance(parent, ArtifactNode):
                 option = OptionNode("unnamed_option", node.start_mark.line + 1)

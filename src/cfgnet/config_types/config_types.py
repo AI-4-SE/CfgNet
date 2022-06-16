@@ -46,6 +46,7 @@ class ConfigType(Enum):
     ENVIRONMENT = auto()
     PATTERN = auto()
     PLATFORM = auto()
+    LANGUAGE = auto()
 
     # Booleans
     BOOLEAN = auto()

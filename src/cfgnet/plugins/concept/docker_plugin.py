@@ -28,7 +28,17 @@ from cfgnet.network.nodes import (
 from cfgnet.plugins.plugin import Plugin
 
 
-COMMANDS = ["from", "env", "expose", "add", "copy", "cmd", "entrypoint"]
+COMMANDS = [
+    "from",
+    "env",
+    "expose",
+    "add",
+    "copy",
+    "cmd",
+    "entrypoint",
+    "workdir",
+    "user",
+]
 
 
 class Command:
@@ -133,7 +143,7 @@ class DockerPlugin(Plugin):
         destination_files = []
 
         for cmd in data:
-            option = OptionNode(cmd.cmd, cmd.start_line)
+            option = self.create_option(name=cmd.cmd, location=cmd.start_line)
             artifact.add_child(option)
 
             if cmd.cmd == "from":
@@ -141,9 +151,15 @@ class DockerPlugin(Plugin):
                     image = ValueNode(cmd.value[0])
                     name = ValueNode(cmd.value[2])
                     option_image = OptionNode(
-                        "image", cmd.start_line, config_type=ConfigType.IMAGE
+                        name="image",
+                        location=cmd.start_line,
+                        config_type=ConfigType.IMAGE,
                     )
-                    option_name = OptionNode("name", cmd.start_line)
+                    option_name = OptionNode(
+                        name="name",
+                        location=cmd.start_line,
+                        config_type=ConfigType.NAME,
+                    )
                     option.add_child(option_image)
                     option.add_child(option_name)
                     option_image.add_child(image)
@@ -154,7 +170,9 @@ class DockerPlugin(Plugin):
             if cmd.cmd == "env":
                 for value in cmd.value:
                     parts = value.split("=")
-                    env_var_option = OptionNode(parts[0], cmd.start_line)
+                    env_var_option = OptionNode(
+                        name=parts[0], location=cmd.start_line
+                    )
                     option.add_child(env_var_option)
                     value_node = ValueNode(parts[1])
                     env_var_option.add_child(value_node)
@@ -162,7 +180,9 @@ class DockerPlugin(Plugin):
             elif cmd.cmd in ["cmd", "entrypoint"]:
                 exec_command = " ".join(cmd.value)
                 exec_command_node = OptionNode(
-                    "exec_command", location=option.location
+                    "exec_command",
+                    location=option.location,
+                    config_type=ConfigType.COMMAND,
                 )
                 option.add_child(exec_command_node)
                 exec_command_node.add_child(ValueNode(exec_command))
@@ -195,12 +215,21 @@ class DockerPlugin(Plugin):
                 for value in cmd.value:
                     self._parse_expose(option, value)
 
+            elif cmd.cmd == "workdir":
+                for value in cmd.value:
+                    option.add_child(ValueNode(name=value))
+
+            elif cmd.cmd == "user":
+                for value in cmd.value:
+                    option.add_child(ValueNode(name=value))
+
             if not option.children:
                 artifact.children.remove(option)
 
         return artifact
 
     def is_responsible(self, abs_file_path: str) -> bool:
+
         file_name = os.path.basename(abs_file_path)
 
         if file_name == "Dockerfile":
@@ -236,3 +265,27 @@ class DockerPlugin(Plugin):
             value = re.sub(r"^(\.)?/", "", param)
             option_param.add_child(ValueNode(value))
             param_counter += 1
+
+    def create_option(self, name: str, location: str) -> OptionNode:
+        if name == "env":
+            option = OptionNode(
+                name=name,
+                location=location,
+                config_type=ConfigType.ENVIRONMENT,
+            )
+        elif name == "expose":
+            option = OptionNode(
+                name=name, location=location, config_type=ConfigType.PORT
+            )
+        elif name == "user":
+            option = OptionNode(
+                name=name, location=location, config_type=ConfigType.USERNAME
+            )
+        elif name == "workdir":
+            option = OptionNode(
+                name=name, location=location, config_type=ConfigType.PATH
+            )
+        else:
+            option = OptionNode(name=name, location=location)
+
+        return option

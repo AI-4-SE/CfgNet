@@ -1,5 +1,8 @@
 FROM java:8 as builder
 
+USER patrick
+WORKDIR $Test
+
 EXPOSE 1234
 EXPOSE 80/tcp
 EXPOSE 8080/udp

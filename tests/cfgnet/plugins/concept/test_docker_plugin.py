@@ -46,7 +46,7 @@ def test_parse_dockerfile(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 31
+    assert len(nodes) == 33
 
     # FILE PATH
     assert make_id("Dockerfile", "file", "Dockerfile") in ids
@@ -107,6 +107,9 @@ def test_parse_dockerfile(get_plugin):
     # ADD Tab Char
     assert make_id("Dockerfile", "add", "src", "vendor") in ids
     assert make_id("Dockerfile", "add", "dest", "/vendor") in ids
+
+    assert make_id("Dockerfile", "user", "patrick") in ids
+    assert make_id("Dockerfile", "workdir", "$Test") in ids
 
 
 def test_config_types(get_plugin):

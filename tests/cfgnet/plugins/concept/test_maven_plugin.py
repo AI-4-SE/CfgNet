@@ -47,7 +47,7 @@ def test_parse_file(get_plugin):
     ids = {node.id for node in value_nodes}
 
     assert artifact is not None
-    assert len(value_nodes) == 15
+    assert len(value_nodes) == 23
     assert (
         make_id(
             "pom.xml",
@@ -84,12 +84,56 @@ def test_parse_file(get_plugin):
         )
         in ids
     )
-    assert make_id("pom.xml", "project", "modules", "module", "config") in ids
-    assert make_id("pom.xml", "project", "modules", "module", "monitor") in ids
+
     assert (
-        make_id("pom.xml", "project", "modules", "module", "registry") in ids
+        make_id(
+            "pom.xml",
+            "project",
+            "dependencyManagement",
+            "dependencies",
+            "dependency_apple/apple_artifact",
+            "type",
+            "war",
+        )
+        in ids
     )
-    assert make_id("pom.xml", "project", "port", "8000") in ids
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "dependencyManagement",
+            "dependencies",
+            "dependency_apple/apple_artifact",
+            "optional",
+            "true",
+        )
+        in ids
+    )
+
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "build",
+            "filters",
+            "filter",
+            "test.properties",
+        )
+        in ids
+    )
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "build",
+            "filters",
+            "filter",
+            "test.properties",
+        )
+        in ids
+    )
+
+    assert make_id("pom.xml", "project", "modules", "module", "config") in ids
     assert (
         make_id("pom.xml", "project", "modelVersion", "modelVersion:4.0.0")
         in ids
@@ -99,12 +143,84 @@ def test_parse_file(get_plugin):
     assert make_id("pom.xml", "project", "groupId", "com.example.apps") in ids
     assert make_id("pom.xml", "project", "artifactId", "my-cool-app") in ids
     assert make_id("pom.xml", "project", "version", "version:42") in ids
+    assert make_id("pom.xml", "project", "packaging", "jar") in ids
     assert (
         make_id("pom.xml", "ExecutableName", "target/my-cool-app-42.jar")
         in ids
     )
     assert (
         make_id("pom.xml", "ExecutableNameNoVersion", "target/my-cool-app.jar")
+        in ids
+    )
+
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "distributionManagement",
+            "status",
+            "deployed",
+        )
+        in ids
+    )
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "distributionManagement",
+            "downloadUrl",
+            "http://test/my-project",
+        )
+        in ids
+    )
+
+    assert (
+        make_id("pom.xml", "project", "issueManagement", "system", "Bugzilla")
+        in ids
+    )
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "issueManagement",
+            "url",
+            "http://test/bugzilla/",
+        )
+        in ids
+    )
+
+    assert (
+        make_id(
+            "pom.xml", "project", "build", "sourceDirectory", "/src/main/java"
+        )
+        in ids
+    )
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "build",
+            "testSourceDirectory",
+            "/src/test/java",
+        )
+        in ids
+    )
+    assert (
+        make_id(
+            "pom.xml", "project", "build", "outputDirectory", "test/classes"
+        )
+        in ids
+    )
+    assert make_id("pom.xml", "project", "build", "finalName", "final") in ids
+    assert (
+        make_id(
+            "pom.xml",
+            "project",
+            "build",
+            "filters",
+            "filter",
+            "test.properties",
+        )
         in ids
     )
 

@@ -40,6 +40,12 @@ class TsconfigPlugin(JsonPlugin):
             "include",
             "exclude",
             "extends",
+            "baseUrl",
+            "paths",
+            "rootDir",
+            "rootDirs",
+            "typeRoots",
+            "mapRoot",
         ):
             return ConfigType.PATH
         if any(x in option_name for x in ["Dir", "File"]):
@@ -50,6 +56,27 @@ class TsconfigPlugin(JsonPlugin):
             "preserveConstEnums",
             "sourceMap",
             "allowJs",
+            "strictNullChecks",
+            "allowUnreachableCode",
+            "allowUnusedLabels",
+            "emitBOM",
+            "noEmitOnError",
+            "preserveConstEnums",
+            "removeComments"
+            "allowJs"
+            "disableSizeLimit"
+            "allowSyntheticDefaultImports",
         ):
             return ConfigType.BOOLEAN
+
+        if option_name in (
+            "moduleResolution",
+            "importsNotUsedAsValues",
+            "newLine",
+        ):
+            return ConfigType.MODE
+
+        if option_name == "types":
+            return ConfigType.NAME
+
         return ConfigType.UNKNOWN

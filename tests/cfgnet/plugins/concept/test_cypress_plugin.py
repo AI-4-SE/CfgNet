@@ -47,7 +47,7 @@ def test_parsing_package_json_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 12
+    assert len(nodes) == 16
 
     assert make_id("cypress.json", "file", "cypress.json") in ids
     assert make_id("cypress.json", "baseUrl", "https://test:3000/") in ids
@@ -63,6 +63,10 @@ def test_parsing_package_json_file(get_plugin):
     assert make_id("cypress.json", "projectId", "abcd") in ids
     assert make_id("cypress.json", "retries", "runMode", "2") in ids
     assert make_id("cypress.json", "video", "False") in ids
+    assert make_id("cypress.json", "viewportWidth", "1064") in ids
+    assert make_id("cypress.json", "reporter", "junit") in ids
+    assert make_id("cypress.json", "specPattern", "*.test.js") in ids
+    assert make_id("cypress.json", "nodeVersion", "nodeVersion:system") in ids
 
 
 def test_config_types(get_plugin):
@@ -114,8 +118,33 @@ def test_config_types(get_plugin):
         )
     )
 
+    id_node = next(
+        filter(
+            lambda x: x.id == make_id("cypress.json", "projectId", "abcd"),
+            nodes,
+        )
+    )
+
+    size_node = next(
+        filter(
+            lambda x: x.id == make_id("cypress.json", "viewportWidth", "1064"),
+            nodes,
+        )
+    )
+
+    pattern_node = next(
+        filter(
+            lambda x: x.id
+            == make_id("cypress.json", "specPattern", "*.test.js"),
+            nodes,
+        )
+    )
+
     assert url_node.config_type == ConfigType.URL
     assert env_node.config_type == ConfigType.ENVIRONMENT
     assert env_url_node.config_type == ConfigType.URL
     assert timeout_node.config_type == ConfigType.TIME
     assert folder_node.config_type == ConfigType.PATH
+    assert id_node.config_type == ConfigType.ID
+    assert size_node.config_type == ConfigType.SIZE
+    assert pattern_node.config_type == ConfigType.PATTERN

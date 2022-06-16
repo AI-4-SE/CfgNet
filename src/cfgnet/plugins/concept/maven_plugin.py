@@ -312,19 +312,79 @@ class MavenPlugin(Plugin):
             return "jar", None
 
     @staticmethod
-    def get_config_type(name: str) -> ConfigType:
+    def get_config_type(option_name: str) -> ConfigType:
         """
         Get config type based on the option name.
 
         :param name: option name
         :return: ConfigType
         """
-        if name in ("modelVersion", "version", "source", "target"):
+        if option_name in (
+            "modelVersion",
+            "version",
+            "source",
+            "target",
+            "maven",
+        ):
             return ConfigType.VERSION_NUMBER
 
-        if name == "artifactId":
+        if option_name in (
+            "groupId",
+            "artifactId",
+            "module",
+            "name",
+            "finalName",
+            "organization",
+            "role",
+            "system",
+        ):
             return ConfigType.NAME
 
-        # TODO: Check for other config types
+        if option_name in ("packaging", "type"):
+            return ConfigType.TYPE
+
+        if option_name in (
+            "uniqueVersion",
+            "optional",
+            "enabled",
+            "filtering",
+            "extensions",
+            "inherited",
+            "sendOnError",
+            "sendOnFailure",
+            "sendOnSuccess",
+            "sendOnWarning",
+        ):
+            return ConfigType.BOOLEAN
+
+        if option_name in ("includes", "excludes", "filter", "file"):
+            return ConfigType.PATH
+
+        if any(x in option_name for x in ["directory", "Directory", "Path"]):
+            return ConfigType.PATH
+
+        if option_name == "id":
+            return ConfigType.ID
+
+        if option_name in ("url", "organizationUrl", "picUrl", "downloadUrl"):
+            return ConfigType.URL
+
+        if option_name == "licence":
+            return ConfigType.LICENSE
+
+        if option_name == "email":
+            return ConfigType.EMAIL
+
+        if option_name in (
+            "address",
+            "subscribe",
+            "unsubscribe",
+            "post",
+            "archive",
+        ):
+            return ConfigType.IP_ADDRESS
+
+        if option_name in ("updatePolicy", "checksumPolicy", "status"):
+            return ConfigType.MODE
 
         return ConfigType.UNKNOWN

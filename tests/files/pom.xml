@@ -6,7 +6,6 @@
   <artifactId>my-cool-app</artifactId>
   <version>42</version>
   <packaging>jar</packaging>
-  <port>8000</port>
 
   <dependencyManagement>
     <dependencies>
@@ -15,6 +14,8 @@
         <groupId>apple</groupId>
         <artifactId>apple_artifact</artifactId>
         <version>apple_version</version>
+        <type>war</type>
+        <optional>true</optional>
       </dependency>
 
     </dependencies>
@@ -22,11 +23,16 @@
 
   <modules>
     <module>config</module>
-    <module>monitor</module>
-    <module>registry</module>
   </modules>
 
   <build>
+    <sourceDirectory>/src/main/java</sourceDirectory>
+    <testSourceDirectory>/src/test/java</testSourceDirectory>
+    <outputDirectory>test/classes</outputDirectory>
+    <finalName>final</finalName>
+    <filters>
+      <filter>test.properties</filter>
+    </filters>
     <plugins>
       <plugin>
         <executions>
@@ -37,5 +43,15 @@
       </plugin>
     </plugins>
   </build>
+
+  <issueManagement>
+    <system>Bugzilla</system>
+    <url>http://test/bugzilla/</url>
+  </issueManagement>
+
+  <distributionManagement>
+    <downloadUrl>http://test/my-project</downloadUrl>
+    <status>deployed</status>
+  </distributionManagement>
 
 </project>

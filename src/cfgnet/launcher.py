@@ -51,7 +51,6 @@ def main(verbose: bool):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
-@click.option("-c", "--only-concept-plugins", is_flag=False)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -59,7 +58,6 @@ def init(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
-    only_concept_plugins: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -72,7 +70,6 @@ def init(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
-        only_concept_plugins=only_concept_plugins,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )
@@ -132,7 +129,6 @@ def validate(project_root: str):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
-@click.option("-c", "--only-concept-plugins", is_flag=False)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -140,7 +136,6 @@ def analyze(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
-    only_concept_plugins: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -154,7 +149,6 @@ def analyze(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
         enable_dynamic_blacklist=enable_dynamic_blacklist,
-        only_concept_plugins=only_concept_plugins,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
     )

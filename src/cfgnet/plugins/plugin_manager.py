@@ -50,12 +50,9 @@ class PluginManager:
     ]
 
     @staticmethod
-    def get_plugins(only_concept_plugins: bool = False) -> List:
+    def get_plugins() -> List:
         """Return all plugins except vcs plugins."""
-        if only_concept_plugins:
-            return PluginManager.concept_plugins
-
-        return PluginManager.concept_plugins + PluginManager.file_type_plugins
+        return PluginManager.concept_plugins
 
     @staticmethod
     def get_responsible_plugin(

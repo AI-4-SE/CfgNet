@@ -111,7 +111,7 @@ def validate(project_root: str):
         logging.info("No conflicts detected.")
         return
 
-    detected_conflicts = sum([conflict.count() for conflict in conflicts])
+    detected_conflicts = sum((conflict.count() for conflict in conflicts))
 
     logging.error(
         "Detected %s configuration conflicts", str(detected_conflicts)

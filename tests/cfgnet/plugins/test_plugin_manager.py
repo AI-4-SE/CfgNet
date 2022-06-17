@@ -18,10 +18,8 @@ from cfgnet.plugins.plugin_manager import PluginManager
 
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
-    concept_plugins = PluginManager.get_plugins(only_concept_plugins=True)
 
-    assert len(all_plugins) == 11
-    assert len(concept_plugins) == 8
+    assert len(all_plugins) == 8
 
 
 def test_get_responsible_plugin():
@@ -42,18 +40,6 @@ def test_get_responsible_plugin():
     travis_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/.travis.yml"
     )
-    yaml_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/test.yaml"
-    )
-    ini_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/tox.ini"
-    )
-    properties_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/applications.properties"
-    )
-    toml_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/test.toml"
-    )
     cypress_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/cypress.json"
     )
@@ -69,10 +55,6 @@ def test_get_responsible_plugin():
     assert nodejs_plugin.concept_name == "nodejs"
     assert docker_compose_plugin.concept_name == "docker-compose"
     assert travis_plugin.concept_name == "travis"
-    assert yaml_plugin.concept_name == "yaml"
-    assert ini_plugin.concept_name == "configparser"
-    assert properties_plugin.concept_name == "configparser"
-    assert toml_plugin.concept_name == "toml"
     assert cypress_plugin.concept_name == "cypress"
     assert tsconfig_plugin.concept_name == "tsconfig"
     assert pyproject_plugin.concept_name == "pyproject"

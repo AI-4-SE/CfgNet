@@ -1,0 +1,20 @@
+spring:
+    datasource:
+        url: http://localhost:3306/
+        driver-class-name: driver
+        username: dev
+        password: dev
+        platform: mysql
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        database-platform: org.hibernate.dialect
+        database: mysql
+        show-sql: true
+
+default:
+    admin:
+        image: admin.png
+        mail: admin@mail.com
+        name: Admin
+        password: 1234

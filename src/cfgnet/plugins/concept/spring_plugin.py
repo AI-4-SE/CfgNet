@@ -30,25 +30,19 @@ from cfgnet.config_types.config_types import ConfigType
 
 class SpringPlugin(Plugin):
     application_yaml_regex = re.compile(r"application(.(dev|prod)+)?.yml")
-    bootstrap_yaml_regex = re.compile(r"bootstrap(.(dev|prod)+)?.yml")
     application_properties_regex = re.compile(
         r"application(.(dev|prod)+)?.properties"
     )
-    bootstrap_properties_regex = re.compile(
-        r"bootstrap(.(dev|prod)+)?.properties"
-    )
+    # bootstrap_yaml_regex = re.compile(r"bootstrap(.(dev|prod)+)?.yml")
+    # bootstrap_properties_regex = re.compile(r"bootstrap(.(dev|prod)+)?.properties")
 
     def __init__(self):
         super().__init__("spring")
 
     def is_responsible(self, abs_file_path):
-        if self.application_yaml_regex.search(
-            abs_file_path
-        ) or self.bootstrap_yaml_regex.search(abs_file_path):
+        if self.application_yaml_regex.search(abs_file_path):
             return True
-        if self.application_properties_regex.search(
-            abs_file_path
-        ) or self.bootstrap_properties_regex.search(abs_file_path):
+        if self.application_properties_regex.search(abs_file_path):
             return True
         return False
 

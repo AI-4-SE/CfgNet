@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 8
+    assert len(all_plugins) == 9
 
 
 def test_get_responsible_plugin():
@@ -49,6 +49,9 @@ def test_get_responsible_plugin():
     poetry_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/pyproject.toml"
     )
+    spring_plugin = PluginManager.get_responsible_plugin(
+        plugins, "path/to/application.properties"
+    )
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -58,3 +61,4 @@ def test_get_responsible_plugin():
     assert cypress_plugin.concept_name == "cypress"
     assert tsconfig_plugin.concept_name == "tsconfig"
     assert poetry_plugin.concept_name == "poetry"
+    assert spring_plugin.concept_name == "spring"

@@ -49,12 +49,6 @@ def test_is_responsible(get_plugin):
     application_properties_prod_file = spring_plugin.is_responsible(
         "tests/files/application-dev.properties"
     )
-    bootstrap_properties_file = spring_plugin.is_responsible(
-        "tests/files/bootstrap.properties"
-    )
-    bootstrap_yml_file = spring_plugin.is_responsible(
-        "tests/files/bootstrap.yml"
-    )
     no_spring_file = spring_plugin.is_responsible("tests/files/test.yml")
 
     assert application_yml_file
@@ -63,8 +57,6 @@ def test_is_responsible(get_plugin):
     assert application_properties_file
     assert application_properties_dev_file
     assert application_properties_prod_file
-    assert bootstrap_yml_file
-    assert bootstrap_properties_file
     assert not no_spring_file
 
 

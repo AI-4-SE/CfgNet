@@ -6,6 +6,11 @@ services:
     init: true
   backend:
     image: /test
+
+  db:
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pwd
   
 ipam:
   driver: default

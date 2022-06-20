@@ -55,7 +55,7 @@ def test_parsing_docker_compose_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 18
+    assert len(nodes) == 20
 
     assert make_id("docker-compose.yml", "file", "docker-compose.yml") in ids
     assert make_id("docker-compose.yml", "version", "version:3.9") in ids
@@ -74,6 +74,28 @@ def test_parsing_docker_compose_file(get_plugin):
     )
     assert (
         make_id("docker-compose.yml", "services", "backend", "image", "/test")
+        in ids
+    )
+    assert (
+        make_id(
+            "docker-compose.yml",
+            "services",
+            "db",
+            "environment",
+            "POSTGRES_USER",
+            "user",
+        )
+        in ids
+    )
+    assert (
+        make_id(
+            "docker-compose.yml",
+            "services",
+            "db",
+            "environment",
+            "POSTGRES_PASSWORD",
+            "pwd",
+        )
         in ids
     )
     assert make_id("docker-compose.yml", "ipam", "driver", "default") in ids
@@ -171,9 +193,41 @@ def test_config_types(get_plugin):
         )
     )
 
+    user_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "docker-compose.yml",
+                "services",
+                "db",
+                "environment",
+                "POSTGRES_USER",
+                "user",
+            ),
+            nodes,
+        )
+    )
+
+    password_node = next(
+        filter(
+            lambda x: x.id
+            == make_id(
+                "docker-compose.yml",
+                "services",
+                "db",
+                "environment",
+                "POSTGRES_PASSWORD",
+                "pwd",
+            ),
+            nodes,
+        )
+    )
+
     assert port_node.config_type == ConfigType.PORT
     assert ip_node.config_type == ConfigType.IP_ADDRESS
     assert mode_node.config_type == ConfigType.MODE
     assert boolean_node.config_type == ConfigType.BOOLEAN
     assert time_node.config_type == ConfigType.TIME
     assert command_node.config_type == ConfigType.COMMAND
+    assert user_node.config_type == ConfigType.USERNAME
+    assert password_node.config_type == ConfigType.PASSWORD

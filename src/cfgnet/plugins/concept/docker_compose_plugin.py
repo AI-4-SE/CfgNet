@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import re
+from yaml.nodes import ScalarNode
 from cfgnet.config_types.config_types import ConfigType
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
@@ -31,8 +32,7 @@ class DockerComposePlugin(YAMLPlugin):
             return True
         return False
 
-    @staticmethod
-    def _parse_scalar_node(node, parent):
+    def _parse_scalar_node(self, node, parent):
         if node.value != "":
             match = DockerComposePlugin.ports.match(node.value)
             if match is not None:
@@ -49,6 +49,10 @@ class DockerComposePlugin(YAMLPlugin):
                 option_port_in.add_child(port_in)
                 option_port_out.add_child(port_out)
             else:
+
+                if len(node.value.split("=")) == 2:
+                    self._parse_value_assignment(node=node, parent=parent)
+                    return
 
                 name = (
                     f"{parent.name}:{node.value}"
@@ -67,6 +71,20 @@ class DockerComposePlugin(YAMLPlugin):
                 else:
                     parent.add_child(value)
 
+    def _parse_value_assignment(
+        self, node: ScalarNode, parent: OptionNode
+    ) -> None:
+        value_parts = node.value.split("=")
+        config_type = self.get_config_type(option_name=value_parts[0])
+        variable = OptionNode(
+            name=value_parts[0],
+            location=str(node.start_mark.line + 1),
+            config_type=config_type,
+        )
+        parent.add_child(variable)
+        value = ValueNode(name=value_parts[1])
+        variable.add_child(value)
+
     # pylint: disable=too-many-return-statements
     def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
         """
@@ -75,6 +93,8 @@ class DockerComposePlugin(YAMLPlugin):
         :param option_name: name of option
         :return: config type
         """
+        option_name = option_name.lower()
+
         if option_name == "version":
             return ConfigType.VERSION_NUMBER
         if option_name in ("ports", "port", "expose", "PORT", "tmpfs"):
@@ -153,8 +173,10 @@ class DockerComposePlugin(YAMLPlugin):
             return ConfigType.IP_ADDRESS
         if option_name in ("dns_search", "extra_hosts"):
             return ConfigType.URL
-        if option_name == "user":
+        if any(option_name.endswith(x) for x in ["user", "username"]):
             return ConfigType.USERNAME
+        if any(option_name.endswith(x) for x in ["password"]):
+            return ConfigType.PASSWORD
         if option_name in ("memswap_limit", "shm_size"):
             return ConfigType.MEMORY
         if option_name == "platform":

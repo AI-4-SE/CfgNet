@@ -114,8 +114,7 @@ class YAMLPlugin(Plugin):
 
             self._iter_tree(node[1], option)
 
-    @staticmethod
-    def _parse_scalar_node(node, parent):
+    def _parse_scalar_node(self, node, parent):
         # empty values are possible, but need str tag
         if node.value != "" or (
             node.value == "" and node.tag == "tag:yaml.org,2002:str"

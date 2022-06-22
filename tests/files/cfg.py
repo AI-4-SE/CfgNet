@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LogisticRegression
-from torch import nn, optim
+import yaml
 
 
 k, p = 1, 2
@@ -57,6 +57,4 @@ anchors = [x for x in range(5, 10)]
 anchors = [x for x in range(1, 10, 2)]
 anchors = [x for x in range(3)]
 
-opts = yaml.safe_load(open(f"{JOB_DIR}/{JOB}.yaml"))
-
-optimizer = optim.Adam(train_params, lr=opts["train"]["learning_rate"])
+opts = yaml.safe_load(open("test.yaml"))

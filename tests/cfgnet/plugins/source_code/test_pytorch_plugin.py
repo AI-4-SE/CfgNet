@@ -48,7 +48,7 @@ def test_parse_pytorch_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
-    assert len(nodes) == 26
+    assert len(nodes) == 27
 
     assert make_id("pytorch.py", "file", "pytorch.py") in ids
     assert make_id("pytorch.py", "Sequential", "variable", "model") in ids
@@ -80,3 +80,4 @@ def test_parse_pytorch_file(get_plugin):
     assert make_id("pytorch.py", "Conv2d", "out_channels", "20") in ids
     assert make_id("pytorch.py", "Conv2d", "kernel_size", "5") in ids
     assert make_id("pytorch.py", "ReLU", "params", "default") in ids
+    assert make_id("pytorch.py", "randn", "*size", "()")

@@ -13,8 +13,11 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import ast
 import os
+from typing import Dict, List
 from cfgnet.plugins.source_code.ml_plugin import MLPlugin
+from cfgnet.network.nodes import OptionNode, ValueNode
 
 
 class SklearnPlugin(MLPlugin):
@@ -24,3 +27,21 @@ class SklearnPlugin(MLPlugin):
 
     def __init__(self):
         super().__init__("sklearn")
+
+    def parse_arguments(
+        self, args: List, parent: OptionNode, module: Dict
+    ) -> None:
+        params = module["params"]
+        if params:
+            if params[0] == "*arrays":
+                count = 0
+                for arg in args:
+                    option = OptionNode(
+                        name=f"*arrays_{str(count)}", location=str(arg.lineno)
+                    )
+                    parent.add_child(option)
+                    value = ValueNode(name=ast.unparse(arg))
+                    option.add_child(value)
+                    count += 1
+            else:
+                super().parse_arguments(args, parent, module)

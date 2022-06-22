@@ -8,6 +8,7 @@ import warnings
 from sklearn.model_selection import GridSearchCV
 from sklearn.cluster import DBSCAN
 from sklearn import svm as sklearn_svm
+from sklearn.model_selection import train_test_split
 
 bin_cols = ["is_male"]
 
@@ -72,3 +73,8 @@ onehotencoder = OneHotEncoder(categorical_features=[0])
 grid_search = GridSearchCV(n_jobs=-1)
 
 db = DBSCAN(eps=0.1, min_samples=1, metric="precomputed").fit(1)
+
+X = 5
+y = 7
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)

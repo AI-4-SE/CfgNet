@@ -15,6 +15,8 @@
 
 import ast
 import os
+import logging
+
 from typing import Dict, List
 from cfgnet.plugins.source_code.ml_plugin import MLPlugin
 from cfgnet.network.nodes import OptionNode, ValueNode
@@ -45,3 +47,43 @@ class SklearnPlugin(MLPlugin):
                     count += 1
             else:
                 super().parse_arguments(args, parent, module)
+
+    def parse_keywords(self, keywords: List, parent: OptionNode) -> None:
+        """
+        Extract all parameters and their values and create corresponding nodes.
+
+        :param keywords: list of parameters
+        :param parent: parent option node
+        """
+        if len(keywords) == 1:
+            key = ast.unparse(keywords[0])
+            if key.startswith("**"):
+                item_dict = None
+                try:
+                    values = self.cfg.compute_values(key[2:])
+                    for key, item in values.items():
+                        item_dict = ast.literal_eval(item[0])
+                        if isinstance(item_dict, Dict):
+                            break
+                except (ValueError, TypeError, SyntaxError):
+                    logging.warning("Failed to parse **kwargs variable.")
+                finally:
+                    if item_dict:
+                        for key, value in item_dict.items():
+                            option = OptionNode(
+                                name=key, location=str(parent.location)
+                            )
+                            parent.add_child(option)
+                            value = ValueNode(name=value)
+                            option.add_child(value)
+                    else:
+                        option = OptionNode(
+                            name="**kwargs", location=str(parent.location)
+                        )
+                        parent.add_child(option)
+                        value = ValueNode(name=key)
+                        option.add_child(value)
+            else:
+                super().parse_keywords(keywords, parent)
+        else:
+            super().parse_keywords(keywords, parent)

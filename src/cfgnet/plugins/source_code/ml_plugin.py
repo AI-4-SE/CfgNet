@@ -310,12 +310,9 @@ class MLPlugin(Plugin):
                     elif isinstance(key.value, ast.Subscript):
                         subscript_value = ast.unparse(key.value)
                         value_name = subscript_value.split("[", maxsplit=1)[0]
-
-                        print("Calculate values for: ", value_name)
                         possible_values = self.cfg.compute_values(
                             var=value_name
                         )
-                        print("Possible values: ", possible_values)
                         value = ValueNode(
                             name=subscript_value,
                             possible_values=possible_values,

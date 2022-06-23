@@ -49,7 +49,7 @@ def test_parse_sklearn_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 37
+    assert len(nodes) == 40
 
     assert make_id("sklearn.py", "file", "sklearn.py") in ids
     assert make_id("sklearn.py", "LogisticRegression", "variable", "logistic_reg") in ids
@@ -89,6 +89,10 @@ def test_parse_sklearn_file(get_plugin):
     assert make_id("sklearn.py", "train_test_split", "*arrays_1", "y") in ids
     assert make_id("sklearn.py", "train_test_split", "test_size", "0.25") in ids
     assert make_id("sklearn.py", "train_test_split", "random_state", "0") in ids
+
+    assert make_id("sklearn.py", "KBinsDiscretizer", "variable", "est") in ids
+    assert make_id("sklearn.py", "KBinsDiscretizer", "n_bins", "1") in ids
+    assert make_id("sklearn.py", "KBinsDiscretizer", "strategy", "uniform") in ids
 
 
 def test_possible_values(get_plugin):

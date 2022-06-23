@@ -20,6 +20,7 @@ import sys
 import logging
 import hashlib
 import pickle
+import time
 
 from typing import List, Set, Any, Optional, Callable, Tuple
 from collections import defaultdict
@@ -157,9 +158,15 @@ class Network:
         """
         new_network = Network.init_network(cfg=self.cfg)
 
+        start_time = time.time()
+
         conflicts = ConflictDetector.detect(
             ref_network=self, new_network=new_network, commits=commits
         )
+
+        end_time = round((time.time() - start_time), 2)
+
+        logging.debug("Conflict Detection done in [%s s].", str(end_time))
 
         return conflicts, new_network
 
@@ -265,6 +272,8 @@ class Network:
         :param cfg: network configuration
         :return: configuration network
         """
+        start_time = time.time()
+
         repo = Git(project_root=cfg.project_root_abs)
         tracked_files: Set[str] = set(repo.get_tracked_files())
 
@@ -298,5 +307,9 @@ class Network:
                     )
 
         LinkerManager.apply_linkers(network)
+
+        end_time = round((time.time() - start_time), 2)
+
+        logging.debug("Network initialization done in [%s s].", str(end_time))
 
         return network

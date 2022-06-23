@@ -13,11 +13,12 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import re
 import os
 import logging
 import time
 
-from typing import Optional, Set
+from typing import Optional, Set, Tuple
 from cfgnet.vcs.git import Git
 from cfgnet.vcs.git_history import GitHistory
 from cfgnet.network.network import Network, NetworkConfiguration
@@ -117,8 +118,61 @@ class Analyzer:
                 num_commit=history.commit_index + 1, final=True
             )
 
+            avg_init_time, avg_detect_time = self.compute_performance()
+
             logging.debug("Latest commit analyzed: %s", commit.hexsha)
             logging.debug(
                 "Total analyzed commits %s", str(history.commit_index + 1)
             )
             logging.info("Total detected conflicts: %s", str(len(conflicts)))
+
+            logging.info(
+                "Average Network Initialization time: [%s s]",
+                avg_init_time,
+            )
+            logging.info(
+                "Average Conflict Detection time: [%s s]", avg_detect_time
+            )
+
+    def compute_performance(self) -> Tuple:
+        init_line = re.compile(r"Network Initialization:")
+        detect_line = re.compile(r"Conflict Detection:")
+        init_times = []
+        detect_times = []
+
+        try:
+            with open(
+                self.cfg.logfile_path(), "r", encoding="utf-8"
+            ) as log_file:
+                for line in log_file.readlines():
+                    if init_line.search(line):
+                        match = re.search(r"\[.+\]", line)
+                        if match:
+                            init_time = match.group(0)
+                            init_time = (
+                                init_time.replace(r"[", "")
+                                .replace("]", "")
+                                .split(" ")[0]
+                            )
+                            init_times.append(float(init_time))
+                    if detect_line.search(line):
+                        match = re.search(r"\[.+\]", line)
+                        if match:
+                            detect_time = match.group(0)
+                            detect_time = (
+                                detect_time.replace(r"[", "")
+                                .replace("]", "")
+                                .split(" ")[0]
+                            )
+                            detect_times.append(float(detect_time))
+        except FileNotFoundError:
+            logging.debug("File not found: %s ", self.cfg.logfile_path())
+            return None, None
+
+        logging.debug("Len Init Times: %s", str(len(init_times)))
+        logging.debug("Len Detect Times: %s", str(len(detect_times)))
+
+        avg_init_time = round((sum(init_times) / len(init_times)), 6)
+        avg_detect_time = round((sum(detect_times) / len(detect_times)), 6)
+
+        return avg_init_time, avg_detect_time

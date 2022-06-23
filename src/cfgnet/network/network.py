@@ -166,7 +166,7 @@ class Network:
 
         end_time = round((time.time() - start_time), 2)
 
-        logging.debug("Conflict Detection done in [%s s].", str(end_time))
+        logging.debug("Conflict Detection: [%s s].", str(end_time))
 
         return conflicts, new_network
 
@@ -310,6 +310,6 @@ class Network:
 
         end_time = round((time.time() - start_time), 2)
 
-        logging.debug("Network initialization done in [%s s].", str(end_time))
+        logging.debug("Network Initialization: [%s s].", str(end_time))
 
         return network

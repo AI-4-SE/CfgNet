@@ -106,9 +106,9 @@ class MLPlugin(Plugin):
                 self.cfg = Cfg(code_str=code_str)
 
             for node in ast.walk(tree):
-                if isinstance(node, ast.ClassDef) and node not in SEEN:
-                    self.parse_class_def(node=node, parent=artifact)
-                    SEEN.add(node)
+                # if isinstance(node, ast.ClassDef) and node not in SEEN:
+                #    self.parse_class_def(node=node, parent=artifact)
+                #    SEEN.add(node)
 
                 if isinstance(node, ast.Assign) and node not in SEEN:
                     self.parse_assign(node=node, parent=artifact)

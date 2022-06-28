@@ -63,6 +63,9 @@ class Cfg:
         :param var: variable for which all values should be identified
         :return: dictionary of possible values
         """
+        if var.startswith("**"):
+            var = var[2:]
+
         value_dict: Dict = {}
         try:
             for cfg in self.all_cfgs:

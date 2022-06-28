@@ -58,3 +58,8 @@ anchors = [x for x in range(1, 10, 2)]
 anchors = [x for x in range(3)]
 
 opts = yaml.safe_load(open("test.yaml"))
+
+kwargs = {
+    "min_samples_leaf": 1,
+    "max_leaf_nodes": 2
+}

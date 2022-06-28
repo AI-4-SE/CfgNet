@@ -280,9 +280,15 @@ class ValueNode(Node):
 
     """
 
-    def __init__(self, name: str, possible_values: Optional[Dict] = None):
+    def __init__(
+        self,
+        name: str,
+        value_type: Optional[str] = None,
+        possible_values: Optional[Dict] = None,
+    ):
         super().__init__(str(name))
         self.config_type = ConfigType.UNKNOWN
+        self.value_type = value_type
         self.possible_values = possible_values
 
     def __eq__(self, other):

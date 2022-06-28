@@ -111,3 +111,30 @@ def test_possible_values(get_plugin):
     )
 
     assert len(param.possible_values) == 5
+
+
+def test_value_type(get_plugin):
+    sklearn_plugin = get_plugin
+    sklearn_file = os.path.abspath("tests/files/sklearn.py")
+
+    artifact = sklearn_plugin.parse_file(sklearn_file, "sklearn.py")
+    nodes = artifact.get_nodes()
+
+    name_type = next(
+        filter(
+            lambda x: x.id
+            == make_id("sklearn.py", "LogisticRegression", "C", "a"),
+            nodes,
+        )
+    )
+
+    constant_type = next(
+        filter(
+            lambda x: x.id
+            == make_id("sklearn.py", "LogisticRegression", "solver", "lbfgs"),
+            nodes,
+        )
+    )
+
+    assert name_type.value_type == "Name"
+    assert constant_type.value_type == "Constant"

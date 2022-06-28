@@ -190,7 +190,9 @@ class MLPlugin(Plugin):
                     if isinstance(obj, ast.Name):
                         possible_values = self.cfg.compute_values(var=obj.id)
                         arg_value = ValueNode(
-                            name=obj.id, possible_values=possible_values
+                            name=obj.id,
+                            value_type=self.get_value_type(obj),
+                            possible_values=possible_values,
                         )
                         option_target.add_child(arg_value)
 
@@ -304,7 +306,9 @@ class MLPlugin(Plugin):
                             var=key.value.id
                         )
                         arg_value = ValueNode(
-                            name=key.value.id, possible_values=possible_values
+                            name=key.value.id,
+                            value_type=self.get_value_type(key.value),
+                            possible_values=possible_values,
                         )
                         argument.add_child(arg_value)
                     elif isinstance(key.value, ast.Subscript):
@@ -315,6 +319,7 @@ class MLPlugin(Plugin):
                         )
                         value = ValueNode(
                             name=subscript_value,
+                            value_type=self.get_value_type(key.value),
                             possible_values=possible_values,
                         )
                         argument.add_child(value)
@@ -324,7 +329,10 @@ class MLPlugin(Plugin):
                             "'"
                         ):
                             value_name = value_name.replace("'", "")
-                        value = ValueNode(name=value_name)
+                        value = ValueNode(
+                            name=value_name,
+                            value_type=self.get_value_type(key.value),
+                        )
                         argument.add_child(value)
 
     def parse_arguments(self, args: List, parent: Node, module: Dict) -> None:
@@ -346,7 +354,9 @@ class MLPlugin(Plugin):
                     if isinstance(arg, ast.Name):
                         possible_values = self.cfg.compute_values(var=arg.id)
                         arg_value = ValueNode(
-                            name=arg.id, possible_values=possible_values
+                            name=arg.id,
+                            value_type=self.get_value_type(arg),
+                            possible_values=possible_values,
                         )
                         arg_option.add_child(arg_value)
                     else:
@@ -355,7 +365,10 @@ class MLPlugin(Plugin):
                             "'"
                         ):
                             value_name = value_name.replace("'", "")
-                        value = ValueNode(name=value_name)
+                        value = ValueNode(
+                            name=value_name,
+                            value_type=self.get_value_type(arg),
+                        )
                         arg_option.add_child(value)
                 except IndexError as error:
                     logging.error(
@@ -376,7 +389,9 @@ class MLPlugin(Plugin):
         option_var = OptionNode(name="variable", location=str(var.lineno))
         parent.add_child(option_var)
         name = ast.unparse(var).replace("'", "")
-        var_node = ValueNode(name=name)
+        var_node = ValueNode(
+            name=name, value_type=MLPlugin.get_value_type(var)
+        )
         option_var.add_child(var_node)
 
     def is_module(self, node: Any) -> bool:
@@ -453,3 +468,14 @@ class MLPlugin(Plugin):
                                 self.imports.append(package.asname)
                             else:
                                 self.imports.append(package.name)
+
+    @staticmethod
+    def get_value_type(node: Any) -> str:
+        """
+        Return ast type.
+
+        :param node: ast node
+        :return: ast type as string
+        """
+        val_type = str(type(node))
+        return val_type[12:-2]

@@ -89,11 +89,13 @@ class Stats:
                                         values.append(value)
                                     parameters[param.name] = {
                                         "value": node.name,
+                                        "type": node.value_type,
                                         "possible_values": values,
                                     }
                                 else:
                                     parameters[param.name] = {
                                         "value": node.name,
+                                        "type": node.value_type,
                                         "possible_values": [],
                                     }
                             else:
@@ -110,11 +112,13 @@ class Stats:
                                                 values.append(value)
                                             data[child.name] = {
                                                 "value": node.name,
+                                                "type": node.value_type,
                                                 "possible_values": values,
                                             }
                                         else:
                                             data[child.name] = {
                                                 "value": node.name,
+                                                "type:": node.value_type,
                                                 "possible_values": [],
                                             }
                                 parameters[

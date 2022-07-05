@@ -23,7 +23,7 @@ def test_get_all_plugins():
 
     assert len(plugins) == 11
     assert len(concept_plugins) == 8
-    assert len(ml_plugins) == 3
+    assert len(ml_plugins) == 2
 
 
 def test_get_responsible_plugin():
@@ -83,9 +83,6 @@ def test_get_responsible_plugin():
 def test_ml_plugins():
     ml_plugins = PluginManager.source_code_plugins
 
-    sklearn_plugin = PluginManager.get_responsible_plugin(
-        ml_plugins, "tests/files/sklearn.py"
-    )
     tf_plugin = PluginManager.get_responsible_plugin(
         ml_plugins, "tests/files/tf.py"
     )
@@ -93,6 +90,5 @@ def test_ml_plugins():
         ml_plugins, "tests/files/pytorch.py"
     )
 
-    assert sklearn_plugin.concept_name == "sklearn"
     assert tf_plugin.concept_name == "tensorflow"
     assert pytorch_plugin.concept_name == "torch"

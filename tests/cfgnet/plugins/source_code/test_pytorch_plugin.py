@@ -51,7 +51,7 @@ def test_parse_pytorch_file(get_plugin):
     for id in ids:
         print(id)
 
-    assert len(nodes) == 26
+    assert len(nodes) == 27
 
     assert make_id("pytorch.py", "file", "pytorch.py") in ids
     assert make_id("pytorch.py", "Sequential", "variable", "model") in ids
@@ -69,12 +69,13 @@ def test_parse_pytorch_file(get_plugin):
     assert make_id("pytorch.py", "Sequential", "variable", "model2") in ids
     assert make_id("pytorch.py", "Sequential", "*args", "OrderedDict([('conv1', torch.nn.Conv2d(1, 20, 5)), ('relu1', torch.nn.ReLU())])") in ids
 
-    # assert make_id("pytorch.py", "Polynomial3", "base_class_0", "torch.nn.Module") in ids
-    assert make_id("pytorch.py", "Parameter", "variable", "self.a") in ids
-    assert make_id("pytorch.py", "Parameter", "data", "torch.randn(())") in ids
-    assert make_id("pytorch.py", "Linear", "variable", "self.linear") in ids
-    assert make_id("pytorch.py", "Linear", "in_features", "1") in ids
-    assert make_id("pytorch.py", "Linear", "out_features", "0") in ids
+    assert make_id("pytorch.py", "Polynomial3", "base_class_0", "torch.nn.Module") in ids
+    assert make_id("pytorch.py", "Polynomial3", "Parameter", "variable", "self.a") in ids
+    assert make_id("pytorch.py", "Polynomial3", "Parameter", "variable", "self.a") in ids
+    assert make_id("pytorch.py", "Polynomial3", "Parameter", "data", "torch.randn(())") in ids
+    assert make_id("pytorch.py", "Polynomial3", "Linear", "variable", "self.linear") in ids
+    assert make_id("pytorch.py", "Polynomial3", "Linear", "in_features", "1") in ids
+    assert make_id("pytorch.py", "Polynomial3", "Linear", "out_features", "0") in ids
 
     assert make_id("pytorch.py", "Flatten", "start_dim", "0") in ids
     assert make_id("pytorch.py", "Flatten", "end_dim", "1") in ids

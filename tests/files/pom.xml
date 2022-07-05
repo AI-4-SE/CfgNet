@@ -9,15 +9,21 @@
 
   <dependencyManagement>
     <dependencies>
-
       <dependency>
-        <groupId>apple</groupId>
-        <artifactId>apple_artifact</artifactId>
-        <version>apple_version</version>
-        <type>war</type>
-        <optional>true</optional>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>3.6.3.Final</version>
       </dependency>
-
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate</artifactId>
+        <version>3.2.5.ga</version>
+      </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>ejb3-persistence</artifactId>
+          <version>1.0.1.GA</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -25,24 +31,35 @@
     <module>config</module>
   </modules>
 
-  <build>
-    <sourceDirectory>/src/main/java</sourceDirectory>
-    <testSourceDirectory>/src/test/java</testSourceDirectory>
-    <outputDirectory>test/classes</outputDirectory>
-    <finalName>final</finalName>
-    <filters>
-      <filter>test.properties</filter>
-    </filters>
-    <plugins>
-      <plugin>
-        <executions>
-          <execution>
-            <id></id>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.4</version>
+                    <executions>
+                        <execution>
+                                <phase>package</phase>
+                                <goals>
+                                        <goal>shade</goal>
+                                </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                            <finalName>test</finalName>
+                    </configuration>
+            </plugin>   
+        </plugins>
+    </build>
 
   <issueManagement>
     <system>Bugzilla</system>

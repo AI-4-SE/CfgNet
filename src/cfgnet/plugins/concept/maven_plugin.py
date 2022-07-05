@@ -98,7 +98,7 @@ class MavenPlugin(Plugin):
         return False
 
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
-        name = self._make_name(subtree_root)
+        name = self._get_option_name(subtree_root)
         if name:
             config_type = self.get_config_type(name)
             option = OptionNode(name, subtree_root.sourceline, config_type)
@@ -111,10 +111,8 @@ class MavenPlugin(Plugin):
                 text = text.strip()
                 if text:
 
-                    name = (
-                        f"{option.name}:{text}"
-                        if config_type == ConfigType.VERSION_NUMBER
-                        else text
+                    name = self._get_value_name(
+                        text=text, config_type=config_type, parent=option
                     )
 
                     value_node = ValueNode(name=name)
@@ -137,10 +135,8 @@ class MavenPlugin(Plugin):
             current_node.add_child(option)
             value = current_attribs[key]
 
-            name = (
-                f"{option.name}:{value}"
-                if option.config_type == ConfigType.VERSION_NUMBER
-                else value
+            name = MavenPlugin._get_value_name(
+                text=value, config_type=config_type, parent=option
             )
 
             value_node = ValueNode(name=name)
@@ -148,54 +144,51 @@ class MavenPlugin(Plugin):
 
     # pylint: disable=too-many-return-statements
     @staticmethod
-    def _make_name(current_item: _Element) -> str:
+    def _get_option_name(current_item: _Element) -> str:
         """
         Construct a name for an option node to avoid ambiguous option nodes.
 
         :param current_item: lxml etree element that should be inserted as an option node
         :return: constructed name
         """
-        name_element = current_item.find("id")
-        if name_element is not None:
-            if name_element.text is not None:
-                return current_item.tag + "_" + name_element.text
+        id_element = current_item.find("id")
+        if id_element and id_element.text:
+            return current_item.tag + "_" + id_element.text
 
-        name_element = current_item.find("groupId")
-        if name_element is not None:
-            item_artifact_id = current_item.find("artifactId")
-            if item_artifact_id is not None:
-                return (
-                    current_item.tag
-                    + "_"
-                    + name_element.text
-                    + "/"
-                    + item_artifact_id.text
-                )
-
-            return current_item.tag + "_" + name_element.text
-
-        item_artifact_id = current_item.find("artifactId")
-        if item_artifact_id is not None:
-            return current_item.tag + "_" + item_artifact_id.text
-
-        name_element = current_item.find("name")
-        if name_element is not None:
-            return current_item.tag + "_" + name_element.text
-
-        name_element = current_item.find("key")
-        if name_element is not None:
-            return current_item.tag + "_" + name_element.text
-
-        if current_item.tag == "notifier":
-            name_element = current_item.find("type")
-            if name_element is not None:
-                return current_item.tag + "_" + name_element.text
+        artifact_id = current_item.find("artifactId")
+        if artifact_id is not None:
+            return current_item.tag + "_" + artifact_id.text
 
         if current_item.tag in TAGS_CONTAINING_LISTS:
             if current_item.text is not None:
                 return current_item.tag + "_" + current_item.text
 
         return current_item.tag
+
+    @staticmethod
+    def _get_value_name(
+        text: str, config_type: ConfigType, parent: OptionNode
+    ) -> str:
+        """Create name for value name."""
+        if any(x in parent.id for x in ["dependencies", "plugins"]):
+            if parent.parent:
+                option_parts = parent.parent.name.split("_")
+                if len(option_parts) == 2:
+                    option_name = option_parts[-1]
+                else:
+                    option_name = parent.name
+                name = (
+                    f"{option_name}:{text}"
+                    if config_type == ConfigType.VERSION_NUMBER
+                    else text
+                )
+        else:
+            name = (
+                f"{parent.name}:{text}"
+                if config_type == ConfigType.VERSION_NUMBER
+                else text
+            )
+        return name
 
     def _add_executable_name(self, artifact: ArtifactNode) -> None:
         try:

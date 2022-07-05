@@ -26,7 +26,7 @@ $(VENV): poetry.lock $(SOURCES)
 
 .PHONY: codeformat
 codeformat: $(SOURCES)
-	poetry run black $(SOURCE_FOLDERS)
+	poetry run black src
 
 .PHONY: test
 test:
@@ -34,7 +34,7 @@ test:
 
 .PHONY: linter
 linter: poetry.lock
-	poetry run black --check $(SOURCE_FOLDERS)
+	poetry run black --check src
 	poetry run pydocstyle $(SOURCE_FOLDERS)
 	poetry run flake8 $(SOURCE_FOLDERS)
 	poetry run pylint --score=no --extension-pkg-whitelist=lxml src

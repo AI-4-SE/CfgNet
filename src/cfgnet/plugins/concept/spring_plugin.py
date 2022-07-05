@@ -52,17 +52,35 @@ class SpringPlugin(Plugin):
         rel_file_path: str,
         root: Optional[ProjectNode],
     ) -> ArtifactNode:
+
         if abs_file_path.endswith(".yml"):
-            artifact = self._parse_yml_file(
-                abs_file_path=abs_file_path,
+
+            artifact = ArtifactNode(
+                file_path=abs_file_path,
                 rel_file_path=rel_file_path,
-                root=root,
+                concept_name=self.concept_name,
+                project_root=root,
             )
-        if abs_file_path.endswith(".properties"):
-            artifact = self._parse_properties_file(
+
+            self._parse_yml_file(
                 abs_file_path=abs_file_path,
                 rel_file_path=rel_file_path,
-                root=root,
+                artifact=artifact,
+            )
+
+        if abs_file_path.endswith(".properties"):
+
+            artifact = ArtifactNode(
+                file_path=abs_file_path,
+                rel_file_path=rel_file_path,
+                concept_name=self.concept_name,
+                project_root=root,
+            )
+
+            self._parse_properties_file(
+                abs_file_path=abs_file_path,
+                rel_file_path=rel_file_path,
+                artifact=artifact,
             )
 
         return artifact
@@ -71,16 +89,9 @@ class SpringPlugin(Plugin):
         self,
         abs_file_path: str,
         rel_file_path: str,
-        root: Optional[ProjectNode],
-    ) -> ArtifactNode:
+        artifact: ArtifactNode,
+    ):
         """Parse spring properties files."""
-        artifact = ArtifactNode(
-            file_path=abs_file_path,
-            rel_file_path=rel_file_path,
-            concept_name=self.concept_name,
-            project_root=root,
-        )
-
         with open(abs_file_path, "r", encoding="utf-8") as file:
             line_dict = {}
             lineno = 1
@@ -106,7 +117,7 @@ class SpringPlugin(Plugin):
                 rel_file_path,
                 str(error),
             )
-            return artifact
+            return
 
         for section_name in config:
             if section_name == "DEFAULT":
@@ -145,8 +156,6 @@ class SpringPlugin(Plugin):
                     logging.warning('Empty value in file "%s"', rel_file_path)
                     parent.children.remove(option_node)
 
-        return artifact
-
     def get_line_number(self, option_name: str, line_dict: Dict) -> str:
         """
         Get line number from line dictionary.
@@ -167,16 +176,9 @@ class SpringPlugin(Plugin):
         self,
         abs_file_path: str,
         rel_file_path: str,
-        root: Optional[ProjectNode],
-    ) -> ArtifactNode:
+        artifact: ArtifactNode,
+    ):
         """Parse spring yml files."""
-        artifact = ArtifactNode(
-            file_path=abs_file_path,
-            rel_file_path=rel_file_path,
-            concept_name=self.concept_name,
-            project_root=root,
-        )
-
         with open(abs_file_path, "r", encoding="utf-8") as file:
             line_number_dict = {}
             lineno = 1
@@ -201,7 +203,7 @@ class SpringPlugin(Plugin):
                 rel_file_path,
                 str(error),
             )
-            return artifact
+            return
 
         for key, value in yaml_dict.items():
             line_number = self.get_line_number(
@@ -214,8 +216,6 @@ class SpringPlugin(Plugin):
             artifact.add_child(option)
             value = ValueNode(name=value)
             option.add_child(value)
-
-        return artifact
 
     # pylint: disable=too-many-return-statements
     @staticmethod

@@ -136,5 +136,5 @@ def test_value_type(get_plugin):
         )
     )
 
-    assert name_type.value_type == "Name"
+    assert name_type.value_type == "Constant"
     assert constant_type.value_type == "Constant"

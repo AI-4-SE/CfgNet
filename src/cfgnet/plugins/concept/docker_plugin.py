@@ -201,15 +201,7 @@ class DockerPlugin(Plugin):
                 dest.add_child(ValueNode(name=dest_value))
                 destination_files.append(dest_value)
                 if len(cmd.value) > 2:  # handle flags
-                    flag_re = re.compile(r"--(chown|from)=([^ ]+)")
-                    for part in cmd.value:
-                        match = flag_re.match(part)
-                        if match:
-                            flag_key = match.group(1)
-                            flag_value = match.group(2)
-                            flag_node = OptionNode(flag_key, cmd.start_line)
-                            option.add_child(flag_node)
-                            flag_node.add_child(ValueNode(flag_value))
+                    self._parse_flags(cmd, option)
 
             elif cmd.cmd == "expose":
                 for value in cmd.value:
@@ -237,6 +229,22 @@ class DockerPlugin(Plugin):
 
         return False
 
+    def _parse_flags(self, cmd: Command, option: OptionNode) -> None:
+        flag_re = re.compile(r"--(chown|from)=([^ ]+)")
+        for part in cmd.value:
+            match = flag_re.match(part)
+            if match:
+                flag_key = match.group(1)
+                flag_value = match.group(2)
+                if "from" == flag_key:
+                    flag_node = OptionNode(
+                        flag_key, cmd.start_line, ConfigType.NAME
+                    )
+                else:
+                    flag_node = OptionNode(flag_key, cmd.start_line)
+                option.add_child(flag_node)
+                flag_node.add_child(ValueNode(flag_value))
+
     def _parse_expose(self, option: OptionNode, value: str) -> None:
         match = self.expose_command.fullmatch(value)
         if match:
@@ -258,10 +266,14 @@ class DockerPlugin(Plugin):
     def _add_params(option: OptionNode, parameters: List[str]):
         param_counter = 0
         for param in parameters:
+            config_type = ConfigType.get_config_type(param)
             option_param = OptionNode(
-                "param" + str(param_counter), option.location
+                name="param" + str(param_counter),
+                location=option.location,
+                config_type=config_type,
             )
             option.add_child(option_param)
+
             value = re.sub(r"^(\.)?/", "", param)
             option_param.add_child(ValueNode(value))
             param_counter += 1

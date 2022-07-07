@@ -98,3 +98,23 @@ class ConfigType(Enum):
     def is_version_number(value: str) -> bool:
         """Check if value is a version number."""
         return bool(re.match(r"^(\d+\.)?(\d+\.)?(\*|\d+(\-\w+)?)$", value))
+
+    # pylint: disable=too-many-return-statements
+    @staticmethod
+    def get_config_type(value: str) -> "ConfigType":
+        """Return the config type of the value."""
+        if ConfigType.is_filepath(value):
+            return ConfigType.PATH
+        if ConfigType.is_boolean(value):
+            return ConfigType.BOOLEAN
+        if ConfigType.is_domain_name(value):
+            return ConfigType.DOMAIN_NAME
+        if ConfigType.is_email(value):
+            return ConfigType.EMAIL
+        if ConfigType.is_ip_address(value):
+            return ConfigType.IP_ADDRESS
+        if ConfigType.is_port(value):
+            return ConfigType.PORT
+        if ConfigType.is_version_number(value):
+            return ConfigType.VERSION_NUMBER
+        return ConfigType.UNKNOWN

@@ -152,12 +152,14 @@ class MavenPlugin(Plugin):
         :return: constructed name
         """
         id_element = current_item.find("id")
-        if id_element and id_element.text:
-            return current_item.tag + "_" + id_element.text
+        if id_element is not None:
+            if id_element.text is not None:
+                return current_item.tag + "_" + id_element.text
 
         artifact_id = current_item.find("artifactId")
         if artifact_id is not None:
-            return current_item.tag + "_" + artifact_id.text
+            if artifact_id.text is not None:
+                return current_item.tag + "_" + artifact_id.text
 
         if current_item.tag in TAGS_CONTAINING_LISTS:
             if current_item.text is not None:

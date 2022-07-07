@@ -91,7 +91,4 @@ class EqualityLinker(Linker):
         if node_a.config_type == node_b.config_type:
             return True
 
-        if ConfigType.UNKNOWN in (node_a.config_type, node_b.config_type):
-            return True
-
         return False

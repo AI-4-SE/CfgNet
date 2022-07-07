@@ -33,20 +33,14 @@ def test_check_config_types():
     unknown_a = ValueNode(name="unknown")
     option_unknown_a.add_child(unknown_a)
 
-    option_unknown_b = OptionNode("unknown_a", "4", ConfigType.UNKNOWN)
-    unknown_b = ValueNode(name="unknown_b")
-    option_unknown_b.add_child(unknown_b)
-
     option_path = OptionNode("path", "4", ConfigType.PATH)
     path = ValueNode(name="path")
     option_path.add_child(path)
 
     same_type = linker._check_config_types(port_a, port_b)
     only_one_unknown = linker._check_config_types(port_a, unknown_a)
-    both_unknown = linker._check_config_types(unknown_a, unknown_b)
     different_types = linker._check_config_types(port_a, path)
 
     assert same_type
-    assert only_one_unknown
-    assert both_unknown
+    assert not only_one_unknown
     assert not different_types

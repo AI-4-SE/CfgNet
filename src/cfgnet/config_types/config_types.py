@@ -62,6 +62,10 @@ class ConfigType(Enum):
         return bool(re.match(r"[\/\w.-]*(\/+[\w.-]+)+\/?", value))
 
     @staticmethod
+    def is_java_executable(value: str) -> bool:
+        return bool(re.match(r"((\/)*[\w.-]+)+\/?(.jar|.war)", value))
+
+    @staticmethod
     def is_domain_name(value: str) -> bool:
         """Check if value is a domain name."""
         return bool(re.match(r"(https|http)?:\/\/[a-zA-Z0-9.]+", value))
@@ -117,4 +121,6 @@ class ConfigType(Enum):
             return ConfigType.PORT
         if ConfigType.is_version_number(value):
             return ConfigType.VERSION_NUMBER
+        if ConfigType.is_java_executable(value):
+            return ConfigType.PATH
         return ConfigType.UNKNOWN

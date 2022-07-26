@@ -54,7 +54,6 @@ class SpringPlugin(Plugin):
     ) -> ArtifactNode:
 
         if abs_file_path.endswith(".yml"):
-
             artifact = ArtifactNode(
                 file_path=abs_file_path,
                 rel_file_path=rel_file_path,
@@ -68,20 +67,20 @@ class SpringPlugin(Plugin):
                 artifact=artifact,
             )
 
-        if abs_file_path.endswith(".properties"):
+            return artifact
 
-            artifact = ArtifactNode(
-                file_path=abs_file_path,
-                rel_file_path=rel_file_path,
-                concept_name=self.concept_name,
-                project_root=root,
-            )
+        artifact = ArtifactNode(
+            file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            concept_name=self.concept_name,
+            project_root=root,
+        )
 
-            self._parse_properties_file(
-                abs_file_path=abs_file_path,
-                rel_file_path=rel_file_path,
-                artifact=artifact,
-            )
+        self._parse_properties_file(
+            abs_file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            artifact=artifact,
+        )
 
         return artifact
 

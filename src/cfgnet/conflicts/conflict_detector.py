@@ -34,7 +34,7 @@ class ConflictDetector:
     def detect(
         ref_network: "Network",
         new_network: "Network",
-        commits: Optional[List[str]] = None,
+        commits: Optional[str] = None,
     ) -> Set:
         """
         Detect conflicts.

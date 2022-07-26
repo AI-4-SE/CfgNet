@@ -15,12 +15,11 @@
 
 import logging
 
-from typing import Optional, Set, Union, TYPE_CHECKING
+from typing import Optional, Set, TYPE_CHECKING
 from cfgnet.conflicts.conflict import (
     MissingArtifactConflict,
     MissingOptionConflict,
     ModifiedOptionConflict,
-    MultiValueConflict,
 )
 from cfgnet.network.nodes import OptionNode
 from cfgnet.linker.link import Link
@@ -157,7 +156,7 @@ class ConflictDetector:
     @staticmethod
     def _detect_modified_options(
         link: Link, new_network: "Network"
-    ) -> Optional[Union[ModifiedOptionConflict, MultiValueConflict]]:
+    ) -> Optional[ModifiedOptionConflict]:
         """Detect either a modified option or a multi value conflict."""
         artifact_a = new_network.find_artifact_node(link.artifact_a)
         artifact_b = new_network.find_artifact_node(link.artifact_b)
@@ -204,53 +203,38 @@ class ConflictDetector:
         if multi_value:
             logging.warning("Conflict involves options with multiple values.")
 
-        new_conflict: Optional[
-            Union[ModifiedOptionConflict, MultiValueConflict]
-        ] = None
+        new_conflict: Optional[ModifiedOptionConflict] = None
 
         if value_a is None:
             if multi_value:
-                new_conflict = MultiValueConflict(
-                    link=link,
-                    artifact=link.artifact_a,
-                    option=option_a,
-                    dependent_option=link.option_stack_b[-1],
-                    dependent_artifact=link.artifact_b,
-                )
-            else:
-                new_conflict = ModifiedOptionConflict(
-                    link=link,
-                    artifact=link.artifact_a,
-                    option=option_a,
-                    value=option_a.children[0],
-                    old_value=link.node_a,
-                    dependent_artifact=link.artifact_b,
-                    dependent_option=link.option_stack_b[-1],
-                    dependent_value=link.node_b,
-                )
+                # Skip creating MultiValueConflict
+                return None
+
+            new_conflict = ModifiedOptionConflict(
+                link=link,
+                artifact=link.artifact_a,
+                option=option_a,
+                value=option_a.children[0],
+                old_value=link.node_a,
+                dependent_artifact=link.artifact_b,
+                dependent_option=link.option_stack_b[-1],
+                dependent_value=link.node_b,
+            )
 
         if value_b is None:
             if multi_value:
-                new_conflict = MultiValueConflict(
-                    link=link,
-                    artifact=link.artifact_b,
-                    option=option_b,
-                    dependent_option=link.option_stack_a[-1],
-                    dependent_artifact=link.artifact_a,
-                )
-            else:
-                new_conflict = ModifiedOptionConflict(
-                    link=link,
-                    artifact=link.artifact_b,
-                    option=option_b,
-                    value=option_b.children[0],
-                    old_value=link.node_b,
-                    dependent_artifact=link.artifact_a,
-                    dependent_option=link.option_stack_a[-1],
-                    dependent_value=link.node_a,
-                )
+                # Skip creating MultiValueConflict
+                return None
 
-        if new_conflict:
-            return new_conflict
+            new_conflict = ModifiedOptionConflict(
+                link=link,
+                artifact=link.artifact_b,
+                option=option_b,
+                value=option_b.children[0],
+                old_value=link.node_b,
+                dependent_artifact=link.artifact_a,
+                dependent_option=link.option_stack_a[-1],
+                dependent_value=link.node_a,
+            )
 
-        return None
+        return new_conflict

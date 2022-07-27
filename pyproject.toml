@@ -35,7 +35,7 @@ types-PyYAML = "^6.0.1"
 types-toml = "^0.10.1"
 Sphinx = "^4.4.0"
 sphinxcontrib-spelling = "^7.3.2"
-scalpel = {git = "https://github.com/SMAT-Lab/Scalpel.git"}
+scalpel = {git = "https://github.com/SMAT-Lab/Scalpel.git", rev = "main"}
 
 [tool.poetry.dev-dependencies]
 black = { version = '*', allow-prereleases = true }

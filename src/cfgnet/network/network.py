@@ -277,12 +277,19 @@ class Network:
 
         for file in sorted(tracked_files):
             abs_file_path = os.path.join(cfg.project_root_abs, file)
+
+            if IgnoreFile.is_test_file(file_name=abs_file_path):
+                continue
+
             plugin = PluginManager.get_responsible_plugin(
                 plugins, abs_file_path
             )
 
             if plugin:
                 try:
+                    if "test/" in abs_file_path:
+                        print(abs_file_path)
+
                     plugin.parse_file(
                         abs_file_path=abs_file_path,
                         rel_file_path=file,

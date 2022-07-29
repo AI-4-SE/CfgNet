@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import platform
 import pathlib
 import logging
 import os
@@ -31,6 +32,7 @@ class IgnoreFile:
     """
 
     ignored_globs: Set[str] = set()
+    system = platform.system()
 
     @staticmethod
     def configure(ignorefile_path: str):
@@ -65,3 +67,15 @@ class IgnoreFile:
     @staticmethod
     def filter(files: Iterable[str]) -> Set[str]:
         return set(file for file in files if not IgnoreFile.ignored(file))
+
+    @staticmethod
+    def is_test_file(file_name: str) -> bool:
+        """Check if a given file is located in test directories."""
+        if IgnoreFile.system == "windows":
+            if any(elem in file_name for elem in ["test\\", "tests\\"]):
+                return True
+            return False
+
+        if any(elem in file_name for elem in ["test/", "tests/"]):
+            return True
+        return False

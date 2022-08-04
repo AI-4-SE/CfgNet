@@ -67,15 +67,3 @@ class IgnoreFile:
     @staticmethod
     def filter(files: Iterable[str]) -> Set[str]:
         return set(file for file in files if not IgnoreFile.ignored(file))
-
-    @staticmethod
-    def is_test_file(file_name: str) -> bool:
-        """Check if a given file is located in test directories."""
-        if IgnoreFile.system == "windows":
-            if any(elem in file_name for elem in ["test\\", "tests\\"]):
-                return True
-            return False
-
-        if any(elem in file_name for elem in ["test/", "tests/"]):
-            return True
-        return False

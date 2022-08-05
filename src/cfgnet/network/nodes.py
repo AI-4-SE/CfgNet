@@ -17,7 +17,6 @@
 
 from __future__ import annotations
 from typing import List, Any, Dict, Optional, Union, TYPE_CHECKING
-from collections import Counter
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.exceptions.exceptions import NetworkConstructionException
 
@@ -290,7 +289,7 @@ class ValueNode(Node):
         super().__init__(str(name))
         self.config_type = ConfigType.UNKNOWN
         self.possible_values = possible_values
-        self.value_type = self._get_value_type(value_type)
+        self.value_type = value_type
 
     def __eq__(self, other):
         return self.name == other.name
@@ -307,28 +306,3 @@ class ValueNode(Node):
 
     def remove_child(self, node: Node) -> None:
         raise NetworkConstructionException("Value nodes do not have children.")
-
-    def _get_value_type(self, value_type: Optional[str]) -> Optional[str]:
-        """Get the value type."""
-        value_types = []
-
-        value_types.append(value_type)
-
-        if self.possible_values:
-            for _, values in self.possible_values.items():
-                value_types.append(values[1])
-
-        value_type_data = Counter(value_types)
-
-        if len(value_type_data.most_common()) > 1:
-            if value_type_data.most_common(1)[0][0] == "Name":
-                most_common_type = value_type_data.most_common(2)[0][0]
-            else:
-                most_common_type = value_type_data.most_common(1)[0][0]
-        else:
-            if value_type_data.most_common(1)[0][0] == "Name":
-                most_common_type = "Variable"
-            else:
-                most_common_type = value_type_data.most_common(1)[0][0]
-
-        return most_common_type

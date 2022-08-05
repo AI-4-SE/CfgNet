@@ -48,9 +48,6 @@ def test_parse_pytorch_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
-    for id in ids:
-        print(id)
-
     assert len(nodes) == 26
 
     assert make_id("pytorch.py", "file", "pytorch.py") in ids

@@ -310,6 +310,7 @@ class MLPlugin(Plugin):
                             value_type=self.get_value_type(key.value),
                             possible_values=possible_values,
                         )
+
                         argument.add_child(arg_value)
                     elif isinstance(key.value, ast.Subscript):
                         subscript_value = ast.unparse(key.value)
@@ -477,5 +478,12 @@ class MLPlugin(Plugin):
         :param node: ast node
         :return: ast type as string
         """
+        if isinstance(node, ast.Name):
+            return "Variable"
+
+        if isinstance(node, ast.Constant):
+            return str(type(node.value))[8:-2]
+
         val_type = str(type(node))
+
         return val_type[12:-2]

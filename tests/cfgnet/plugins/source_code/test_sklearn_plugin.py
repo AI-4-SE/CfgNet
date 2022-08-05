@@ -120,7 +120,7 @@ def test_value_type(get_plugin):
     artifact = sklearn_plugin.parse_file(sklearn_file, "sklearn.py")
     nodes = artifact.get_nodes()
 
-    name_type = next(
+    variable_type = next(
         filter(
             lambda x: x.id
             == make_id("sklearn.py", "LogisticRegression", "C", "a"),
@@ -128,7 +128,7 @@ def test_value_type(get_plugin):
         )
     )
 
-    constant_type = next(
+    str_type = next(
         filter(
             lambda x: x.id
             == make_id("sklearn.py", "LogisticRegression", "solver", "lbfgs"),
@@ -136,5 +136,7 @@ def test_value_type(get_plugin):
         )
     )
 
-    assert name_type.value_type == "Constant"
-    assert constant_type.value_type == "Constant"
+    print(variable_type.value_type)
+
+    assert variable_type.value_type == "Variable"
+    assert str_type.value_type == "str"

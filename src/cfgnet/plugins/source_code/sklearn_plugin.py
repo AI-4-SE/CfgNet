@@ -42,7 +42,10 @@ class SklearnPlugin(MLPlugin):
                         name=f"*arrays_{str(count)}", location=str(arg.lineno)
                     )
                     parent.add_child(option)
-                    value = ValueNode(name=ast.unparse(arg))
+                    value = ValueNode(
+                        name=ast.unparse(arg),
+                        value_type=MLPlugin.get_value_type(arg),
+                    )
                     option.add_child(value)
                     count += 1
             else:
@@ -74,14 +77,19 @@ class SklearnPlugin(MLPlugin):
                                 name=key, location=str(parent.location)
                             )
                             parent.add_child(option)
-                            value = ValueNode(name=value)
+                            value = ValueNode(
+                                name=value,
+                                value_type=MLPlugin.get_value_type(value),
+                            )
                             option.add_child(value)
                     else:
                         option = OptionNode(
                             name="**kwargs", location=str(parent.location)
                         )
                         parent.add_child(option)
-                        value = ValueNode(name=key)
+                        value = ValueNode(
+                            name=key, value_type=MLPlugin.get_value_type(key)
+                        )
                         option.add_child(value)
             else:
                 super().parse_keywords(keywords, parent)

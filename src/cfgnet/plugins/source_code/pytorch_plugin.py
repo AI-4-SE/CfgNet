@@ -53,5 +53,7 @@ class PytorchPLugin(MLPlugin):
             value_name = ast.unparse(arg)
             if value_name.startswith("'") and value_name.endswith("'"):
                 value_name = value_name.replace("'", "")
-            value = ValueNode(name=value_name)
+            value = ValueNode(
+                name=value_name, value_type=MLPlugin.get_value_type(arg)
+            )
             option.add_child(value)

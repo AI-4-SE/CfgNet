@@ -11,6 +11,7 @@ from sklearn import svm as sklearn_svm
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import KBinsDiscretizer
 from typing import Dict
+import sklearn.gaussian_process as gp
 
 bin_cols = ["is_male"]
 
@@ -86,3 +87,9 @@ unsup_kwargs = {"n_bins": 1, "strategy": "uniform"}
 unsup_kwargs.update(**test)
 
 est = KBinsDiscretizer(**unsup_kwargs)
+
+
+def bayesian_optimisation(n_iters, sample_loss, bounds, x0=None, n_pre_samples=5,
+                          gp_params=None, random_search=False, alpha=1e-5, epsilon=1e-7):
+    model = gp.GaussianProcessRegressor(**gp_params)
+    model.get_params()

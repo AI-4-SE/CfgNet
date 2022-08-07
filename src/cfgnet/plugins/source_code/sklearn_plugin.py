@@ -87,9 +87,7 @@ class SklearnPlugin(MLPlugin):
                             name="**kwargs", location=str(parent.location)
                         )
                         parent.add_child(option)
-                        value = ValueNode(
-                            name=key, value_type=MLPlugin.get_value_type(key)
-                        )
+                        value = ValueNode(name=key[0], value_type="kwargs")
                         option.add_child(value)
             else:
                 super().parse_keywords(keywords, parent)

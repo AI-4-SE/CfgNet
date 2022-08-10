@@ -157,7 +157,7 @@ class Cfg:
         :return: ast type as string
         """
         if isinstance(node, ast.Name):
-            return "Variable"
+            return "variable"
 
         if isinstance(node, ast.Constant):
             return str(type(node.value))[8:-2]

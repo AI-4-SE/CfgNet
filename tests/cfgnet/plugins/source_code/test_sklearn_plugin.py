@@ -49,7 +49,7 @@ def test_parse_sklearn_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 40
+    assert len(nodes) == 42
 
     assert make_id("sklearn.py", "file", "sklearn.py") in ids
     assert make_id("sklearn.py", "LogisticRegression", "variable", "logistic_reg") in ids
@@ -94,6 +94,9 @@ def test_parse_sklearn_file(get_plugin):
     assert make_id("sklearn.py", "KBinsDiscretizer", "n_bins", "1") in ids
     assert make_id("sklearn.py", "KBinsDiscretizer", "strategy", "uniform") in ids
 
+    assert make_id("sklearn.py", "GaussianProcessRegressor", "variable", "model") in ids
+    assert make_id("sklearn.py", "GaussianProcessRegressor", "**kwargs", "gp_params") in ids
+
 
 def test_possible_values(get_plugin):
     sklearn_plugin = get_plugin
@@ -136,7 +139,14 @@ def test_value_type(get_plugin):
         )
     )
 
-    print(variable_type.value_type)
+    kwargs_type = next(
+        filter(
+            lambda x: x.id
+            == make_id("sklearn.py", "GaussianProcessRegressor", "**kwargs", "gp_params"),
+            nodes,
+        )
+    )
 
-    assert variable_type.value_type == "Variable"
+    assert variable_type.value_type == "variable"
     assert str_type.value_type == "str"
+    assert kwargs_type.value_type == "kwargs"

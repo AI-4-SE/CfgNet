@@ -46,7 +46,7 @@ def test_compute_values():
     assert len(a) == 5
     assert len(x) == 1
     assert x[('x', 10)][0] == '5'
-    assert x[('x', 10)][1] == 'MethodArgument'
+    assert x[('x', 10)][1] == 'Method Argument'
 
     assert len(z) == 2
     assert z[('z', 19)][0] == "'test'"
@@ -63,7 +63,7 @@ def test_compute_values():
 
     assert len(solver) == 1
     assert solver[('solver', 51)][0] == "'lbfgs'"
-    assert solver[('solver', 51)][1] == "MethodArgument"
+    assert solver[('solver', 51)][1] == "Method Argument"
 
     assert len(anchors) == 3
     assert anchors[('anchors', 58)][0] == '[x for x in range(3)]'

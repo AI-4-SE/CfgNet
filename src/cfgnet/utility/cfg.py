@@ -108,9 +108,7 @@ class Cfg:
                 if not val:
                     val = ast.unparse(value)
 
-                val_type = str(type(value))
-                val_type = val_type[12:-2]
-
+                val_type = Cfg.get_value_type(value)
                 value_dict[key] = (val, val_type)
 
     def get_values_from_func_calls(self, var: str, value_dict: Dict) -> None:
@@ -126,7 +124,7 @@ class Cfg:
                                 key: Any = (var, None)
                             else:
                                 key = (var, node.lineno)
-                            value_dict[key] = (arg_parts[1], "MethodArgument")
+                            value_dict[key] = (arg_parts[1], "Method Argument")
 
     @staticmethod
     def parse_range_call(node: ast.Call) -> Any:
@@ -149,3 +147,21 @@ class Cfg:
                 return list(range(values[0], values[1], values[2]))
 
         return ast.unparse(node)
+
+    @staticmethod
+    def get_value_type(node: Any) -> str:
+        """
+        Return ast type.
+
+        :param node: ast node
+        :return: ast type as string
+        """
+        if isinstance(node, ast.Name):
+            return "Variable"
+
+        if isinstance(node, ast.Constant):
+            return str(type(node.value))[8:-2]
+
+        val_type = str(type(node))
+
+        return val_type[12:-2]

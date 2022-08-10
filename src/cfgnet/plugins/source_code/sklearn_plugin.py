@@ -20,6 +20,7 @@ import logging
 from typing import Dict, List
 from cfgnet.plugins.source_code.ml_plugin import MLPlugin
 from cfgnet.network.nodes import OptionNode, ValueNode
+from cfgnet.utility.cfg import Cfg
 
 
 class SklearnPlugin(MLPlugin):
@@ -44,7 +45,7 @@ class SklearnPlugin(MLPlugin):
                     parent.add_child(option)
                     value = ValueNode(
                         name=ast.unparse(arg),
-                        value_type=MLPlugin.get_value_type(arg),
+                        value_type=Cfg.get_value_type(arg),
                     )
                     option.add_child(value)
                     count += 1
@@ -79,7 +80,7 @@ class SklearnPlugin(MLPlugin):
                             parent.add_child(option)
                             value = ValueNode(
                                 name=value,
-                                value_type=MLPlugin.get_value_type(value),
+                                value_type=Cfg.get_value_type(value),
                             )
                             option.add_child(value)
                     else:
@@ -88,7 +89,7 @@ class SklearnPlugin(MLPlugin):
                         )
                         parent.add_child(option)
                         value = ValueNode(
-                            name=key, value_type=MLPlugin.get_value_type(key)
+                            name=key, value_type=Cfg.get_value_type(key)
                         )
                         option.add_child(value)
             else:

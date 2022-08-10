@@ -19,6 +19,7 @@ from typing import List, Dict
 
 from cfgnet.network.nodes import OptionNode, ValueNode
 from cfgnet.plugins.source_code.ml_plugin import MLPlugin
+from cfgnet.utility.cfg import Cfg
 
 
 class PytorchPLugin(MLPlugin):
@@ -54,6 +55,6 @@ class PytorchPLugin(MLPlugin):
             if value_name.startswith("'") and value_name.endswith("'"):
                 value_name = value_name.replace("'", "")
             value = ValueNode(
-                name=value_name, value_type=MLPlugin.get_value_type(arg)
+                name=value_name, value_type=Cfg.get_value_type(arg)
             )
             option.add_child(value)

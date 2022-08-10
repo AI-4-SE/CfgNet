@@ -164,7 +164,7 @@ class Network:
             ref_network=self, new_network=new_network, commits=commits
         )
 
-        end_time = round((time.time() - start_time), 2)
+        end_time = round((time.time() - start_time), 8)
 
         logging.debug("Conflict Detection: [%s s].", str(end_time))
 

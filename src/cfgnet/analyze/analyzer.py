@@ -19,6 +19,7 @@ import logging
 import time
 
 from typing import Optional, Set, Tuple
+from cfgnet.network.nodes import ArtifactNode
 from cfgnet.vcs.git import Git
 from cfgnet.vcs.git_history import GitHistory
 from cfgnet.network.network import Network, NetworkConfiguration
@@ -70,6 +71,7 @@ class Analyzer:
         repo = Git(project_root=self.cfg.project_root_abs)
         branch_pre_analysis = repo.get_current_branch_name()
         commit_hash_pre_analysis = repo.get_current_commit_hash()
+        files_analyzed = []
 
         conflicts: Set = set()
         history = GitHistory(repo)
@@ -77,6 +79,9 @@ class Analyzer:
 
         try:
             ref_network = Network.init_network(cfg=self.cfg)
+            files_analyzed.append(
+                len(ref_network.get_nodes(node_type=ArtifactNode))
+            )
 
             while history.has_next_commit():
                 prev_commit = commit
@@ -86,6 +91,9 @@ class Analyzer:
                     [prev_commit.hexsha, commit.hexsha]
                 )
 
+                files_analyzed.append(
+                    len(ref_network.get_nodes(node_type=ArtifactNode))
+                )
                 conflicts.update(detected_conflicts)
 
                 self._print_progress(num_commit=history.commit_index + 1)
@@ -119,13 +127,19 @@ class Analyzer:
             )
 
             avg_init_time, avg_detect_time = self.compute_performance()
+            avg_files_analyzed = round(
+                sum(files_analyzed) / len(files_analyzed), 2
+            )
 
             logging.debug("Latest commit analyzed: %s", commit.hexsha)
             logging.debug(
                 "Total analyzed commits %s", str(history.commit_index + 1)
             )
             logging.info("Total detected conflicts: %s", str(len(conflicts)))
-
+            logging.info(
+                "Average number of configuration files analyzed: %s ",
+                str(avg_files_analyzed),
+            )
             logging.info(
                 "Average Network Initialization time: [%s s]",
                 avg_init_time,
@@ -169,10 +183,7 @@ class Analyzer:
             logging.debug("File not found: %s ", self.cfg.logfile_path())
             return None, None
 
-        logging.debug("Len Init Times: %s", str(len(init_times)))
-        logging.debug("Len Detect Times: %s", str(len(detect_times)))
-
-        avg_init_time = round((sum(init_times) / len(init_times)), 6)
-        avg_detect_time = round((sum(detect_times) / len(detect_times)), 6)
+        avg_init_time = round((sum(init_times) / len(init_times)), 4)
+        avg_detect_time = round((sum(detect_times) / len(detect_times)), 8)
 
         return avg_init_time, avg_detect_time

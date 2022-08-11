@@ -20,6 +20,7 @@ import json
 import logging
 from typing import Dict, Optional, Set, Any, List
 from cfgnet.plugins.plugin import Plugin
+from cfgnet.plugins.source_code.hpo_plugin import HpoPlugin
 from cfgnet.network.nodes import (
     Node,
     ProjectNode,
@@ -97,6 +98,8 @@ class MLPlugin(Plugin):
         )
 
         self.module_data = MLPlugin.read_json(self.modules_file)
+
+        HpoPlugin.parse_file(abs_file_path=abs_file_path)
 
         try:
             with open(abs_file_path, "r", encoding="utf-8") as source:

@@ -265,6 +265,7 @@ class Network:
         :param cfg: network configuration
         :return: configuration network
         """
+        config_files = []
         repo = Git(project_root=cfg.project_root_abs)
         tracked_files: Set[str] = set(repo.get_tracked_files())
 
@@ -277,12 +278,17 @@ class Network:
 
         for file in sorted(tracked_files):
             abs_file_path = os.path.join(cfg.project_root_abs, file)
+
+            if abs_file_path.endswith((".json", ".yaml", "yml", ".xml")):
+                config_files.append(abs_file_path)
+
             plugin = PluginManager.get_responsible_plugin(
                 plugins, abs_file_path
             )
 
             if plugin:
                 try:
+                    config_files.append(abs_file_path)
                     plugin.parse_file(
                         abs_file_path=abs_file_path,
                         rel_file_path=file,
@@ -320,6 +326,11 @@ class Network:
 
         LinkerManager.apply_linkers(network)
 
+        if config_files:
+            logging.info("Config files: %s", ", ".join(config_files))
+        else:
+            logging.info("No Config files found.")
+
         return network
 
     @staticmethod
@@ -343,6 +354,7 @@ class Network:
         for plugin in ml_plugins:
             abs_file_path = cfg.project_root_abs
             file_name = os.path.basename(abs_file_path)
+
             if plugin.is_responsible(abs_file_path):
                 try:
                     plugin.parse_file(

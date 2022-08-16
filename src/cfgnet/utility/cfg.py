@@ -183,4 +183,7 @@ class Cfg:
 
         val_type = str(type(node))
 
-        return val_type[12:-2]
+        if "ast." in val_type:
+            return val_type[12:-2]
+
+        return val_type[8:-2]

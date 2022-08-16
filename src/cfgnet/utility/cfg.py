@@ -72,8 +72,8 @@ class Cfg:
                 self.get_values_from_ssa(
                     cfg=cfg, var=var, value_dict=value_dict
                 )
-
-            self.get_values_from_func_calls(var=var, value_dict=value_dict)
+            self.get_values_from_function_def(var=var, value_dict=value_dict)
+            self.get_values_from_function_args(var=var, value_dict=value_dict)
             return value_dict
         except Exception as error:
             logging.error(
@@ -111,7 +111,9 @@ class Cfg:
                 val_type = Cfg.get_value_type(value)
                 value_dict[key] = (val, val_type)
 
-    def get_values_from_func_calls(self, var: str, value_dict: Dict) -> None:
+    def get_values_from_function_args(
+        self, var: str, value_dict: Dict
+    ) -> None:
         for node in ast.walk(ast.parse(self.code_str)):
             if isinstance(node, ast.FunctionDef):
                 args = ast.unparse(node.args).split(",")
@@ -132,6 +134,16 @@ class Cfg:
                             else:
                                 key = (var, node.lineno)
                             value_dict[key] = (arg_parts[0], "Method Argument")
+
+    def get_values_from_function_def(self, var: str, value_dict: Dict) -> None:
+        for node in ast.walk(ast.parse(self.code_str)):
+            if isinstance(node, ast.FunctionDef):
+                if node.name == var:
+                    if not hasattr(node, "lineno"):
+                        key: Any = (var, None)
+                    else:
+                        key = (var, node.lineno)
+                    value_dict[key] = (node.name, "Call")
 
     @staticmethod
     def parse_range_call(node: ast.Call) -> Any:

@@ -3,7 +3,7 @@ from sklearn.linear_model import LogisticRegression
 import yaml
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 k, p = 1, 2
 
@@ -79,3 +79,10 @@ C_range = np.geomspace(start=1e-7, stop=1e7)
 
 for count, value in enumerate(C_range):
     lr_l2_C = LogisticRegression(penalty='l2', solver='liblinear', C=value)
+
+
+def preprocessing(words):
+    return words
+
+
+v = TfidfVectorizer(analyzer=preprocessing)

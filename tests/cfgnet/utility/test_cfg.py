@@ -21,7 +21,7 @@ def test_number_cfgs():
 
     cfg = Cfg(code_str=code_str)
 
-    assert len(cfg.all_cfgs) == 8
+    assert len(cfg.all_cfgs) == 9
 
 
 def test_compute_values():
@@ -40,6 +40,7 @@ def test_compute_values():
     anchors = cfg.compute_values("anchors")
     kwargs = cfg.compute_values("**kwargs")
     n_neighbors = cfg.compute_values("n_neighbors")
+    preprocessing = cfg.compute_values("preprocessing")
     # value = cfg.compute_values("value") -> https://github.com/SMAT-Lab/Scalpel/issues/66
     # values_selfx = cfg.compute_values("self.x") #-> https://github.com/SMAT-Lab/Scalpel/issues/39
     # values_k = cfg.compute_values("k") -> https://github.com/SMAT-Lab/Scalpel/issues/42
@@ -79,6 +80,10 @@ def test_compute_values():
     assert len(n_neighbors) == 1
     assert n_neighbors[('n_neighbors', 70)][0] == "n_neighbors"
     assert n_neighbors[('n_neighbors', 70)][1] == "Method Argument"
+
+    assert len(preprocessing) == 1
+    assert preprocessing[('preprocessing', 84)][0] == "preprocessing"
+    assert preprocessing[('preprocessing', 84)][1] == "Call"
 
     # assert len(value) == 1
     # assert value[('value', 83)][0] == "Method Argument"

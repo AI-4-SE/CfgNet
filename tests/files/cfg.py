@@ -1,6 +1,8 @@
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LogisticRegression
 import yaml
+import numpy as np
+from sklearn.neighbors import NearestNeighbors
 
 
 k, p = 1, 2
@@ -44,8 +46,8 @@ for i in range(3):
 for j in range(1, 5):
     kmeans = KMeans(n_clusters=j)
 
-for c in range(1, 10, 2):
-    kmeans = KMeans(n_clusters=c)
+for s in range(1, 10, 2):
+    kmeans = KMeans(n_clusters=s)
 
 
 def create_kmeans(solver="lbfgs"):
@@ -63,3 +65,17 @@ kwargs = {
     "min_samples_leaf": 1,
     "max_leaf_nodes": 2
 }
+
+
+def extract_knn_patch(queries, pc, n_neighbors):
+    knn_search = NearestNeighbors(n_neighbors=n_neighbors, algorithm='auto')
+    knn_search.fit(pc)
+    knn_idx = knn_search.kneighbors(queries, return_distance=False)
+    k_patches = np.take(pc, knn_idx, axis=0)  # M, K, C
+    return k_patches
+
+
+C_range = np.geomspace(start=1e-7, stop=1e7)
+
+for count, value in enumerate(C_range):
+    lr_l2_C = LogisticRegression(penalty='l2', solver='liblinear', C=value)

@@ -21,7 +21,7 @@ def test_number_cfgs():
 
     cfg = Cfg(code_str=code_str)
 
-    assert len(cfg.all_cfgs) == 7
+    assert len(cfg.all_cfgs) == 8
 
 
 def test_compute_values():
@@ -35,42 +35,53 @@ def test_compute_values():
     z = cfg.compute_values("z")
     i = cfg.compute_values("i")
     j = cfg.compute_values("j")
-    c = cfg.compute_values("c")
+    s = cfg.compute_values("s")
     solver = cfg.compute_values("solver")
     anchors = cfg.compute_values("anchors")
     kwargs = cfg.compute_values("**kwargs")
-    # values_selfx = cfg.compute_values("self.x") -> https://github.com/SMAT-Lab/Scalpel/issues/39
+    n_neighbors = cfg.compute_values("n_neighbors")
+    # value = cfg.compute_values("value") -> https://github.com/SMAT-Lab/Scalpel/issues/66
+    # values_selfx = cfg.compute_values("self.x") #-> https://github.com/SMAT-Lab/Scalpel/issues/39
     # values_k = cfg.compute_values("k") -> https://github.com/SMAT-Lab/Scalpel/issues/42
     # values_p = cfg.compute_values("p") -> https://github.com/SMAT-Lab/Scalpel/issues/42
 
-    assert len(a) == 5
+    assert len(a) == 7
     assert len(x) == 1
-    assert x[('x', 10)][0] == '5'
-    assert x[('x', 10)][1] == 'Method Argument'
+    assert x[('x', 12)][0] == '5'
+    assert x[('x', 12)][1] == 'Method Argument'
 
-    assert len(z) == 2
-    assert z[('z', 19)][0] == "'test'"
+    assert len(z) == 3
+    assert z[('z', 21)][0] == "'test'"
 
     assert len(i) == 1
-    assert i[('i', 41)][0] == [0, 1, 2]
-    assert i[('i', 41)][1] == 'Call'
+    assert i[('i', 43)][0] == "i in range(3)"
+    assert i[('i', 43)][1] == 'Call'
 
     assert len(j) == 1
-    assert j[('j', 44)][0] == [1, 2, 3, 4]
+    assert j[('j', 46)][0] == "j in range(1, 5)"
+    assert j[('j', 46)][1] == "Call"
 
-    assert len(c) == 1
-    assert c[('c', 47)][0] == [1, 3, 5, 7, 9]
+    assert len(s) == 1
+    assert s[('s', 49)][0] == "s in range(1, 10, 2)"
+    assert s[('s', 49)][1] == "Call"
 
     assert len(solver) == 1
-    assert solver[('solver', 51)][0] == "'lbfgs'"
-    assert solver[('solver', 51)][1] == "Method Argument"
+    assert solver[('solver', 53)][0] == "'lbfgs'"
+    assert solver[('solver', 53)][1] == "Method Argument"
 
     assert len(anchors) == 3
-    assert anchors[('anchors', 58)][0] == '[x for x in range(3)]'
-    assert anchors[('anchors', 58)][1] == 'ListComp'
+    assert anchors[('anchors', 60)][0] == '[x for x in range(3)]'
+    assert anchors[('anchors', 60)][1] == 'ListComp'
 
     assert len(kwargs) == 1
-    assert kwargs[('kwargs', 62)][0] == "{'min_samples_leaf': 1, 'max_leaf_nodes': 2}"
+    assert kwargs[('kwargs', 64)][0] == "{'min_samples_leaf': 1, 'max_leaf_nodes': 2}"
+
+    assert len(n_neighbors) == 1
+    assert n_neighbors[('n_neighbors', 70)][0] == "n_neighbors"
+    assert n_neighbors[('n_neighbors', 70)][1] == "Method Argument"
+
+    # assert len(value) == 1
+    # assert value[('value', 83)][0] == "Method Argument"
 
     # assert len(values_selfx) == 2
     # assert len(values_k) == 1

@@ -113,7 +113,7 @@ def test_possible_values(get_plugin):
         )
     )
 
-    assert len(param.possible_values) == 5
+    assert len(param.possible_values) == 7
 
 
 def test_value_type(get_plugin):

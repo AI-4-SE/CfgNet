@@ -100,8 +100,8 @@ class Cfg:
 
                 if isinstance(value, ast.Call):
                     if isinstance(value.func, ast.Name):
-                        if value.func.id == "range":
-                            val = self.parse_range_call(value)
+                        if value.func.id in ("range", "enumerate"):
+                            val = f"{var} in {ast.unparse(value)}"
                         else:
                             val = ast.unparse(value)
 
@@ -125,6 +125,13 @@ class Cfg:
                             else:
                                 key = (var, node.lineno)
                             value_dict[key] = (arg_parts[1], "Method Argument")
+                    if len(arg_parts) == 1:
+                        if arg_parts[0] == var:
+                            if not hasattr(node, "lineno"):
+                                key = (var, None)
+                            else:
+                                key = (var, node.lineno)
+                            value_dict[key] = (arg_parts[0], "Method Argument")
 
     @staticmethod
     def parse_range_call(node: ast.Call) -> Any:

@@ -41,10 +41,10 @@ def test_compute_values():
     kwargs = cfg.compute_values("**kwargs")
     n_neighbors = cfg.compute_values("n_neighbors")
     preprocessing = cfg.compute_values("preprocessing")
-    # value = cfg.compute_values("value") -> https://github.com/SMAT-Lab/Scalpel/issues/66
+    value = cfg.compute_values("value") 
+    tuple_var_k = cfg.compute_values("k") 
+    tuple_var_p = cfg.compute_values("p")
     # values_selfx = cfg.compute_values("self.x") #-> https://github.com/SMAT-Lab/Scalpel/issues/39
-    # values_k = cfg.compute_values("k") -> https://github.com/SMAT-Lab/Scalpel/issues/42
-    # values_p = cfg.compute_values("p") -> https://github.com/SMAT-Lab/Scalpel/issues/42
 
     assert len(a) == 7
     assert len(x) == 1
@@ -85,9 +85,16 @@ def test_compute_values():
     assert preprocessing[('preprocessing', 84)][0] == "preprocessing"
     assert preprocessing[('preprocessing', 84)][1] == "Call"
 
-    # assert len(value) == 1
-    # assert value[('value', 83)][0] == "Method Argument"
+    assert len(value) == 1
+    assert value[('value', 80)][0] == "value in enumerate(C_range)"
+    assert value[('value', 80)][1] == "Call"
+
+    assert len(tuple_var_k) == 1
+    assert tuple_var_k[('k', 8)][0] == "1"
+    assert tuple_var_k[('k', 8)][1] == "int"
+
+    assert len(tuple_var_p) == 1
+    assert tuple_var_p[('p', 8)][0] == "2"
+    assert tuple_var_p[('p', 8)][1] == "int"
 
     # assert len(values_selfx) == 2
-    # assert len(values_k) == 1
-    # assert len(values_p) == 1

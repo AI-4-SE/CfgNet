@@ -41,8 +41,8 @@ def test_compute_values():
     kwargs = cfg.compute_values("**kwargs")
     n_neighbors = cfg.compute_values("n_neighbors")
     preprocessing = cfg.compute_values("preprocessing")
-    value = cfg.compute_values("value") 
-    tuple_var_k = cfg.compute_values("k") 
+    value = cfg.compute_values("value")
+    tuple_var_k = cfg.compute_values("k")
     tuple_var_p = cfg.compute_values("p")
     # values_selfx = cfg.compute_values("self.x") #-> https://github.com/SMAT-Lab/Scalpel/issues/39
 

@@ -16,10 +16,7 @@
 import os
 import pytest
 
-from cfgnet.conflicts.conflict import (
-    MissingOptionConflict,
-    ModifiedOptionConflict,
-)
+from cfgnet.conflicts.conflict import ModifiedOptionConflict
 from cfgnet.conflicts.conflict_detector import ConflictDetector
 from cfgnet.network.network import Network
 from cfgnet.network.network import NetworkConfiguration
@@ -81,13 +78,9 @@ def test_detect_conflicts(get_simple_networks):
     modified_option_conflict = list(
         filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
     )
-    missing_option_conflict = list(
-        filter(lambda x: isinstance(x, MissingOptionConflict), conflicts)
-    )
 
-    assert len(conflicts) == 2
+    assert len(conflicts) == 1
     assert len(modified_option_conflict) == 1
-    assert len(missing_option_conflict) == 1
 
 
 def test_equally_changed_values(get_networks_equally_changed):

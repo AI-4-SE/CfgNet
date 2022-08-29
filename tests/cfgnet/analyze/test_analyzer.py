@@ -62,4 +62,4 @@ def test_analyze(get_config):
         reader = csv.DictReader(csv_stats_file)
         rows = list(reader)
 
-        assert len(rows) == 2
+        assert len(rows) == 1

@@ -50,17 +50,17 @@ class ConflictDetector:
 
         for link in missing_links:
 
-            if missing_artifact_conflict := ConflictDetector._detect_missing_artifact(
-                link, new_network
-            ):
-                conflicts.add(missing_artifact_conflict)
-                continue
+            # if missing_artifact_conflict := ConflictDetector._detect_missing_artifact(
+            #    link, new_network
+            # ):
+            #    conflicts.add(missing_artifact_conflict)
+            #    continue
 
-            if missing_option_conflict := ConflictDetector._detect_missing_options(
-                link, new_network
-            ):
-                conflicts.add(missing_option_conflict)
-                continue
+            # if missing_option_conflict := ConflictDetector._detect_missing_options(
+            #    link, new_network
+            # ):
+            #    conflicts.add(missing_option_conflict)
+            #    continue
 
             if modified_option_conflict := ConflictDetector._detect_modified_options(
                 link, new_network

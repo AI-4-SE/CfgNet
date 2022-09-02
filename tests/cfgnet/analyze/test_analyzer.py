@@ -37,6 +37,20 @@ def get_config_(get_repo):
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
         enable_internal_links=False,
+        enable_all_conflicts=False,
+    )
+
+    return network_configuration
+
+
+@pytest.fixture(name="get_config_all_conflicts")
+def get_config_all_conflicts_(get_repo):
+    network_configuration = NetworkConfiguration(
+        project_root_abs=os.path.abspath(get_repo.root),
+        enable_static_blacklist=False,
+        enable_dynamic_blacklist=False,
+        enable_internal_links=False,
+        enable_all_conflicts=True,
     )
 
     return network_configuration
@@ -50,6 +64,29 @@ def test_analyze(get_config):
 
     data_dir = os.path.join(
         get_config.project_root_abs, get_config.cfgnet_path_rel
+    )
+    analysis_dir = os.path.join(data_dir, "analysis")
+    conflicts_csv_path = os.path.join(
+        analysis_dir, f"conflicts_{project_name}.csv"
+    )
+
+    assert os.path.exists(conflicts_csv_path)
+
+    with open(conflicts_csv_path, "r", encoding="utf-8") as csv_stats_file:
+        reader = csv.DictReader(csv_stats_file)
+        rows = list(reader)
+
+        assert len(rows) == 1
+
+
+def test_analyze_all_conflicts(get_config_all_conflicts):
+    analyzer = Analyzer(get_config_all_conflicts)
+    project_name = get_config_all_conflicts.project_name()
+
+    analyzer.analyze_commit_history()
+
+    data_dir = os.path.join(
+        get_config_all_conflicts.project_root_abs, get_config_all_conflicts.cfgnet_path_rel
     )
     analysis_dir = os.path.join(data_dir, "analysis")
     conflicts_csv_path = os.path.join(

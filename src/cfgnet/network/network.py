@@ -158,7 +158,10 @@ class Network:
         new_network = Network.init_network(cfg=self.cfg)
 
         conflicts = ConflictDetector.detect(
-            ref_network=self, new_network=new_network, commit_hash=commit_hash
+            ref_network=self,
+            new_network=new_network,
+            enable_all_conflicts=self.cfg.enable_all_conflicts,
+            commit_hash=commit_hash,
         )
 
         return conflicts, new_network

@@ -51,6 +51,7 @@ def main(verbose: bool):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
+@click.option("-c", "--enable-all-conflicts", is_flag=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -58,6 +59,7 @@ def init(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
+    enable_all_conflicts: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -72,6 +74,7 @@ def init(
         enable_dynamic_blacklist=enable_dynamic_blacklist,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
+        enable_all_conflicts=enable_all_conflicts,
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
     logger.configure_repo_logger(network_configuration.logfile_path())
@@ -129,6 +132,7 @@ def validate(project_root: str):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
+@click.option("-c", "--enable-all-conflicts", is_flag=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -136,6 +140,7 @@ def analyze(
     enable_static_blacklist: bool,
     enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
+    enable_all_conflicts: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -151,6 +156,7 @@ def analyze(
         enable_dynamic_blacklist=enable_dynamic_blacklist,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
+        enable_all_conflicts=enable_all_conflicts,
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
     logger.configure_repo_logger(network_configuration.logfile_path())

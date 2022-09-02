@@ -166,7 +166,6 @@ class Network:
             new_network=new_network,
             enable_all_conflicts=self.cfg.enable_all_conflicts,
             commits=commits,
-            ref_network=self, new_network=new_network, commits=commits
         )
 
         end_time = round((time.time() - start_time), 8)

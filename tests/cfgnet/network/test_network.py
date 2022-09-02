@@ -25,10 +25,7 @@ from cfgnet.network.nodes import (
     ProjectNode,
     ValueNode,
 )
-from cfgnet.conflicts.conflict import (
-    MissingOptionConflict,
-    ModifiedOptionConflict,
-)
+from cfgnet.conflicts.conflict import ModifiedOptionConflict
 from tests.utility.temporary_repository import TemporaryRepository
 
 
@@ -47,6 +44,7 @@ def get_config_(get_repo):
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
         enable_internal_links=False,
+        enable_all_conflicts=False
     )
 
     return network_configuration
@@ -177,15 +175,12 @@ def test_validate_network(get_repo, get_config):
     )
 
     conflicts, _ = ref_network.validate()
-    missing_option_conflicts = list(
-        filter(lambda x: isinstance(x, MissingOptionConflict), conflicts)
-    )
+
     modified_option_conflicts = list(
         filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
     )
 
-    assert len(conflicts) == 2
-    assert len(missing_option_conflicts) == 1
+    assert len(conflicts) == 1
     assert len(modified_option_conflicts) == 1
 
 

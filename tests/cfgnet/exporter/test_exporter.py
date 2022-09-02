@@ -42,6 +42,7 @@ def get_config_(get_repo):
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
         enable_internal_links=False,
+        enable_all_conflicts=False
     )
 
     yield network_configuration

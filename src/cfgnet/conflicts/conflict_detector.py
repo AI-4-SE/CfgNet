@@ -35,6 +35,7 @@ class ConflictDetector:
     def detect(
         ref_network: "Network",
         new_network: "Network",
+        enable_all_conflicts: bool,
         commit_hash: Optional[str] = None,
     ) -> Set:
         """
@@ -43,6 +44,7 @@ class ConflictDetector:
         :param ref_network: Reference network
         :param new_network: Modified network
         :param commit_hash: Commit in which the conflict was detected
+        :param enable_all_conflicts: Enable the detection of all conflicts
         :return: Set of detected conflicts
         """
         conflicts: Set = set()
@@ -51,17 +53,18 @@ class ConflictDetector:
 
         for link in missing_links:
 
-            if missing_artifact_conflict := ConflictDetector._detect_missing_artifact(
-                link, new_network
-            ):
-                conflicts.add(missing_artifact_conflict)
-                continue
+            if enable_all_conflicts:
+                if missing_artifact_conflict := ConflictDetector._detect_missing_artifact(
+                    link, new_network
+                ):
+                    conflicts.add(missing_artifact_conflict)
+                    continue
 
-            if missing_option_conflict := ConflictDetector._detect_missing_options(
-                link, new_network
-            ):
-                conflicts.add(missing_option_conflict)
-                continue
+                if missing_option_conflict := ConflictDetector._detect_missing_options(
+                    link, new_network
+                ):
+                    conflicts.add(missing_option_conflict)
+                    continue
 
             if modified_option_conflict := ConflictDetector._detect_modified_options(
                 link, new_network

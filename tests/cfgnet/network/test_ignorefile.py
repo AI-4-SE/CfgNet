@@ -36,6 +36,7 @@ def test_ignorefile(repo):
         enable_dynamic_blacklist=False,
         enable_static_blacklist=False,
         enable_internal_links=False,
+        enable_all_conflicts=False
     )
 
     network = Network.init_network(cfg)

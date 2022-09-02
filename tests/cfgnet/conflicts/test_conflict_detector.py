@@ -37,6 +37,7 @@ def get_simple_networks():
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
         enable_internal_links=False,
+        enable_all_conflicts=False,
     )
     ref_network = Network.init_network(cfg=network_configuration)
 
@@ -59,6 +60,7 @@ def get_networks_equally_changed():
         enable_static_blacklist=False,
         enable_dynamic_blacklist=False,
         enable_internal_links=False,
+        enable_all_conflicts=False,
     )
     ref_network = Network.init_network(cfg=network_configuration)
 
@@ -75,7 +77,23 @@ def test_detect_conflicts(get_simple_networks):
     new_network = get_simple_networks[1]
 
     conflicts = ConflictDetector.detect(
-        ref_network=ref_network, new_network=new_network
+        ref_network=ref_network, new_network=new_network, enable_all_conflicts=False
+    )
+
+    modified_option_conflict = list(
+        filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
+    )
+
+    assert len(conflicts) == 1
+    assert len(modified_option_conflict) == 1
+
+
+def test_detect_all_conflicts(get_simple_networks):
+    ref_network = get_simple_networks[0]
+    new_network = get_simple_networks[1]
+
+    conflicts = ConflictDetector.detect(
+        ref_network=ref_network, new_network=new_network, enable_all_conflicts=True
     )
 
     modified_option_conflict = list(
@@ -95,7 +113,7 @@ def test_equally_changed_values(get_networks_equally_changed):
     new_network = get_networks_equally_changed[1]
 
     conflicts = ConflictDetector.detect(
-        ref_network=ref_network, new_network=new_network
+        ref_network=ref_network, new_network=new_network, enable_all_conflicts=False
     )
 
     assert len(conflicts) == 0

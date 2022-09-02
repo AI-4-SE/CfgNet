@@ -180,8 +180,8 @@ def test_validate_network(get_repo, get_config):
         filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
     )
 
-    assert len(conflicts) == 1
-    assert len(modified_option_conflicts) == 1
+    assert len(conflicts) == 2
+    assert len(modified_option_conflicts) == 2
 
 
 def test_export_network(get_config):

@@ -17,6 +17,7 @@ import os
 import pytest
 
 from cfgnet.conflicts.conflict import (
+    MissingArtifactConflict,
     MissingOptionConflict,
     ModifiedOptionConflict,
 )
@@ -43,6 +44,29 @@ def get_simple_networks():
 
     repo.apply_patch(
         "tests/test_repos/maven_docker/0002-Provoke-two-conflicts.patch"
+    )
+    new_network = Network.init_network(cfg=network_configuration)
+
+    return ref_network, new_network
+
+
+@pytest.fixture(name="get_nodejs_networks")
+def get_nodejs_networks():
+    """Return the conflicts and the updated simple git repository."""
+    repo = TemporaryRepository(
+        "tests/test_repos/node_example/0001-Init-repository.patch"
+    )
+    network_configuration = NetworkConfiguration(
+        project_root_abs=os.path.abspath(repo.root),
+        enable_static_blacklist=False,
+        enable_dynamic_blacklist=False,
+        enable_internal_links=False,
+        enable_all_conflicts=False,
+    )
+    ref_network = Network.init_network(cfg=network_configuration)
+
+    repo.apply_patch(
+        "tests/test_repos/node_example/0002-Remove-option-and-artifact.patch"
     )
     new_network = Network.init_network(cfg=network_configuration)
 
@@ -84,27 +108,28 @@ def test_detect_conflicts(get_simple_networks):
         filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
     )
 
-    assert len(conflicts) == 1
-    assert len(modified_option_conflict) == 1
+    assert len(conflicts) == 2
+    assert len(modified_option_conflict) == 2
 
 
-def test_detect_all_conflicts(get_simple_networks):
-    ref_network = get_simple_networks[0]
-    new_network = get_simple_networks[1]
+def test_detect_all_conflicts(get_nodejs_networks):
+    ref_network = get_nodejs_networks[0]
+    new_network = get_nodejs_networks[1]
 
     conflicts = ConflictDetector.detect(
         ref_network=ref_network, new_network=new_network, enable_all_conflicts=True
     )
 
-    modified_option_conflict = list(
-        filter(lambda x: isinstance(x, ModifiedOptionConflict), conflicts)
+    missing_artifact_conflict = list(
+        filter(lambda x: isinstance(x, MissingArtifactConflict), conflicts)
     )
+
     missing_option_conflict = list(
         filter(lambda x: isinstance(x, MissingOptionConflict), conflicts)
     )
 
     assert len(conflicts) == 2
-    assert len(modified_option_conflict) == 1
+    assert len(missing_artifact_conflict) == 1
     assert len(missing_option_conflict) == 1
 
 

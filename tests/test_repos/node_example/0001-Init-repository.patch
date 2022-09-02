@@ -1,0 +1,59 @@
+From ca6857cd8c39043e69d9df52c76f58cef0fafaa2 Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <ssimon@informatik.uni-leipzig.de>
+Date: Fri, 2 Sep 2022 14:05:15 +0200
+Subject: [PATCH 1/2] Init repository
+
+---
+ package.json      | 7 +++++++
+ src/package.json  | 7 +++++++
+ test/package.json | 7 +++++++
+ 3 files changed, 21 insertions(+)
+ create mode 100644 package.json
+ create mode 100644 src/package.json
+ create mode 100644 test/package.json
+
+diff --git a/package.json b/package.json
+new file mode 100644
+index 0000000..9c8239a
+--- /dev/null
++++ b/package.json
+@@ -0,0 +1,7 @@
++{
++    "name": "node-main",
++    "dependencies": {
++      "express": "^4.17.3",
++      "test": "1.0.0"
++    }
++}
+\ No newline at end of file
+diff --git a/src/package.json b/src/package.json
+new file mode 100644
+index 0000000..6221116
+--- /dev/null
++++ b/src/package.json
+@@ -0,0 +1,7 @@
++{
++    "name": "node-src",
++    "dependencies": {
++      "git": "^4.13.3",
++      "test": "1.0.0"
++    }
++}
+\ No newline at end of file
+diff --git a/test/package.json b/test/package.json
+new file mode 100644
+index 0000000..77b9c99
+--- /dev/null
++++ b/test/package.json
+@@ -0,0 +1,7 @@
++{
++    "name": "node-src",
++    "dependencies": {
++      "cypress": "^3.12.3",
++      "test": "1.0.0"
++    }
++}
+\ No newline at end of file
+-- 
+2.25.1
+

@@ -76,7 +76,7 @@ def test_analyze(get_config):
         reader = csv.DictReader(csv_stats_file)
         rows = list(reader)
 
-        assert len(rows) == 1
+        assert len(rows) == 2
 
 
 def test_analyze_all_conflicts(get_config_all_conflicts):

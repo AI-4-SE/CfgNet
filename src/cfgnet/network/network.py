@@ -124,13 +124,14 @@ class Network:
         """
         Try to find the correct option node in a list of option nodes where all have the same ID.
 
+        If multiple options with the same id exist, return the option with the same location.
+
         :param node: node to be searched
         :param options: list of option nodes with the same ID
         :return: Found option node or None
         """
-        child = node.children[0]
         for option in options:
-            if child in option.children:
+            if node.location == option.location:
                 return option
 
         return None

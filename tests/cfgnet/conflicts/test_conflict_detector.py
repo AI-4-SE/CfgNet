@@ -36,7 +36,6 @@ def get_simple_networks():
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(repo.root),
         enable_static_blacklist=False,
-        enable_dynamic_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
     )
@@ -59,7 +58,6 @@ def get_nodejs_networks():
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(repo.root),
         enable_static_blacklist=False,
-        enable_dynamic_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
     )
@@ -82,7 +80,6 @@ def get_networks_equally_changed():
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(repo.root),
         enable_static_blacklist=False,
-        enable_dynamic_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
     )

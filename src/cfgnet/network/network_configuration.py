@@ -9,7 +9,6 @@ class NetworkConfiguration:
     # Absolute path to project root
     project_root_abs: str
     enable_static_blacklist: bool
-    enable_dynamic_blacklist: bool
     enable_internal_links: bool
     enable_all_conflicts: bool
     # Path to CfgNet data directory relative to project_root

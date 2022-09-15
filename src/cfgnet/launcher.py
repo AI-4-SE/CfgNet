@@ -49,7 +49,6 @@ def main(verbose: bool):
 
 @main.command()
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
-@click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
 @click.option("-c", "--enable-all-conflicts", is_flag=True)
 @add_project_root_argument
@@ -57,7 +56,6 @@ def main(verbose: bool):
 @add_disable_linker_option
 def init(
     enable_static_blacklist: bool,
-    enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
     enable_all_conflicts: bool,
     project_root: str,
@@ -71,7 +69,6 @@ def init(
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
-        enable_dynamic_blacklist=enable_dynamic_blacklist,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
         enable_all_conflicts=enable_all_conflicts,
@@ -130,7 +127,6 @@ def validate(project_root: str):
 
 @main.command()
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
-@click.option("-d", "--enable-dynamic-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
 @click.option("-c", "--enable-all-conflicts", is_flag=True)
 @add_project_root_argument
@@ -138,7 +134,6 @@ def validate(project_root: str):
 @add_disable_linker_option
 def analyze(
     enable_static_blacklist: bool,
-    enable_dynamic_blacklist: bool,
     enable_internal_links: bool,
     enable_all_conflicts: bool,
     project_root: str,
@@ -153,7 +148,6 @@ def analyze(
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
         enable_static_blacklist=enable_static_blacklist,
-        enable_dynamic_blacklist=enable_dynamic_blacklist,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
         enable_all_conflicts=enable_all_conflicts,

@@ -35,7 +35,6 @@ def get_config_(get_repo):
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(get_repo.root),
         enable_static_blacklist=False,
-        enable_dynamic_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
     )
@@ -48,7 +47,6 @@ def get_config_all_conflicts_(get_repo):
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(get_repo.root),
         enable_static_blacklist=False,
-        enable_dynamic_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=True,
     )

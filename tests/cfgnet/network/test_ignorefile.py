@@ -33,7 +33,6 @@ def get_repo_():
 def test_ignorefile(repo):
     cfg = NetworkConfiguration(
         project_root_abs=os.path.abspath(repo.root),
-        enable_dynamic_blacklist=False,
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False

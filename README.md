@@ -3,8 +3,14 @@
 
 # CfgNet
 
-This package contains the configuration network implementation that is used for tracking configuration dependencies across the technology stack of software systems.
-Due to the tracking mechanism, CfgNet provides a possibility to detect dependency conflicts of configurations by interpreting the changes in the configuration networks.
+CfgNet is a Python framework that helps developers to detect and track configuration dependencies across the software and technology stack of software projects.
+Due to the tracking mechanism, CfgNet enables the early detection of configuration dependency violations by interpreting the changes in the configuration networks.
+
+We envision that CfgNet is used within a Git hook that targets commits to prevent dependency conflicts during the development
+and maintenance of software systems. 
+That is, whenever changes are made, CfgNet checks the changes before the actual commit gets pushed to the repository and reports an
+error if it has detected possible dependency conflicts. 
+This way, developer can check the changes again and even use the information that CfgNet provides to fix the dependency conflicts.
 
 ## Installation
 
@@ -54,6 +60,13 @@ When the analysis is finished, all detected configuration conflicts will be stor
 
     cfgnet analyze <project_root>
 
+The commands `init` and `analyze` can be further configured with the following options:
+    
+    (1) --enable-static-blacklist
+    (2) --enable-internal-conflicts
+    (3) --enable-all-conflicts
+
+These options enable (1) blacklisted values, which are taken into account when creating links, (2) the detection of conflicts within the same configuration artifact, and (3) the detection of all conflict types, respectively.
 
 For a documentation of further options run
 

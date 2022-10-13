@@ -1,0 +1,24 @@
+From 16781be6f0370d9435182012ff59f902c567cfcc Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <ssimon@informatik.uni-leipzig.de>
+Date: Thu, 13 Oct 2022 10:02:03 +0200
+Subject: [PATCH 2/2] Provoke internal conflict
+
+---
+ Dockerfile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Dockerfile b/Dockerfile
+index 2c1a4b8..8be27ab 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -4,4 +4,4 @@ VOLUME /tmp
+ WORKDIR /config-service
+ ADD target/config-service.jar config-service.jar
+ EXPOSE 8888
+-CMD ["java", "-jar", "config-service.jar"]
+\ No newline at end of file
++CMD ["java", "-jar", "test.jar"]
+\ No newline at end of file
+-- 
+2.25.1
+

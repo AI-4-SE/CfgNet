@@ -26,7 +26,7 @@ from tests.utility.temporary_repository import TemporaryRepository
 
 @pytest.fixture(name="get_repo")
 def get_repo_():
-    repo = TemporaryRepository("tests/test_repos/maven_docker")
+    repo = TemporaryRepository("tests/test_repos/port_db_repo")
     return repo
 
 
@@ -74,7 +74,7 @@ def test_analyze(get_config):
         reader = csv.DictReader(csv_stats_file)
         rows = list(reader)
 
-        assert len(rows) == 2
+        assert len(rows) == 3
 
 
 def test_analyze_all_conflicts(get_config_all_conflicts):
@@ -97,4 +97,4 @@ def test_analyze_all_conflicts(get_config_all_conflicts):
         reader = csv.DictReader(csv_stats_file)
         rows = list(reader)
 
-        assert len(rows) == 2
+        assert len(rows) == 4

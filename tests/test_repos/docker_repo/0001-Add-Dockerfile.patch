@@ -1,0 +1,27 @@
+From 7f8298062a01225324c4faa39ad1d16b2aecbf11 Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <ssimon@informatik.uni-leipzig.de>
+Date: Thu, 13 Oct 2022 09:59:01 +0200
+Subject: [PATCH 1/2] Add Dockerfile
+
+---
+ Dockerfile | 7 +++++++
+ 1 file changed, 7 insertions(+)
+ create mode 100644 Dockerfile
+
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..2c1a4b8
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1,7 @@
++FROM java:8
++RUN apt-get update && apt-get install -y netcat
++VOLUME /tmp
++WORKDIR /config-service
++ADD target/config-service.jar config-service.jar
++EXPOSE 8888
++CMD ["java", "-jar", "config-service.jar"]
+\ No newline at end of file
+-- 
+2.25.1
+

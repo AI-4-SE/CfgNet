@@ -16,7 +16,8 @@
 import os
 import re
 
-from typing import List, Any, Optional
+from typing import List, Optional
+import dockerfile
 from cfgnet.config_types.config_types import ConfigType
 
 from cfgnet.network.nodes import (
@@ -28,78 +29,6 @@ from cfgnet.network.nodes import (
 from cfgnet.plugins.plugin import Plugin
 
 
-COMMANDS = [
-    "from",
-    "env",
-    "expose",
-    "add",
-    "copy",
-    "cmd",
-    "entrypoint",
-    "workdir",
-    "user",
-]
-
-
-class Command:
-    cmd: str
-    start_line: str
-    value: List[Any]
-
-    def __init__(self, cmd, start_line, value):
-        self.cmd = cmd
-        self.start_line = start_line
-        self.value = value
-
-    def __str__(self):
-        return f"{self.cmd}:{self.value}"
-
-
-def parse_string(content: str) -> List[Command]:
-    data: List[Command] = []
-    line_no = 0
-    for line in content.splitlines():
-        line_no += 1
-        line = line.strip()
-        if line.startswith("#") or len(line) == 0:
-            continue  # TODO: support parser directives
-
-        # get command and its values
-        parts = line.split()
-        command = parts[0].lower()
-        values = parts[1:]
-
-        # if there is no cmd, add line to the last created cmd
-        if command not in COMMANDS:
-            try:
-                last_cmd = data[-1]
-                if last_cmd.cmd == "env":
-                    values = parse_env(line)
-                    last_cmd.value += values
-                    continue
-            except IndexError:
-                continue
-
-        # parse env command
-        if command == "env":
-            line = " ".join(values)
-            values = parse_env(line)
-
-        # parse entrypoint and cmd command
-        if command in ("entrypoint", "cmd"):
-            # remove brackets at the beginning and end
-            if values[0].startswith("[") and values[-1].endswith("]"):
-                without_brackets = " ".join(values)[1:-1]
-                params = without_brackets.replace(" ", "").split(",")
-                values = [p.replace('"', "") for p in params]
-
-        cmd = Command(cmd=command, start_line=line_no, value=values)
-
-        data.append(cmd)
-
-    return data
-
-
 def parse_env(line: str) -> List[str]:
     """
     Get key value pairs for env command.
@@ -107,14 +36,12 @@ def parse_env(line: str) -> List[str]:
     :param line: line to parse
     :return: list of key=value pairs
     """
-    values = re.findall(r"(\w+=\"*[\w\d\-\_ ]*\"*)", line)
-    values = [v.strip() for v in values]
+    parts = line.split()
+    parts = parts[1:]
+    line = " ".join(parts)
+    values = re.findall(r"((\w+=\"*[\w\-\_ ]*\")|(\w+=\w+))", line)
+    values = [v[0].strip() for v in values]
     return values
-
-
-def parse_file(abs_file_path: str) -> List[Command]:
-    with open(abs_file_path, "r", encoding="utf-8") as file:
-        return parse_string(file.read())
 
 
 class DockerPlugin(Plugin):
@@ -138,7 +65,7 @@ class DockerPlugin(Plugin):
             project_root=root,
         )
 
-        data = parse_file(abs_file_path)
+        data = dockerfile.parse_file(abs_file_path)
         # files that are destinations in `ADD` and `COPY`
         destination_files = []
 
@@ -146,7 +73,7 @@ class DockerPlugin(Plugin):
             option = self.create_option(name=cmd.cmd, location=cmd.start_line)
             artifact.add_child(option)
 
-            if cmd.cmd == "from":
+            if cmd.cmd == "FROM":
                 if len(cmd.value) == 3:
                     image = ValueNode(cmd.value[0])
                     name = ValueNode(cmd.value[2])
@@ -167,8 +94,9 @@ class DockerPlugin(Plugin):
                 else:
                     option.add_child(ValueNode(cmd.value[0]))
 
-            if cmd.cmd == "env":
-                for value in cmd.value:
+            if cmd.cmd == "ENV":
+                values = parse_env(cmd.original)
+                for value in values:
                     parts = value.split("=")
                     env_var_option = OptionNode(
                         name=parts[0], location=cmd.start_line
@@ -177,7 +105,7 @@ class DockerPlugin(Plugin):
                     value_node = ValueNode(parts[1])
                     env_var_option.add_child(value_node)
 
-            elif cmd.cmd in ["cmd", "entrypoint"]:
+            elif cmd.cmd in ["CMD", "ENTRYPOINT"]:
                 exec_command = " ".join(cmd.value)
                 exec_command_node = OptionNode(
                     "exec_command",
@@ -189,7 +117,7 @@ class DockerPlugin(Plugin):
 
                 self._add_params(option, cmd.value)
 
-            elif cmd.cmd in ["add", "copy"]:
+            elif cmd.cmd in ["ADD", "COPY"]:
                 src = OptionNode("src", cmd.start_line, ConfigType.PATH)
                 option.add_child(src)
                 # remove leading `./` or `/`
@@ -200,18 +128,26 @@ class DockerPlugin(Plugin):
                 dest_value = cmd.value[-1]
                 dest.add_child(ValueNode(name=dest_value))
                 destination_files.append(dest_value)
-                if len(cmd.value) > 2:  # handle flags
-                    self._parse_flags(cmd, option)
+                for flag in cmd.flags:
+                    flag_parts = flag.split("=")
+                    if "--from" == flag_parts[0]:
+                        flag_node = OptionNode(
+                            flag_parts[0], cmd.start_line, ConfigType.NAME
+                        )
+                    else:
+                        flag_node = OptionNode(flag_parts[0], cmd.start_line)
+                    option.add_child(flag_node)
+                    flag_node.add_child(ValueNode(flag_parts[1]))
 
-            elif cmd.cmd == "expose":
+            elif cmd.cmd == "EXPOSE":
                 for value in cmd.value:
                     self._parse_expose(option, value)
 
-            elif cmd.cmd == "workdir":
+            elif cmd.cmd == "WORKDIR":
                 for value in cmd.value:
                     option.add_child(ValueNode(name=value))
 
-            elif cmd.cmd == "user":
+            elif cmd.cmd == "USER":
                 for value in cmd.value:
                     option.add_child(ValueNode(name=value))
 
@@ -228,22 +164,6 @@ class DockerPlugin(Plugin):
             return True
 
         return False
-
-    def _parse_flags(self, cmd: Command, option: OptionNode) -> None:
-        flag_re = re.compile(r"--(chown|from)=([^ ]+)")
-        for part in cmd.value:
-            match = flag_re.match(part)
-            if match:
-                flag_key = match.group(1)
-                flag_value = match.group(2)
-                if "from" == flag_key:
-                    flag_node = OptionNode(
-                        flag_key, cmd.start_line, ConfigType.NAME
-                    )
-                else:
-                    flag_node = OptionNode(flag_key, cmd.start_line)
-                option.add_child(flag_node)
-                flag_node.add_child(ValueNode(flag_value))
 
     def _parse_expose(self, option: OptionNode, value: str) -> None:
         match = self.expose_command.fullmatch(value)
@@ -265,6 +185,8 @@ class DockerPlugin(Plugin):
     @staticmethod
     def _add_params(option: OptionNode, parameters: List[str]):
         param_counter = 0
+        if len(parameters) == 1:
+            parameters = parameters[0].split(" ")
         for param in parameters:
             config_type = ConfigType.get_config_type(param)
             option_param = OptionNode(

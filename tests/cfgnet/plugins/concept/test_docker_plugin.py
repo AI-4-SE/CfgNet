@@ -52,64 +52,64 @@ def test_parse_dockerfile(get_plugin):
     assert make_id("Dockerfile", "file", "Dockerfile") in ids
 
     # FROM
-    assert make_id("Dockerfile", "from", "image", "java:8") in ids
-    assert make_id("Dockerfile", "from", "name", "builder") in ids
+    assert make_id("Dockerfile", "FROM", "image", "java:8") in ids
+    assert make_id("Dockerfile", "FROM", "name", "builder") in ids
 
     # ENV
-    assert make_id("Dockerfile", "env", "myName", '"John Doe"') in ids
-    assert make_id("Dockerfile", "env", "port", "8000") in ids
-    assert make_id("Dockerfile", "env", "version", "42") in ids
+    assert make_id("Dockerfile", "ENV", "myName", '"John Doe"') in ids
+    assert make_id("Dockerfile", "ENV", "port", "8000") in ids
+    assert make_id("Dockerfile", "ENV", "version", "42") in ids
 
     # ENTRYPOINT
     assert (
         make_id(
-            "Dockerfile", "entrypoint", "exec_command", "lorem ipsum foo.bar"
+            "Dockerfile", "ENTRYPOINT", "exec_command", "lorem ipsum foo.bar"
         )
         in ids
     )
-    assert make_id("Dockerfile", "entrypoint", "param0", "lorem") in ids
-    assert make_id("Dockerfile", "entrypoint", "param1", "ipsum") in ids
-    assert make_id("Dockerfile", "entrypoint", "param2", "foo.bar") in ids
+    assert make_id("Dockerfile", "ENTRYPOINT", "param0", "lorem") in ids
+    assert make_id("Dockerfile", "ENTRYPOINT", "param1", "ipsum") in ids
+    assert make_id("Dockerfile", "ENTRYPOINT", "param2", "foo.bar") in ids
     assert (
-        make_id("Dockerfile", "entrypoint", "exec_command", "python ./app.py")
+        make_id("Dockerfile", "ENTRYPOINT", "exec_command", "python ./app.py")
         in ids
     )
-    assert make_id("Dockerfile", "entrypoint", "param0", "python") in ids
-    assert make_id("Dockerfile", "entrypoint", "param1", "app.py") in ids
+    assert make_id("Dockerfile", "ENTRYPOINT", "param0", "python") in ids
+    assert make_id("Dockerfile", "ENTRYPOINT", "param1", "app.py") in ids
 
     # CMD
     assert (
-        make_id("Dockerfile", "cmd", "exec_command", "java -jar app.jar")
+        make_id("Dockerfile", "CMD", "exec_command", "java -jar app.jar")
         in ids
     )
-    assert make_id("Dockerfile", "cmd", "param0", "java") in ids
-    assert make_id("Dockerfile", "cmd", "param1", "-jar") in ids
-    assert make_id("Dockerfile", "cmd", "param2", "app.jar") in ids
+    assert make_id("Dockerfile", "CMD", "param0", "java") in ids
+    assert make_id("Dockerfile", "CMD", "param1", "-jar") in ids
+    assert make_id("Dockerfile", "CMD", "param2", "app.jar") in ids
 
     # ADD
-    assert make_id("Dockerfile", "add", "src", "foo.jar") in ids
-    assert make_id("Dockerfile", "add", "dest", "bar.jar") in ids
-    assert make_id("Dockerfile", "add", "chown", "1") in ids
+    assert make_id("Dockerfile", "ADD", "src", "foo.jar") in ids
+    assert make_id("Dockerfile", "ADD", "dest", "bar.jar") in ids
+    assert make_id("Dockerfile", "ADD", "--chown", "1") in ids
 
     # COPY
-    assert make_id("Dockerfile", "copy", "src", "foo.jar") in ids
-    assert make_id("Dockerfile", "copy", "dest", "bar.jar") in ids
-    assert make_id("Dockerfile", "copy", "chown", "55:mygroup") in ids
-    assert make_id("Dockerfile", "copy", "from", "builder") in ids
+    assert make_id("Dockerfile", "COPY", "src", "foo.jar") in ids
+    assert make_id("Dockerfile", "COPY", "dest", "bar.jar") in ids
+    assert make_id("Dockerfile", "COPY", "--chown", "55:mygroup") in ids
+    assert make_id("Dockerfile", "COPY", "--from", "builder") in ids
 
     # EXPOSE
-    assert make_id("Dockerfile", "expose", "1234") in ids
-    assert make_id("Dockerfile", "expose", "port", "80") in ids
-    assert make_id("Dockerfile", "expose", "protocol", "tcp") in ids
-    assert make_id("Dockerfile", "expose", "port", "8080") in ids
-    assert make_id("Dockerfile", "expose", "protocol", "udp") in ids
+    assert make_id("Dockerfile", "EXPOSE", "1234") in ids
+    assert make_id("Dockerfile", "EXPOSE", "port", "80") in ids
+    assert make_id("Dockerfile", "EXPOSE", "protocol", "tcp") in ids
+    assert make_id("Dockerfile", "EXPOSE", "port", "8080") in ids
+    assert make_id("Dockerfile", "EXPOSE", "protocol", "udp") in ids
 
     # ADD Tab Char
-    assert make_id("Dockerfile", "add", "src", "vendor") in ids
-    assert make_id("Dockerfile", "add", "dest", "/vendor") in ids
+    assert make_id("Dockerfile", "ADD", "src", "vendor") in ids
+    assert make_id("Dockerfile", "ADD", "dest", "/vendor") in ids
 
-    assert make_id("Dockerfile", "user", "patrick") in ids
-    assert make_id("Dockerfile", "workdir", "$Test") in ids
+    assert make_id("Dockerfile", "USER", "patrick") in ids
+    assert make_id("Dockerfile", "WORKDIR", "$Test") in ids
 
 
 def test_config_types(get_plugin):
@@ -121,32 +121,32 @@ def test_config_types(get_plugin):
 
     expose_port = next(
         filter(
-            lambda x: x.id == make_id("Dockerfile", "expose", "port", "8080"),
+            lambda x: x.id == make_id("Dockerfile", "EXPOSE", "port", "8080"),
             nodes,
         )
     )
     expose_protocol = next(
         filter(
             lambda x: x.id
-            == make_id("Dockerfile", "expose", "protocol", "tcp"),
+            == make_id("Dockerfile", "EXPOSE", "protocol", "tcp"),
             nodes,
         )
     )
     copy_src = next(
         filter(
-            lambda x: x.id == make_id("Dockerfile", "copy", "src", "foo.jar"),
+            lambda x: x.id == make_id("Dockerfile", "COPY", "src", "foo.jar"),
             nodes,
         )
     )
     add_dest = next(
         filter(
-            lambda x: x.id == make_id("Dockerfile", "add", "dest", "bar.jar"),
+            lambda x: x.id == make_id("Dockerfile", "ADD", "dest", "bar.jar"),
             nodes,
         )
     )
     from_image = next(
         filter(
-            lambda x: x.id == make_id("Dockerfile", "from", "image", "java:8"),
+            lambda x: x.id == make_id("Dockerfile", "FROM", "image", "java:8"),
             nodes,
         )
     )

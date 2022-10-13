@@ -37,8 +37,7 @@ linter: poetry.lock
 	poetry run black --check src
 	poetry run pydocstyle $(SOURCE_FOLDERS)
 	poetry run flake8 $(SOURCE_FOLDERS)
-	poetry run pylint --score=no --extension-pkg-whitelist=lxml src
-	poetry run pylint --score=no --disable W0212 tests
+	poetry run pylint --score=no --extension-pkg-whitelist=lxml,dockerfile src
 
 .PHONY: mypy
 mypy: poetry.lock

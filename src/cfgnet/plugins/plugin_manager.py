@@ -25,6 +25,9 @@ from cfgnet.plugins.concept.travis_plugin import TravisPlugin
 from cfgnet.plugins.concept.docker_compose_plugin import DockerComposePlugin
 from cfgnet.plugins.concept.poetry_plugin import PoetryPlugin
 from cfgnet.plugins.concept.spring_plugin import SpringPlugin
+from cfgnet.plugins.concept.apache_webserver_plugin import (
+    ApacheWebserverPlugin,
+)
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
@@ -43,6 +46,7 @@ class PluginManager:
         TravisPlugin(),
         PoetryPlugin(),
         SpringPlugin(),
+        ApacheWebserverPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

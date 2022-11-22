@@ -271,6 +271,8 @@ class Network:
         """
         repo = Git(project_root=cfg.project_root_abs)
         tracked_files: Set[str] = set(repo.get_tracked_files())
+        if cfg.config_files:
+            tracked_files.update(cfg.config_files)
 
         project_name = cfg.project_name()
         root = ProjectNode(name=project_name, root_dir=cfg.project_root_abs)
@@ -285,7 +287,6 @@ class Network:
             plugin = PluginManager.get_responsible_plugin(
                 plugins, abs_file_path
             )
-
             if plugin:
                 try:
                     plugin.parse_file(

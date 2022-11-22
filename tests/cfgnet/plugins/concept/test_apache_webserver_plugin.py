@@ -46,17 +46,25 @@ def test_parse_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 10
+    assert len(nodes) == 15
 
-    assert make_id("httpd.conf", "ServerAdmin", "amerkel@uni-leipzig.de") in ids
-    assert make_id("httpd.conf", "DocumentRoot", "/var/www/html") in ids
+    assert make_id("httpd.conf", "file", "httpd.conf") in ids
+    assert make_id("httpd.conf", "SSLCACertificatePath", "test.crt") in ids
+    assert make_id("httpd.conf", "SSLCADNRequestFile", "test2.crt") in ids
     assert make_id("httpd.conf", "AccessFileName", ".htaccess") in ids
-    assert make_id("httpd.conf", "IfModule", "mod_mime_magic.c", "MIMEMagicFile", "conf/magic") in ids
     assert make_id("httpd.conf", "AddLanguage", "ca .ca") in ids
-    assert make_id("httpd.conf", "AddLanguage", "cs .cz .cs") in ids
-    assert make_id("httpd.conf", "IfModule", "mod_negotiation.c", "IfModule", "mod_include.c", "Directory", "/var/www/error", "AllowOverride", "None") in ids
-    assert make_id("httpd.conf", "IfModule", "mod_negotiation.c", "IfModule", "mod_include.c", "Directory", "/var/www/error", "LanguagePriority", "en es de fr") in ids
-    assert make_id("httpd.conf", "IfModule", "mod_negotiation.c", "IfModule", "mod_include.c", "Directory", "/var/www/error", "ForceLanguagePriority", "Prefer Fallback") in ids
+    assert make_id("httpd.conf", "NameVirtualHost", "111.22.33.44") in ids
+
+    assert make_id("httpd.conf", "IfModule", "mod_mime_magic.c", "MIMEMagicFile", "conf/magic") in ids
+    assert make_id("httpd.conf", "IfModule", "mod_include.c", "Directory", "/var/www/error", "AllowOverride", "None") in ids
+    assert make_id("httpd.conf", "IfModule", "mod_include.c", "Directory", "/var/www/error", "LanguagePriority", "en es de fr") in ids
+    assert make_id("httpd.conf", "IfModule", "mod_include.c", "Directory", "/var/www/error", "ForceLanguagePriority", "Prefer Fallback") in ids
+
+    assert make_id("httpd.conf", "VirtualHost", "10.1.2.3", "ServerAdmin", "test@uni-leipzig.de") in ids
+    assert make_id("httpd.conf", "VirtualHost", "10.1.2.3", "DocumentRoot", "/var/www/html") in ids
+    assert make_id("httpd.conf", "VirtualHost", "10.1.2.3", "ServerName", "test") in ids
+    assert make_id("httpd.conf", "VirtualHost", "10.1.2.3", "ErrorLog", "error.log") in ids
+    assert make_id("httpd.conf", "VirtualHost", "10.1.2.3", "TransferLog", "transfer.log") in ids
 
 
 def test_config_types(get_plugin):
@@ -65,15 +73,18 @@ def test_config_types(get_plugin):
     artifact = apache_webserver_plugin.parse_file(apache_webserver, "httpd.conf")
     nodes = artifact.get_nodes()
 
+    for node in nodes:
+        print(node, node.config_type)
+
     admin = next(
         filter(
-            lambda x: x.id == make_id("httpd.conf", "ServerAdmin", "amerkel@uni-leipzig.de"),
+            lambda x: x.id == make_id("httpd.conf", "VirtualHost", "10.1.2.3", "ServerAdmin", "test@uni-leipzig.de"),
             nodes,
         )
     )
     root = next(
         filter(
-            lambda x: x.id == make_id("httpd.conf", "DocumentRoot", "/var/www/html"),
+            lambda x: x.id == make_id("httpd.conf", "VirtualHost", "10.1.2.3", "DocumentRoot", "/var/www/html"),
             nodes,
         )
     )
@@ -95,40 +106,24 @@ def test_config_types(get_plugin):
             nodes,
         )
     )
-    language2 = next(
+
+    path = next(
         filter(
-            lambda x: x.id == make_id("httpd.conf", "AddLanguage", "cs .cz .cs"),
-            nodes,
-        )
-    )
-    if_override = next(
-        filter(
-            lambda x: x.id == make_id("httpd.conf", "IfModule", "mod_negotiation.c", "IfModule", "mod_include.c",
-                                      "Directory", "/var/www/error", "AllowOverride", "None"),
-            nodes,
-        )
-    )
-    if_language = next(
-        filter(
-            lambda x: x.id == make_id("httpd.conf", "IfModule", "mod_negotiation.c", "IfModule", "mod_include.c",
-                                      "Directory", "/var/www/error", "LanguagePriority", "en es de fr"),
-            nodes,
-        )
-    )
-    if_priority = next(
-        filter(
-            lambda x: x.id == make_id("httpd.conf", "IfModule", "mod_negotiation.c", "IfModule", "mod_include.c",
-                                      "Directory", "/var/www/error", "ForceLanguagePriority", "Prefer Fallback"),
+            lambda x: x.id == make_id("httpd.conf", "SSLCACertificatePath", "test.crt"),
             nodes,
         )
     )
 
+    ip_address = next(
+        filter(
+            lambda x: x.id == make_id("httpd.conf", "NameVirtualHost", "111.22.33.44"),
+            nodes,
+        )
+    )
     assert admin.config_type == ConfigType.EMAIL
     assert root.config_type == ConfigType.PATH
     assert access.config_type == ConfigType.PATH
     assert if_MIME.config_type == ConfigType.PATH
     assert language1.config_type == ConfigType.LANGUAGE
-    assert language2.config_type == ConfigType.LANGUAGE
-    assert if_override.config_type == ConfigType.MODE
-    assert if_language.config_type == ConfigType.LANGUAGE
-    assert if_priority.config_type == ConfigType.LANGUAGE
+    assert path.config_type == ConfigType.PATH
+    assert ip_address.config_type == ConfigType.IP_ADDRESS

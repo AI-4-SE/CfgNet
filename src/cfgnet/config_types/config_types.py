@@ -48,6 +48,7 @@ class ConfigType(Enum):
     PLATFORM = auto()
     LANGUAGE = auto()
     TYPE = auto()
+    MIME = auto()
 
     # Booleans
     BOOLEAN = auto()

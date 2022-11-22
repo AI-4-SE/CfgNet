@@ -207,95 +207,167 @@ class ApacheWebserverPlugin(Plugin):
                                 nested_options.remove(nested)
                             break
 
+    # pylint: disable=too-many-return-statements
     def get_config_type(self, option_name: str) -> ConfigType:
-        config_type = ConfigType.UNKNOWN
-        if option_name in ("DefaultType", "TypesConfig", "LogLevel"):
-            config_type = ConfigType.TYPE
+        """
+        Find config type based on option name.
 
-        elif option_name in (
-            "Directory",
-            "DocumentRoot",
-            "UserDir",
+        Option types included from: https://httpd.apache.org/docs/2.4/mod/quickreference.html.
+
+        :param option_name: name of option
+        :return: config type
+        """
+        config_type = ConfigType.UNKNOWN
+
+        if option_name in ("AcceptFilter", "Protocol", "Protocols"):
+            return ConfigType.PROTOCOL
+
+        if option_name in (
+            "AcceptPathInfo",
+            "AddDefaultCharset",
+            "AllowEncodedSlashes",
+            "CGIPassAuth",
+            "EnableExceptionHook",
+            "EnableMMAP",
+            "EnableSendfile",
+            "ExtendedStatus",
+            "HostnameLookups",
+            "KeepAlive",
+            "LogLevel",
+            "MergeSlashes",
+            "MergeTrailers",
+            "ProtocolsHonorOrder",
+            "QualifyRedirectURL",
+            "SeeRequestTail",
+            "ServerSignature",
+            "StrictHostCheck",
+            "TraceEnable",
+            "UseCanonicalName",
+            "UseCanonicalPhysicalPort",
+            "Order",
+            "Allow",
+        ):
+            return ConfigType.MODE
+
+        if option_name in (
             "AccessFileName",
             "ErrorLog",
-            "CustomLog",
-            "DefaultIcon",
-            "LoadModule",
-            "AddIcon",
-            "DirectoryIndex",
-            "Files",
-            "DAVLockDB",
-            "ScriptAlias",
-            "Location",
-            "IndexOptions",
+            "DocumentRoot",
+            "Include",
+            "IncludeOptional",
             "Options",
-            "MIMEMagicFile",
-        ):
-            config_type = ConfigType.PATH
-
-        elif option_name in ("Order", "Deny", "Allow"):
-            config_type = ConfigType.LICENSE
-
-        elif option_name in (
-            "AddIconByType",
-            "AddOutputFilter",
-            "AddHandler",
-            "AddDefaultCharset",
-            "AddIconByEncoding",
-            "IndexIgnore",
-            "AddType",
-            "IfModule",
-            "SetHandler",
-        ):
-            config_type = ConfigType.COMMAND
-
-        elif option_name == "User":
-            config_type = ConfigType.USERNAME
-
-        elif option_name == "ServerAdmin":
-            config_type = ConfigType.EMAIL
-
-        elif option_name in (
-            "StartServers",
-            "MinSpareServers",
-            "MaxSpareServers",
-            "ServerLimit",
-            "MaxClients",
-            "MaxRequestsPerChild",
-            "ThreadsPerChild",
-            "MinSpareThreads",
-            "MaxSpareThreads",
-            "Listen",
-        ):
-            config_type = ConfigType.NUMBER
-
-        elif option_name in (
-            "AllowOverride",
-            "ExtendedStatus",
-            "UseCanonicalName",
-            "HostnameLookups",
-            "ServerSignature",
-        ):
-            config_type = ConfigType.MODE
-
-        elif option_name in (
-            "ServerName",
+            "ServerRoot",
+            "TransferLog",
+            "DefaultIcon",
             "ReadmeName",
+            "Files",
+            "Alias",
+            "AuthLDAPCharsetConfig",
+            "DavGenericLockDB",
+            "DavLockDB",
+            "HeartbeatStorage",
+            "MMapFile",
+            "ScriptAlias",
+            "ScriptLog",
+            "ScriptSock",
+            "TypesConfig",
+            "DefaultIcon",
+            "RewriteBase",
+            "SessionInclude",
+            "SessionExclude",
+        ):
+            return ConfigType.PATH
+
+        if option_name.endswith(("File", "Path", "Dir")):
+            return ConfigType.PATH
+
+        if option_name in ("DefaultType", "ForceType"):
+            return ConfigType.MIME
+
+        if option_name in (
+            "DirectoryMatch",
+            "FilesMatch",
+            "LocationMatch",
+            "AliasMatch",
+            "ScriptAliasMatch",
+            "RedirectMatch",
+            "AuthLDAPInitialBindPattern",
+            "ProxyPassMatch",
+        ):
+            return ConfigType.PATTERN
+
+        if option_name in ("ErrorLogFormat", "AddType"):
+            return ConfigType.TYPE
+
+        if option_name in (
+            "FlushMaxPipelined",
+            "LimitInternalRecursion",
+            "LimitRequestFields",
+            "MaxKeepAliveRequests",
+            "RLimitNPROC",
+            "ServerLimit",
+            "MaxSpareServers",
+            "MinSpareServers",
+            "StartServers",
+            "HeartbeatMaxServers",
+        ):
+            return ConfigType.NUMBER
+
+        if option_name in (
+            "FlushMaxThreshold",
+            "LimitRequestBody",
+            "LimitRequestFieldSize",
+            "LimitRequestLine",
+            "LimitXMLRequestBody",
+            "ReadBufferSize",
+            "RLimitMEM",
+        ):
+            return ConfigType.SIZE
+
+        if option_name in (
+            "ServerAlias",
+            "ServerName",
+            "UnDefine",
             "HeaderName",
             "Group",
         ):
-            config_type = ConfigType.NAME
+            return ConfigType.NAME
 
-        elif option_name in (
-            "LanguagePriority",
-            "ForceLanguagePriority",
-            "AddLanguage",
-            "LogFormat",
-            "Alias",
+        if option_name in (
+            "Location",
+            "ServerPath",
+            "AuthFormLoginRequiredLocation",
+            "AuthFormLoginSuccessLocation",
+            "AuthFormLogoutLocation",
+            "AuthLDAPURL",
+            "CacheKeyBaseURL",
+            "MDCertificateAuthority",
+            "MDHttpProxy",
+            "RedirectPermanent",
+            "RedirectTemp",
+            "SSLOCSPProxyURL",
+            "SSLStaplingForceURL",
         ):
-            config_type = ConfigType.LANGUAGE
+            return ConfigType.URL
 
-        elif option_name == "BrowserMatch":
-            config_type = ConfigType.URL
+        if option_name in ("NameVirtualHost", "VirtualHost"):
+            return ConfigType.IP_ADDRESS
+
+        if option_name in (
+            "KeepAliveTimeout",
+            "RLimitCPU",
+            "TimeOut",
+            "CGIDScriptTimeout",
+        ):
+            return ConfigType.TIME
+
+        if option_name in ("ServerAdmin"):
+            return ConfigType.EMAIL
+
+        if option_name in ("User"):
+            return ConfigType.USERNAME
+
+        if option_name in ("AddLanguage", "LanguagePriority"):
+            return ConfigType.LANGUAGE
 
         return config_type

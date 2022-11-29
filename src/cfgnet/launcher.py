@@ -93,6 +93,7 @@ def init(
 @main.command()
 @add_project_root_argument
 def validate(project_root: str):
+    """Validate a reference network against a new network."""
     project_name = os.path.basename(project_root)
     logging.info("Validate configuration network for %s.", project_name)
 
@@ -190,6 +191,7 @@ def export(
     visualize_dot: bool,
     project_root: str,
 ):
+    """Export a configuration network."""
     LauncherConfiguration.export_output = output
     LauncherConfiguration.export_format = export_format
     LauncherConfiguration.export_include_unlinked = include_unlinked

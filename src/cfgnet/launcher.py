@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import logging
-from typing import List, Optional
+from typing import List
 import click
 
 from cfgnet.utility import logger
@@ -51,7 +51,7 @@ def main(verbose: bool):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
 @click.option("-c", "--enable-all-conflicts", is_flag=True)
-@click.option("-f", "--config_files", multiple=True)
+@click.option("-f", "--config-files", multiple=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -62,7 +62,7 @@ def init(
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
-    config_files: Optional[List],
+    config_files: List,
 ):
     """Initialize configuration network."""
     project_name = os.path.basename(project_root)
@@ -70,7 +70,7 @@ def init(
 
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
-        config_files=config_files,
+        config_files=list(config_files),
         enable_static_blacklist=enable_static_blacklist,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
@@ -132,7 +132,7 @@ def validate(project_root: str):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
 @click.option("-c", "--enable-all-conflicts", is_flag=True)
-@click.option("-f", "--config_files", multiple=True)
+@click.option("-f", "--config-files", multiple=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -143,7 +143,7 @@ def analyze(
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
-    config_files: Optional[List]
+    config_files: List,
 ):
     """Run self-evaluating analysis of commit history."""
     project_name = os.path.basename(project_root)
@@ -152,7 +152,7 @@ def analyze(
 
     network_configuration = NetworkConfiguration(
         project_root_abs=os.path.abspath(project_root),
-        config_files=config_files,
+        config_files=list(config_files),
         enable_static_blacklist=enable_static_blacklist,
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),

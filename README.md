@@ -65,12 +65,13 @@ The commands `init` and `analyze` can be further configured with the following o
     (1) --enable-static-blacklist
     (2) --enable-internal-conflicts
     (3) --enable-all-conflicts
+    (4) --config-files <absolute_file_path>
 
-These options enable (1) blacklisted values, which are taken into account when creating links, (2) the detection of conflicts within the same configuration artifact, and (3) the detection of all conflict types, respectively.
+These options enable (1) blacklisted values, which are taken into account when creating links, (2) the detection of conflicts within the same configuration artifact, (3) the detection of all conflict types, and (4) parsing of specific configuration files (e.g., configuration files of the operating machine that are not in the software repository), respectively. The option `--config-files` can be specified multiple times.
 
 For a documentation of further options run
 
-    cfgnet -h
+    cfgnet --help
 
 ## Documentation
 

@@ -271,6 +271,7 @@ class Network:
         """
         repo = Git(project_root=cfg.project_root_abs)
         tracked_files: Set[str] = set(repo.get_tracked_files())
+
         if cfg.config_files:
             tracked_files.update(cfg.config_files)
 

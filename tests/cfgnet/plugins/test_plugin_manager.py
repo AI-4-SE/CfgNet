@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 10
+    assert len(all_plugins) == 11
 
 
 def test_get_responsible_plugin():
@@ -54,6 +54,7 @@ def test_get_responsible_plugin():
     )
     apache_webserver_plugin = PluginManager.get_responsible_plugin(
         plugins, "path/to/httpd.conf")
+    mysql_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/my.cnf")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -65,3 +66,4 @@ def test_get_responsible_plugin():
     assert poetry_plugin.concept_name == "poetry"
     assert spring_plugin.concept_name == "spring"
     assert apache_webserver_plugin.concept_name == "apache"
+    assert mysql_plugin.concept_name == "mysql"

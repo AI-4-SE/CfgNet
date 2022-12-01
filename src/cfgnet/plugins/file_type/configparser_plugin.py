@@ -18,11 +18,15 @@ import re
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
+from cfgnet.config_types.config_types import ConfigType
 
 
 class ConfigParserPlugin(Plugin):
-    def __init__(self):
-        super().__init__("configparser")
+    def __init__(self, name=None):
+        if name is None:
+            super().__init__("configparser")
+        else:
+            super().__init__(name)
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
         artifact = ArtifactNode(
@@ -74,10 +78,14 @@ class ConfigParserPlugin(Plugin):
                 parent = section_node
 
             for option in section.keys():
-
+                config_type = self.get_config_type(option_name=option)
                 option_node = OptionNode(
-                    option,
-                    "section: " + section_name + ", option: " + option,
+                    name=option,
+                    location="section: "
+                    + section_name
+                    + ", option: "
+                    + option,
+                    config_type=config_type,
                 )
                 parent.add_child(option_node)
 
@@ -102,3 +110,13 @@ class ConfigParserPlugin(Plugin):
 
     def is_responsible(self, abs_file_path):
         return re.match(r".*\.(ini|properties)$", abs_file_path)
+
+    # pylint: disable=unused-argument
+    def get_config_type(self, option_name: str) -> ConfigType:
+        """
+        Find config type based on option name.
+
+        :param option_name: name of option
+        :return: config type
+        """
+        return ConfigType.UNKNOWN

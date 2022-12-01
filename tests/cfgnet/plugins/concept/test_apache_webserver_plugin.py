@@ -73,9 +73,6 @@ def test_config_types(get_plugin):
     artifact = apache_webserver_plugin.parse_file(apache_webserver, "httpd.conf")
     nodes = artifact.get_nodes()
 
-    for node in nodes:
-        print(node, node.config_type)
-
     admin = next(
         filter(
             lambda x: x.id == make_id("httpd.conf", "VirtualHost", "10.1.2.3", "ServerAdmin", "test@uni-leipzig.de"),

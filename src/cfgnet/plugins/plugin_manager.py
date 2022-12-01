@@ -31,6 +31,7 @@ from cfgnet.plugins.concept.apache_webserver_plugin import (
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
+from cfgnet.plugins.concept.mysql_plugin import MysqlPlugin
 
 
 class PluginManager:
@@ -47,6 +48,7 @@ class PluginManager:
         PoetryPlugin(),
         SpringPlugin(),
         ApacheWebserverPlugin(),
+        MysqlPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

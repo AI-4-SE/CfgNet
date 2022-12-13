@@ -1,7 +1,11 @@
 FROM java:8 as builder
 
 USER patrick
-WORKDIR $Test
+
+ARG PATH=/path
+ENV DIRPATH=$PATH
+ENV DIRNAME=test_dir
+WORKDIR $DIRPATH/$DIRNAME
 
 EXPOSE 1234
 EXPOSE 80/tcp

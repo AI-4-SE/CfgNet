@@ -39,7 +39,7 @@ def parse_env(line: str) -> List[str]:
     parts = line.split()
     parts = parts[1:]
     line = " ".join(parts)
-    values = re.findall(r"((\w+=\"*[\w\-\_ ]*\")|(\w+=\w+))", line)
+    values = re.findall(r"((\w+=\"*[\w\-\_ ]*\")|(\w+=\$?\/?\w+))", line)
     values = [v[0].strip() for v in values]
     return values
 
@@ -51,6 +51,7 @@ class DockerPlugin(Plugin):
 
     def __init__(self):
         super().__init__("docker")
+        self.env_vars = {}
 
     def _parse_config_file(
         self,
@@ -65,6 +66,7 @@ class DockerPlugin(Plugin):
             project_root=root,
         )
 
+        self.env_vars.clear()
         data = dockerfile.parse_file(abs_file_path)
         # files that are destinations in `ADD` and `COPY`
         destination_files = []
@@ -94,6 +96,11 @@ class DockerPlugin(Plugin):
                 else:
                     option.add_child(ValueNode(cmd.value[0]))
 
+            if cmd.cmd == "ARG":
+                parts = cmd.value[0].split("=")
+                if len(parts) == 2:
+                    self.env_vars[parts[0]] = parts[1]
+
             if cmd.cmd == "ENV":
                 values = parse_env(cmd.original)
                 for value in values:
@@ -102,7 +109,9 @@ class DockerPlugin(Plugin):
                         name=parts[0], location=cmd.start_line
                     )
                     option.add_child(env_var_option)
-                    value_node = ValueNode(parts[1])
+                    value_name = self.check_value_name(parts[1])
+                    value_node = ValueNode(value_name)
+                    self.env_vars[parts[0]] = value_name
                     env_var_option.add_child(value_node)
 
             elif cmd.cmd in ["CMD", "ENTRYPOINT"]:
@@ -113,7 +122,8 @@ class DockerPlugin(Plugin):
                     config_type=ConfigType.COMMAND,
                 )
                 option.add_child(exec_command_node)
-                exec_command_node.add_child(ValueNode(exec_command))
+                value_name = self.check_value_name(exec_command)
+                exec_command_node.add_child(ValueNode(value_name))
 
                 self._add_params(option, cmd.value)
 
@@ -122,10 +132,11 @@ class DockerPlugin(Plugin):
                 option.add_child(src)
                 # remove leading `./` or `/`
                 src_file = re.sub(r"^(\.)?/", "", cmd.value[-2])
-                src.add_child(ValueNode(name=src_file))
+                src_value = self.check_value_name(src_file)
+                src.add_child(ValueNode(name=src_value))
                 dest = OptionNode("dest", cmd.start_line, ConfigType.PATH)
                 option.add_child(dest)
-                dest_value = cmd.value[-1]
+                dest_value = self.check_value_name(cmd.value[-1])
                 dest.add_child(ValueNode(name=dest_value))
                 destination_files.append(dest_value)
                 for flag in cmd.flags:
@@ -137,19 +148,20 @@ class DockerPlugin(Plugin):
                     else:
                         flag_node = OptionNode(flag_parts[0], cmd.start_line)
                     option.add_child(flag_node)
-                    flag_node.add_child(ValueNode(flag_parts[1]))
+                    value_name = self.check_value_name(flag_parts[1])
+                    flag_node.add_child(ValueNode(value_name))
 
             elif cmd.cmd == "EXPOSE":
                 for value in cmd.value:
                     self._parse_expose(option, value)
 
             elif cmd.cmd == "WORKDIR":
-                for value in cmd.value:
-                    option.add_child(ValueNode(name=value))
+                value_name = self.check_value_name(cmd.value[0])
+                option.add_child(ValueNode(name=value_name))
 
             elif cmd.cmd == "USER":
-                for value in cmd.value:
-                    option.add_child(ValueNode(name=value))
+                value_name = self.check_value_name(cmd.value[0])
+                option.add_child(ValueNode(name=value_name))
 
             if not option.children:
                 artifact.children.remove(option)
@@ -157,7 +169,6 @@ class DockerPlugin(Plugin):
         return artifact
 
     def is_responsible(self, abs_file_path: str) -> bool:
-
         file_name = os.path.basename(abs_file_path)
 
         if file_name == "Dockerfile":
@@ -166,10 +177,13 @@ class DockerPlugin(Plugin):
         return False
 
     def _parse_expose(self, option: OptionNode, value: str) -> None:
+        """Parse EXPOSE option."""
         match = self.expose_command.fullmatch(value)
         if match:
-            port = ValueNode(match.group("port"))
-            protocol = ValueNode(match.group("protocol"))
+            port = ValueNode(self.check_value_name(match.group("port")))
+            protocol = ValueNode(
+                self.check_value_name(match.group("protocol"))
+            )
             option_port = OptionNode("port", option.location, ConfigType.PORT)
             option_protocol = OptionNode(
                 "protocol", option.location, ConfigType.PROTOCOL
@@ -180,10 +194,10 @@ class DockerPlugin(Plugin):
             option_protocol.add_child(protocol)
         else:
             option.config_type = ConfigType.PORT
-            option.add_child(ValueNode(name=value))
+            option.add_child(ValueNode(name=self.check_value_name(value)))
 
-    @staticmethod
-    def _add_params(option: OptionNode, parameters: List[str]):
+    def _add_params(self, option: OptionNode, parameters: List[str]) -> None:
+        """Add parameters for CMD and ENTRYPOINT option."""
         param_counter = 0
         if len(parameters) == 1:
             parameters = parameters[0].split(" ")
@@ -197,25 +211,30 @@ class DockerPlugin(Plugin):
             option.add_child(option_param)
 
             value = re.sub(r"^(\.)?/", "", param)
-            option_param.add_child(ValueNode(value))
+            option_param.add_child(ValueNode(self.check_value_name(value)))
             param_counter += 1
 
     def create_option(self, name: str, location: str) -> OptionNode:
-        if name == "env":
+        """
+        Create option node with corresponding type.
+
+        :return: OptionNode
+        """
+        if name == "ENV":
             option = OptionNode(
                 name=name,
                 location=location,
                 config_type=ConfigType.ENVIRONMENT,
             )
-        elif name == "expose":
+        elif name == "EXPOSE":
             option = OptionNode(
                 name=name, location=location, config_type=ConfigType.PORT
             )
-        elif name == "user":
+        elif name == "USER":
             option = OptionNode(
                 name=name, location=location, config_type=ConfigType.USERNAME
             )
-        elif name == "workdir":
+        elif name == "WORKDIR":
             option = OptionNode(
                 name=name, location=location, config_type=ConfigType.PATH
             )
@@ -223,3 +242,19 @@ class DockerPlugin(Plugin):
             option = OptionNode(name=name, location=location)
 
         return option
+
+    def check_value_name(self, value_name: str) -> str:
+        """
+        Check values if they include env or arg values.
+
+        If a value contains env or arg values, replace them with the concrete value.
+
+        :return: value name
+        """
+        for key, value in self.env_vars.items():
+            key_regex = re.compile(r"\$" + key)  # noqa: W605
+
+            if key_regex.search(value_name):
+                value_name = value_name.replace("$" + key, value)
+
+        return value_name

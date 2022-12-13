@@ -21,7 +21,7 @@ import logging
 import hashlib
 import pickle
 
-from typing import List, Set, Any, Optional, Callable, Tuple
+from typing import List, Set, Any, Optional, Callable, Tuple, Dict
 from collections import defaultdict
 from cfgnet.vcs.git import Git
 from cfgnet.plugins.plugin_manager import PluginManager
@@ -237,6 +237,32 @@ class Network:
         file_path = os.path.join(self.cfg.export_dir_path(), name)
 
         DotExporter(self).visualize(file_path, export_format, include_unlinked)
+
+    def key_value_type_pairs(self) -> Dict:
+        """
+        Extract all key-value-type pairs for each artifact in the configuration network.
+
+        :return: Dict with key-value-type pairs for each artifact
+        """
+        artifact_nodes = self.get_nodes(node_type=ArtifactNode)
+
+        artifact_options = {}
+
+        for artifact_node in artifact_nodes:
+            key_value_type_pairs = []
+            value_nodes = artifact_node.get_nodes(node_type=ValueNode)
+            for value_node in value_nodes:
+                key_value_type_pairs.append(
+                    (
+                        value_node.get_options(),
+                        value_node.name,
+                        value_node.config_type.name,
+                    )
+                )
+
+            artifact_options[artifact_node.name] = key_value_type_pairs
+
+        return artifact_options
 
     @staticmethod
     def load_network(project_root: str) -> Network:

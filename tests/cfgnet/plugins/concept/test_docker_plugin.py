@@ -46,7 +46,7 @@ def test_parse_dockerfile(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 33
+    assert len(nodes) == 35
 
     # FILE PATH
     assert make_id("Dockerfile", "file", "Dockerfile") in ids
@@ -59,6 +59,8 @@ def test_parse_dockerfile(get_plugin):
     assert make_id("Dockerfile", "ENV", "myName", '"John Doe"') in ids
     assert make_id("Dockerfile", "ENV", "port", "8000") in ids
     assert make_id("Dockerfile", "ENV", "version", "42") in ids
+    assert make_id("Dockerfile", "ENV", "DIRPATH", "/path") in ids
+    assert make_id("Dockerfile", "ENV", "DIRNAME", "test_dir") in ids
 
     # ENTRYPOINT
     assert (
@@ -109,7 +111,7 @@ def test_parse_dockerfile(get_plugin):
     assert make_id("Dockerfile", "ADD", "dest", "/vendor") in ids
 
     assert make_id("Dockerfile", "USER", "patrick") in ids
-    assert make_id("Dockerfile", "WORKDIR", "$Test") in ids
+    assert make_id("Dockerfile", "WORKDIR", "/path/test_dir") in ids
 
 
 def test_config_types(get_plugin):
@@ -151,8 +153,16 @@ def test_config_types(get_plugin):
         )
     )
 
+    workdir = next(
+        filter(
+            lambda x: x.id == make_id("Dockerfile", "WORKDIR", "/path/test_dir"),
+            nodes,
+        )
+    )
+
     assert expose_port.config_type == ConfigType.PORT
     assert expose_protocol.config_type == ConfigType.PROTOCOL
     assert copy_src.config_type == ConfigType.PATH
     assert add_dest.config_type == ConfigType.PATH
     assert from_image.config_type == ConfigType.IMAGE
+    assert workdir.config_type == ConfigType.PATH

@@ -253,6 +253,23 @@ class ValueNode(Node):
         """Make ValueNode hashable."""
         return super().__hash__()
 
+    def get_options(self) -> str:
+        """
+        Get names of all option nodes of the value node.
+
+        :return: String of concatenated option names
+        """
+        option_nodes = []
+        parent = self.parent
+        while isinstance(parent, OptionNode):
+            option_nodes.append(parent.name)
+            parent = parent.parent
+
+        if len(option_nodes) > 1:
+            return ".".join(option_nodes[::-1])
+
+        return option_nodes[0]
+
     def add_child(self, node: Node) -> None:
         raise NetworkConstructionException(
             "Value nodes do not accept children."

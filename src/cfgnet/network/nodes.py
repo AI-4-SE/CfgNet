@@ -172,6 +172,18 @@ class ArtifactNode(Node):
         value = ValueNode(name=self.rel_file_path)
         option.add_child(value)
 
+    def get_pairs(self) -> List:
+        """Get all option-value-type pairs from the artifact."""
+        value_nodes = self.get_nodes(node_type=ValueNode)
+        return [
+            {
+                "option": x.get_options(),
+                "value": x.name,
+                "type": x.config_type.name,
+            }
+            for x in value_nodes
+        ]
+
 
 class OptionNode(Node):
     """

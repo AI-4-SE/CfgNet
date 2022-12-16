@@ -238,7 +238,7 @@ class Network:
 
         DotExporter(self).visualize(file_path, export_format, include_unlinked)
 
-    def key_value_type_pairs(self) -> Dict:
+    def get_pairs(self) -> Dict:
         """
         Extract all key-value-type pairs for each artifact in the configuration network.
 
@@ -249,18 +249,7 @@ class Network:
         artifact_options = {}
 
         for artifact_node in artifact_nodes:
-            key_value_type_pairs = []
-            value_nodes = artifact_node.get_nodes(node_type=ValueNode)
-            for value_node in value_nodes:
-                key_value_type_pairs.append(
-                    (
-                        value_node.get_options(),
-                        value_node.name,
-                        value_node.config_type.name,
-                    )
-                )
-
-            artifact_options[artifact_node.name] = key_value_type_pairs
+            artifact_options[artifact_node.name] = artifact_node.get_pairs()
 
         return artifact_options
 

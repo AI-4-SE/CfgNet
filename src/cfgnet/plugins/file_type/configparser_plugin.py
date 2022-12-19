@@ -15,10 +15,20 @@
 import configparser
 import logging
 import re
+from collections import OrderedDict
+from typing import List
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.config_types.config_types import ConfigType
+
+
+class MultiOrderedDict(OrderedDict):
+    def __setitem__(self, key, value):
+        if isinstance(value, list) and key in self:
+            self[key].extend(value)
+        else:
+            super().__setitem__(key, value)
 
 
 class ConfigParserPlugin(Plugin):
@@ -27,6 +37,7 @@ class ConfigParserPlugin(Plugin):
             super().__init__("configparser")
         else:
             super().__init__(name)
+        self.excluded_keys: List[str] = []
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
         artifact = ArtifactNode(
@@ -40,11 +51,17 @@ class ConfigParserPlugin(Plugin):
             file_content = config_file.read()
 
         try:
-            dummy_section = "[dummy_section]\n"
-            config = configparser.ConfigParser(
-                interpolation=None, allow_no_value=True
-            )
-            config.read_string(dummy_section + file_content)
+            if self.concept_name == "php":
+                config = configparser.RawConfigParser(
+                    dict_type=MultiOrderedDict, strict=False
+                )
+                config.read_string(file_content)
+            else:
+                dummy_section = "[dummy_section]\n"
+                config = configparser.ConfigParser(
+                    interpolation=None, allow_no_value=True
+                )
+                config.read_string(dummy_section + file_content)
         except (AttributeError, configparser.Error) as error:
             logging.warning(
                 'Failed to parse ini file "%s"'
@@ -78,6 +95,8 @@ class ConfigParserPlugin(Plugin):
                 parent = section_node
 
             for option in section.keys():
+                if option in self.excluded_keys:
+                    continue
                 config_type = self.get_config_type(option_name=option)
                 option_node = OptionNode(
                     name=option,
@@ -98,6 +117,7 @@ class ConfigParserPlugin(Plugin):
                     # remove backslash followed by newline and
                     # (if present) whitespace
                     value = re.sub(r"\\\n\s*", "", value)
+                    value = value.replace('"', "")
 
                     value_node = ValueNode(value)
                     option_node.add_child(value_node)

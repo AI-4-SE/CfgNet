@@ -121,9 +121,9 @@ def test_parse_properties_file(get_plugin):
     assert artifact is not None
     assert make_id("test.properties", "file", "test.properties") in ids
     assert make_id("test.properties", "org.example.eq.foo", "42") in ids
-    assert make_id("test.properties", "org.example.eq.bar", '"baz"') in ids
+    assert make_id("test.properties", "org.example.eq.bar", "baz") in ids
     assert make_id("test.properties", "org.example.col.foo", "42") in ids
-    assert make_id("test.properties", "org.example.col.bar", '"baz"') in ids
+    assert make_id("test.properties", "org.example.col.bar", "baz") in ids
     assert (
         make_id("test.properties", "org.example.whitespace.foo", "42") in ids
     )
@@ -131,7 +131,7 @@ def test_parse_properties_file(get_plugin):
         make_id("test.properties", "org.example.whitespace.bar", "42") in ids
     )
     assert (
-        make_id("test.properties", "org.example.whitespace.baz", '"42  "')
+        make_id("test.properties", "org.example.whitespace.baz", "42  ")
         in ids
     )
     assert (

@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
+from typing import List
 from cfgnet.plugins.file_type.json_plugin import JsonPlugin
 from cfgnet.config_types.config_types import ConfigType
 
@@ -19,7 +20,7 @@ from cfgnet.config_types.config_types import ConfigType
 class CypressPlugin(JsonPlugin):
     def __init__(self):
         super().__init__("cypress")
-        self.excluded_keys = []
+        self.excluded_keys: List[str] = []
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("cypress.json"):

@@ -28,16 +28,16 @@ def get_plugin_():
 
 
 def test_is_responsible(get_plugin):
-    nodejs_plugin = get_plugin
+    mysql_plugin = get_plugin
 
-    my_cnf_file = nodejs_plugin.is_responsible(
+    my_cnf_file = mysql_plugin.is_responsible(
         "tests/files/my.cnf"
     )
 
-    my_ini_file = nodejs_plugin.is_responsible(
+    my_ini_file = mysql_plugin.is_responsible(
         "tests/files/my.ini"
     )
-    no_mysql_file = nodejs_plugin.is_responsible(
+    no_mysql_file = mysql_plugin.is_responsible(
         "tests/files/test.json"
     )
 
@@ -47,10 +47,10 @@ def test_is_responsible(get_plugin):
 
 
 def test_parsing_mysql_file_file(get_plugin):
-    nodejs_plugin = get_plugin
+    mysql_plugin = get_plugin
     file = os.path.abspath("tests/files/my.cnf")
 
-    artifact = nodejs_plugin.parse_file(file, "my.cnf")
+    artifact = mysql_plugin.parse_file(file, "my.cnf")
     nodes = artifact.get_nodes()
     ids = sorted(list({node.id for node in nodes}))
 
@@ -67,10 +67,10 @@ def test_parsing_mysql_file_file(get_plugin):
 
 
 def test_config_types(get_plugin):
-    nodejs_plugin = get_plugin
+    mysql_plugin = get_plugin
     file = os.path.abspath("tests/files/my.cnf")
 
-    artifact = nodejs_plugin.parse_file(file, "my.cnf")
+    artifact = mysql_plugin.parse_file(file, "my.cnf")
     nodes = artifact.get_nodes()
 
     password = next(

@@ -201,7 +201,6 @@ def export(
     logger.configure_repo_logger(network.cfg.logfile_path())
 
     if LauncherConfiguration.export_visualize_dot:
-
         logging.info("Visualize the configuration network.")
 
         network.visualize(

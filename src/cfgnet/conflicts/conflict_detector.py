@@ -52,7 +52,6 @@ class ConflictDetector:
         missing_links = ref_network.links.difference(new_network.links)
 
         for link in missing_links:
-
             if enable_all_conflicts:
                 if missing_artifact_conflict := ConflictDetector._detect_missing_artifact(
                     link, new_network

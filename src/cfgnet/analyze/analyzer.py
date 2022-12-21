@@ -99,7 +99,6 @@ class Analyzer:
             raise
 
         finally:
-
             if branch_pre_analysis:
                 # HEAD was a branch, so go back to that branch
                 repo.checkout(branch_pre_analysis)

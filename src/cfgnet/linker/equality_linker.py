@@ -54,7 +54,6 @@ class EqualityLinker(Linker):
         ]
 
     def _find_matches(self, node: ValueNode) -> List[ValueNode]:
-
         target_nodes = self._filter_target_nodes(node)
 
         return [

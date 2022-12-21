@@ -52,7 +52,6 @@ class SpringPlugin(Plugin):
         rel_file_path: str,
         root: Optional[ProjectNode],
     ) -> ArtifactNode:
-
         if abs_file_path.endswith(".yml"):
             artifact = ArtifactNode(
                 file_path=abs_file_path,

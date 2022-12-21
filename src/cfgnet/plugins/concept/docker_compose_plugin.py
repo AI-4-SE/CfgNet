@@ -49,7 +49,6 @@ class DockerComposePlugin(YAMLPlugin):
                 option_port_in.add_child(port_in)
                 option_port_out.add_child(port_out)
             else:
-
                 if len(node.value.split("=")) == 2:
                     self._parse_value_assignment(node=node, parent=parent)
                     return

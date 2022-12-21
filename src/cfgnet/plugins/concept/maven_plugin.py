@@ -110,7 +110,6 @@ class MavenPlugin(Plugin):
             if text:
                 text = text.strip()
                 if text:
-
                     name = self._get_value_name(
                         text=text, config_type=config_type, parent=option
                     )

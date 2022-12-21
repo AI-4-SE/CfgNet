@@ -31,7 +31,6 @@ class TomlPlugin(Plugin):
         self.excluded_keys: List[str] = []
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
-
         artifact = ArtifactNode(
             file_path=abs_file_path,
             rel_file_path=rel_file_path,

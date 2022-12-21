@@ -75,7 +75,6 @@ class Plugin(abc.ABC):
         :returns: artifact node that represents a sub-network of the parsed file
         """
         if self.is_responsible(abs_file_path):
-
             self._warn_if_large_file(abs_file_path)
 
             artifact = self._parse_config_file(

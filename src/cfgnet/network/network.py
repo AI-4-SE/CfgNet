@@ -331,4 +331,8 @@ class Network:
 
         LinkerManager.apply_linkers(network)
 
+        for node in network.get_nodes(node_type=ValueNode):
+            if "docker" in node.id:
+                print(node)
+
         return network

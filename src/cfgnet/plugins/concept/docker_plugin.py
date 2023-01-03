@@ -41,6 +41,8 @@ def parse_env(line: str) -> List[str]:
     line = " ".join(parts)
     values = re.findall(r"((\w+=\"*[\w\-\_ ]*\")|(\w+=\$?\/?\w+))", line)
     values = [v[0].strip() for v in values]
+    if not values:
+        print("Line: ", line)
     return values
 
 
@@ -103,16 +105,20 @@ class DockerPlugin(Plugin):
 
             if cmd.cmd == "ENV":
                 values = parse_env(cmd.original)
-                for value in values:
-                    parts = value.split("=")
-                    env_var_option = OptionNode(
-                        name=parts[0], location=cmd.start_line
-                    )
-                    option.add_child(env_var_option)
-                    value_name = self.check_value_name(parts[1])
-                    value_node = ValueNode(value_name)
-                    self.env_vars[parts[0]] = value_name
-                    env_var_option.add_child(value_node)
+                if values:
+                    print("ENV values: ", values)
+                    for value in values:
+                        parts = value.split("=")
+                        env_var_option = OptionNode(
+                            name=parts[0], location=cmd.start_line
+                        )
+                        print("ENV Option: ", env_var_option)
+                        option.add_child(env_var_option)
+                        value_name = self.check_value_name(parts[1])
+                        value_node = ValueNode(value_name)
+                        self.env_vars[parts[0]] = value_name
+                        env_var_option.add_child(value_node)
+                        print("ENV Value: ", value_node)
 
             elif cmd.cmd in ["CMD", "ENTRYPOINT"]:
                 exec_command = " ".join(cmd.value)

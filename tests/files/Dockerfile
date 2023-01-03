@@ -11,7 +11,7 @@ EXPOSE 1234
 EXPOSE 80/tcp
 EXPOSE 8080/udp
 # EXPOSE 3500/tcp 5005/udp
-
+ENV APP_HOME /usr/src/app
 ENV myName="John Doe" version=42 \
     port=8000
 

@@ -124,4 +124,66 @@ class ConfigType(Enum):
             return ConfigType.VERSION_NUMBER
         if ConfigType.is_java_executable(value):
             return ConfigType.PATH
+
+        return ConfigType.use_pattern(value)
+
+    @staticmethod
+    def use_pattern(value: str) -> "ConfigType":
+        # according to "Determine Configuration Entry Correlations for Web Application Systems"
+        if bool(
+            re.match(
+                r"[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))"
+                r"|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))",
+                value,
+            )
+        ):
+            return ConfigType.TIME
+        if bool(re.match(r"identity|identifier|id|name|uri|jndi", value)):
+            return ConfigType.ID
+        if bool(re.match(r"user|usr", value)):
+            return ConfigType.USERNAME
+        if bool(re.match(r"password|pwd|pass", value)):
+            return ConfigType.PASSWORD
+        if bool(
+            re.match(
+                r"[tT][rR][uU][eE]|[fF][aA][lL][sS][eE][oO][nN]|[oO][fF]{2}"
+                r"|[yYnN][yY][eE][sS][nN][oO]",
+                value,
+            )
+        ):
+            return ConfigType.BOOLEAN
+        if bool(re.match(r"mode|enable|disable", value)):
+            return ConfigType.MODE
+        if bool(re.match(r"[+-]?\\d+[.]?\\d+", value)):
+            return ConfigType.NUMBER
+        if bool(re.match(r"[+-]?\\d+[.]?\\d+", value)):
+            return ConfigType.NUMBER
+        if bool(
+            re.match(
+                r"time|interval|day|month|year|hour|minute|second|millisecond",
+                value,
+            )
+        ):
+            return ConfigType.TIME
+        if bool(re.match(r"size|number|length|max|min|threshold", value)):
+            return ConfigType.TIME
+        if bool(re.match(r"count", value)):
+            return ConfigType.COUNT
+
+        # according to "EnCore: Exploiting System Environment..."
+        if bool(re.match(r"[\d]+[KMGT]", value)):
+            return ConfigType.SIZE
+
+        # according to "ConfTest: Generating Comprehensive Misconfiguration..."
+        if bool(re.match(r"telnet|https|http|ftp", value)):
+            return ConfigType.DOMAIN_NAME
+        if bool(re.match(r"on|off|yes|no|true|false", value)):
+            return ConfigType.BOOLEAN
+        if bool(re.match(r"K|M|G|T|KB|GB|TB|B", value)):
+            return ConfigType.MEMORY
+        if bool(re.match(r"s|min|h|d|ms", value)):
+            return ConfigType.TIME
+        if bool(re.match(r"bps|Mbps|Kbps", value)):
+            return ConfigType.SPEED
+
         return ConfigType.UNKNOWN

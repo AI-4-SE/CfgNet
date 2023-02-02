@@ -19,6 +19,7 @@ import re
 from typing import List, Optional
 import dockerfile
 from cfgnet.config_types.config_types import ConfigType
+from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 from cfgnet.network.nodes import (
     ArtifactNode,
@@ -202,15 +203,15 @@ class DockerPlugin(Plugin):
         if len(parameters) == 1:
             parameters = parameters[0].split(" ")
         for param in parameters:
-            config_type = ConfigType.get_config_type(param)
+            config_type = ConfigTypeInferer.get_config_type("", param)
             option_param = OptionNode(
                 name="param" + str(param_counter),
                 location=option.location,
                 config_type=config_type,
             )
-            option.add_child(option_param)
 
             value = re.sub(r"^(\.)?/", "", param)
+            option.add_child(option_param)
             option_param.add_child(ValueNode(self.check_value_name(value)))
             param_counter += 1
 

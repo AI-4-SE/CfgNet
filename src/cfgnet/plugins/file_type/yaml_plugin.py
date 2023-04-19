@@ -26,6 +26,7 @@ from yaml.reader import ReaderError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.config_types.config_types import ConfigType
+from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 
 class YAMLPlugin(Plugin):
@@ -83,13 +84,13 @@ class YAMLPlugin(Plugin):
         index = 0
         for child in node.value:
             if isinstance(child, MappingNode):
-                virtual_option = OptionNode(
-                    parent.name + "_" + str(index),
+                offset_option = OptionNode(
+                    "offset:" + str(index),
                     node.start_mark.line + 1,
                 )
-                parent.add_child(virtual_option)
+                parent.add_child(offset_option)
 
-                self._iter_tree(child, virtual_option)
+                self._iter_tree(child, offset_option)
                 index += 1
             else:
                 self._iter_tree(child, parent)
@@ -133,6 +134,11 @@ class YAMLPlugin(Plugin):
                 option.add_child(value)
             else:
                 parent.add_child(value)
+
+            if value.config_type == ConfigType.UNKNOWN:
+                value.config_type = ConfigTypeInferer().get_config_type(
+                    option_name=value.parent.name, value=value.name
+                )
 
     # pylint: disable=unused-argument
     def get_config_type(self, option_name: str) -> ConfigType:

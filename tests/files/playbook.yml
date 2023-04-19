@@ -1,0 +1,48 @@
+- name: Update web servers
+  hosts: webservers
+  remote_user: root
+
+  tasks:
+  - name: Ensure apache is at the latest version
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+  - name: Write the apache config file
+    ansible.builtin.template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
+
+- name: Run powershell script
+  hosts: all 
+  tasks:
+    - name: Run powershell script
+      script: /bin/sh
+
+- name: Download simple web site 
+  hosts: all 
+  gather_facts: false
+  tasks:
+    - name: Download simple web
+      win_get_url:
+        url: 'https://test.html'
+        dest: 'C:\user\tm\test.html'
+
+- name: Add a user
+  hosts: all
+  tasks:
+    - name: Add User
+      win_user:
+        name: ansible
+        password: "test123"
+        state: present
+
+- name: Fixture to validate module options pass scenario
+  hosts: localhost
+  tasks:
+    - name: Clone content repository
+      ansible.builtin.git: 
+        repo: https://github.com/ansible/ansible-examples
+        dest: /home/www
+        accept_hostkey: true
+        version: master
+        update: false

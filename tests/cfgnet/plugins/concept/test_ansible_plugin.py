@@ -16,7 +16,7 @@
 import os
 import pytest
 
-from cfgnet.plugins.concept.anisible_plugin import AnsiblePlugin
+from cfgnet.plugins.concept.ansible_plugin import AnsiblePlugin
 from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
 

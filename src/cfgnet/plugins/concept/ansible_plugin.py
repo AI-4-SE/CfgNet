@@ -17,7 +17,7 @@ from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 
 class AnsiblePlugin(ConfigParserPlugin):
     def __init__(self):
-        super().__init__("travis")
+        super().__init__("ansible")
 
     def is_responsible(self, abs_file_path):
         if abs_file_path.endswith("ansible.cfg"):

@@ -48,6 +48,8 @@ class ConfigType(Enum):
     LANGUAGE = auto()
     TYPE = auto()
     MIME = auto()
+    HOST = auto()
+    STATE = auto()
 
     # Booleans
     BOOLEAN = auto()

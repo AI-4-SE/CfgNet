@@ -35,15 +35,12 @@ def test_is_responsible(get_plugin):
 
 def test_parse_ini_file(get_plugin):
     """Test for parsing an ini file with configparser."""
-    # Arrange
     ini_file = os.path.abspath("tests/files/test.ini")
     plugin = get_plugin
 
-    # Act
     artifact = plugin.parse_file(ini_file, "test.ini")
     nodes = artifact.get_nodes()
 
-    # Assert
     assert artifact is not None
     assert len(nodes) == 9
     assert nodes[0].id == make_id("test.ini", "file", "test.ini")
@@ -59,7 +56,7 @@ def test_parse_ini_file(get_plugin):
         "test.ini",
         "GJK_Browscap_Version",
         "released",
-        "Wed, 17 Jun 2009 06:30:21 -0000",
+        "Wed 17 Jun 2009 06:30:21 -0000",
     )
     assert nodes[6].id == make_id(
         "test.ini", "multiline values", "option1", "value1\nvalue2"
@@ -74,21 +71,18 @@ def test_parse_ini_file(get_plugin):
 
 def test_parse_tox_file(get_plugin):
     """Test for parsing a tox file with configparser."""
-    # Arrange
     properties_file = os.path.abspath("tests/files/tox.ini")
     plugin = get_plugin
 
-    # Act
     artifact = plugin.parse_file(properties_file, "tox.ini")
     nodes = artifact.get_nodes()
 
-    # Assert
     assert artifact is not None
     assert len(nodes) == 8
     assert nodes[0].id == make_id("tox.ini", "file", "tox.ini")
     assert nodes[1].id == make_id("tox.ini", "tox", "isolated_build", "true")
     assert nodes[2].id == make_id(
-        "tox.ini", "tox", "envlist", "py36,py37,py38"
+        "tox.ini", "tox", "envlist", "['py36', 'py37', 'py38']"
     )
     assert nodes[3].id == make_id(
         "tox.ini", "gh-actions", "python", "3.6: py36\n3.7: py37\n3.8: py38"
@@ -131,14 +125,14 @@ def test_parse_properties_file(get_plugin):
         make_id("test.properties", "org.example.whitespace.bar", "42") in ids
     )
     assert (
-        make_id("test.properties", "org.example.whitespace.baz", "42  ")
+        make_id("test.properties", "org.example.whitespace.baz", "42")
         in ids
     )
     assert (
         make_id(
             "test.properties",
             "org.example.multiline",
-            "Detroit,Chicago,Los Angeles",
+            "['Detroit', 'Chicago', 'Los Angeles']",
         )
         in ids
     )

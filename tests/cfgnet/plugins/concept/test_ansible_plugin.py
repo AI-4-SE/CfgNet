@@ -42,7 +42,7 @@ def test_is_responsible(get_plugin):
     assert not no_ansible_file
 
 
-def test_parsing_mysql_file_file(get_plugin):
+def test_parsing_ansible_file(get_plugin):
     php_plugin = get_plugin
     file = os.path.abspath("tests/files/ansible.cfg")
 
@@ -80,7 +80,7 @@ def test_config_types(get_plugin):
 
     assert path_node.config_type == ConfigType.PATH
     assert timeout_node.config_type == ConfigType.TIME
-    assert number_node.config_type == ConfigType.PATH
+    assert number_node.config_type == ConfigType.NUMBER
     assert url_node.config_type == ConfigType.URL
     assert user_node.config_type == ConfigType.USERNAME
     assert password_node.config_type == ConfigType.PASSWORD

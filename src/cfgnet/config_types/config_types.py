@@ -20,7 +20,6 @@ class ConfigType(Enum):
     TIME = auto()
     PORT = auto()
     VERSION_NUMBER = auto()
-    MEMORY = auto()
     FRACTION = auto()
     SPEED = auto()
     PERMISSION = auto()

@@ -176,8 +176,6 @@ class DockerComposePlugin(YAMLPlugin):
             return ConfigType.USERNAME
         if any(option_name.endswith(x) for x in ["password"]):
             return ConfigType.PASSWORD
-        if option_name in ("memswap_limit", "shm_size"):
-            return ConfigType.MEMORY
         if option_name == "platform":
             return ConfigType.PLATFORM
         if option_name == "protocol":

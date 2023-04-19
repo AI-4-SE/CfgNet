@@ -21,7 +21,7 @@ from cfgnet.config_types.config_types import ConfigType
 def test_get_config_type():
 
     assert ConfigTypeInferer.get_config_type("port", "8080") == ConfigType.PORT
-    assert ConfigTypeInferer.get_config_type("max_length", "100") == ConfigType.SIZE
+    assert ConfigTypeInferer.get_config_type("max_length", "100") == ConfigType.NUMBER
     assert ConfigTypeInferer.get_config_type("usr", "test") == ConfigType.USERNAME
     assert ConfigTypeInferer.get_config_type("timeout", "10") == ConfigType.TIME
     assert ConfigTypeInferer.get_config_type("file_path", "target/main.jar") == ConfigType.PATH
@@ -29,13 +29,12 @@ def test_get_config_type():
     assert ConfigTypeInferer.get_config_type("ip", "192.168.34.164") == ConfigType.IP_ADDRESS
     assert ConfigTypeInferer.get_config_type("email", "test@gmail.com") == ConfigType.EMAIL
     assert ConfigTypeInferer.get_config_type("speed", "1 bps") == ConfigType.SPEED
-    assert ConfigTypeInferer.get_config_type("memory", "516 GB") == ConfigType.MEMORY
+    assert ConfigTypeInferer.get_config_type("memory", "516 GB") == ConfigType.SIZE
     assert ConfigTypeInferer.get_config_type("artifact_id", "artifact_name") == ConfigType.ID
     assert ConfigTypeInferer.get_config_type("disable_button", "true") == ConfigType.MODE
     assert ConfigTypeInferer.get_config_type("password", "test1234") == ConfigType.PASSWORD
     assert ConfigTypeInferer.get_config_type("count_leafs", "5") == ConfigType.COUNT
     assert ConfigTypeInferer.get_config_type("domain_name", "https://192.168.34.164:8080") == ConfigType.DOMAIN_NAME
-    assert ConfigTypeInferer.get_config_type("language", "DE") == ConfigType.LANGUAGE
     assert ConfigTypeInferer.get_config_type("server_name", "MainServer15") == ConfigType.NAME
     assert ConfigTypeInferer.get_config_type("number", "123123123") == ConfigType.NUMBER
     assert ConfigTypeInferer.get_config_type("version_number", "1.12.12") == ConfigType.VERSION_NUMBER

@@ -40,9 +40,9 @@ class ConfigTypeInferer:
         r"([1-9][0-9]{0,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])"
     )
     regex_size_option = re.compile(
-        r"size|length|max|min|threshold|weight|height"
+        r"size|length|max|min|threshold|weight|height|memory|mem"
     )
-    regex_size_value = re.compile(r"[\d]+ ?[KMGT]*")
+    regex_size_value = re.compile(r"(\d)+ ?(B|KB|MB|GB|TB|PB)+")
     regex_username_option = re.compile(r"user|usr|username")
     regex_username_value = re.compile(r"[a-zA-Z][a-zA-Z0-9_]+")
     regex_time_option = re.compile(
@@ -66,12 +66,10 @@ class ConfigTypeInferer:
     regex_boolean = re.compile(
         r"[tT][rR][uU][eE]|[fF][aA][lL][sS][eE]|[oO][nN]|[oO][fF]{2}|[yY][eE][sS]|[nN][oO]"
     )
-    regex_filename = re.compile(r"\/?[\w_-]+\.[\w_-]+")
+    regex_filename = re.compile(r"\/?[a-zA-z_-]+\.[a-zA-z_-]+")
     regex_email = re.compile(r"^(\w)+(\.\w+)*@(\w)+((\.\w+)+)")
     regex_speed = re.compile(r"[\d]+ ?(bps|Mbps|Kbps)")
-    regex_memory = re.compile(r"[\d]+ ?(K|M|G|T|KB|GB|TB|B)")
-    regex_number = re.compile(r"[\d]+")
-    regex_language = re.compile(r"[a-zA-Z]{2}")
+    regex_number = re.compile(r"[\d.]+")
     regex_id = re.compile(r"identity|identifier|id")
     regex_name = re.compile(r"name|alias")
     regex_mode = re.compile(r"mode|enable|disable")
@@ -153,12 +151,6 @@ class ConfigTypeInferer:
         if bool(re.fullmatch(ConfigTypeInferer.regex_domain_main, value)):
             return ConfigType.DOMAIN_NAME
 
-        if bool(re.fullmatch(ConfigTypeInferer.regex_language, value)):
-            return ConfigType.LANGUAGE
-
-        if bool(re.fullmatch(ConfigTypeInferer.regex_memory, value)):
-            return ConfigType.MEMORY
-
         if bool(re.fullmatch(ConfigTypeInferer.regex_speed, value)):
             return ConfigType.SPEED
 
@@ -198,5 +190,8 @@ class ConfigTypeInferer:
 
         if bool(re.fullmatch(ConfigTypeInferer.regex_boolean, value)):
             return ConfigType.BOOLEAN
+
+        if bool(re.fullmatch(ConfigTypeInferer.regex_size_value, value)):
+            return ConfigType.SIZE
 
         return ConfigType.UNKNOWN

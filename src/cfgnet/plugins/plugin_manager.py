@@ -32,6 +32,11 @@ from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
 from cfgnet.plugins.concept.mysql_plugin import MysqlPlugin
+from cfgnet.plugins.concept.ansible_plugin import AnsiblePlugin
+from cfgnet.plugins.concept.ansible_playbook_plugin import (
+    AnsiblePlaybookPlugin,
+)
+from cfgnet.plugins.concept.postgresql_plugin import PostgreSQLPlugin
 
 
 class PluginManager:
@@ -49,6 +54,9 @@ class PluginManager:
         SpringPlugin(),
         ApacheWebserverPlugin(),
         MysqlPlugin(),
+        AnsiblePlugin(),
+        AnsiblePlaybookPlugin(),
+        PostgreSQLPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

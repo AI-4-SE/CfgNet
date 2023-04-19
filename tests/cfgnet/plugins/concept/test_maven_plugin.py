@@ -94,9 +94,6 @@ def test_config_types(get_plugin):
     artifact = maven_plugin.parse_file(maven_file, "pom.xml")
     nodes = artifact.get_nodes()
 
-    for node in nodes:
-        print(node)
-
     artifactId_node = next(
         filter(
             lambda x: x.id

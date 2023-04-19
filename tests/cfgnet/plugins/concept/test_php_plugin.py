@@ -50,9 +50,6 @@ def test_parsing_mysql_file_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = sorted(list({node.id for node in nodes}))
 
-    for node in nodes:
-        print(node)
-
     assert artifact is not None
     assert len(nodes) == 7
 

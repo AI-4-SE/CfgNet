@@ -50,7 +50,8 @@ class ConfigTypeInferer:
     )
     regex_time_value = re.compile(r"[\d]+ ?(s|min|h|d|ms)*")
     regex_filepath_option = re.compile(r"file|path|dir|directory|folder")
-    regex_filepath_value = re.compile(r"\/?([^\/]+\/)+[^\/]*")
+    # regex_filepath_value = re.compile(r"\/?([^\/]+\/)+[^\/]*")
+    regex_filepath_value = re.compile(r"^([~.\w\d]*\/[.\w\d]+)+(\.[\w\d]+)*$")
     regex_version_number_option = re.compile(r"version|target|source")
     regex_version_number_value = re.compile(
         r"^(\^|~)?(?:[0-9]{1,3}\.){2}[0-9]{1,3}(-[\w]+)?$"

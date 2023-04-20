@@ -29,20 +29,20 @@ def get_plugin_():
 
 
 def test_is_responsible(get_plugin):
-    nodejs_plugin = get_plugin
+    pyproject_plugin = get_plugin
 
-    pyproject_file = nodejs_plugin.is_responsible("tests/files/pyproject.toml")
-    no_pyrpoject_file = nodejs_plugin.is_responsible("tests/files/test.toml")
+    pyproject_file = pyproject_plugin.is_responsible("tests/files/pyproject.toml")
+    no_pyrpoject_file = pyproject_plugin.is_responsible("tests/files/test.toml")
 
     assert pyproject_file
     assert not no_pyrpoject_file
 
 
-def test_parsing_package_json_file(get_plugin):
-    nodejs_plugin = get_plugin
+def test_parse_pyproject_file(get_plugin):
+    pyproject_plugin = get_plugin
     file = os.path.abspath("tests/files/pyproject.toml")
 
-    artifact = nodejs_plugin.parse_file(file, "pyproject.toml")
+    artifact = pyproject_plugin.parse_file(file, "pyproject.toml")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
@@ -132,10 +132,10 @@ def test_parsing_package_json_file(get_plugin):
 
 
 def test_config_types(get_plugin):
-    nodejs_plugin = get_plugin
+    pyproject_plugin = get_plugin
     file = os.path.abspath("tests/files/pyproject.toml")
 
-    artifact = nodejs_plugin.parse_file(file, "pyproject.toml")
+    artifact = pyproject_plugin.parse_file(file, "pyproject.toml")
     nodes = artifact.get_nodes()
 
     url_node = next(filter(lambda x: "homepage" in x.id, nodes))

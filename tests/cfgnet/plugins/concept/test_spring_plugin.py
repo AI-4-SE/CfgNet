@@ -60,7 +60,7 @@ def test_is_responsible(get_plugin):
     assert not no_spring_file
 
 
-def test_parsing_spring_properties_file(get_plugin):
+def test_pars_spring_properties_file(get_plugin):
     spring_plugin = get_plugin
     file = os.path.abspath("tests/files/application.properties")
 
@@ -132,7 +132,7 @@ def test_parsing_spring_properties_file(get_plugin):
     )
 
 
-def test_parsing_spring_yml_file(get_plugin):
+def test_parse_spring_yml_file(get_plugin):
     spring_plugin = get_plugin
     file = os.path.abspath("tests/files/application.yml")
 

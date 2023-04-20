@@ -29,20 +29,20 @@ def get_plugin_():
 
 
 def test_is_responsible(get_plugin):
-    nodejs_plugin = get_plugin
+    cypress_plugin = get_plugin
 
-    cypress_file = nodejs_plugin.is_responsible("tests/files/cypress.json")
-    no_cypress_file = nodejs_plugin.is_responsible("tests/files/package.json")
+    cypress_file = cypress_plugin.is_responsible("tests/files/cypress.json")
+    no_cypress_file = cypress_plugin.is_responsible("tests/files/package.json")
 
     assert cypress_file
     assert not no_cypress_file
 
 
-def test_parsing_package_json_file(get_plugin):
-    nodejs_plugin = get_plugin
+def test_parse_cypress_file(get_plugin):
+    cypress_plugin = get_plugin
     file = os.path.abspath("tests/files/cypress.json")
 
-    artifact = nodejs_plugin.parse_file(file, "cypress.json")
+    artifact = cypress_plugin.parse_file(file, "cypress.json")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
@@ -70,10 +70,10 @@ def test_parsing_package_json_file(get_plugin):
 
 
 def test_config_types(get_plugin):
-    nodejs_plugin = get_plugin
+    cypress_plugin = get_plugin
     file = os.path.abspath("tests/files/cypress.json")
 
-    artifact = nodejs_plugin.parse_file(file, "cypress.json")
+    artifact = cypress_plugin.parse_file(file, "cypress.json")
     nodes = artifact.get_nodes()
 
     url_node = next(

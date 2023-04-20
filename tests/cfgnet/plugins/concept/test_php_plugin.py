@@ -42,7 +42,7 @@ def test_is_responsible(get_plugin):
     assert not no_php_file
 
 
-def test_parsing_mysql_file_file(get_plugin):
+def test_parsing_php_file(get_plugin):
     php_plugin = get_plugin
     file = os.path.abspath("tests/files/php.ini")
 

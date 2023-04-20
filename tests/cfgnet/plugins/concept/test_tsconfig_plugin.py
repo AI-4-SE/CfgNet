@@ -29,25 +29,22 @@ def get_plugin_():
 
 
 def test_is_responsible(get_plugin):
-    nodejs_plugin = get_plugin
+    tsconfig_plugin = get_plugin
 
-    tsconfig_file = nodejs_plugin.is_responsible("tests/files/tsconfig.json")
-    no_tsconfig_file = nodejs_plugin.is_responsible("tests/files/cypress.json")
+    tsconfig_file = tsconfig_plugin.is_responsible("tests/files/tsconfig.json")
+    no_tsconfig_file = tsconfig_plugin.is_responsible("tests/files/cypress.json")
 
     assert tsconfig_file
     assert not no_tsconfig_file
 
 
-def test_parsing_package_json_file(get_plugin):
-    nodejs_plugin = get_plugin
+def test_parse_tsconfig_file(get_plugin):
+    tsconfig_plugin = get_plugin
     file = os.path.abspath("tests/files/tsconfig.json")
 
-    artifact = nodejs_plugin.parse_file(file, "tsconfig.json")
+    artifact = tsconfig_plugin.parse_file(file, "tsconfig.json")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
-
-    for id in ids:
-        print(id)
 
     assert artifact is not None
     assert len(nodes) == 7
@@ -82,10 +79,10 @@ def test_parsing_package_json_file(get_plugin):
 
 
 def test_config_types(get_plugin):
-    nodejs_plugin = get_plugin
+    tsconfig_plugin = get_plugin
     file = os.path.abspath("tests/files/tsconfig.json")
 
-    artifact = nodejs_plugin.parse_file(file, "tsconfig.json")
+    artifact = tsconfig_plugin.parse_file(file, "tsconfig.json")
     nodes = artifact.get_nodes()
 
     boolean_node = next(

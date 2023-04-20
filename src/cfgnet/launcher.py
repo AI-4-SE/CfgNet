@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import logging
+import json
 from typing import List
 import click
 
@@ -217,6 +218,45 @@ def export(
         export_format=LauncherConfiguration.export_format,
         include_unlinked=LauncherConfiguration.export_include_unlinked,
     )
+
+
+@main.command()
+@click.option("-f", "--config-files", multiple=True)
+@click.option("-o", "--output", required=True)
+@add_project_root_argument
+def extract(
+    project_root: str,
+    config_files: List,
+    output: str,
+):
+    """Extract key-value pairs."""
+    project_name = os.path.basename(project_root)
+    logging.info("Extract key-value pairs for %s.", project_name)
+
+    network_configuration = NetworkConfiguration(
+        project_root_abs=os.path.abspath(project_root),
+        config_files=list(config_files),
+        enable_static_blacklist=False,
+        enable_internal_links=False,
+        enable_all_conflicts=False,
+    )
+
+    start = time.time()
+
+    network = Network.init_network(network_configuration)
+
+    key_value_pairs = network.get_pairs()
+
+    output_path = os.path.join(output, "pairs.json")
+
+    logging.info("Store key-value pairs in %s.", output_path)
+
+    with open(output_path, "w", encoding="utf-8") as dest:
+        json.dump(key_value_pairs, dest, sort_keys=True, indent=4)
+
+    completion_time = round((time.time() - start), 2)
+
+    logging.info("Done in [%s s]", str(completion_time))
 
 
 if __name__ == "__main__":

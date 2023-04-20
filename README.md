@@ -3,13 +3,13 @@
 
 # CfgNet
 
-CfgNet is a Python framework that helps developers to detect and track configuration dependencies across the software and technology stack of software projects.
-Due to the tracking mechanism, CfgNet enables the early detection of configuration dependency violations by interpreting the changes in the configuration networks.
+CfgNet is a plugin-based framework for detecting and tracking dependencies among configuration options across the used technology stack of a software project.
+Essentially, CfgNet represents configuration options of configuration artifacts as trees and connects them to build a configuration network, where links between the leaf nodes of a tree correspond to the dependencies between configuration options.
+Our idea is to have a framework in which technology plugins analyze different configuration files (e.g., Dockerfiles or build scripts) and create nodes for configuration options with their user-defined values.
+Linker plugins then connect the nodes in case a dependency exists using a specific linker heuristic.
 
-We envision that CfgNet is used within a Git hook that targets commits to prevent dependency conflicts during the development
-and maintenance of software systems. 
-That is, whenever changes are made, CfgNet checks the changes before the actual commit gets pushed to the repository and reports an
-error if it has detected possible dependency conflicts. 
+We envision that CfgNet is used within a Git hook (e.g., pre-commit hook) to prevent dependency conflicts during the development and maintenance of software systems. 
+That is, whenever changes are made, CfgNet can check the changes before the actual commit gets pushed to the repository and reports a warning if it has detected possible dependency conflicts. 
 This way, developer can check the changes again and even use the information that CfgNet provides to fix the dependency conflicts.
 
 ## Installation
@@ -21,7 +21,7 @@ Please refer to the documentation for further details.
 
 ## Basic Usage
 
-CfgNet provides a method-based command line interface with the commands `init`, `validate`, `export` and `analyze`.
+CfgNet provides a method-based command line interface with the commands `init`, `validate`, `export`, `analyze`, and `extract`.
 Each method requires the `project_root` as option that points towards the root directory of the project on which you want to apply the CfgNet.
 
 To initialize a reference configuration network, use the `init` command.
@@ -60,14 +60,18 @@ When the analysis is finished, all detected configuration conflicts will be stor
 
     cfgnet analyze <project_root>
 
+To extract the key-value pairs of all configuration artifacts within a software project, use the `extract` command. The `extract` command additionally requires an `output` options, which specifies the directory where the key-value pairs are stored using the JSON format. 
+
+    cfgnet extract <project_root> --output=<output>
+
 The commands `init` and `analyze` can be further configured with the following options:
     
     (1) --enable-static-blacklist
     (2) --enable-internal-conflicts
     (3) --enable-all-conflicts
-    (4) --config-files <absolute_file_path>
+    (4) --config-files=<absolute_file_path>
 
-These options enable (1) blacklisted values, which are taken into account when creating links, (2) the detection of conflicts within the same configuration artifact, (3) the detection of all conflict types, and (4) parsing of specific configuration files (e.g., configuration files of the operating machine that are not in the software repository), respectively. The option `--config-files` can be specified multiple times.
+These options enable (1) blacklisted values, which are taken into account when creating links, (2) the detection of conflicts within the same configuration artifact, (3) the detection of all conflict types, and (4) parsing of specific configuration files (e.g., configuration files of the operating machine that are not in the git repository of the software project), respectively. The option `--config-files` can be specified multiple times. The `config-file` option can also be used to configure the `extract` command.
 
 For a documentation of further options run
 

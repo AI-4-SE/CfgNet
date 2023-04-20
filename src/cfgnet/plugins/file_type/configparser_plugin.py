@@ -16,7 +16,7 @@ import configparser
 import logging
 import re
 from collections import OrderedDict
-from typing import List
+from typing import List, Dict
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
@@ -47,6 +47,15 @@ class ConfigParserPlugin(Plugin):
             concept_name=self.concept_name,
             project_root=root,
         )
+
+        with open(abs_file_path, "r", encoding="utf-8") as file:
+            line_dict = {}
+            lineno = 1
+            for line in file:
+                line = line.strip()
+                if len(line) > 0:
+                    line_dict[line] = lineno
+                lineno += 1
 
         with open(abs_file_path, "r", encoding="utf-8") as config_file:
             file_content = config_file.read()
@@ -89,8 +98,13 @@ class ConfigParserPlugin(Plugin):
             if section_name == "dummy_section":
                 parent = artifact
             else:
+                line_number = (
+                    self.get_line_number(
+                        option_name=section_name, line_dict=line_dict
+                    ),
+                )
                 section_node = OptionNode(
-                    section_name, "section: " + section_name
+                    name=section_name, location=line_number
                 )
                 artifact.add_child(section_node)
                 parent = section_node
@@ -99,12 +113,12 @@ class ConfigParserPlugin(Plugin):
                 if option in self.excluded_keys:
                     continue
                 config_type = self.get_config_type(option_name=option)
+                line_number = self.get_line_number(
+                    option_name=option, line_dict=line_dict
+                )
                 option_node = OptionNode(
                     name=option,
-                    location="section: "
-                    + section_name
-                    + ", option: "
-                    + option,
+                    location=line_number,
                     config_type=config_type,
                 )
                 parent.add_child(option_node)
@@ -145,6 +159,21 @@ class ConfigParserPlugin(Plugin):
 
     def is_responsible(self, abs_file_path):
         return re.match(r".*\.(ini|properties)$", abs_file_path)
+
+    def get_line_number(self, option_name: str, line_dict: Dict) -> str:
+        """
+        Get line number from line dictionary.
+
+        :param option_name: option name in line
+        :param line_dict: dictionary of lines
+        :return: line number as string
+        """
+        for line in line_dict.keys():
+            if option_name in line:
+                lineno = line_dict[line]
+                del line_dict[line]
+                return str(lineno)
+        return "Unknown"
 
     # pylint: disable=unused-argument
     def get_config_type(self, option_name: str) -> ConfigType:

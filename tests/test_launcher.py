@@ -51,6 +51,9 @@ def test_commands(get_repo):
 
     with TemporaryDirectory() as export_dir:
 
+        result_extract: Result = runner.invoke(main, ["extract", get_repo.root, f"-o{export_dir}"])
+        assert result_extract.exit_code == 0
+
         json_export_filename = os.path.join(export_dir, "network.json")
         assert not os.path.exists(json_export_filename)
         result_export_json: Result = runner.invoke(

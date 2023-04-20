@@ -52,7 +52,7 @@ def test_is_responsible(get_plugin):
     assert not no_ansible_file
 
 
-def test_parsing_ansible_playbook_file(get_plugin):
+def test_parse_ansible_playbook_file(get_plugin):
     ansible_playbook_plugin = get_plugin
     file = os.path.abspath("tests/files/playbook.yml")
 

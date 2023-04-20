@@ -40,7 +40,7 @@ def test_is_responsible(get_plugin):
     assert not no_travis_file_result
 
 
-def test_parsing_travis_file(get_plugin):
+def test_parse_travis_file(get_plugin):
     travis_plugin = get_plugin
     travis_file = os.path.abspath("tests/files/.travis.yml")
 

@@ -42,7 +42,7 @@ def test_is_responsible(get_plugin):
     assert not no_package_json_file
 
 
-def test_parsing_package_json_file(get_plugin):
+def test_parse_package_json_file(get_plugin):
     nodejs_plugin = get_plugin
     file = os.path.abspath("tests/files/package.json")
 

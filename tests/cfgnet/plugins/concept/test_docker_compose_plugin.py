@@ -46,7 +46,7 @@ def test_is_responsible(get_plugin):
     assert not no_docker_compose
 
 
-def test_parsing_docker_compose_file(get_plugin):
+def test_parse_docker_compose_file(get_plugin):
     docker_compose_plugin = get_plugin
     file = os.path.abspath("tests/files/docker-compose.yml")
 

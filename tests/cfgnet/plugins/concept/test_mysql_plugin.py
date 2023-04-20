@@ -46,7 +46,7 @@ def test_is_responsible(get_plugin):
     assert not no_mysql_file
 
 
-def test_parsing_mysql_file_file(get_plugin):
+def test_parse_mysql_file(get_plugin):
     mysql_plugin = get_plugin
     file = os.path.abspath("tests/files/my.cnf")
 

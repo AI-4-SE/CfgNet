@@ -37,7 +37,7 @@ def test_is_responsible(get_plugin):
     assert not not_apache_webserver_file
 
 
-def test_parse_file(get_plugin):
+def test_parse_apache_webserver_file(get_plugin):
     apache_webserver_plugin = get_plugin
     apache_webserver = os.path.abspath("tests/files/httpd.conf")
 

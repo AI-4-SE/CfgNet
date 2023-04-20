@@ -38,7 +38,7 @@ def test_is_responsible(get_plugin):
     assert not not_maven_file
 
 
-def test_parse_file(get_plugin):
+def test_parse_maven_file(get_plugin):
     maven_plugin = get_plugin
     maven_file = os.path.abspath("tests/files/pom.xml")
     artifact = maven_plugin.parse_file(maven_file, "pom.xml")

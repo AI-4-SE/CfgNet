@@ -42,7 +42,7 @@ def test_is_responsible(get_plugin):
     assert not no_postgresql_file
 
 
-def test_parsing_postgresql_file(get_plugin):
+def test_parse_postgresql_file(get_plugin):
     postgresql_plugin = get_plugin
     file = os.path.abspath("tests/files/postgresql.conf")
 

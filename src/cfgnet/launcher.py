@@ -247,7 +247,9 @@ def extract(
 
     key_value_pairs = network.get_pairs()
 
-    output_path = os.path.join(output, "pairs.json")
+    output_path = os.path.join(
+        output, network_configuration.project_name() + "_options.json"
+    )
 
     logging.info("Store key-value pairs in %s.", output_path)
 

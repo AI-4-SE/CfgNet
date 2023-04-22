@@ -31,9 +31,6 @@ class PostgreSQLPlugin(ConfigParserPlugin):
         """
         Find config type based on option name.
 
-        Option types included from:
-        https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html
-
         :param option_name: name of option
         :return: config type
         """

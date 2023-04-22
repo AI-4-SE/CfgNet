@@ -31,9 +31,79 @@ class MongoDBPlugin(YAMLPlugin):
         Find config type based on option name.
 
         Option types included from:
-        https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html
+        https://www.mongodb.com/docs/v6.0/reference/configuration-options/
 
         :param option_name: name of option
         :return: config type
         """
+        option_name = option_name.lower()
+        if option_name.endswith(
+            (
+                "verbosity",
+                "connections",
+                "level",
+                "retries",
+                "interval",
+                "intervalms",
+                "secs",
+                "hours",
+            )
+        ):
+            return ConfigType.NUMBER
+
+        if option_name.endswith("port"):
+            return ConfigType.PORT
+
+        if option_name.endswith("bindip"):
+            return ConfigType.IP_ADDRESS
+
+        if option_name.endswith(
+            (
+                "thresholdss",
+                "timeoutms",
+                "seconds",
+            )
+        ):
+            return ConfigType.TIME
+
+        if option_name.endswith(
+            (
+                "sizemb",
+                "sizegb",
+            )
+        ):
+            return ConfigType.SIZE
+
+        if option_name.endswith(
+            ("path", "destination", "timezoneinfo", "pathprefix", "file")
+        ):
+            return ConfigType.PATH
+
+        if option_name.endswith(("logrotate", "mode", "compressors")):
+            return ConfigType.MODE
+
+        if option_name.endswith("state"):
+            return ConfigType.STATE
+
+        if option_name.endswith("format"):
+            return ConfigType.PATTERN
+
+        if option_name.endswith("filepermissions"):
+            return ConfigType.PERMISSION
+
+        if option_name.endswith("password"):
+            return ConfigType.PASSWORD
+
+        if option_name.endswith("versions"):
+            return ConfigType.VERSION_NUMBER
+
+        if option_name.endswith("keyidentifier"):
+            return ConfigType.ID
+
+        if option_name.endswith(("name", "configdb")):
+            return ConfigType.NAME
+
+        if option_name.endswith("user"):
+            return ConfigType.USERNAME
+
         return ConfigType.UNKNOWN

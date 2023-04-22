@@ -18,6 +18,7 @@
 from __future__ import annotations
 from typing import List, Any, Optional, Union, TYPE_CHECKING
 from cfgnet.config_types.config_types import ConfigType
+from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 from cfgnet.exceptions.exceptions import NetworkConstructionException
 
 if TYPE_CHECKING:
@@ -225,6 +226,10 @@ class OptionNode(Node):
                 "Option nodes accept option nodes and Value nodes only."
             )
 
+        # if config type is unknown then the child node inherits type from parent
+        if node.config_type == ConfigType.UNKNOWN:
+            node.config_type = self.config_type
+
         if isinstance(node, OptionNode):
             node.display_option_id = (
                 self.display_option_id + "::" + node.display_option_id
@@ -232,9 +237,10 @@ class OptionNode(Node):
 
         if isinstance(node, ValueNode):
             self.prevalue_node = True
-
-        if node.config_type == ConfigType.UNKNOWN:
-            node.config_type = self.config_type
+            if node.config_type == ConfigType.UNKNOWN:
+                node.config_type = ConfigTypeInferer().get_config_type(
+                    option_name=self.name, value=node.name
+                )
 
         super().add_child(node)
 

@@ -37,6 +37,7 @@ from cfgnet.plugins.concept.ansible_playbook_plugin import (
     AnsiblePlaybookPlugin,
 )
 from cfgnet.plugins.concept.postgresql_plugin import PostgreSQLPlugin
+from cfgnet.plugins.concept.mongodb_plugin import MongoDBPlugin
 
 
 class PluginManager:
@@ -57,6 +58,7 @@ class PluginManager:
         AnsiblePlugin(),
         AnsiblePlaybookPlugin(),
         PostgreSQLPlugin(),
+        MongoDBPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

@@ -49,7 +49,9 @@ class ConfigTypeInferer:
         r"time|interval|day|month|year|hour|minute|second|millisecond"
     )
     regex_time_value = re.compile(r"[\d]+ ?(s|min|h|d|ms)*")
-    regex_filepath_option = re.compile(r"file|path|dir|directory|folder")
+    regex_filepath_option = re.compile(
+        r"file|path|dir|directory|folder|destination"
+    )
     # regex_filepath_value = re.compile(r"\/?([^\/]+\/)+[^\/]*")
     regex_filepath_value = re.compile(r"^([~.\w\d]*\/[.\w\d]+)+(\.[\w\d]+)*$")
     regex_version_number_option = re.compile(r"version|target|source")
@@ -72,7 +74,7 @@ class ConfigTypeInferer:
     regex_number = re.compile(r"[\d.]+")
     regex_id = re.compile(r"identity|identifier|id")
     regex_name = re.compile(r"name|alias")
-    regex_mode = re.compile(r"mode|enable|disable")
+    regex_mode = re.compile(r"mode")
     regex_count = re.compile(r"count")
     regex_pattern = re.compile(r"match|pattern")
     regex_environment = re.compile(r"env|environment")

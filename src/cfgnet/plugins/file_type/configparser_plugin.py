@@ -21,7 +21,6 @@ from typing import List, Dict
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.config_types.config_types import ConfigType
-from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 
 class MultiOrderedDict(OrderedDict):
@@ -142,14 +141,6 @@ class ConfigParserPlugin(Plugin):
 
                     value_node = ValueNode(name=value)
                     option_node.add_child(node=value_node)
-
-                    if value_node.config_type == ConfigType.UNKNOWN:
-                        value_node.config_type = (
-                            ConfigTypeInferer().get_config_type(
-                                option_name=value_node.parent.name,
-                                value=value_node.name,
-                            )
-                        )
 
                 else:
                     logging.warning('Empty value in file "%s"', rel_file_path)

@@ -26,7 +26,6 @@ from yaml.reader import ReaderError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.config_types.config_types import ConfigType
-from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 
 class YAMLPlugin(Plugin):
@@ -134,11 +133,6 @@ class YAMLPlugin(Plugin):
                 option.add_child(value)
             else:
                 parent.add_child(value)
-
-            if value.config_type == ConfigType.UNKNOWN:
-                value.config_type = ConfigTypeInferer().get_config_type(
-                    option_name=value.parent.name, value=value.name
-                )
 
     # pylint: disable=unused-argument
     def get_config_type(self, option_name: str) -> ConfigType:

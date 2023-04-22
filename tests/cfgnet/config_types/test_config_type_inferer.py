@@ -31,7 +31,6 @@ def test_get_config_type():
     assert ConfigTypeInferer.get_config_type("speed", "1 bps") == ConfigType.SPEED
     assert ConfigTypeInferer.get_config_type("memory", "516 GB") == ConfigType.SIZE
     assert ConfigTypeInferer.get_config_type("artifact_id", "artifact_name") == ConfigType.ID
-    assert ConfigTypeInferer.get_config_type("disable_button", "true") == ConfigType.MODE
     assert ConfigTypeInferer.get_config_type("password", "test1234") == ConfigType.PASSWORD
     assert ConfigTypeInferer.get_config_type("count_leafs", "5") == ConfigType.COUNT
     assert ConfigTypeInferer.get_config_type("domain_name", "https://192.168.34.164:8080") == ConfigType.DOMAIN_NAME

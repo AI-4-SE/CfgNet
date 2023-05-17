@@ -14,10 +14,12 @@ This way, developer can check the changes again and even use the information tha
 
 ## Installation
 
-Right now the package is not on PyPI.
-To install it, you can either download it from the [releases page][releases] or build it locally.
-Then install either the source distribution or wheel manually.
-Please refer to the documentation for further details.
+CfgNet is a package on PyPI
+
+    pip install cfgnet
+
+You can also build it locally with [poetry](https://python-poetry.org/).
+Please refer to the documentation of poetry for further details.
 
 ## Basic Usage
 

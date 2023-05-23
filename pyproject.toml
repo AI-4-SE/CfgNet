@@ -4,11 +4,11 @@ build-backend = 'poetry.masonry.api'
 
 [tool.poetry]
 name = 'CfgNet'
-version = '1.0.0'
+version = '1.0'
 description = 'A Framework for Tracking Configuration Dependencies Across a Software Project'
 authors = [
-  'Nicolai Ruckel <nicolai.ruckel@uni-weimar.de>',
   'Sebastian Simon <ssimon@informatik.uni-leipzig.de>',
+  'Nicolai Ruckel <nicolai.ruckel@uni-weimar.de>',
   'Jakob Ruckel <jakob.bela.ruckel@uni-weimar.de>'
   ]
 maintainers = [

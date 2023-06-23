@@ -1,0 +1,17 @@
+name: Python package
+on:
+  push:
+    tags:
+      - "v*.*.*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish to pypi
+        uses: coveooss/pypi-publish-with-poetry@v1.0.0
+        with:
+          project-name: cfgnet
+          pypi-token: ${{ secrets.PYPI_TOKEN }}
+      
+

@@ -1,0 +1,149 @@
+cfgnet.plugins.concept package
+==============================
+
+Submodules
+----------
+
+cfgnet.plugins.concept.ansible\_playbook\_plugin module
+-------------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.ansible_playbook_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.ansible\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.ansible_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.apache\_webserver\_plugin module
+-------------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.apache_webserver_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.cypress\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.cypress_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.django\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.django_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.docker\_compose\_plugin module
+-----------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.docker_compose_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.docker\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.docker_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.maven\_plugin module
+-------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.maven_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.mongodb\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.mongodb_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.mysql\_plugin module
+-------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.mysql_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.nodejs\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.nodejs_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.php\_plugin module
+-----------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.php_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.poetry\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.poetry_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.postgresql\_plugin module
+------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.postgresql_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.spring\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.spring_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.travis\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.travis_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.tsconfig\_plugin module
+----------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.tsconfig_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.plugins.concept
+   :members:
+   :undoc-members:
+   :show-inheritance:

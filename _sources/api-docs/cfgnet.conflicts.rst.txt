@@ -1,0 +1,29 @@
+cfgnet.conflicts package
+========================
+
+Submodules
+----------
+
+cfgnet.conflicts.conflict module
+--------------------------------
+
+.. automodule:: cfgnet.conflicts.conflict
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.conflicts.conflict\_detector module
+------------------------------------------
+
+.. automodule:: cfgnet.conflicts.conflict_detector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.conflicts
+   :members:
+   :undoc-members:
+   :show-inheritance:

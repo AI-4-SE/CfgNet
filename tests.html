@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tests &#8212; CfgNet  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Logging" href="logging.html" />
+    <link rel="prev" title="Ignorefile" href="ignorefile.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tests">
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
+<p>Here, we cover all information about how to write tests for this project.</p>
+<section id="aaa-pattern">
+<h2>AAA Pattern<a class="headerlink" href="#aaa-pattern" title="Permalink to this headline">¶</a></h2>
+<p>Software testing is a process across the entire life cycle of software development to ensure the quality of a system under test.
+Among others, this incorporates writing tests, which mainly aims at finding bugs introduced during the development, preventing bugs, and gaining confidence about the software quality.</p>
+<p>One of the most important requirements in writing tests is to keep tests readable and maintainable.
+The specific goal is to avoid flaky, brittle, and expensive tests.</p>
+<p>To achieve this goal, we introduce the <a class="reference external" href="https://jamescooke.info/arrange-act-assert-pattern-for-python-developers.html">Arrange-Act-Assert Pattern</a> for writing tests, which helps to structure test code and keep it clean.
+The pattern suggests dividing test methods into three sections: arrange, act, assert.
+Each one of them is only responsible for the part in which they are named after.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With the introduction of the AAA-Pattern, we expect that whenever the configuration network is extended, new tests will be written to verify the new functionality.</p>
+</div>
+<p>In this section, we describe the guidelines to write tests with using the Arrange-Act-Assert Pattern.</p>
+<section id="definition-of-the-test-method">
+<h3>Definition of the test method<a class="headerlink" href="#definition-of-the-test-method" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>name your method something descriptive because the function name will be
+shown when the test fails</p></li>
+<li><p>good test method names can make docstrings redundant in simple tests</p></li>
+</ul>
+</section>
+<section id="docstrings">
+<h3>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h3>
+<p>Docstrings are not a part of the AAA pattern, but can help to describe the behavior under test.
+Consider if the tests needs one.</p>
+<ul class="simple">
+<li><p>optional short single line</p></li>
+<li><p>follow the existing docstring style</p></li>
+<li><p>state clearly what the expected behavior is: “X does Y when Z” or “Given Z, then X does Y”</p></li>
+</ul>
+</section>
+<section id="arrange">
+<h3>Arrange<a class="headerlink" href="#arrange" title="Permalink to this headline">¶</a></h3>
+<p>The block of code sets up the conditions for the test action.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>if arrangement is to complex: extract arrangement code into a fixture</p></li>
+</ul>
+</section>
+<section id="act">
+<h3>Act<a class="headerlink" href="#act" title="Permalink to this headline">¶</a></h3>
+<p>The block where the action is taken.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>when there is no result from the action, capture result and <code class="code docutils literal notranslate"><span class="pre">assert</span> <span class="pre">result</span> <span class="pre">is</span> <span class="pre">None</span></code></p></li>
+<li><p>if you struggle to write the action, then consider extracting some of the code into the arrangement</p></li>
+<li><p>action can be wrapped in <code class="code docutils literal notranslate"><span class="pre">with</span> <span class="pre">...</span> <span class="pre">raises</span></code> for expected exceptions</p></li>
+</ul>
+</section>
+<section id="assert">
+<h3>Assert<a class="headerlink" href="#assert" title="Permalink to this headline">¶</a></h3>
+<p>The block that performs the assertions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">D</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>first <code class="code docutils literal notranslate"><span class="pre">result</span></code> then side effects</p></li>
+<li><p>use simple blocks of assertions</p></li>
+</ul>
+</section>
+<section id="the-final-test">
+<h3>The final test<a class="headerlink" href="#the-final-test" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+
+<span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">D</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="fixtures">
+<h2>Fixtures<a class="headerlink" href="#fixtures" title="Permalink to this headline">¶</a></h2>
+<p>If the code in the arrangement block becomes too complex, extract code and create fixtures.</p>
+<ul class="simple">
+<li><p>in pytest fixtures are marked with <code class="code docutils literal notranslate"><span class="pre">&#64;pytest.fixtures</span></code></p></li>
+</ul>
+</section>
+<section id="patch-files">
+<h2>Patch files<a class="headerlink" href="#patch-files" title="Permalink to this headline">¶</a></h2>
+<p>To create Git repositories in the test cases where we need to create configuration networks we use patch files.</p>
+<p>First, create a repository and commits that you want to test.
+To generate the patch files, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git format-patch 4b825dc642cb6eb9
+</pre></div>
+</div>
+<p>from within the test repository and move the created <code class="code docutils literal notranslate"><span class="pre">*.patch</span></code> files into <code class="code docutils literal notranslate"><span class="pre">tests/launcher/repo/$YOURSUBFOLDER</span></code>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CfgNet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignorefile.html">Ignorefile</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aaa-pattern">AAA Pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fixtures">Fixtures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#patch-files">Patch files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ignorefile.html" title="previous chapter">Ignorefile</a></li>
+      <li>Next: <a href="logging.html" title="next chapter">Logging</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/tests.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

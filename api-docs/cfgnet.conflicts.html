@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>cfgnet.conflicts package &#8212; CfgNet  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="cfgnet-conflicts-package">
+<h1>cfgnet.conflicts package<a class="headerlink" href="#cfgnet-conflicts-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cfgnet.conflicts.conflict">
+<span id="cfgnet-conflicts-conflict-module"></span><h2>cfgnet.conflicts.conflict module<a class="headerlink" href="#module-cfgnet.conflicts.conflict" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.Conflict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.conflicts.conflict.</span></span><span class="sig-name descname"><span class="pre">Conflict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.conflicts.conflict.Conflict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class for conflicts.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.Conflict.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.Conflict.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conflict count for evaluation.</p>
+<p>ModifiedOptionConflicts are counted as the number of dependents.
+All other conflicts count as one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.Conflict.count_total">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count_total</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conflicts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.conflicts.conflict.Conflict" title="cfgnet.conflicts.conflict.Conflict"><span class="pre">cfgnet.conflicts.conflict.Conflict</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.Conflict.count_total" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total conflict count across a list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.Conflict.is_involved">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.Conflict.is_involved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a node is involved in a conflict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – node that may be involved in a conflict</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if node is involved in a conflict, else false</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.MissingArtifactConflict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.conflicts.conflict.</span></span><span class="sig-name descname"><span class="pre">MissingArtifactConflict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link" title="cfgnet.linker.link.Link"><span class="pre">cfgnet.linker.link.Link</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">missing_artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.conflicts.conflict.MissingArtifactConflict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.conflicts.conflict.Conflict" title="cfgnet.conflicts.conflict.Conflict"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.conflicts.conflict.Conflict</span></code></a></p>
+<p>Conflict that occurs when a linked artifact is missing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.MissingArtifactConflict.is_involved">
+<span class="sig-name descname"><span class="pre">is_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.MissingArtifactConflict.is_involved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a node is involved in a conflict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – node that may be involved in a conflict</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if node is involved in a conflict, else false</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.MissingOptionConflict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.conflicts.conflict.</span></span><span class="sig-name descname"><span class="pre">MissingOptionConflict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link" title="cfgnet.linker.link.Link"><span class="pre">cfgnet.linker.link.Link</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">missing_option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.conflicts.conflict.MissingOptionConflict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.conflicts.conflict.Conflict" title="cfgnet.conflicts.conflict.Conflict"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.conflicts.conflict.Conflict</span></code></a></p>
+<p>Conflict that occurs when a linked option is missing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.MissingOptionConflict.is_involved">
+<span class="sig-name descname"><span class="pre">is_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.MissingOptionConflict.is_involved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a node is involved in a conflict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – node that may be involved in a conflict</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if node is involved in a conflict, else false</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.ModifiedOptionConflict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.conflicts.conflict.</span></span><span class="sig-name descname"><span class="pre">ModifiedOptionConflict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link" title="cfgnet.linker.link.Link"><span class="pre">cfgnet.linker.link.Link</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependent_artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependent_option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependent_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.conflicts.conflict.ModifiedOptionConflict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.conflicts.conflict.Conflict" title="cfgnet.conflicts.conflict.Conflict"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.conflicts.conflict.Conflict</span></code></a></p>
+<p>Conflict that occurs when a linked option has been modified.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.ModifiedOptionConflict.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.conflicts.conflict.ModifiedOptionConflict.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of dependent options.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.ModifiedOptionConflict.is_involved">
+<span class="sig-name descname"><span class="pre">is_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.ModifiedOptionConflict.is_involved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a node is involved in a conflict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – node that may be involved in a conflict</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if node is involved in a conflict, else false</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.ModifiedOptionConflict.update_dependents">
+<span class="sig-name descname"><span class="pre">update_dependents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_conflict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.conflicts.conflict.ModifiedOptionConflict" title="cfgnet.conflicts.conflict.ModifiedOptionConflict"><span class="pre">cfgnet.conflicts.conflict.ModifiedOptionConflict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.ModifiedOptionConflict.update_dependents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add another conflict’s dependent options and artifacts.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.MultiValueConflict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.conflicts.conflict.</span></span><span class="sig-name descname"><span class="pre">MultiValueConflict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link" title="cfgnet.linker.link.Link"><span class="pre">cfgnet.linker.link.Link</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependent_option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependent_artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.conflicts.conflict.MultiValueConflict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.conflicts.conflict.Conflict" title="cfgnet.conflicts.conflict.Conflict"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.conflicts.conflict.Conflict</span></code></a></p>
+<p>Occurs when a linked option with multiple values has been modified.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict.MultiValueConflict.is_involved">
+<span class="sig-name descname"><span class="pre">is_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict.MultiValueConflict.is_involved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a node is involved in a conflict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – node that may be involved in a conflict</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if node is involved in a conflict, else false</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.conflicts.conflict_detector">
+<span id="cfgnet-conflicts-conflict-detector-module"></span><h2>cfgnet.conflicts.conflict_detector module<a class="headerlink" href="#module-cfgnet.conflicts.conflict_detector" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict_detector.ConflictDetector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.conflicts.conflict_detector.</span></span><span class="sig-name descname"><span class="pre">ConflictDetector</span></span><a class="headerlink" href="#cfgnet.conflicts.conflict_detector.ConflictDetector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Static class responsible for conflict detection.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.conflicts.conflict_detector.ConflictDetector.detect">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_network</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">Network</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_network</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">Network</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_all_conflicts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commit_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span></span></span><a class="headerlink" href="#cfgnet.conflicts.conflict_detector.ConflictDetector.detect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect conflicts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ref_network</strong> – Reference network</p></li>
+<li><p><strong>new_network</strong> – Modified network</p></li>
+<li><p><strong>commit_hash</strong> – Commit in which the conflict was detected</p></li>
+<li><p><strong>enable_all_conflicts</strong> – Enable the detection of all conflicts</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of detected conflicts</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.conflicts">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.conflicts" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">CfgNet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ignorefile.html">Ignorefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api-docs/cfgnet.conflicts.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

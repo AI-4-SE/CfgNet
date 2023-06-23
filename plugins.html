@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Plugins &#8212; CfgNet  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Logging" href="logging.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h1>
+<p>Files belonging to configuration concepts like Maven (<code class="code docutils literal notranslate"><span class="pre">pom.xml</span></code>) or Docker (<code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code>) are handled by concept plugins, those, that are identified as (potential) configuration files by their file type (like <code class="code docutils literal notranslate"><span class="pre">.json</span></code> or <code class="code docutils literal notranslate"><span class="pre">.ini</span></code>), by file type plugins.</p>
+<p>These plugins fulfill the same tasks but concept plugins have higher priority when it comes to deciding which plugin is responsible for parsing a certain file.</p>
+<section id="creation-of-new-plugins">
+<h2>Creation of new plugins<a class="headerlink" href="#creation-of-new-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Reading this documentation should help you get started with creating plugins in order to let the tool parse new types of configuration.</p>
+<p>Each plugin inherits from the base class <code class="code docutils literal notranslate"><span class="pre">Plugin</span></code> and must override the abstract methods <code class="code docutils literal notranslate"><span class="pre">_parse_config_file</span></code> and <code class="code docutils literal notranslate"><span class="pre">is_responsible</span></code>.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">_parse_config_file</span></code> method is given a file path and optionally the <code class="code docutils literal notranslate"><span class="pre">project_node</span></code>.
+The method returns an <code class="code docutils literal notranslate"><span class="pre">ArtifactNode</span></code> that will be added to the configuration network.</p>
+<p>For parsing a specific file, a plugin is supposed to create an <code class="code docutils literal notranslate"><span class="pre">ArtifactNode</span></code> for that file, optionally adding it to the <code class="code docutils literal notranslate"><span class="pre">project_node</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">artifact</span> <span class="o">=</span> <span class="n">ArtifactNode</span><span class="p">(</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="n">abs_file_path</span><span class="p">,</span>
+        <span class="n">rel_file_path</span><span class="o">=</span><span class="n">rel_file_path</span><span class="p">,</span>
+        <span class="n">concept_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">concept_name</span><span class="p">,</span>
+        <span class="n">project_root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>For every <code class="code docutils literal notranslate"><span class="pre">ArtifactNode</span></code>, a default option for the file name is added.</p>
+<p>The purpose of <code class="code docutils literal notranslate"><span class="pre">_parse_config_file</span></code> is to extract configuration options and their values from the configuration file.
+Options are created as <code class="code docutils literal notranslate"><span class="pre">OptionNodes</span></code> and are added to the <code class="code docutils literal notranslate"><span class="pre">ArtifactNode</span></code>, while their values are created as <code class="code docutils literal notranslate"><span class="pre">ValueNodes</span></code> and are added to their <code class="code docutils literal notranslate"><span class="pre">OptionNodes</span></code>.</p>
+<p>For example, when parsing the following example file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">sample</span><span class="p">]</span>
+<span class="n">foo</span><span class="o">=</span><span class="mi">42</span>
+<span class="n">bar</span><span class="o">=</span><span class="mi">43</span>
+</pre></div>
+</div>
+<p>The parser for <code class="code docutils literal notranslate"><span class="pre">.ini</span></code> files will produce create following sub-network:</p>
+<img alt="_images/example_subgraph.svg" class="align-center" src="_images/example_subgraph.svg" /><p>To reflect configuration that has sections, children of <code class="code docutils literal notranslate"><span class="pre">OptionNodes</span></code> can also be <code class="code docutils literal notranslate"><span class="pre">OptionNodes</span></code>.
+Moreover, options can specify a configuration type if known.
+Those configuration types are a crucial part of when it comes to link nodes.</p>
+<section id="option-nodes-with-multiple-values">
+<h3>Option Nodes with Multiple Values<a class="headerlink" href="#option-nodes-with-multiple-values" title="Permalink to this headline">¶</a></h3>
+<p>A configuration option can have one or more values, and thus an <code class="code docutils literal notranslate"><span class="pre">OptionNode</span></code> can have one or more <code class="code docutils literal notranslate"><span class="pre">ValueNodes</span></code> as children.</p>
+<p>Note that the detection of conflicts in the configuration will only work for options with a single value.
+It is advised to avoid creating multi-value options in your plugin, and to instead create meaningful sub-options wherever possible.</p>
+<p>For example, Dockerfiles may contain the <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> instruction that takes two parameters (source and destination).
+Instead of creating a <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> <code class="code docutils literal notranslate"><span class="pre">OptionNode</span></code> with the source and destination values as children, the Dockerfile plugin creates a <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> <code class="code docutils literal notranslate"><span class="pre">OptionNode</span></code> that has children named <code class="code docutils literal notranslate"><span class="pre">source</span></code> and <code class="code docutils literal notranslate"><span class="pre">destination</span></code> (these are also <code class="code docutils literal notranslate"><span class="pre">OptionNodes</span></code>), that each have a single <code class="code docutils literal notranslate"><span class="pre">ValueNode</span></code> as a child, containing the values of the <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> command’s source and destination parameters, respectively.</p>
+</section>
+<section id="option-nodes-without-children">
+<h3>Option Nodes without Children<a class="headerlink" href="#option-nodes-without-children" title="Permalink to this headline">¶</a></h3>
+<p>Please keep in mind that we want to maintain our network as lean as possible.
+That means we only want to have nodes in our network that potentially are involved in meaningful configuration conflicts.</p>
+<p>This, in particular, concerns option nodes, that don’t lead to any value nodes.
+Therefore childless option nodes should be removed by the responsible plugin.
+Also keep in mind, that removing such option nodes might result in other childless option nodes that than have to be removed as well.</p>
+</section>
+<section id="value-nodes-with-type-version-number">
+<h3>Value Nodes with type Version Number<a class="headerlink" href="#value-nodes-with-type-version-number" title="Permalink to this headline">¶</a></h3>
+<p>Since we rely on a equality-based linker, we need to modify the name of values nodes with the type <code class="code docutils literal notranslate"><span class="pre">VERSION_NUMBER</span></code>. Otherwise, we would link options that do not depend on each other but share the same version.
+This is often the case in projects that use multiple <code class="code docutils literal notranslate"><span class="pre">pom.xml</span></code> or <code class="code docutils literal notranslate"><span class="pre">package.json</span></code> files. Therefore, when adding value nodes with the type <code class="code docutils literal notranslate"><span class="pre">VERSION_NUMBER</span></code> to the network, we use the following pattern for the name of the node <code class="code docutils literal notranslate"><span class="pre">&lt;parent.name&gt;:&lt;value&gt;</span></code></p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CfgNet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignorefile.html">Ignorefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creation-of-new-plugins">Creation of new plugins</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="logging.html" title="previous chapter">Logging</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/plugins.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

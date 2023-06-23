@@ -1,0 +1,53 @@
+cfgnet.linker package
+=====================
+
+Submodules
+----------
+
+cfgnet.linker.equality\_linker module
+-------------------------------------
+
+.. automodule:: cfgnet.linker.equality_linker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.linker.link module
+-------------------------
+
+.. automodule:: cfgnet.linker.link
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.linker.linker module
+---------------------------
+
+.. automodule:: cfgnet.linker.linker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.linker.linker\_manager module
+------------------------------------
+
+.. automodule:: cfgnet.linker.linker_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.linker.static\_blacklist module
+--------------------------------------
+
+.. automodule:: cfgnet.linker.static_blacklist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.linker
+   :members:
+   :undoc-members:
+   :show-inheritance:

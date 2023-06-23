@@ -1,0 +1,46 @@
+cfgnet package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   cfgnet.analyze
+   cfgnet.config_types
+   cfgnet.conflicts
+   cfgnet.exceptions
+   cfgnet.exporter
+   cfgnet.linker
+   cfgnet.network
+   cfgnet.plugins
+   cfgnet.utility
+   cfgnet.vcs
+
+Submodules
+----------
+
+cfgnet.launcher module
+----------------------
+
+.. automodule:: cfgnet.launcher
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.launcher\_configuration module
+-------------------------------------
+
+.. automodule:: cfgnet.launcher_configuration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Developing &#8212; CfgNet  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Welcome to CfgNet’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="developing">
+<h1>Developing<a class="headerlink" href="#developing" title="Permalink to this headline">¶</a></h1>
+<p>This section contains all the necessary information to run and build the program from source and how to contribute to the project.
+For contributions to the project, please also consider our <a class="reference internal" href="contributing.html#contributing"><span class="std std-ref">contribution guidelines</span></a>.</p>
+<p>If you run into any problems, feel free to create an issue to describe the problem.</p>
+<section id="poetry-quick-start">
+<h2>Poetry Quick Start<a class="headerlink" href="#poetry-quick-start" title="Permalink to this headline">¶</a></h2>
+<p>This section gives you the basic commands to use Poetry to run the project.
+For further information check their documentation.</p>
+<p>You can install the package in a local virtual environment managed by Poetry with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry install
+</pre></div>
+</div>
+<p>After that you can run commands in this environment with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run $yourcommand
+</pre></div>
+</div>
+<p>For example, if you want to initialize the network you run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run cfgnet init $PATH_TO_REPOSITORY
+</pre></div>
+</div>
+<p>where <code class="code docutils literal notranslate"><span class="pre">$PATH_TO_REPOSITORY</span></code> is the path to the root of the repository (i.e.  where <code class="code docutils literal notranslate"><span class="pre">.git</span></code> is).</p>
+</section>
+<section id="building-the-package">
+<h2>Building the package<a class="headerlink" href="#building-the-package" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://python-poetry.org/">Poetry</a> is used to build the package.
+After installing Poetry you can build the project with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry build
+</pre></div>
+</div>
+<p>This will create a source distribution and a wheel in <code class="code docutils literal notranslate"><span class="pre">dist/</span></code>.</p>
+<p>To start developing with the package you need to install <a class="reference external" href="https://python-poetry.org/">Poetry</a> and optionally Make.</p>
+</section>
+<section id="code-style">
+<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/python/black">Black</a> is used for code formatting.
+To format your contributions, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ black src tests
+</pre></div>
+</div>
+</section>
+<section id="makefile">
+<h2>Makefile<a class="headerlink" href="#makefile" title="Permalink to this headline">¶</a></h2>
+<p>This repository also provides a Makefile for convenience.
+The default rule (<code class="code docutils literal notranslate"><span class="pre">install</span></code>) will install the package with Poetry.</p>
+<p>In addition to there are the following rules:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">test</span></code>: Run the tests. Will be checked in CI, too.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">linter</span></code>: Run the linters. Will be checked in CI, too.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">mypy</span></code>: Run mypy. Will be checked in CI, too.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">codeformat</span></code>: Format all source and test files with Black.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">distribution</span></code>: Build the source distribution and wheel packages.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">clean</span></code>: Removes all the local build files. Note that this does not include anything in the virtual environment to prevent conflicts with your Poetry workflow.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CfgNet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#poetry-quick-start">Poetry Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-package">Building the package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#makefile">Makefile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignorefile.html">Ignorefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to CfgNet’s documentation!</a></li>
+      <li>Next: <a href="contributing.html" title="next chapter">Contributing</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/developing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

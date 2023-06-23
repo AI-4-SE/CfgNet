@@ -1,0 +1,38 @@
+cfgnet.plugins package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   cfgnet.plugins.concept
+   cfgnet.plugins.file_type
+
+Submodules
+----------
+
+cfgnet.plugins.plugin module
+----------------------------
+
+.. automodule:: cfgnet.plugins.plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.plugin\_manager module
+-------------------------------------
+
+.. automodule:: cfgnet.plugins.plugin_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.plugins
+   :members:
+   :undoc-members:
+   :show-inheritance:

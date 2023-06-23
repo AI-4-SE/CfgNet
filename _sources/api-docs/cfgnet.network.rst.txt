@@ -1,0 +1,45 @@
+cfgnet.network package
+======================
+
+Submodules
+----------
+
+cfgnet.network.ignorefile module
+--------------------------------
+
+.. automodule:: cfgnet.network.ignorefile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.network.network module
+-----------------------------
+
+.. automodule:: cfgnet.network.network
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.network.network\_configuration module
+--------------------------------------------
+
+.. automodule:: cfgnet.network.network_configuration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.network.nodes module
+---------------------------
+
+.. automodule:: cfgnet.network.nodes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.network
+   :members:
+   :undoc-members:
+   :show-inheritance:

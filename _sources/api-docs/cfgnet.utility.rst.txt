@@ -1,0 +1,21 @@
+cfgnet.utility package
+======================
+
+Submodules
+----------
+
+cfgnet.utility.logger module
+----------------------------
+
+.. automodule:: cfgnet.utility.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.utility
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>cfgnet.config_types package &#8212; CfgNet  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="cfgnet-config-types-package">
+<h1>cfgnet.config_types package<a class="headerlink" href="#cfgnet-config-types-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cfgnet.config_types.config_type_inferer">
+<span id="cfgnet-config-types-config-type-inferer-module"></span><h2>cfgnet.config_types.config_type_inferer module<a class="headerlink" href="#module-cfgnet.config_types.config_type_inferer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.config_types.config_type_inferer.</span></span><span class="sig-name descname"><span class="pre">ConfigTypeInferer</span></span><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The ConfigTypeInferer infers types based on regular expressions.</p>
+<p>The regular expression stem from several research papers:
+- Correlation Explorer, EnCore, COnfTest, ConfVD</p>
+<p>Inferring a config type follows several rules:</p>
+<p>1. First, the option name and value are checked against types for which
+an option name and value regex exists.
+2. Second, the option name or value are checked against specific types
+for which exist only one regular expression.
+3. Lastly, the option name or value checked against general types.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.get_config_type">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">cfgnet.config_types.config_types.ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the option value and return its config type.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_boolean">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_boolean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_boolean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_boolean">
+<span class="sig-name descname"><span class="pre">regex_boolean</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[tT][rR][uU][eE]|[fF][aA][lL][sS][eE]|[oO][nN]|[oO][fF]{2}|[yY][eE][sS]|[nN][oO]')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_boolean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_command">
+<span class="sig-name descname"><span class="pre">regex_command</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('command|entrypoint|cmd|script|bin|install')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_count">
+<span class="sig-name descname"><span class="pre">regex_count</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('count')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_domain_main">
+<span class="sig-name descname"><span class="pre">regex_domain_main</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('(telnet|https|http|ftp)+:\\/\\/(\\w)+((\\.\\w+)+):[\\d]+')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_domain_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_email">
+<span class="sig-name descname"><span class="pre">regex_email</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^(\\w)+(\\.\\w+)*&#64;(\\w)+((\\.\\w+)+)')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_environment">
+<span class="sig-name descname"><span class="pre">regex_environment</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('env|environment')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_environment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filename">
+<span class="sig-name descname"><span class="pre">regex_filename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\/?[a-zA-z_-]+\\.[a-zA-z_-]+')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filepath_option">
+<span class="sig-name descname"><span class="pre">regex_filepath_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('path|dir|directory|folder|destination')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filepath_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filepath_value">
+<span class="sig-name descname"><span class="pre">regex_filepath_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^([~.\\w\\d]*\\/[.\\w\\d]+)+(\\.[\\w\\d]+)*$')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filepath_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_id">
+<span class="sig-name descname"><span class="pre">regex_id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('identity|identifier|id')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_image">
+<span class="sig-name descname"><span class="pre">regex_image</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('image')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_ip_address_option">
+<span class="sig-name descname"><span class="pre">regex_ip_address_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('address|ip')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_ip_address_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_ip_address_value">
+<span class="sig-name descname"><span class="pre">regex_ip_address_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_ip_address_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_license">
+<span class="sig-name descname"><span class="pre">regex_license</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('license')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_license" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_mode">
+<span class="sig-name descname"><span class="pre">regex_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('mode')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_name">
+<span class="sig-name descname"><span class="pre">regex_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('name|alias')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_number">
+<span class="sig-name descname"><span class="pre">regex_number</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\d.]+')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_password_option">
+<span class="sig-name descname"><span class="pre">regex_password_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('password|pwd|pass')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_password_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_password_value">
+<span class="sig-name descname"><span class="pre">regex_password_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('.+')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_password_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_pattern">
+<span class="sig-name descname"><span class="pre">regex_pattern</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('match|pattern')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_port_option">
+<span class="sig-name descname"><span class="pre">regex_port_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('port|listen|expose|in|out')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_port_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_port_value">
+<span class="sig-name descname"><span class="pre">regex_port_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('([1-9][0-9]{0,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_port_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_size_option">
+<span class="sig-name descname"><span class="pre">regex_size_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('size|length|max|min|threshold|weight|height|memory|mem')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_size_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_size_value">
+<span class="sig-name descname"><span class="pre">regex_size_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('(\\d)+</span> <span class="pre">?(B|KB|MB|GB|TB|PB)+')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_size_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_speed">
+<span class="sig-name descname"><span class="pre">regex_speed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\d]+</span> <span class="pre">?(bps|Mbps|Kbps)')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_time_option">
+<span class="sig-name descname"><span class="pre">regex_time_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('time|interval|day|month|year|hour|minute|second|millisecond')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_time_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_time_value">
+<span class="sig-name descname"><span class="pre">regex_time_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[\\d]+</span> <span class="pre">?(s|min|h|d|ms)*')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_time_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_url">
+<span class="sig-name descname"><span class="pre">regex_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('(https|http)+:\\/\\/.*')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_username_option">
+<span class="sig-name descname"><span class="pre">regex_username_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('user|usr|username')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_username_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_username_value">
+<span class="sig-name descname"><span class="pre">regex_username_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[a-zA-Z][a-zA-Z0-9_]+')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_username_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_version_number_option">
+<span class="sig-name descname"><span class="pre">regex_version_number_option</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('version|target|source')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_version_number_option" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_version_number_value">
+<span class="sig-name descname"><span class="pre">regex_version_number_value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^(\\^|~)?(?:[0-9]{1,3}\\.){2}[0-9]{1,3}(-[\\w]+)?$')</span></em><a class="headerlink" href="#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_version_number_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.config_types.config_types">
+<span id="cfgnet-config-types-config-types-module"></span><h2>cfgnet.config_types.config_types module<a class="headerlink" href="#module-cfgnet.config_types.config_types" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.config_types.config_types.</span></span><span class="sig-name descname"><span class="pre">ConfigType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.BOOLEAN">
+<span class="sig-name descname"><span class="pre">BOOLEAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.BOOLEAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.CLASS">
+<span class="sig-name descname"><span class="pre">CLASS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">31</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.CLASS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.COMMAND">
+<span class="sig-name descname"><span class="pre">COMMAND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">21</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.COMMAND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.COUNT">
+<span class="sig-name descname"><span class="pre">COUNT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.COUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.DOMAIN_NAME">
+<span class="sig-name descname"><span class="pre">DOMAIN_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">17</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.DOMAIN_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.EMAIL">
+<span class="sig-name descname"><span class="pre">EMAIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.EMAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.ENVIRONMENT">
+<span class="sig-name descname"><span class="pre">ENVIRONMENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">23</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.ENVIRONMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.FRACTION">
+<span class="sig-name descname"><span class="pre">FRACTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.FRACTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.HOST">
+<span class="sig-name descname"><span class="pre">HOST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">29</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.HOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.IMAGE">
+<span class="sig-name descname"><span class="pre">IMAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.IMAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.IP_ADDRESS">
+<span class="sig-name descname"><span class="pre">IP_ADDRESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.IP_ADDRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.LANGUAGE">
+<span class="sig-name descname"><span class="pre">LANGUAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">26</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.LANGUAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.LICENSE">
+<span class="sig-name descname"><span class="pre">LICENSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">22</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.LICENSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.MIME">
+<span class="sig-name descname"><span class="pre">MIME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">28</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.MIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.MODE">
+<span class="sig-name descname"><span class="pre">MODE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">33</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.MODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.NUMBER">
+<span class="sig-name descname"><span class="pre">NUMBER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PASSWORD">
+<span class="sig-name descname"><span class="pre">PASSWORD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PATH">
+<span class="sig-name descname"><span class="pre">PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PATH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PATTERN">
+<span class="sig-name descname"><span class="pre">PATTERN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PERMISSION">
+<span class="sig-name descname"><span class="pre">PERMISSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PERMISSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PLATFORM">
+<span class="sig-name descname"><span class="pre">PLATFORM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">25</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PLATFORM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PORT">
+<span class="sig-name descname"><span class="pre">PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PORT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.PROTOCOL">
+<span class="sig-name descname"><span class="pre">PROTOCOL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.PROTOCOL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.SIZE">
+<span class="sig-name descname"><span class="pre">SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.SIZE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.SPEED">
+<span class="sig-name descname"><span class="pre">SPEED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.SPEED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.STATE">
+<span class="sig-name descname"><span class="pre">STATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.STATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.TIME">
+<span class="sig-name descname"><span class="pre">TIME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.TYPE">
+<span class="sig-name descname"><span class="pre">TYPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">27</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">34</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.USERNAME">
+<span class="sig-name descname"><span class="pre">USERNAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.USERNAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cfgnet.config_types.config_types.ConfigType.VERSION_NUMBER">
+<span class="sig-name descname"><span class="pre">VERSION_NUMBER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#cfgnet.config_types.config_types.ConfigType.VERSION_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.config_types">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.config_types" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">CfgNet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ignorefile.html">Ignorefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api-docs/cfgnet.config_types.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

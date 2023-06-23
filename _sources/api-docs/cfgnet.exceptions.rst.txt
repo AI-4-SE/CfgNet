@@ -1,0 +1,21 @@
+cfgnet.exceptions package
+=========================
+
+Submodules
+----------
+
+cfgnet.exceptions.exceptions module
+-----------------------------------
+
+.. automodule:: cfgnet.exceptions.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,45 @@
+cfgnet.plugins.file\_type package
+=================================
+
+Submodules
+----------
+
+cfgnet.plugins.file\_type.configparser\_plugin module
+-----------------------------------------------------
+
+.. automodule:: cfgnet.plugins.file_type.configparser_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.file\_type.json\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.file_type.json_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.file\_type.toml\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.file_type.toml_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.file\_type.yaml\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.file_type.yaml_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.plugins.file_type
+   :members:
+   :undoc-members:
+   :show-inheritance:

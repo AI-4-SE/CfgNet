@@ -1,0 +1,29 @@
+cfgnet.vcs package
+==================
+
+Submodules
+----------
+
+cfgnet.vcs.git module
+---------------------
+
+.. automodule:: cfgnet.vcs.git
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.vcs.git\_history module
+------------------------------
+
+.. automodule:: cfgnet.vcs.git_history
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: cfgnet.vcs
+   :members:
+   :undoc-members:
+   :show-inheritance:

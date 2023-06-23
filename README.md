@@ -14,7 +14,7 @@ This way, developer can check the changes again and even use the information tha
 
 ## Installation
 
-CfgNet is a package on PyPI
+CfgNet is a package on PyPI. You can install it with the following command:
 
     pip install cfgnet
 

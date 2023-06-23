@@ -50,7 +50,7 @@ class ConfigTypeInferer:
     )
     regex_time_value = re.compile(r"[\d]+ ?(s|min|h|d|ms)*")
     regex_filepath_option = re.compile(
-        r"file|path|dir|directory|folder|destination"
+        r"path|dir|directory|folder|destination"
     )
     # regex_filepath_value = re.compile(r"\/?([^\/]+\/)+[^\/]*")
     regex_filepath_value = re.compile(r"^([~.\w\d]*\/[.\w\d]+)+(\.[\w\d]+)*$")

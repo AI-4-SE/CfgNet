@@ -224,9 +224,8 @@ class SpringPlugin(Plugin):
         :param name: option name
         :return: ConfigType
         """
-        if any(
-            option_name.endswith(x)
-            for x in [
+        if option_name.endswith(
+            (
                 ".show-sql",
                 ".cache",
                 ".trace",
@@ -253,13 +252,12 @@ class SpringPlugin(Plugin):
                 ".aop.auto",
                 ".proxy-target-class",
                 ".enabled",
-            ]
+            )
         ):
             return ConfigType.BOOLEAN
 
-        if any(
-            option_name.endswith(x)
-            for x in [
+        if option_name.endswith(
+            (
                 "size",
                 ".max-file-size",
                 ".total-size-cap",
@@ -267,31 +265,28 @@ class SpringPlugin(Plugin):
                 ".max-in-memory-size",
                 ".image.height",
                 ".pool.size",
-            ]
+            )
         ):
             return ConfigType.SIZE
 
-        if any(
-            option_name.endswith(x)
-            for x in [
+        if option_name.endswith(
+            (
                 ".max-history",
                 ".image.bitdepth",
                 ".image.margin",
                 ".core-size",
                 ".pool.max-size",
-            ]
+            )
         ):
             return ConfigType.NUMBER
 
-        if any(
-            option_name.endswith(x)
-            for x in [".pattern.dateformat", ".pattern.file", ".pattern.level"]
+        if option_name.endswith(
+            (".pattern.dateformat", ".pattern.file", ".pattern.level")
         ):
             return ConfigType.PATTERN
 
-        if any(
-            option_name.endswith(x)
-            for x in [
+        if option_name.endswith(
+            (
                 "platform",
                 "-name",
                 ".database",
@@ -304,56 +299,53 @@ class SpringPlugin(Plugin):
                 ".active",
                 ".basenames",
                 ".profiles.default",
-            ]
+            )
         ):
             return ConfigType.NAME
 
-        if any(
-            option_name.endswith(x)
-            for x in [
+        if option_name.endswith(
+            (
                 ".location",
                 ".file",
                 ".jdbc.schema",
                 ".config",
                 ".path",
                 ".image",
-            ]
+            )
         ):
             return ConfigType.PATH
 
-        if any(option_name.endswith(x) for x in [".image.pixelmode"]):
+        if option_name.endswith(".image.pixelmode"):
             return ConfigType.MODE
 
-        if any(
-            option_name.endswith(x)
-            for x in [".default-domain", ".host", ".uri", "url"]
+        if option_name.endswith(
+            (".default-domain", ".host", ".uri", "url", "-uri")
         ):
             return ConfigType.URL
 
-        if any(
-            option_name.endswith(x)
-            for x in [
+        if option_name.endswith(
+            (
                 ".timeout-per-shutdown-phase",
                 ".startup-delay",
                 "pool.keep-alive",
                 ".await-termination-period",
-            ]
+            )
         ):
             return ConfigType.TIME
 
-        if any(option_name.endswith(x) for x in [".port"]):
+        if option_name.endswith(".port"):
             return ConfigType.PORT
 
-        if any(option_name.endswith(x) for x in [".username"]):
+        if option_name.endswith(".username"):
             return ConfigType.USERNAME
 
-        if any(option_name.endswith(x) for x in [".password"]):
+        if option_name.endswith(".password"):
             return ConfigType.PASSWORD
 
-        if any(option_name.endswith(x) for x in [".protocol"]):
+        if option_name.endswith(".protocol"):
             return ConfigType.PROTOCOL
 
-        if any(option_name.endswith(x) for x in [".mail"]):
+        if option_name.endswith(".mail"):
             return ConfigType.EMAIL
 
         return ConfigType.UNKNOWN

@@ -96,85 +96,96 @@ class DockerComposePlugin(YAMLPlugin):
 
         if option_name == "version":
             return ConfigType.VERSION_NUMBER
-        if option_name in ("ports", "port", "expose", "PORT", "tmpfs"):
+        if option_name.endswith(("ports", "port", "expose", "PORT", "tmpfs")):
             return ConfigType.PORT
         if option_name == "image":
             return ConfigType.IMAGE
-        if option_name == ("size", "weight", "height"):
+        if option_name.endswith(("size", "weight", "height")):
             return ConfigType.SIZE
-        if option_name in ("path", "file", "env_file"):
+        if option_name.endswith(("path", "env_file")):
             return ConfigType.PATH
         if option_name == "environment":
             return ConfigType.ENVIRONMENT
-        if option_name in ("command", "entrypoint", "test"):
+        if option_name.endswith(("command", "entrypoint", "test")):
             return ConfigType.COMMAND
-        if option_name in (
-            "name",
-            "driver",
-            "labels",
-            "hostname",
-            "cap_add",
-            "cap_drop",
-            "cgroup_parent",
-            "source",
-            "container_name",
-            "depends_on",
-            "registry",
-            "service",
-            "external_links",
+        if option_name.endswith(
+            (
+                "name",
+                "driver",
+                "labels",
+                "hostname",
+                "cap_add",
+                "cap_drop",
+                "cgroup_parent",
+                "source",
+                "container_name",
+                "depends_on",
+                "registry",
+                "service",
+                "external_links",
+                "build",
+            )
         ):
             return ConfigType.NAME
         if option_name == "rate":
             return ConfigType.SPEED
-        if option_name in (
-            "cpu_rt_runtime",
-            "cpu_rt_period",
-            "start_period",
-            "interval",
-            "timeout",
-            "stop_grace_period",
+        if option_name.endswith(
+            (
+                "cpu_rt_runtime",
+                "cpu_rt_period",
+                "start_period",
+                "interval",
+                "timeout",
+                "stop_grace_period",
+            )
         ):
             return ConfigType.TIME
-        if option_name in (
-            "cpu_count",
-            "cpu_shares",
-            "uid",
-            "gid",
-            "retries",
-            "priority",
-            "pids_limit",
-            "sysctls",
+        if option_name.endswith(
+            (
+                "cpu_count",
+                "cpu_shares",
+                "uid",
+                "gid",
+                "retries",
+                "priority",
+                "pids_limit",
+                "sysctls",
+            )
         ):
             return ConfigType.NUMBER
         if option_name == "cpu_percent":
             return ConfigType.FRACTION
-        if option_name in ("external", "disable", "init", "attachable"):
+        if option_name.endswith(("external", "disable", "init", "attachable")):
             return ConfigType.BOOLEAN
-        if option_name in (
-            "mode",
-            "condition",
-            "network_mode",
-            "restart",
-            "userns_mode",
+        if option_name.endswith(
+            (
+                "mode",
+                "condition",
+                "network_mode",
+                "restart",
+                "userns_mode",
+            )
         ):
             return ConfigType.MODE
-        if option_name in (
-            "dns",
-            "ipv4_address",
-            "ipv6_address",
-            "subnet",
-            "link_local_ips",
-            "host_ip",
-            "ip_range",
-            "gateway",
-            "aux_addresses",
+        if option_name.endswith(
+            (
+                "dns",
+                "ipv4_address",
+                "ipv6_address",
+                "subnet",
+                "link_local_ips",
+                "host_ip",
+                "ip_range",
+                "gateway",
+                "aux_addresses",
+            )
         ):
             return ConfigType.IP_ADDRESS
-        if option_name in ("dns_search", "extra_hosts"):
+        if option_name.endswith(("dns_search", "extra_hosts")):
             return ConfigType.URL
-        if any(option_name.endswith(x) for x in ["user", "username"]):
+        if option_name.endswith(("user", "username")):
             return ConfigType.USERNAME
-        if any(option_name.endswith(x) for x in ["password"]):
+        if option_name.endswith(("password", "pwd")):
             return ConfigType.PASSWORD
         if option_name == "platform":
             return ConfigType.PLATFORM

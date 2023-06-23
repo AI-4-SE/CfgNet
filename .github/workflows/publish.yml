@@ -7,11 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Publish to pypi
-        uses: coveooss/pypi-publish-with-poetry@v1.0.0
+      - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v1.17
         with:
-          project-name: cfgnet
-          pypi-token: ${{ secrets.PYPI_TOKEN }}
+          python_version: "3.7.1"
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
       
 

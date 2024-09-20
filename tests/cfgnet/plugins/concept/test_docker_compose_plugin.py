@@ -60,12 +60,12 @@ def test_parse_docker_compose_file(get_plugin):
     assert make_id("docker-compose.yml", "file", "docker-compose.yml") in ids
     assert make_id("docker-compose.yml", "version", "version:3.9") in ids
     assert (
-        make_id("docker-compose.yml", "services", "web", "ports", "in", "5000")
+        make_id("docker-compose.yml", "services", "web", "ports", "host", "8000")
         in ids
     )
     assert (
         make_id(
-            "docker-compose.yml", "services", "web", "ports", "out", "5000"
+            "docker-compose.yml", "services", "web", "ports", "container", "5000"
         )
         in ids
     )
@@ -136,7 +136,7 @@ def test_config_types(get_plugin):
                 "services",
                 "web",
                 "ports",
-                "in",
+                "container",
                 "5000",
             ),
             nodes,

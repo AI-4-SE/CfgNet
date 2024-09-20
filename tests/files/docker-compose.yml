@@ -2,7 +2,7 @@ version: "3.9"  # optional since v1.27.0
 services:
   web:
     ports:
-      - "5000:5000"
+      - "8000:5000"
     init: true
   backend:
     image: /test

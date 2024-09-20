@@ -22,7 +22,7 @@ from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 
 class DockerComposePlugin(YAMLPlugin):
     file_name = re.compile(r"docker-compose(.\w+)?.yml")
-    ports = re.compile(r"(?P<in>[0-9]{4}):(?P<out>[0-9]{4})")
+    ports = re.compile(r"(?P<host>[0-9]{4}):(?P<container>[0-9]{4})")
 
     def __init__(self):
         super().__init__("docker-compose")
@@ -36,13 +36,13 @@ class DockerComposePlugin(YAMLPlugin):
         if node.value != "":
             match = DockerComposePlugin.ports.match(node.value)
             if match is not None:
-                port_in = ValueNode(name=match.group("in"))
-                port_out = ValueNode(name=match.group("out"))
+                port_in = ValueNode(name=match.group("host"))
+                port_out = ValueNode(name=match.group("container"))
                 option_port_in = OptionNode(
-                    "in", node.start_mark.line + 1, ConfigType.PORT
+                    "host", node.start_mark.line + 1, ConfigType.PORT
                 )
                 option_port_out = OptionNode(
-                    "out", node.start_mark.line + 1, ConfigType.PORT
+                    "container", node.start_mark.line + 1, ConfigType.PORT
                 )
                 parent.add_child(option_port_in)
                 parent.add_child(option_port_out)

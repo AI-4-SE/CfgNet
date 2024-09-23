@@ -38,6 +38,8 @@ sphinxcontrib-spelling = "^7.3.2"
 flatdict = "^4.0.1"
 dockerfile = "^3.2.0"
 apacheconfig = "^0.3.2"
+openai = "^1.47.0"
+backoff = "^2.2.1"
 
 [tool.poetry.dev-dependencies]
 black = { version = '*', allow-prereleases = true }

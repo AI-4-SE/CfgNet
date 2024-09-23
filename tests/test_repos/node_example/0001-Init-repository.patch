@@ -6,11 +6,11 @@ Subject: [PATCH 1/2] Init repository
 ---
  package.json      | 7 +++++++
  src/package.json  | 7 +++++++
- test/package.json | 7 +++++++
+ scripts/package.json | 7 +++++++
  3 files changed, 21 insertions(+)
  create mode 100644 package.json
  create mode 100644 src/package.json
- create mode 100644 test/package.json
+ create mode 100644 scripts/package.json
 
 diff --git a/package.json b/package.json
 new file mode 100644
@@ -40,11 +40,11 @@ index 0000000..6221116
 +    }
 +}
 \ No newline at end of file
-diff --git a/test/package.json b/test/package.json
+diff --git a/scripts/package.json b/scripts/package.json
 new file mode 100644
 index 0000000..77b9c99
 --- /dev/null
-+++ b/test/package.json
++++ b/scripts/package.json
 @@ -0,0 +1,7 @@
 +{
 +    "name": "node-src",

@@ -37,6 +37,7 @@ from cfgnet.network.nodes import (
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.exporter.exporter import DotExporter, JSONExporter
+from cfgnet.utility.util import is_test_file
 
 
 class Network:
@@ -299,6 +300,9 @@ class Network:
 
         for file in sorted(tracked_files):
             abs_file_path = os.path.join(cfg.project_root_abs, file)
+
+            if is_test_file(abs_file_path=abs_file_path):
+                continue
 
             plugin = PluginManager.get_responsible_plugin(
                 plugins, abs_file_path

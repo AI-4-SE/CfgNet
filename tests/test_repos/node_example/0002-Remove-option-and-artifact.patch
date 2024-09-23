@@ -5,9 +5,9 @@ Subject: [PATCH 2/2] Remove option and artifact
 
 ---
  src/package.json  | 3 +--
- test/package.json | 7 -------
+ scripts/package.json | 7 -------
  2 files changed, 1 insertion(+), 9 deletions(-)
- delete mode 100644 test/package.json
+ delete mode 100644 scripts/package.json
 
 diff --git a/src/package.json b/src/package.json
 index 6221116..24d7686 100644
@@ -23,10 +23,10 @@ index 6221116..24d7686 100644
      }
  }
 \ No newline at end of file
-diff --git a/test/package.json b/test/package.json
+diff --git a/scripts/package.json b/scripts/package.json
 deleted file mode 100644
 index 77b9c99..0000000
---- a/test/package.json
+--- a/scripts/package.json
 +++ /dev/null
 @@ -1,7 +0,0 @@
 -{

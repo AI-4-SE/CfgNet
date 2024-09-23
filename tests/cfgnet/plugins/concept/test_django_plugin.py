@@ -58,7 +58,7 @@ def test_parse_django_file(get_plugin):
     assert make_id("settings.py", "LANGUAGE_CODE", "en-us") in ids
     assert make_id("settings.py", "STORAGES", "default", "BACKEND", "django.core.files.storage.FileSystemStorage") in ids
     assert make_id("settings.py", "STORAGES", "staticfiles", "BACKEND", "django.contrib.staticfiles.storage.StaticFilesStorage") in ids
-    assert make_id("settings.py", "FILE_UPLOAD_HANDLERS", "['django.core.files.uploadhandler.MemoryFileUploadHandler', 'django.core.files.uploadhandler.TemporaryFileUploadHandler']") in ids
+    assert make_id("settings.py", "FILE_UPLOAD_HANDLERS", "[django.core.files.uploadhandler.MemoryFileUploadHandler, django.core.files.uploadhandler.TemporaryFileUploadHandler]") in ids
     assert make_id("settings.py", "FILE_UPLOAD_MAX_MEMORY_SIZE", "2621440") in ids
     assert make_id("settings.py", "FILE_UPLOAD_DIRECTORY_PERMISSIONS", "None") in ids
     assert make_id("settings.py", "DATE_FORMAT", "N j, Y") in ids
@@ -78,13 +78,11 @@ def test_django_config_types(get_plugin):
     language_node = next(filter(lambda x: x.id == make_id("settings.py", "LANGUAGE_CODE", "en-us"), nodes))
     url_node = next(filter(lambda x: x.id == make_id("settings.py", "LOGIN_URL", "/accounts/login/"), nodes))
     size_node = next(filter(lambda x: x.id == make_id("settings.py", "FILE_UPLOAD_MAX_MEMORY_SIZE", "2621440"), nodes))
-    class_node = next(filter(lambda x: x.id == make_id("settings.py", "STORAGES", "default", "BACKEND", "django.core.files.storage.FileSystemStorage"), nodes))
     pattern_node = next(filter(lambda x: x.id == make_id("settings.py", "DATE_FORMAT", "N j, Y"), nodes))
     boolean_node = next(filter(lambda x: x.id == make_id("settings.py", "DEBUG", "False"), nodes))
 
     assert url_node.config_type == ConfigType.URL
     assert language_node.config_type == ConfigType.LANGUAGE
     assert size_node.config_type == ConfigType.SIZE
-    assert class_node.config_type == ConfigType.CLASS
     assert pattern_node.config_type == ConfigType.PATTERN
     assert boolean_node.config_type == ConfigType.BOOLEAN

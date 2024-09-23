@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import ast
-import logging
 from typing import Optional
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.network.nodes import (
@@ -63,7 +62,7 @@ class DjangoPlugin(Plugin):
 
         settings = {}
 
-        for node in ast.walk(tree):
+        for node in ast.iter_child_nodes(tree):
             if isinstance(node, ast.Assign):
                 if len(node.targets) == 1 and isinstance(
                     node.targets[0], ast.Name
@@ -71,57 +70,33 @@ class DjangoPlugin(Plugin):
                     key = node.targets[0]
                     settings[key] = node.value
 
+            if isinstance(node, ast.AnnAssign):
+                if (
+                    isinstance(node.target, ast.Name)
+                    and node.value is not None
+                ):
+                    key = node.target
+                    settings[key] = node.value
+
         for key, value in settings.items():
-            if isinstance(value, ast.Constant):
-                self.__parse_constant(artifact, key, value)
-            elif isinstance(value, ast.Name):
-                dict_id = value.id
-                match = next(
-                    filter(lambda x: x.id == dict_id, settings.keys())
-                )
-                item = settings[match]
-                if isinstance(item, ast.List):
-                    self.__parse_list(artifact, key, item)
-                else:
-                    logging.warning(
-                        'Failed to parse ast type "%s".', type(value)
-                    )
-            elif isinstance(value, ast.BinOp):
-                self.__parse_operation(artifact, key, value)
-            elif isinstance(value, ast.List):
-                self.__parse_list(artifact, key, value)
-            elif isinstance(value, ast.Dict):
+            if not key.id.isupper():
+                continue
+            if isinstance(value, ast.Dict):
                 self.__parse_dict(artifact, key, value)
             else:
-                logging.warning('Failed to parse ast type "%s".', type(value))
+                self.__parse(artifact, key, value)
 
         return artifact
 
-    def __parse_constant(self, parent, key, value) -> None:
-        config_type = self.get_config_type(option_name=key.id)
+    def __parse(self, parent, key, value) -> None:
+        config_type = self.get_config_type(option_name=ast.unparse(key))
         option_node = OptionNode(
-            name=key.id, location=key.lineno, config_type=config_type
+            name=ast.unparse(key).replace("'", ""),
+            location=key.lineno,
+            config_type=config_type,
         )
         parent.add_child(option_node)
-        value_node = ValueNode(name=ast.literal_eval(value))
-        option_node.add_child(value_node)
-
-    def __parse_operation(self, parent, key, value) -> None:
-        config_type = self.get_config_type(option_name=key.id)
-        option_node = OptionNode(
-            name=key.id, location=key.lineno, config_type=config_type
-        )
-        parent.add_child(option_node)
-        value_node = ValueNode(name=ast.unparse(value))
-        option_node.add_child(value_node)
-
-    def __parse_list(self, parent, key, value) -> None:
-        config_type = self.get_config_type(option_name=key.id)
-        option_node = OptionNode(
-            name=key.id, location=key.lineno, config_type=config_type
-        )
-        parent.add_child(option_node)
-        value_node = ValueNode(name=ast.unparse(value))
+        value_node = ValueNode(name=ast.unparse(value).replace("'", ""))
         option_node.add_child(value_node)
 
     def __parse_dict(self, parent, key, value) -> None:
@@ -135,18 +110,8 @@ class DjangoPlugin(Plugin):
         for option, option_value in zip(value.keys, value.values):
             if isinstance(option_value, ast.Dict):
                 self.__parse_dict(option_node, option, option_value)
-            if isinstance(option_value, ast.Constant):
-                config_type = self.get_config_type(
-                    option_name=ast.literal_eval(option)
-                )
-                sub_option_node = OptionNode(
-                    name=ast.literal_eval(option),
-                    location=key.lineno,
-                    config_type=config_type,
-                )
-                option_node.add_child(sub_option_node)
-                value_node = ValueNode(name=ast.literal_eval(option_value))
-                sub_option_node.add_child(value_node)
+            else:
+                self.__parse(option_node, option, option_value)
 
     # pylint: disable=too-many-return-statements
     def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901

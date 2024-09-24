@@ -36,13 +36,13 @@ class DockerComposePlugin(YAMLPlugin):
         if node.value != "":
             match = DockerComposePlugin.ports.match(node.value)
             if match is not None:
-                port_in = ValueNode(name=match.group("host"))
-                port_out = ValueNode(name=match.group("container"))
+                port_in = ValueNode(name=match.group("in"))
+                port_out = ValueNode(name=match.group("out"))
                 option_port_in = OptionNode(
-                    "host", node.start_mark.line + 1, ConfigType.PORT
+                    "in", node.start_mark.line + 1, ConfigType.PORT
                 )
                 option_port_out = OptionNode(
-                    "container", node.start_mark.line + 1, ConfigType.PORT
+                    "out", node.start_mark.line + 1, ConfigType.PORT
                 )
                 parent.add_child(option_port_in)
                 parent.add_child(option_port_out)

@@ -1,19 +1,19 @@
 from dataclasses import dataclass
-from typing import Optional
 from cfgnet.linker.link import Link
+
 
 @dataclass
 class Dependency:
     project: str
     option_name: str
-    option_file: str 
+    option_file: str
     option_value: str
     option_type: str
     option_technology: str
     dependent_option_name: str
     dependent_option_value: str
     dependent_option_type: str
-    dependent_option_file: str 
+    dependent_option_file: str
     dependent_option_technology: str
 
 

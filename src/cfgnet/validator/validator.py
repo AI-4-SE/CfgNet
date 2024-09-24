@@ -1,10 +1,15 @@
 import os
-import backoff
 import logging
 import json
-from openai import OpenAI, RateLimitError, APIError, APIConnectionError, Timeout
 from typing import List
-from collections import Counter
+import backoff
+from openai import (
+    OpenAI,
+    RateLimitError,
+    APIError,
+    APIConnectionError,
+    Timeout,
+)
 from cfgnet.validator.prompts import Templates
 from cfgnet.conflicts.conflict import Conflict
 from cfgnet.utility.util import transform
@@ -12,29 +17,32 @@ from cfgnet.utility.util import transform
 
 class Validator:
     def __init__(self) -> None:
-        self.model_name= "gpt-4o-mini-2024-07-18"
-        self.temperature = 0.4
-        self.max_tokens = 250
-        self.repetition = 3
+        self.model_name = os.getenv("MODEL_NAME", "gpt-4o-mini-2024-07-18")
+        self.temperature = os.getenv("TEMPERATURE", "0.4")
+        self.max_tokens = os.getenv("MAX_TOKENS", "250")
         self.templates = Templates()
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    @backoff.on_exception(backoff.expo, (RateLimitError, APIError, APIConnectionError, Timeout, Exception), max_tries=5)
+    @backoff.on_exception(
+        backoff.expo,
+        (RateLimitError, APIError, APIConnectionError, Timeout, Exception),
+        max_tries=5,
+    )
     def generate(self, messages: List) -> str:
         response = self.client.chat.completions.create(
-            model=self.model_name, 
-            messages=messages,        
-            temperature=self.temperature,
+            model=self.model_name,
+            messages=messages,
+            temperature=float(self.temperature),
             response_format={"type": "json_object"},
-            max_tokens=self.max_tokens
+            max_tokens=int(self.max_tokens),
         )
-    
+
         response_content = response.choices[0].message.content
 
         if not response or len(response_content.strip()) == 0:
             logging.error("Response content was empty.")
-        
-        return response_content
+
+        return json.loads(response_content, strict=False)
 
     def validate(self, conflict: Conflict) -> bool:
         """
@@ -43,11 +51,15 @@ class Validator:
         :param conflict: detected dependency conflict.
         :return: true if dependency else false.
         """
-        logging.info("Validate dependency conflict.")
+        logging.info(
+            "Validate detected dependency conflicts with %s", {self.model_name}
+        )
 
         dependency = transform(link=conflict.link)
 
-        system_prompt = self.templates.system.format(project=dependency.project)
+        system_prompt = self.templates.system.format(
+            project=dependency.project
+        )
         format_str = self.templates.format.format()
         task_prompt = self.templates.task.format(
             nameA=dependency.option_name,
@@ -66,18 +78,9 @@ class Validator:
 
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
+            {"role": "user", "content": user_prompt},
         ]
 
-        dependency_counter = Counter
-        for _ in range(self.repetition):
-            response = self.generate(messages=messages)
-            dependency_counter[response["isDependency"]] += 1
+        response = self.generate(messages=messages)
 
-        dominant_is_dependency = dependency_counter.most_common(1)[0][0]
-
-        return dominant_is_dependency
-
-
-
-    
+        return response["isDependency"]

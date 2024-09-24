@@ -3,8 +3,9 @@ import sys
 import time
 import logging
 import json
-import click
 from typing import List, Optional
+import click
+from dotenv import load_dotenv
 from cfgnet.utility import logger
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
@@ -94,11 +95,12 @@ def init(
 @main.command()
 @add_project_root_argument
 @click.option("-l", "--with_llm", is_flag=False)
-@click.option("-e", "--env_file", )
+@click.option(
+    "-e",
+    "--env_file",
+)
 def validate(
-    project_root: str, 
-    with_llm: bool,
-    env_file: Optional[str] = None
+    project_root: str, with_llm: bool, env_file: Optional[str] = None
 ):
     """Validate a reference network against a new network."""
     project_name = os.path.basename(project_root)
@@ -120,25 +122,34 @@ def validate(
     detected_conflicts = sum((conflict.count() for conflict in conflicts))
 
     logging.error(
-        "Detected %s configuration conflicts", str(detected_conflicts)
+        "Detected %s configuration conflicts.", str(detected_conflicts)
     )
 
-    completion_time = round((time.time() - start), 2)
-
-    logging.info("Done in [%s s]", completion_time)
-
     if with_llm:
-
         load_dotenv(dotenv_path=env_file)
         validator = Validator()
 
-        for conflict in conflicts:
-            if validator.validate(conflict):
-                print(conflict)
-    else:
-        for conflict in conflicts:
+        validated_conflicts = [
+            conflict for conflict in conflicts if validator.validate(conflict)
+        ]
+
+        logging.error(
+            "Validated %s configuration conflicts as correct.",
+            str(len(validated_conflicts)),
+        )
+
+        completion_time = round((time.time() - start), 2)
+        logging.info("Done in [%s s].", completion_time)
+
+        for conflict in validated_conflicts:
             print(conflict)
 
+    else:
+        completion_time = round((time.time() - start), 2)
+        logging.info("Done in [%s s].", completion_time)
+
+        for conflict in conflicts:
+            print(conflict)
 
     sys.exit(1)
 

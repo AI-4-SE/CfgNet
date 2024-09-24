@@ -36,6 +36,9 @@ the `validate` command. Detected dependency conflicts will be displayed on scree
 
     cfgnet validate <project_root>
 
+To additionally validate the detected dependency conflicts with an LLM to prevent false warnings, you need to run the `validate` command with the flag `--with_llm` and the path of the env file `--env_file`. In the `.env` file, you need to specify at least the OpenAI api key as follows: `OPENAI_API_KEY=<your-openai-api-key>`. You can further define the `MODEL_NAME`, `TEMPERATURE`, and `MAX_TOKENS`. Otherwise the default values will be used.
+
+    cfgnet validate --with_llm --env_file=<path-to-env-file> <project_root>
 
 To export the reference network for visualization, use the `export` command.
 The `export` command additionally requires a `output` and `format` option.

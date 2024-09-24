@@ -3,15 +3,15 @@ import sys
 import time
 import logging
 import json
-from typing import List
 import click
-
+from typing import List, Optional
 from cfgnet.utility import logger
 from cfgnet.network.network import Network
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.launcher_configuration import LauncherConfiguration
 from cfgnet.analyze.analyzer import Analyzer
 from cfgnet.linker.linker_manager import LinkerManager
+from cfgnet.validator.validator import Validator
 
 
 add_project_root_argument = click.argument(
@@ -93,7 +93,13 @@ def init(
 
 @main.command()
 @add_project_root_argument
-def validate(project_root: str):
+@click.option("-l", "--with_llm", is_flag=False)
+@click.option("-e", "--env_file", )
+def validate(
+    project_root: str, 
+    with_llm: bool,
+    env_file: Optional[str] = None
+):
     """Validate a reference network against a new network."""
     project_name = os.path.basename(project_root)
     logging.info("Validate configuration network for %s.", project_name)
@@ -102,8 +108,6 @@ def validate(project_root: str):
 
     ref_network = Network.load_network(project_root=project_root)
     logger.configure_repo_logger(ref_network.cfg.logfile_path())
-
-    # TODO Network should configure LinkerManager with list of enabled linkers
 
     conflicts, new_network = ref_network.validate()
 
@@ -123,9 +127,18 @@ def validate(project_root: str):
 
     logging.info("Done in [%s s]", completion_time)
 
-    print()
-    for conflict in conflicts:
-        print(conflict)
+    if with_llm:
+
+        load_dotenv(dotenv_path=env_file)
+        validator = Validator()
+
+        for conflict in conflicts:
+            if validator.validate(conflict):
+                print(conflict)
+    else:
+        for conflict in conflicts:
+            print(conflict)
+
 
     sys.exit(1)
 

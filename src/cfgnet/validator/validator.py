@@ -4,6 +4,7 @@ import logging
 import json
 from openai import OpenAI, RateLimitError, APIError, APIConnectionError, Timeout
 from typing import List
+from collections import Counter
 from cfgnet.validator.prompts import Templates
 from cfgnet.conflicts.conflict import Conflict
 from cfgnet.utility.util import transform
@@ -11,16 +12,16 @@ from cfgnet.utility.util import transform
 
 class Validator:
     def __init__(self) -> None:
-        self.model_name= os.getenv("MODEL_NAME", default="gpt-4o-mini-2024-07-18")
-        self.temperature = os.getenv("TEMPERATURE", default=0.4)
-        self.max_tokens = os.getenv("TEMPERATURE", default=250)
+        self.model_name= "gpt-4o-mini-2024-07-18"
+        self.temperature = 0.4
+        self.max_tokens = 250
+        self.repetition = 3
         self.templates = Templates()
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     @backoff.on_exception(backoff.expo, (RateLimitError, APIError, APIConnectionError, Timeout, Exception), max_tries=5)
     def generate(self, messages: List) -> str:
-        client = OpenAI(api_key=os.getenv("OPENAI_KEY"))
-        
-        response = client.chat.completions.create(
+        response = self.client.chat.completions.create(
             model=self.model_name, 
             messages=messages,        
             temperature=self.temperature,
@@ -31,12 +32,19 @@ class Validator:
         response_content = response.choices[0].message.content
 
         if not response or len(response_content.strip()) == 0:
-            logging.eror("Response content was empty.")
+            logging.error("Response content was empty.")
         
         return response_content
 
     def validate(self, conflict: Conflict) -> bool:
-        
+        """
+        Validate whether the underlying dependency is a true dependency for a detected conflict.
+
+        :param conflict: detected dependency conflict.
+        :return: true if dependency else false.
+        """
+        logging.info("Validate dependency conflict.")
+
         dependency = transform(link=conflict.link)
 
         system_prompt = self.templates.system.format(project=dependency.project)
@@ -61,12 +69,15 @@ class Validator:
             {"role": "user", "content": user_prompt}
         ]
 
-        # TODO: Add multi-aggregation
-        response = self.generate(messages=messages)
+        dependency_counter = Counter
+        for _ in range(self.repetition):
+            response = self.generate(messages=messages)
+            dependency_counter[response["isDependency"]] += 1
 
-        
-        
-        dependency
+        dominant_is_dependency = dependency_counter.most_common(1)[0][0]
+
+        return dominant_is_dependency
+
 
 
     

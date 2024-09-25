@@ -127,6 +127,10 @@ def test_config_types(get_plugin):
 
     artifact = docker_compose_plugin.parse_file(file, "docker-compose.yml")
     nodes = artifact.get_nodes()
+    
+    for node in nodes:
+        print(node)
+
 
     port_node = next(
         filter(

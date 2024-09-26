@@ -80,28 +80,20 @@ def test_enable_internal_links(get_config):
     config.enable_internal_links = True
     network = Network.init_network(cfg=config)
 
-    for node in network.get_nodes(node_type=ValueNode):
-        if "Dockerfile" in node.id:
-            print("Node: ", node, node.config_type)
-
-    for link in network.links:
-        print("=======================")
-        print("Link: ", link)
-        print(f"{link.node_a.config_type}<->{link.node_b.config_type}")
-
     expected_links = {
         "app.jar",
         "target/example-app-1.0.jar",
         "pom.xml",
         "builder",
-        "version:5.9",
+        "monitoring",
+        "5.9"
     }
 
     link_targets = {
         str(link).rsplit("::::", maxsplit=1)[-1] for link in network.links
     }
-
-    assert len(network.links) == 5
+    
+    assert len(network.links) == 6
     assert expected_links == link_targets
 
 

@@ -98,98 +98,71 @@ class MavenPlugin(Plugin):
         return False
 
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
-        name = self._get_option_name(subtree_root)
+        name = subtree_root.tag
+
         if name:
-            config_type = self.get_config_type(name)
-            option = OptionNode(name, subtree_root.sourceline, config_type)
-            parent_node.add_child(option)
+            if name in ["dependencies", "plugins"]:
+                config_type = self.get_config_type(name)
+                option = OptionNode(name, subtree_root.sourceline, config_type)
+                parent_node.add_child(option)
 
-            self._add_attribs(subtree_root, option)
+                self._parse_artifacts(subtree_root, option)
 
-            text = subtree_root.text
-            if text:
-                text = text.strip()
-                if text:
-                    name = self._get_value_name(
-                        text=text, config_type=config_type, parent=option
-                    )
+            else:
+                config_type = self.get_config_type(name)
+                option = OptionNode(name, subtree_root.sourceline, config_type)
+                parent_node.add_child(option)
 
-                    value_node = ValueNode(name=name)
+                value_name = subtree_root.text.strip()
+
+                if value_name:
+                    value_node = ValueNode(name=value_name)
                     option.add_child(value_node)
-
-            for child in subtree_root:
-                if child.tag is not ET.Comment:
-                    self.parse_tree(child, option)
+                else:
+                    for child in subtree_root:
+                        if child.tag is not ET.Comment:
+                            self.parse_tree(child, option)
 
             # remove option nodes without children
             if not option.children:
                 parent_node.children.remove(option)
 
-    @staticmethod
-    def _add_attribs(subtree_root: _Element, current_node: OptionNode):
-        current_attribs = subtree_root.attrib
-        for key in current_attribs:
-            config_type = MavenPlugin.get_config_type(key)
-            option = OptionNode(key, subtree_root.sourceline, config_type)
-            current_node.add_child(option)
-            value = current_attribs[key]
-
-            name = MavenPlugin._get_value_name(
-                text=value, config_type=config_type, parent=option
-            )
-
-            value_node = ValueNode(name=name)
-            option.add_child(value_node)
-
-    # pylint: disable=too-many-return-statements
-    @staticmethod
-    def _get_option_name(current_item: _Element) -> str:
-        """
-        Construct a name for an option node to avoid ambiguous option nodes.
-
-        :param current_item: lxml etree element that should be inserted as an option node
-        :return: constructed name
-        """
-        id_element = current_item.find("id")
-        if id_element is not None:
-            if id_element.text is not None:
-                return current_item.tag + "_" + id_element.text
-
-        artifact_id = current_item.find("artifactId")
-        if artifact_id is not None:
-            if artifact_id.text is not None:
-                return current_item.tag + "_" + artifact_id.text
-
-        if current_item.tag in TAGS_CONTAINING_LISTS:
-            if current_item.text is not None:
-                return current_item.tag + "_" + current_item.text
-
-        return current_item.tag
-
-    @staticmethod
-    def _get_value_name(
-        text: str, config_type: ConfigType, parent: OptionNode
-    ) -> str:
-        """Create name for value name."""
-        if any(x in parent.id for x in ["dependencies", "plugins"]):
-            if parent.parent:
-                option_parts = parent.parent.name.split("_")
-                if len(option_parts) == 2:
-                    option_name = option_parts[-1]
-                else:
-                    option_name = parent.name
-                name = (
-                    f"{option_name}:{text}"
-                    if config_type == ConfigType.VERSION_NUMBER
-                    else text
+    def _parse_artifacts(self, subtree: _Element, current_node: OptionNode):
+        """Parse Maven artifacts."""
+        for child in subtree:
+            if child.tag in ["dependency", "plugin"]:
+                qualified_name = self._get_fully_qualified_name(child)
+                config_type = self.get_config_type(qualified_name)
+                option_node = OptionNode(
+                    name=qualified_name,
+                    location=child.sourceline,
+                    config_type=config_type,
                 )
-        else:
-            name = (
-                f"{parent.name}:{text}"
-                if config_type == ConfigType.VERSION_NUMBER
-                else text
-            )
-        return name
+                current_node.add_child(option_node)
+
+                for element in child:
+                    self.parse_tree(
+                        subtree_root=element, parent_node=option_node
+                    )
+
+    # pylint: disable=invalid-name
+    def _get_fully_qualified_name(self, subtree: _Element) -> str:
+        """Get fully qualified name for Maven artifacts."""
+        artifactID = None
+        groupID = None
+        version = None
+        for child in subtree:
+            if child.tag == "artifactId":
+                artifactID = child.text
+            if child.tag == "groupId":
+                groupID = child.text
+            if child.tag == "version":
+                version = child.text
+
+        if version:
+            return f"{groupID}:{artifactID}:{version}"
+
+        return f"{groupID}:{artifactID}"
 
     def _add_executable_name(self, artifact: ArtifactNode) -> None:
         try:
@@ -306,6 +279,7 @@ class MavenPlugin(Plugin):
             return "jar", None
 
     @staticmethod
+    # pylint: disable=too-many-return-statements
     def get_config_type(option_name: str) -> ConfigType:
         """
         Get config type based on the option name.

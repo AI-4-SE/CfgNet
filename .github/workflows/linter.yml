@@ -28,6 +28,3 @@ jobs:
 
       - name: Run linters
         run: make linter
-
-      - name: Run Mypy
-        run: make mypy

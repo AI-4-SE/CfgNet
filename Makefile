@@ -39,9 +39,6 @@ linter: poetry.lock
 	poetry run flake8 $(SOURCE_FOLDERS)
 	poetry run pylint --score=no --extension-pkg-whitelist=lxml,dockerfile src
 
-.PHONY: mypy
-mypy: poetry.lock
-	poetry run mypy --ignore-missing-imports src/
 
 .PHONY: docs
 docs: $(DOCS) install

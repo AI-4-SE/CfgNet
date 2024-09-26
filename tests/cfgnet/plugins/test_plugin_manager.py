@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 17
+    assert len(all_plugins) == 18
 
 
 def test_get_responsible_plugin():
@@ -62,6 +62,7 @@ def test_get_responsible_plugin():
     mongodb_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/mongod.conf")
     django_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/settings.py")
     zookeeper_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/zoo.cfg")
+    alluxio_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/alluxio-site.properties")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -80,3 +81,4 @@ def test_get_responsible_plugin():
     assert mongodb_plugin.concept_name == "mongodb"
     assert django_plugin.concept_name == "django"
     assert zookeeper_plugin.concept_name == "zookeeper"
+    assert alluxio_plugin.concept_name == "alluxio"

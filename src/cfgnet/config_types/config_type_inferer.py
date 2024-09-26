@@ -35,7 +35,7 @@ class ConfigTypeInferer:
 
     regex_password_option = re.compile(r"password|pwd|pass")
     regex_password_value = re.compile(r".+")
-    regex_port_option = re.compile(r"port|listen|expose|in|out")
+    regex_port_option = re.compile(r"ports|port|listen|expose|in|out")
     regex_port_value = re.compile(
         r"([1-9][0-9]{0,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])"
     )
@@ -93,6 +93,8 @@ class ConfigTypeInferer:
     ) -> ConfigType:
         """Check the option value and return its config type."""
         # Check option name and value against types for which an option name and value regex exists.
+        option_name = option_name.split(".")[-1]
+
         if bool(
             re.match(ConfigTypeInferer.regex_port_option, option_name)
         ) and bool(re.fullmatch(ConfigTypeInferer.regex_port_value, value)):

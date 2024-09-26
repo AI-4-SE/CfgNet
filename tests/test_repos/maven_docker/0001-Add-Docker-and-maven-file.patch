@@ -49,8 +49,8 @@ index 0000000..ddcc1c2
 +          </dependency>
 +
 +          <dependency>
-+            <groupId>selenium</groupId>
-+            <artifactId>selenium_artifact</artifactId>
++            <groupId>test</groupId>
++            <artifactId>monitoring</artifactId>
 +            <version>5.9</version>
 +          </dependency>
 +

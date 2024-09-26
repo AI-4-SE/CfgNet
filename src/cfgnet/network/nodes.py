@@ -44,7 +44,7 @@ class Node:
 
     """
 
-    def __init__(self, name: str, parent: Node = None):
+    def __init__(self, name: str, parent: Optional[Node] = None):
         self.name: str = name
         self.parent: Optional[Node] = parent
         self.children: List[Any] = []

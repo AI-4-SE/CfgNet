@@ -24,8 +24,8 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = '^3.8'
-mypy = "^0.910"
+python = '>=3.8,<3.12'
+mypy = "1.2"
 lxml = "^4.6.3"
 GitPython = "^3.1.24"
 click = "^8.0.3"

@@ -39,6 +39,7 @@ from cfgnet.plugins.concept.ansible_playbook_plugin import (
 from cfgnet.plugins.concept.postgresql_plugin import PostgreSQLPlugin
 from cfgnet.plugins.concept.mongodb_plugin import MongoDBPlugin
 from cfgnet.plugins.concept.django_plugin import DjangoPlugin
+from cfgnet.plugins.concept.zookeeper_plugin import ZookeeperPlugin
 
 
 class PluginManager:
@@ -61,6 +62,7 @@ class PluginManager:
         PostgreSQLPlugin(),
         MongoDBPlugin(),
         DjangoPlugin(),
+        ZookeeperPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

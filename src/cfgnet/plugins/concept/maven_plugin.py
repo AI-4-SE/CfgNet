@@ -113,17 +113,18 @@ class MavenPlugin(Plugin):
                 option = OptionNode(name, subtree_root.sourceline, config_type)
                 parent_node.add_child(option)
 
-                value_name = subtree_root.text.strip()
+                text = subtree_root.text
+                if text:
+                    text = text.strip()
+                    if text:
+                        value_node = ValueNode(name=text)
+                        option.add_child(value_node)
 
-                if value_name:
-                    value_node = ValueNode(name=value_name)
-                    option.add_child(value_node)
-                else:
-                    for child in subtree_root:
-                        if child.tag is not ET.Comment:
-                            self.parse_tree(child, option)
+                for child in subtree_root:
+                    if child.tag is not ET.Comment:
+                        self.parse_tree(child, option)
 
-            # remove option nodes without children
+                # remove option nodes without children
             if not option.children:
                 parent_node.children.remove(option)
 

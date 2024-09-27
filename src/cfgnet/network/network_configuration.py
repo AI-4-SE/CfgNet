@@ -11,6 +11,7 @@ class NetworkConfiguration:
     enable_static_blacklist: bool
     enable_internal_links: bool
     enable_all_conflicts: bool
+    system_level: bool
     # Path to CfgNet data directory relative to project_root
     cfgnet_path_rel: str = ".cfgnet"
     # List of names of enabled linkers

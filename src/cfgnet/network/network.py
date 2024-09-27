@@ -37,7 +37,7 @@ from cfgnet.network.nodes import (
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.exporter.exporter import DotExporter, JSONExporter
-from cfgnet.utility.util import is_test_file
+from cfgnet.utility.util import is_test_file, get_system_files
 
 
 class Network:
@@ -291,6 +291,10 @@ class Network:
         if cfg.config_files:
             tracked_files.update(cfg.config_files)
 
+        if cfg.system_level:
+            system_files = get_system_files()
+            tracked_files.update(system_files)
+
         project_name = cfg.project_name()
         root = ProjectNode(name=project_name, root_dir=cfg.project_root_abs)
         network = Network(project_name=project_name, root=root, cfg=cfg)
@@ -308,6 +312,7 @@ class Network:
                 plugins, abs_file_path
             )
             if plugin:
+                print("File to parse: ", abs_file_path)
                 try:
                     plugin.parse_file(
                         abs_file_path=abs_file_path,

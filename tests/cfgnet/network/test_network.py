@@ -43,7 +43,8 @@ def get_config_(get_repo):
         project_root_abs=os.path.abspath(get_repo.root),
         enable_static_blacklist=False,
         enable_internal_links=False,
-        enable_all_conflicts=False
+        enable_all_conflicts=False,
+        system_level=False
     )
 
     return network_configuration

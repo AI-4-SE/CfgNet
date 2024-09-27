@@ -37,6 +37,7 @@ def get_config_(get_repo):
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        system_level=False
     )
 
     return network_configuration
@@ -49,6 +50,7 @@ def get_config_all_conflicts_(get_repo):
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=True,
+        system_level=False
     )
 
     return network_configuration

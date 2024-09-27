@@ -42,7 +42,7 @@ class ConfigTypeInferer:
     regex_size_option = re.compile(
         r"size|length|max|min|threshold|weight|height|memory|mem"
     )
-    regex_size_value = re.compile(r"(\d)+ ?(B|KB|MB|GB|TB|PB)+")
+    regex_size_value = re.compile(r"(\d)+ ?(B|KB|MB|GB|TB|PB)?")
     regex_username_option = re.compile(r"user|usr|username")
     regex_username_value = re.compile(r"[a-zA-Z][a-zA-Z0-9_]+")
     regex_time_option = re.compile(
@@ -108,7 +108,7 @@ class ConfigTypeInferer:
             return ConfigType.USERNAME
 
         if bool(
-            re.search(ConfigTypeInferer.regex_size_option, option_name)
+            re.match(ConfigTypeInferer.regex_size_option, option_name)
         ) and bool(re.fullmatch(ConfigTypeInferer.regex_size_value, value)):
             return ConfigType.SIZE
 
@@ -125,12 +125,12 @@ class ConfigTypeInferer:
             return ConfigType.PASSWORD
 
         if bool(
-            re.search(ConfigTypeInferer.regex_filepath_option, option_name)
+            re.match(ConfigTypeInferer.regex_filepath_option, option_name)
         ) or bool(re.fullmatch(ConfigTypeInferer.regex_filepath_value, value)):
             return ConfigType.PATH
 
         if bool(
-            re.search(
+            re.match(
                 ConfigTypeInferer.regex_version_number_option, option_name
             )
         ) or bool(
@@ -139,7 +139,7 @@ class ConfigTypeInferer:
             return ConfigType.VERSION_NUMBER
 
         if bool(
-            re.search(ConfigTypeInferer.regex_ip_address_option, option_name)
+            re.match(ConfigTypeInferer.regex_ip_address_option, option_name)
         ) or bool(
             re.fullmatch(ConfigTypeInferer.regex_ip_address_value, value)
         ):

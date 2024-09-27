@@ -1,0 +1,30 @@
+<configuration>
+    <!-- Set the default filesystem -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://namenode.example.com:9000</value>
+        <description>The name of the default file system. It can be HDFS, file:///, etc.</description>
+    </property>
+
+    <!-- Set the temporary directory for Hadoop -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/var/lib/hadoop/tmp</value>
+        <description>A base for other temporary directories.</description>
+    </property>
+
+    <!-- Hadoop I/O Buffer Size -->
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>131072</value>
+        <description>Buffer size for Hadoop I/O operations in bytes (128KB).</description>
+    </property>
+
+    <!-- Set Hadoop RPC timeout -->
+    <property>
+        <name>ipc.client.connect.timeout</name>
+        <value>30000</value>
+        <description>Set the RPC timeout in milliseconds.</description>
+    </property>
+
+</configuration>

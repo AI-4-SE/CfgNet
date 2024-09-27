@@ -21,7 +21,7 @@ from cfgnet.config_types.config_types import ConfigType
 def test_get_config_type():
 
     assert ConfigTypeInferer.get_config_type("port", "8080") == ConfigType.PORT
-    assert ConfigTypeInferer.get_config_type("max_length", "100") == ConfigType.NUMBER
+    assert ConfigTypeInferer.get_config_type("max_length", "100") == ConfigType.SIZE
     assert ConfigTypeInferer.get_config_type("usr", "test") == ConfigType.USERNAME
     assert ConfigTypeInferer.get_config_type("timeout", "10") == ConfigType.TIME
     assert ConfigTypeInferer.get_config_type("file_path", "target/main.jar") == ConfigType.PATH
@@ -38,6 +38,7 @@ def test_get_config_type():
     assert ConfigTypeInferer.get_config_type("number", "123123123") == ConfigType.NUMBER
     assert ConfigTypeInferer.get_config_type("version_number", "1.12.12") == ConfigType.VERSION_NUMBER
     assert ConfigTypeInferer.get_config_type("test", "true") == ConfigType.BOOLEAN
+    assert ConfigTypeInferer.get_config_type("io.file.buffer.size", "131072") == ConfigType.SIZE
 
 
 def test_file_paths():

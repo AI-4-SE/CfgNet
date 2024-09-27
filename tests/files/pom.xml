@@ -7,6 +7,10 @@
   <version>42</version>
   <packaging>jar</packaging>
 
+  <parent>
+		<relativePath/> 
+	</parent>
+
   <dependencyManagement>
     <dependencies>
       <dependency>

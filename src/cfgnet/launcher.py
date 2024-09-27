@@ -52,6 +52,7 @@ def main(verbose: bool):
 @click.option("-b", "--enable-static-blacklist", is_flag=True)
 @click.option("-i", "--enable-internal-links", is_flag=True)
 @click.option("-c", "--enable-all-conflicts", is_flag=True)
+@click.option("-s", "--system_level", is_flag=False)
 @click.option("-f", "--config-files", multiple=True)
 @add_project_root_argument
 @add_enable_linker_option
@@ -60,6 +61,7 @@ def init(
     enable_static_blacklist: bool,
     enable_internal_links: bool,
     enable_all_conflicts: bool,
+    system_level: bool,
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
@@ -76,6 +78,7 @@ def init(
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
         enable_all_conflicts=enable_all_conflicts,
+        system_level=system_level,
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
     logger.configure_repo_logger(network_configuration.logfile_path())
@@ -135,6 +138,7 @@ def validate(project_root: str):
 @click.option("-i", "--enable-internal-links", is_flag=True)
 @click.option("-c", "--enable-all-conflicts", is_flag=True)
 @click.option("-f", "--config-files", multiple=True)
+@click.option("-s", "--system_level", multiple=True)
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
@@ -146,6 +150,7 @@ def analyze(
     enable_linker: List[str],
     disable_linker: List[str],
     config_files: List,
+    system_level: bool,
 ):
     """Run self-evaluating analysis of commit history."""
     project_name = os.path.basename(project_root)
@@ -159,6 +164,7 @@ def analyze(
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
         enable_all_conflicts=enable_all_conflicts,
+        system_level=system_level,
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
     logger.configure_repo_logger(network_configuration.logfile_path())
@@ -223,11 +229,10 @@ def export(
 @main.command()
 @click.option("-f", "--config-files", multiple=True)
 @click.option("-o", "--output", required=True)
+@click.option("-f", "--system_level", is_flag=False)
 @add_project_root_argument
 def extract(
-    project_root: str,
-    config_files: List,
-    output: str,
+    project_root: str, config_files: List, output: str, system_level: bool
 ):
     """Extract key-value pairs."""
     project_name = os.path.basename(project_root)
@@ -239,6 +244,7 @@ def extract(
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        system_level=system_level,
     )
 
     start = time.time()

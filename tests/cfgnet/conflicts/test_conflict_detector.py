@@ -38,6 +38,7 @@ def get_maven_docker_networks():
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        system_level=False
     )
     ref_network = Network.init_network(cfg=network_configuration)
 
@@ -60,6 +61,7 @@ def get_docker_networks():
         enable_static_blacklist=False,
         enable_internal_links=True,
         enable_all_conflicts=False,
+        system_level=False
     )
     ref_network = Network.init_network(cfg=network_configuration)
 
@@ -82,6 +84,7 @@ def get_port_db_networks():
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        system_level=False
     )
     ref_network = Network.init_network(cfg=network_configuration)
 
@@ -104,6 +107,7 @@ def get_nodejs_networks():
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=True,
+        system_level=False
     )
     ref_network = Network.init_network(cfg=network_configuration)
 
@@ -126,6 +130,7 @@ def get_networks_equally_changed():
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        system_level=False
     )
     ref_network = Network.init_network(cfg=network_configuration)
 

@@ -1,0 +1,30 @@
+<configuration>
+    <!-- Default block replication factor -->
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+        <description>Default block replication. Number of copies of each block in HDFS.</description>
+    </property>
+
+    <!-- HDFS block size -->
+    <property>
+        <name>dfs.blocksize</name>
+        <value>134217728</value>
+        <description>Block size in bytes. Default is 128MB.</description>
+    </property>
+
+    <!-- NameNode HTTP address -->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>namenode.example.com:50070</value>
+        <description>HTTP address for the NameNode.</description>
+    </property>
+
+    <!-- DataNode data storage directories -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///var/lib/hadoop/hdfs/datanode</value>
+        <description>Directory where the DataNodes store the blocks.</description>
+    </property>
+
+</configuration>

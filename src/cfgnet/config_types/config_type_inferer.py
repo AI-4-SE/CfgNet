@@ -125,7 +125,7 @@ class ConfigTypeInferer:
             return ConfigType.PASSWORD
 
         if bool(
-            re.match(ConfigTypeInferer.regex_filepath_option, option_name)
+            re.search(ConfigTypeInferer.regex_filepath_option, option_name)
         ) or bool(re.fullmatch(ConfigTypeInferer.regex_filepath_value, value)):
             return ConfigType.PATH
 

@@ -42,6 +42,7 @@ from cfgnet.plugins.concept.django_plugin import DjangoPlugin
 from cfgnet.plugins.concept.zookeeper_plugin import ZookeeperPlugin
 from cfgnet.plugins.concept.alluxio_plugin import AlluxioPlugin
 from cfgnet.plugins.concept.hadoop_common_plugin import HadoopCommonPlugin
+from cfgnet.plugins.concept.hadoop_hdfs_plugin import HadoopHdfsPlugin
 
 
 class PluginManager:
@@ -67,6 +68,7 @@ class PluginManager:
         ZookeeperPlugin(),
         AlluxioPlugin(),
         HadoopCommonPlugin(),
+        HadoopHdfsPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

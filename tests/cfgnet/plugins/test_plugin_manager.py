@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 19
+    assert len(all_plugins) == 20
 
 
 def test_get_responsible_plugin():
@@ -64,6 +64,7 @@ def test_get_responsible_plugin():
     zookeeper_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/zoo.cfg")
     alluxio_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/alluxio-site.properties")
     hadoop_common_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/core-site.xml")
+    hadoop_hdfs_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/hdfs-site.xml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -84,3 +85,4 @@ def test_get_responsible_plugin():
     assert zookeeper_plugin.concept_name == "zookeeper"
     assert alluxio_plugin.concept_name == "alluxio"
     assert hadoop_common_plugin.concept_name == "hadoop-common"
+    assert hadoop_hdfs_plugin.concept_name == "hadoop-hdfs"

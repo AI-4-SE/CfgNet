@@ -108,7 +108,7 @@ class ConfigTypeInferer:
             return ConfigType.USERNAME
 
         if bool(
-            re.match(ConfigTypeInferer.regex_size_option, option_name)
+            re.search(ConfigTypeInferer.regex_size_option, option_name)
         ) and bool(re.fullmatch(ConfigTypeInferer.regex_size_value, value)):
             return ConfigType.SIZE
 

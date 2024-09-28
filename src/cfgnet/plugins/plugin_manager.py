@@ -31,6 +31,7 @@ from cfgnet.plugins.concept.apache_webserver_plugin import (
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
+from cfgnet.plugins.file_type.hadoop_plugin import HadoopPlugin
 from cfgnet.plugins.concept.mysql_plugin import MysqlPlugin
 from cfgnet.plugins.concept.ansible_plugin import AnsiblePlugin
 from cfgnet.plugins.concept.ansible_playbook_plugin import (
@@ -41,9 +42,11 @@ from cfgnet.plugins.concept.mongodb_plugin import MongoDBPlugin
 from cfgnet.plugins.concept.django_plugin import DjangoPlugin
 from cfgnet.plugins.concept.zookeeper_plugin import ZookeeperPlugin
 from cfgnet.plugins.concept.alluxio_plugin import AlluxioPlugin
+
 from cfgnet.plugins.concept.hadoop_common_plugin import HadoopCommonPlugin
 from cfgnet.plugins.concept.hadoop_hdfs_plugin import HadoopHdfsPlugin
 from cfgnet.plugins.concept.hadoop_hbase_plugin import HadoopHbasePlugin
+from cfgnet.plugins.concept.yarn_plugin import YarnPlugin
 
 
 class PluginManager:
@@ -71,12 +74,14 @@ class PluginManager:
         HadoopCommonPlugin(),
         HadoopHdfsPlugin(),
         HadoopHbasePlugin(),
+        YarnPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [
         ConfigParserPlugin(),
         YAMLPlugin(),
         TomlPlugin(),
+        HadoopPlugin(),
     ]
 
     @staticmethod

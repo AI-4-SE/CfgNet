@@ -1,0 +1,31 @@
+<configuration>
+
+    <!-- Set the ResourceManager hostname -->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>resourcemanager.example.com</value>
+        <description>The hostname of the ResourceManager.</description>
+    </property>
+
+    <!-- ResourceManager address -->
+    <property>
+        <name>yarn.resourcemanager.address</name>
+        <value>resourcemanager.example.com:8032</value>
+        <description>Address of the ResourceManager IPC service.</description>
+    </property>
+
+    <!-- NodeManager resource memory allocation -->
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>8192</value>
+        <description>Amount of physical memory (in MB) available for containers on each NodeManager.</description>
+    </property>
+
+    <!-- NodeManager resource CPU allocation -->
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>4</value>
+        <description>Number of virtual CPU cores available for containers on each NodeManager.</description>
+    </property>
+
+</configuration>

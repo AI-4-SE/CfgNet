@@ -55,17 +55,17 @@ def test_parse_package_json_file(get_plugin):
 
     assert make_id("package.json", "file", "package.json") in ids
     assert make_id("package.json", "name", "node-js-sample") in ids
-    assert make_id("package.json", "version", "version:0.2.0") in ids
+    assert make_id("package.json", "version", "0.2.0") in ids
     assert make_id("package.json", "main", "index.js") in ids
     assert make_id("package.json", "license", "ISC") in ids
 
     assert make_id("package.json", "scripts", "start", "node index.js") in ids
     assert (
-        make_id("package.json", "dependencies", "express", "express:^4.13.3")
+        make_id("package.json", "dependencies", "express", "^4.13.3")
         in ids
     )
     assert (
-        make_id("package.json", "devDependencies", "nodemon", "nodemon:^1.1.1")
+        make_id("package.json", "devDependencies", "nodemon", "^1.1.1")
         in ids
     )
     assert (
@@ -104,7 +104,7 @@ def test_config_types(get_plugin):
         filter(
             lambda x: x.id
             == make_id(
-                "package.json", "dependencies", "express", "express:^4.13.3"
+                "package.json", "dependencies", "express", "^4.13.3"
             ),
             nodes,
         )

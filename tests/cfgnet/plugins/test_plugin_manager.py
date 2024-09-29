@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 22
+    assert len(all_plugins) == 23
 
 
 def test_get_responsible_plugin():
@@ -67,6 +67,7 @@ def test_get_responsible_plugin():
     hadoop_hdfs_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/hdfs-site.xml")
     hadoop_hbase_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/hbase-site.xml")
     yarn_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/yarn-site.xml")
+    elasticsearch_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/elasticsearch.yml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -90,3 +91,4 @@ def test_get_responsible_plugin():
     assert hadoop_hdfs_plugin.concept_name == "hadoop-hdfs"
     assert hadoop_hbase_plugin.concept_name == "hadoop-hbase"
     assert yarn_plugin.concept_name == "yarn"
+    assert elasticsearch_plugin.concept_name == "elasticsearch"

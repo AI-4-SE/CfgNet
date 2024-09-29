@@ -47,6 +47,7 @@ from cfgnet.plugins.concept.hadoop_common_plugin import HadoopCommonPlugin
 from cfgnet.plugins.concept.hadoop_hdfs_plugin import HadoopHdfsPlugin
 from cfgnet.plugins.concept.hadoop_hbase_plugin import HadoopHbasePlugin
 from cfgnet.plugins.concept.yarn_plugin import YarnPlugin
+from cfgnet.plugins.concept.elastisearch_plugin import ElasticsearchPlugin
 
 
 class PluginManager:
@@ -75,6 +76,7 @@ class PluginManager:
         HadoopHdfsPlugin(),
         HadoopHbasePlugin(),
         YarnPlugin(),
+        ElasticsearchPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

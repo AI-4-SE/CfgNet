@@ -1,0 +1,33 @@
+# Cluster name
+cluster.name: my-cluster
+
+# Node name
+node.name: node-1
+
+# Node role (e.g., master, data, ingest)
+# For a data and ingest node
+node.master: true
+node.data: true
+node.ingest: true
+
+# Path to data and logs
+path.data: /var/lib/elasticsearch/data
+path.logs: /var/log/elasticsearch
+
+# Network host - Bind the node to a specific network interface
+network.host: 0.0.0.0
+
+# Port for HTTP communication (REST API)
+http.port: 9200
+
+# Discovery settings for the cluster
+discovery.seed_hosts: ["es-node1.example.com", "es-node2.example.com"]
+cluster.initial_master_nodes: ["es-node1.example.com", "es-node2.example.com"]
+
+# Enable or disable HTTP access
+http.enabled: true
+
+# Set the memory limits (heap size)
+# Set in the JVM options, not here (but shown for reference)
+# -Xms2g
+# -Xmx2g

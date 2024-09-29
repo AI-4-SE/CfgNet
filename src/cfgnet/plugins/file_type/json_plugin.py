@@ -121,22 +121,13 @@ class JsonPlugin(Plugin):
                     parent.add_child(virtual_option)
 
                     if isinstance(parent, OptionNode):
-                        name = (
-                            f"{parent.name}:{item}"
-                            if parent.config_type == ConfigType.VERSION_NUMBER
-                            else item
-                        )
-
+                        name = item
                         value = ValueNode(name=name)
                         virtual_option.add_child(value)
 
         else:
             if not isinstance(parent, ArtifactNode):
-                name = (
-                    f"{parent.name}:{json_object}"
-                    if parent.config_type == ConfigType.VERSION_NUMBER
-                    else json_object
-                )
+                name = json_object
                 value = ValueNode(name=name)
 
                 parent.add_child(value)

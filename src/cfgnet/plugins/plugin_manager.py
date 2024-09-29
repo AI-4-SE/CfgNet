@@ -49,6 +49,7 @@ from cfgnet.plugins.concept.hadoop_hbase_plugin import HadoopHbasePlugin
 from cfgnet.plugins.concept.yarn_plugin import YarnPlugin
 from cfgnet.plugins.concept.elastisearch_plugin import ElasticsearchPlugin
 from cfgnet.plugins.concept.kafka_plugin import KafkaPlugin
+from cfgnet.plugins.concept.angular_plugin import AngularPlugin
 
 
 class PluginManager:
@@ -79,6 +80,7 @@ class PluginManager:
         YarnPlugin(),
         ElasticsearchPlugin(),
         KafkaPlugin(),
+        AngularPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

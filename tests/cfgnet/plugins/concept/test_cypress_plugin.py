@@ -66,7 +66,7 @@ def test_parse_cypress_file(get_plugin):
     assert make_id("cypress.json", "viewportWidth", "1064") in ids
     assert make_id("cypress.json", "reporter", "junit") in ids
     assert make_id("cypress.json", "specPattern", "*.test.js") in ids
-    assert make_id("cypress.json", "nodeVersion", "nodeVersion:system") in ids
+    assert make_id("cypress.json", "nodeVersion", "system") in ids
 
 
 def test_config_types(get_plugin):

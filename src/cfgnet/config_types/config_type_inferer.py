@@ -40,7 +40,7 @@ class ConfigTypeInferer:
         r"([1-9][0-9]{0,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])"
     )
     regex_size_option = re.compile(
-        r"size|length|max|min|threshold|weight|height|memory|mem"
+        r"size|length|max|min|threshold|weight|height|memory|mem|byte"
     )
     regex_size_value = re.compile(r"(\d)+ ?(B|KB|MB|GB|TB|PB)?")
     regex_username_option = re.compile(r"user|usr|username")

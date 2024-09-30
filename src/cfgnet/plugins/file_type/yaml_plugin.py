@@ -120,11 +120,7 @@ class YAMLPlugin(Plugin):
         ):
             name = node.value if node.value != "" else ""
 
-            name = (
-                f"{parent.name}:{node.value}"
-                if parent.config_type == ConfigType.VERSION_NUMBER
-                else node.value
-            )
+            name = node.value
 
             value = ValueNode(name=name)
             if isinstance(parent, ArtifactNode):

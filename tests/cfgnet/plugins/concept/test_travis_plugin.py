@@ -125,7 +125,7 @@ def test_parse_travis_file(get_plugin):
     )
 
     assert make_id(".travis.yml", "env", "FOLDER=integration/user") in ids
-    assert make_id(".travis.yml", "version", "version:>= 1.0.0") in ids
+    assert make_id(".travis.yml", "version", ">= 1.0.0") in ids
     assert make_id(".travis.yml", "os", "linux") in ids
     assert make_id(".travis.yml", "dist", "trusty") in ids
     assert make_id(".travis.yml", "language", "ruby") in ids
@@ -147,7 +147,7 @@ def test_config_types(get_plugin):
             == make_id(
                 ".travis.yml",
                 "version",
-                "version:>= 1.0.0",
+                ">= 1.0.0",
             ),
             nodes,
         )

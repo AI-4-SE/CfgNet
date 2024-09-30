@@ -1,0 +1,38 @@
+<configuration>
+
+    <!-- Set the MapReduce framework to YARN -->
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+        <description>Specifies that YARN will be used as the MapReduce execution framework.</description>
+    </property>
+
+    <!-- Define the ResourceManager address -->
+    <property>
+        <name>yarn.resourcemanager.address</name>
+        <value>resourcemanager.example.com:8032</value>
+        <description>Address of the YARN ResourceManager.</description>
+    </property>
+
+    <!-- Define the output compression type -->
+    <property>
+        <name>mapreduce.output.fileoutputformat.compress</name>
+        <value>true</value>
+        <description>Enable compression for job output files.</description>
+    </property>
+
+    <!-- Define the number of reduce tasks -->
+    <property>
+        <name>mapreduce.job.reduces</name>
+        <value>2</value>
+        <description>Sets the number of reducers for MapReduce jobs.</description>
+    </property>
+
+    <!-- Set JVM heap size for map tasks -->
+    <property>
+        <name>mapreduce.map.memory.mb</name>
+        <value>1024</value>
+        <description>Sets the heap size in MB for map tasks (1GB in this case).</description>
+    </property>
+
+</configuration>

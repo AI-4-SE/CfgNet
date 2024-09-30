@@ -35,7 +35,7 @@ def test_get_config_type():
     assert ConfigTypeInferer.get_config_type("count_leafs", "5") == ConfigType.COUNT
     assert ConfigTypeInferer.get_config_type("domain_name", "https://192.168.34.164:8080") == ConfigType.DOMAIN_NAME
     assert ConfigTypeInferer.get_config_type("server_name", "MainServer15") == ConfigType.NAME
-    assert ConfigTypeInferer.get_config_type("number", "123123123") == ConfigType.NUMBER
+    assert ConfigTypeInferer.get_config_type("num_resources", "123123123") == ConfigType.NUMBER
     assert ConfigTypeInferer.get_config_type("version_number", "1.12.12") == ConfigType.VERSION_NUMBER
     assert ConfigTypeInferer.get_config_type("test", "true") == ConfigType.BOOLEAN
     assert ConfigTypeInferer.get_config_type("io.file.buffer.size", "131072") == ConfigType.SIZE

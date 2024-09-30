@@ -50,6 +50,7 @@ from cfgnet.plugins.concept.yarn_plugin import YarnPlugin
 from cfgnet.plugins.concept.elastisearch_plugin import ElasticsearchPlugin
 from cfgnet.plugins.concept.kafka_plugin import KafkaPlugin
 from cfgnet.plugins.concept.angular_plugin import AngularPlugin
+from cfgnet.plugins.concept.mapreduce_plugin import MapReducePlugin
 
 
 class PluginManager:
@@ -81,6 +82,7 @@ class PluginManager:
         ElasticsearchPlugin(),
         KafkaPlugin(),
         AngularPlugin(),
+        MapReducePlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

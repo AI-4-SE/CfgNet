@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 25
+    assert len(all_plugins) == 26
 
 
 def test_get_responsible_plugin():
@@ -70,6 +70,7 @@ def test_get_responsible_plugin():
     elasticsearch_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/elasticsearch.yml")
     kafka_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/server.properties")
     angular_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/angular.json")
+    mapreduce_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/mapred-site.xml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -96,3 +97,4 @@ def test_get_responsible_plugin():
     assert elasticsearch_plugin.concept_name == "elasticsearch"
     assert kafka_plugin.concept_name == "kafka"
     assert angular_plugin.concept_name == "angular"
+    assert mapreduce_plugin.concept_name == "mapreduce"

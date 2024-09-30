@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14 
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: npm install
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - src
+
+  deploy:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: Deploy application
+          command: echo "Deploying application..."  # Add your deployment commands here
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build

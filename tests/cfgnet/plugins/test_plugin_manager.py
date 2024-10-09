@@ -19,42 +19,22 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 27
+    assert len(all_plugins) == 28
 
 
 def test_get_responsible_plugin():
     plugins = PluginManager.get_plugins()
 
-    docker_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/Dockerfile"
-    )
-    maven_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/pom.xml"
-    )
-    nodejs_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/package.json"
-    )
-    docker_compose_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/docker-compose.yml"
-    )
-    travis_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/.travis.yml"
-    )
-    cypress_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/cypress.json"
-    )
-    tsconfig_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/tsconfig.json"
-    )
-    poetry_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/pyproject.toml"
-    )
-    spring_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/application.properties"
-    )
-    apache_webserver_plugin = PluginManager.get_responsible_plugin(
-        plugins, "path/to/httpd.conf"
-    )
+    docker_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/Dockerfile")
+    maven_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/pom.xml")
+    nodejs_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/package.json")
+    docker_compose_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/docker-compose.yml")
+    travis_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/.travis.yml")
+    cypress_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/cypress.json")
+    tsconfig_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/tsconfig.json")
+    poetry_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/pyproject.toml")
+    spring_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/application.properties")
+    apache_webserver_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/httpd.conf")
     mysql_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/my.cnf")
     ansible_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/ansible.cfg")
     ansible_playbook_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/playbooks/test.yaml")
@@ -72,6 +52,7 @@ def test_get_responsible_plugin():
     angular_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/angular.json")
     mapreduce_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/mapred-site.xml")
     circleci_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/.circleci/config.yml")
+    cargo_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/Cargo.toml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -100,3 +81,4 @@ def test_get_responsible_plugin():
     assert angular_plugin.concept_name == "angular"
     assert mapreduce_plugin.concept_name == "mapreduce"
     assert circleci_plugin.concept_name == "circleci"
+    assert cargo_plugin.concept_name == "cargo"

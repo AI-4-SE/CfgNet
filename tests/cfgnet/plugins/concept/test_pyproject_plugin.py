@@ -47,88 +47,19 @@ def test_parse_pyproject_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 12
+    assert len(nodes) == 11
 
     assert make_id("pyproject.toml", "file", "pyproject.toml") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "name", "CfgNet") in ids
-    assert (
-        make_id("pyproject.toml", "tool", "poetry", "version", "version:1.0.0")
-        in ids
-    )
-    assert (
-        make_id("pyproject.toml", "tool", "poetry", "include", "test.py")
-        in ids
-    )
-    assert (
-        make_id("pyproject.toml", "tool", "poetry", "exclude", "hello.py")
-        in ids
-    )
-    assert (
-        make_id("pyproject.toml", "tool", "poetry", "license", "GPL-3.0+")
-        in ids
-    )
-    assert (
-        make_id(
-            "pyproject.toml",
-            "tool",
-            "poetry",
-            "homepage",
-            "https://github.com",
-        )
-        in ids
-    )
-    assert (
-        make_id(
-            "pyproject.toml",
-            "tool",
-            "poetry",
-            "packages",
-            "packages_0",
-            "include",
-            "cfgnet",
-        )
-        in ids
-    )
-    assert (
-        make_id(
-            "pyproject.toml",
-            "tool",
-            "poetry",
-            "packages",
-            "packages_0",
-            "from",
-            "src",
-        )
-        in ids
-    )
-    assert (
-        make_id(
-            "pyproject.toml",
-            "tool",
-            "poetry",
-            "dependencies",
-            "python",
-            "python:^3.8",
-        )
-        in ids
-    )
-    assert (
-        make_id(
-            "pyproject.toml",
-            "tool",
-            "poetry",
-            "dev-dependencies",
-            "cov",
-            "cov:5.1",
-        )
-        in ids
-    )
-    assert (
-        make_id(
-            "pyproject.toml", "tool", "poetry", "scripts", "cfgnet", "main"
-        )
-        in ids
-    )
+    assert make_id("pyproject.toml", "tool", "poetry", "version", "1.0.0") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "include", "['test.py']") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "exclude", "['hello.py']") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "license", "GPL-3.0+") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "homepage", "https://github.com") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "packages", "[{'include': 'cfgnet', 'from': 'src'}]") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "dependencies", "python", "^3.8") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "dev-dependencies", "cov", "5.1") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "scripts", "cfgnet", "main") in ids
 
 
 def test_config_types(get_plugin):

@@ -1,0 +1,26 @@
+[package]
+name = "example"
+version = "0.1.0"
+authors = ["Your Name <your.email@example.com>"]
+edition = "2021"
+homepage = "https://example.com" 
+workspace = "path/to/workspace/root"
+
+# Optional description and license fields
+description = "A simple Rust project example"
+license = "MIT"
+
+[dependencies]
+serde = "1.0"
+rand = "0.8"
+
+# Optional section for dev dependencies, only used during development
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }
+
+[features]
+default = ["serde"]
+
+# Optional section for custom configurations
+[profile.release]
+opt-level = 3

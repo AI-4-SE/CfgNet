@@ -87,31 +87,10 @@ class TomlPlugin(Plugin):
                 if isinstance(value, dict):
                     self._iter_data(value, line_number_dict, option)
                 elif isinstance(value, list):
-                    index = 0
-                    for entry in value:
-                        if isinstance(entry, dict):
-                            virtual_option = OptionNode(
-                                option.name + "_" + str(index), lineno
-                            )
-                            option.add_child(virtual_option)
-                            self._iter_data(
-                                entry, line_number_dict, virtual_option
-                            )
-                            index += 1
-                        else:
-                            name = (
-                                f"{option.name}:{entry}"
-                                if option.config_type
-                                == ConfigType.VERSION_NUMBER
-                                else entry
-                            )
-                            option.add_child(ValueNode(name))
+                    value_node = ValueNode(name=str(value))
+                    option.add_child(value_node)
                 else:
-                    name = (
-                        f"{option.name}:{value}"
-                        if option.config_type == ConfigType.VERSION_NUMBER
-                        else value
-                    )
+                    name = value
                     option.add_child(ValueNode(name))
 
     # pylint: disable=unused-argument

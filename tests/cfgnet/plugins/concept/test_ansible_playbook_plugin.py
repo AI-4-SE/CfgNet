@@ -62,15 +62,15 @@ def test_parse_ansible_playbook_file(get_plugin):
 
     assert artifact is not None
     assert len(nodes) == 34
-    assert make_id("playbook.yml", "offset:0", "remote_user", "root") in ids
-    assert make_id("playbook.yml", "offset:0", "tasks", "offset:0", "ansible.builtin.yum", "name", "httpd") in ids
-    assert make_id("playbook.yml", "offset:2", "tasks", "offset:0", "win_get_url", "url", "https://test.html") in ids
-    assert make_id("playbook.yml", "offset:3", "tasks", "offset:0", "win_user", "password", "test123") in ids
-    assert make_id("playbook.yml", "offset:3", "tasks", "offset:0", "win_user", "state", "present") in ids
-    assert make_id("playbook.yml", "offset:4", "tasks", "offset:0", "ansible.builtin.git", "dest", "/home/www") in ids
-    assert make_id("playbook.yml", "offset:4", "tasks", "offset:0", "ansible.builtin.git", "accept_hostkey", "true") in ids
-    assert make_id("playbook.yml", "offset:4", "tasks", "offset:0", "ansible.builtin.git", "version", "master") in ids
-    assert make_id("playbook.yml", "offset:4", "hosts", "localhost") in ids
+    assert make_id("playbook.yml", "remote_user", "root") in ids
+    assert make_id("playbook.yml", "tasks", "ansible.builtin.yum", "name", "httpd") in ids
+    assert make_id("playbook.yml", "tasks", "win_get_url", "url", "https://test.html") in ids
+    assert make_id("playbook.yml", "tasks", "win_user", "password", "test123") in ids
+    assert make_id("playbook.yml", "tasks", "win_user", "state", "present") in ids
+    assert make_id("playbook.yml", "tasks", "ansible.builtin.git", "dest", "/home/www") in ids
+    assert make_id("playbook.yml", "tasks", "ansible.builtin.git", "accept_hostkey", "true") in ids
+    assert make_id("playbook.yml", "tasks", "ansible.builtin.git", "version", "master") in ids
+    assert make_id("playbook.yml", "hosts", "localhost") in ids
 
 
 def test_config_types(get_plugin):
@@ -79,12 +79,12 @@ def test_config_types(get_plugin):
     artifact = ansible_playbook_plugin.parse_file(playbook_file, "playbook.yml")
     nodes = artifact.get_nodes()
 
-    path_node = next(filter(lambda x: x.id == make_id("playbook.yml", "offset:4", "tasks", "offset:0", "ansible.builtin.git", "dest", "/home/www"), nodes))
-    name_node = next(filter(lambda x: x.id == make_id("playbook.yml", "offset:0", "tasks", "offset:0", "ansible.builtin.yum", "name", "httpd"), nodes))
-    state_node = next(filter(lambda x: x.id == make_id("playbook.yml", "offset:3", "tasks", "offset:0", "win_user", "state", "present"), nodes))
-    url_node = next(filter(lambda x: x.id == make_id("playbook.yml", "offset:2", "tasks", "offset:0", "win_get_url", "url", "https://test.html"), nodes))
-    password_node = next(filter(lambda x: x.id == make_id("playbook.yml", "offset:3", "tasks", "offset:0", "win_user", "password", "test123"), nodes))
-    host_node = next(filter(lambda x: x.id == make_id("playbook.yml", "offset:4", "hosts", "localhost"), nodes))
+    path_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "ansible.builtin.git", "dest", "/home/www"), nodes))
+    name_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "ansible.builtin.yum", "name", "httpd"), nodes))
+    state_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "win_user", "state", "present"), nodes))
+    url_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "win_get_url", "url", "https://test.html"), nodes))
+    password_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "win_user", "password", "test123"), nodes))
+    host_node = next(filter(lambda x: x.id == make_id("playbook.yml", "hosts", "localhost"), nodes))
 
     assert path_node.config_type == ConfigType.PATH
     assert name_node.config_type == ConfigType.NAME

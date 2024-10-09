@@ -84,7 +84,7 @@ class ConfigTypeInferer:
 
     @staticmethod
     def is_boolean(value: str) -> bool:
-        return bool(re.match(ConfigTypeInferer.regex_boolean, value))
+        return bool(re.fullmatch(ConfigTypeInferer.regex_boolean, value))
 
     # pylint: disable=too-many-return-statements
     @staticmethod
@@ -94,6 +94,9 @@ class ConfigTypeInferer:
         """Check the option value and return its config type."""
         # Check option name and value against types for which an option name and value regex exists.
         option_name = option_name.split(".")[-1]
+
+        if ConfigTypeInferer.is_boolean(value):
+            return ConfigType.BOOLEAN
 
         if bool(
             re.match(ConfigTypeInferer.regex_port_option, option_name)
@@ -191,9 +194,6 @@ class ConfigTypeInferer:
         # Check option name and value against general types.
         if bool(re.fullmatch(ConfigTypeInferer.regex_number, value)):
             return ConfigType.NUMBER
-
-        if bool(re.fullmatch(ConfigTypeInferer.regex_boolean, value)):
-            return ConfigType.BOOLEAN
 
         if bool(re.fullmatch(ConfigTypeInferer.regex_size_value, value)):
             return ConfigType.SIZE

@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 28
+    assert len(all_plugins) == 29
 
 
 def test_get_responsible_plugin():
@@ -53,6 +53,7 @@ def test_get_responsible_plugin():
     mapreduce_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/mapred-site.xml")
     circleci_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/.circleci/config.yml")
     cargo_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/Cargo.toml")
+    github_action_plugin = PluginManager.get_responsible_plugin(plugins, ".github/workflows/test.yml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -82,3 +83,4 @@ def test_get_responsible_plugin():
     assert mapreduce_plugin.concept_name == "mapreduce"
     assert circleci_plugin.concept_name == "circleci"
     assert cargo_plugin.concept_name == "cargo"
+    assert github_action_plugin.concept_name == "github-action"

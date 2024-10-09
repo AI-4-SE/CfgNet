@@ -53,6 +53,7 @@ from cfgnet.plugins.concept.angular_plugin import AngularPlugin
 from cfgnet.plugins.concept.mapreduce_plugin import MapReducePlugin
 from cfgnet.plugins.concept.circleci_plugin import CircleCiPlugin
 from cfgnet.plugins.concept.cargo_plugin import CargoPlugin
+from cfgnet.plugins.concept.github_actions_plugin import GitHubActionPlugin
 
 
 class PluginManager:
@@ -87,6 +88,7 @@ class PluginManager:
         MapReducePlugin(),
         CircleCiPlugin(),
         CargoPlugin(),
+        GitHubActionPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

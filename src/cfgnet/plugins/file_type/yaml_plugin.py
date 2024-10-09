@@ -80,17 +80,18 @@ class YAMLPlugin(Plugin):
             self._iter_tree(child, parent)
 
     def _parse_sequence_node(self, node, parent):
-        index = 0
+        # index = 0
         for child in node.value:
             if isinstance(child, MappingNode):
-                offset_option = OptionNode(
-                    "offset:" + str(index),
-                    node.start_mark.line + 1,
-                )
-                parent.add_child(offset_option)
+                # offset_option = OptionNode(
+                #    "offset:" + str(index),
+                #    node.start_mark.line + 1,
+                # )
+                # parent.add_child(offset_option)
 
-                self._iter_tree(child, offset_option)
-                index += 1
+                # self._iter_tree(child, offset_option)
+                self._iter_tree(child, parent)
+                # index += 1
             else:
                 self._iter_tree(child, parent)
 

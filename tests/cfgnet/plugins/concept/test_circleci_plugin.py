@@ -55,20 +55,20 @@ def test_parse_circle_file(get_plugin):
     assert len(nodes) == 16
 
     assert make_id("config.yml", "file", "config.yml") in ids
-    assert make_id("config.yml", "jobs", "build", "docker", "offset:0", "image", "circleci/node:14") in ids
+    assert make_id("config.yml", "jobs", "build", "docker", "image", "circleci/node:14") in ids
     assert make_id("config.yml", "jobs", "build", "steps", "checkout") in ids
-    assert make_id("config.yml", "jobs", "build", "steps", "offset:0", "run", "name", "Install dependencies") in ids
-    assert make_id("config.yml", "jobs", "build", "steps", "offset:0", "run", "command", "npm install") in ids
-    assert make_id("config.yml", "jobs", "build", "steps", "offset:1", "persist_to_workspace", "root", ".") in ids
-    assert make_id("config.yml", "jobs", "build", "steps", "offset:1", "persist_to_workspace", "paths", "dist") in ids
-    assert make_id("config.yml", "jobs", "build", "steps", "offset:1", "persist_to_workspace", "paths", "src") in ids
-    assert make_id("config.yml", "jobs", "deploy", "docker", "offset:0", "image", "circleci/node:14") in ids
-    assert make_id("config.yml", "jobs", "deploy", "steps", "offset:0", "attach_workspace", "at", "/workspace") in ids
-    assert make_id("config.yml", "jobs", "deploy", "steps", "offset:1", "run", "name", "Deploy application") in ids
-    assert make_id("config.yml", "jobs", "deploy", "steps", "offset:1", "run", "command", 'echo "Deploying application..."') in ids
+    assert make_id("config.yml", "jobs", "build", "steps", "run", "name", "Install dependencies") in ids
+    assert make_id("config.yml", "jobs", "build", "steps", "run", "command", "npm install") in ids
+    assert make_id("config.yml", "jobs", "build", "steps", "persist_to_workspace", "root", ".") in ids
+    assert make_id("config.yml", "jobs", "build", "steps", "persist_to_workspace", "paths", "dist") in ids
+    assert make_id("config.yml", "jobs", "build", "steps", "persist_to_workspace", "paths", "src") in ids
+    assert make_id("config.yml", "jobs", "deploy", "docker", "image", "circleci/node:14") in ids
+    assert make_id("config.yml", "jobs", "deploy", "steps", "attach_workspace", "at", "/workspace") in ids
+    assert make_id("config.yml", "jobs", "deploy", "steps", "run", "name", "Deploy application") in ids
+    assert make_id("config.yml", "jobs", "deploy", "steps", "run", "command", 'echo "Deploying application..."') in ids
     assert make_id("config.yml", "workflows", "version", "2") in ids
     assert make_id("config.yml", "workflows", "build_and_deploy", "jobs", "build") in ids
-    assert make_id("config.yml", "workflows", "build_and_deploy", "jobs", "offset:0", "deploy", "requires", "build") in ids
+    assert make_id("config.yml", "workflows", "build_and_deploy", "jobs", "deploy", "requires", "build") in ids
 
     
 def test_config_types(get_plugin):
@@ -79,9 +79,9 @@ def test_config_types(get_plugin):
     nodes = artifact.get_nodes()
 
     version_node = next(filter(lambda x: x.id == make_id("config.yml", "workflows", "version", "2"), nodes))
-    command_node = next(filter(lambda x: x.id == make_id("config.yml", "jobs", "build", "steps", "offset:0", "run", "command", "npm install"), nodes))
-    path_node = next(filter(lambda x: x.id == make_id("config.yml", "jobs", "deploy", "steps", "offset:0", "attach_workspace", "at", "/workspace"), nodes))
-    image_node = next(filter(lambda x: x.id == make_id("config.yml", "jobs", "build", "docker", "offset:0", "image", "circleci/node:14"), nodes))
+    command_node = next(filter(lambda x: x.id == make_id("config.yml", "jobs", "build", "steps", "run", "command", "npm install"), nodes))
+    path_node = next(filter(lambda x: x.id == make_id("config.yml", "jobs", "deploy", "steps", "attach_workspace", "at", "/workspace"), nodes))
+    image_node = next(filter(lambda x: x.id == make_id("config.yml", "jobs", "build", "docker", "image", "circleci/node:14"), nodes))
 
     assert version_node.config_type == ConfigType.VERSION_NUMBER
     assert command_node.config_type == ConfigType.COMMAND

@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 30
+    assert len(all_plugins) == 31
 
 
 def test_get_responsible_plugin():
@@ -55,6 +55,7 @@ def test_get_responsible_plugin():
     cargo_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/Cargo.toml")
     github_action_plugin = PluginManager.get_responsible_plugin(plugins, ".github/workflows/test.yml")
     gradle_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/gradle.properties")
+    flutter_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/pubspec.yaml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -86,3 +87,4 @@ def test_get_responsible_plugin():
     assert cargo_plugin.concept_name == "cargo"
     assert github_action_plugin.concept_name == "github-action"
     assert gradle_plugin.concept_name == "gradle"
+    assert flutter_plugin.concept_name == "flutter"

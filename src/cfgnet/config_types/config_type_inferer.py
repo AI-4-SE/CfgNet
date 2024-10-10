@@ -35,29 +35,36 @@ class ConfigTypeInferer:
 
     regex_password_option = re.compile(r"password|pwd|pass")
     regex_password_value = re.compile(r".+")
-    regex_port_option = re.compile(r"ports|port|listen|expose|in|out")
+
+    regex_port_option = re.compile(r"ports|port|listen|expose")
     regex_port_value = re.compile(
         r"([1-9][0-9]{0,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])"
     )
+
     regex_size_option = re.compile(
         r"size|length|max|min|threshold|weight|height|memory|mem|byte|mb"
     )
     regex_size_value = re.compile(r"(\d)+ ?(B|KB|MB|GB|TB|PB)?")
+
     regex_username_option = re.compile(r"user|usr|username")
     regex_username_value = re.compile(r"[a-zA-Z][a-zA-Z0-9_]+")
+
     regex_time_option = re.compile(
         r"time|interval|day|month|year|hour|minute|second|millisecond"
     )
     regex_time_value = re.compile(r"[\d]+ ?(s|min|h|d|ms)*")
+
     regex_filepath_option = re.compile(
         r"path|dir|directory|folder|destination|root"
     )
     # regex_filepath_value = re.compile(r"\/?([^\/]+\/)+[^\/]*")
     regex_filepath_value = re.compile(r"^([~.\w\d]*\/[.\w\d]+)+(\.[\w\d]+)*$")
+
     regex_version_number_option = re.compile(r"version|target|source")
     regex_version_number_value = re.compile(
         r"^(\^|~)?(?:[0-9]{1,3}\.){2}[0-9]{1,3}(-[\w]+)?$"
     )
+
     regex_ip_address_option = re.compile(r"address|ip")
     regex_ip_address_value = re.compile(r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
 
@@ -99,12 +106,12 @@ class ConfigTypeInferer:
             return ConfigType.BOOLEAN
 
         if bool(
-            re.match(ConfigTypeInferer.regex_port_option, option_name)
+            re.search(ConfigTypeInferer.regex_port_option, option_name)
         ) and bool(re.fullmatch(ConfigTypeInferer.regex_port_value, value)):
             return ConfigType.PORT
 
         if bool(
-            re.match(ConfigTypeInferer.regex_username_option, option_name)
+            re.search(ConfigTypeInferer.regex_username_option, option_name)
         ) and bool(
             re.fullmatch(ConfigTypeInferer.regex_username_value, value)
         ):
@@ -121,7 +128,7 @@ class ConfigTypeInferer:
             return ConfigType.TIME
 
         if bool(
-            re.match(ConfigTypeInferer.regex_password_option, option_name)
+            re.search(ConfigTypeInferer.regex_password_option, option_name)
         ) and bool(
             re.fullmatch(ConfigTypeInferer.regex_password_value, value)
         ):
@@ -133,7 +140,7 @@ class ConfigTypeInferer:
             return ConfigType.PATH
 
         if bool(
-            re.match(
+            re.search(
                 ConfigTypeInferer.regex_version_number_option, option_name
             )
         ) or bool(
@@ -142,7 +149,7 @@ class ConfigTypeInferer:
             return ConfigType.VERSION_NUMBER
 
         if bool(
-            re.match(ConfigTypeInferer.regex_ip_address_option, option_name)
+            re.search(ConfigTypeInferer.regex_ip_address_option, option_name)
         ) or bool(
             re.fullmatch(ConfigTypeInferer.regex_ip_address_value, value)
         ):
@@ -174,6 +181,7 @@ class ConfigTypeInferer:
             return ConfigType.COUNT
 
         if bool(re.search(ConfigTypeInferer.regex_name, option_name)):
+            print(f"Option {option_name} is name.")
             return ConfigType.NAME
 
         if bool(re.search(ConfigTypeInferer.regex_pattern, option_name)):

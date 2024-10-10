@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_plugins():
     all_plugins = PluginManager.get_plugins()
 
-    assert len(all_plugins) == 29
+    assert len(all_plugins) == 30
 
 
 def test_get_responsible_plugin():
@@ -54,6 +54,7 @@ def test_get_responsible_plugin():
     circleci_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/.circleci/config.yml")
     cargo_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/Cargo.toml")
     github_action_plugin = PluginManager.get_responsible_plugin(plugins, ".github/workflows/test.yml")
+    gradle_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/gradle.properties")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -84,3 +85,4 @@ def test_get_responsible_plugin():
     assert circleci_plugin.concept_name == "circleci"
     assert cargo_plugin.concept_name == "cargo"
     assert github_action_plugin.concept_name == "github-action"
+    assert gradle_plugin.concept_name == "gradle"

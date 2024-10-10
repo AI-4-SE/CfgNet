@@ -56,6 +56,7 @@ from cfgnet.plugins.concept.cargo_plugin import CargoPlugin
 from cfgnet.plugins.concept.github_actions_plugin import GitHubActionPlugin
 from cfgnet.plugins.concept.gradle_plugin import GradlePlugin
 from cfgnet.plugins.concept.flutter_plugin import FlutterPlugin
+from cfgnet.plugins.concept.android_plugin import AndroidPlugin
 
 
 class PluginManager:
@@ -93,6 +94,7 @@ class PluginManager:
         GitHubActionPlugin(),
         GradlePlugin(),
         FlutterPlugin(),
+        AndroidPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

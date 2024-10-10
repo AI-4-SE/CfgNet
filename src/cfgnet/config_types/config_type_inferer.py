@@ -181,7 +181,6 @@ class ConfigTypeInferer:
             return ConfigType.COUNT
 
         if bool(re.search(ConfigTypeInferer.regex_name, option_name)):
-            print(f"Option {option_name} is name.")
             return ConfigType.NAME
 
         if bool(re.search(ConfigTypeInferer.regex_pattern, option_name)):

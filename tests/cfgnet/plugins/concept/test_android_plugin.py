@@ -17,38 +17,34 @@ import os
 
 import pytest
 
-from cfgnet.plugins.concept.flutter_plugin import FlutterPlugin
+from cfgnet.plugins.concept.android_plugin import AndroidPlugin
 from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
 
 
 @pytest.fixture(name="get_plugin")
 def get_plugin_():
-    plugin = FlutterPlugin()
+    plugin = AndroidPlugin()
     return plugin
 
 
 def test_is_responsible(get_plugin):
     plugin = get_plugin
 
-    assert plugin.is_responsible("tests/files/pubspec.yaml")
-    assert not plugin.is_responsible("tests/files/pubspec.yml")
+    assert plugin.is_responsible("tests/files/AndroidManifest.xml")
+    assert not plugin.is_responsible("tests/files/pom.xml")
 
 
 def test_config_types(get_plugin):
-    plugin = get_plugin
-    file = os.path.abspath("tests/files/pubspec.yaml")
-    artifact = plugin.parse_file(file, "pubspec.yaml")
+    maven_plugin = get_plugin
+    maven_file = os.path.abspath("tests/files/AndroidManifest.xml")
+    artifact = maven_plugin.parse_file(maven_file, "AndroidManifest.xml")
     nodes = artifact.get_nodes()
-  
-    version_node = next(filter(lambda x: x.id == make_id("pubspec.yaml", "version", "1.0.0"), nodes))
-    name_node = next(filter(lambda x: x.id == make_id("pubspec.yaml", "name", "my_flutter_app"), nodes))
-    url_node = next(filter(lambda x: x.id == make_id("pubspec.yaml", "homepage", "https://example.com"), nodes))
-    boolean_node = next(filter(lambda x: x.id == make_id("pubspec.yaml", "flutter", "uses-material-design", "true"), nodes))
-    dep_node = next(filter(lambda x: x.id == make_id("pubspec.yaml", "dev_dependencies", "test", ">=1.15.0 <2.0.0"), nodes))
+
+    name_node = next(filter(lambda x: x.id == make_id("AndroidManifest.xml", "manifest", "package", "com.example.myfirstapp"), nodes))
+    bool_node = next(filter(lambda x: x.id == make_id("AndroidManifest.xml", "manifest", "application", "allowBackup", "true"), nodes))
+    version_node = next(filter(lambda x: x.id == make_id("AndroidManifest.xml", "manifest", "uses-sdk", "minSdkVersion", "21"), nodes))
 
     assert version_node.config_type == ConfigType.VERSION_NUMBER
-    assert boolean_node.config_type == ConfigType.BOOLEAN
-    assert dep_node.config_type == ConfigType.VERSION_NUMBER
+    assert bool_node.config_type == ConfigType.BOOLEAN
     assert name_node.config_type == ConfigType.NAME
-    assert url_node.config_type == ConfigType.URL

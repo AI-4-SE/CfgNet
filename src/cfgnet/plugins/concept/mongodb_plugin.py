@@ -26,16 +26,7 @@ class MongoDBPlugin(YAMLPlugin):
         return False
 
     # pylint: disable=unused-argument,too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
-        """
-        Find config type based on option name.
-
-        Option types included from:
-        https://www.mongodb.com/docs/v6.0/reference/configuration-options/
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         option_name = option_name.lower()
         if option_name.endswith(
             (
@@ -50,9 +41,6 @@ class MongoDBPlugin(YAMLPlugin):
             )
         ):
             return ConfigType.NUMBER
-
-        if option_name.endswith("port"):
-            return ConfigType.PORT
 
         if option_name.endswith("bindip"):
             return ConfigType.IP_ADDRESS
@@ -79,23 +67,8 @@ class MongoDBPlugin(YAMLPlugin):
         ):
             return ConfigType.PATH
 
-        if option_name.endswith(("logrotate", "mode", "compressors")):
-            return ConfigType.MODE
-
-        if option_name.endswith("state"):
-            return ConfigType.STATE
-
         if option_name.endswith("format"):
-            return ConfigType.PATTERN
-
-        if option_name.endswith("filepermissions"):
-            return ConfigType.PERMISSION
-
-        if option_name.endswith("password"):
-            return ConfigType.PASSWORD
-
-        if option_name.endswith("versions"):
-            return ConfigType.VERSION_NUMBER
+            return ConfigType.TYPE
 
         if option_name.endswith("keyidentifier"):
             return ConfigType.ID
@@ -103,7 +76,4 @@ class MongoDBPlugin(YAMLPlugin):
         if option_name.endswith(("name", "configdb")):
             return ConfigType.NAME
 
-        if option_name.endswith("user"):
-            return ConfigType.USERNAME
-
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

@@ -33,24 +33,38 @@ class CargoPlugin(TomlPlugin):
             return True
         return False
 
-    @staticmethod
-    def get_config_type(option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in (
             "homepage",
             "repository",
             "documentation",
             "urls",
             "url",
+            "git",
         ):
             return ConfigType.URL
-        if option_name in ("include", "exclude"):
+
+        if option_name in (
+            "include",
+            "exclude",
+            "license-file",
+            "workspace",
+            "build",
+            "path",
+        ):
             return ConfigType.PATH
+
         if option_name in ("version", "dependencies", "dev-dependencies"):
             return ConfigType.VERSION_NUMBER
-        return ConfigType.UNKNOWN
+
+        if option_name in ("license"):
+            return ConfigType.LICENSE
+
+        if option_name in ("name", "branch", "registry"):
+            return ConfigType.NAME
+
+        if option_name in ("version", "rust-version"):
+            return ConfigType.VERSION_NUMBER
+
+        return super().get_config_type(option_name, value)

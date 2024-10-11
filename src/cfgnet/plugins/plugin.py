@@ -18,6 +18,8 @@ import logging
 import os
 
 from typing import Optional
+from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
+from cfgnet.config_types.config_types import ConfigType
 from cfgnet.network.nodes import ProjectNode, ArtifactNode
 
 
@@ -33,6 +35,7 @@ class Plugin(abc.ABC):
         """
         self.concept_name: str = concept_name
         self.file_size_threshold: Optional[int] = threshold
+        self.inferer = ConfigTypeInferer()
 
     @abc.abstractmethod
     def _parse_config_file(
@@ -95,3 +98,16 @@ class Plugin(abc.ABC):
             logging.warning(
                 "Large file '%s' might not be configuration.", file_path
             )
+
+    # pylint: disable=unused-argument,too-many-return-statements
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
+        """
+        Find config type based on naming conventions and syntax patterns.
+
+        :param option_name: name of option
+        :param value: value of option
+        :return: config type
+        """
+        return self.inferer.get_config_type(
+            option_name=option_name, value=value
+        )

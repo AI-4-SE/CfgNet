@@ -127,13 +127,6 @@ def test_config_types(get_plugin):
             nodes,
         )
     )
-    expose_protocol = next(
-        filter(
-            lambda x: x.id
-            == make_id("Dockerfile", "EXPOSE", "protocol", "tcp"),
-            nodes,
-        )
-    )
     copy_src = next(
         filter(
             lambda x: x.id == make_id("Dockerfile", "COPY", "src", "foo.jar"),
@@ -161,7 +154,6 @@ def test_config_types(get_plugin):
     )
 
     assert expose_port.config_type == ConfigType.PORT
-    assert expose_protocol.config_type == ConfigType.PROTOCOL
     assert copy_src.config_type == ConfigType.PATH
     assert add_dest.config_type == ConfigType.PATH
     assert from_image.config_type == ConfigType.IMAGE

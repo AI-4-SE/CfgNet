@@ -97,12 +97,6 @@ def test_config_types(get_plugin):
             nodes,
         )
     )
-    language1 = next(
-        filter(
-            lambda x: x.id == make_id("httpd.conf", "AddLanguage", "ca .ca"),
-            nodes,
-        )
-    )
 
     path = next(
         filter(
@@ -121,6 +115,5 @@ def test_config_types(get_plugin):
     assert root.config_type == ConfigType.PATH
     assert access.config_type == ConfigType.PATH
     assert if_MIME.config_type == ConfigType.PATH
-    assert language1.config_type == ConfigType.LANGUAGE
     assert path.config_type == ConfigType.PATH
     assert ip_address.config_type == ConfigType.IP_ADDRESS

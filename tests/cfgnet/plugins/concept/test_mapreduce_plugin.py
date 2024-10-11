@@ -46,24 +46,15 @@ def test_parse_mapred_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 11
+    assert len(nodes) == 6
 
     assert make_id("mapred-site.xml", "file", "mapred-site.xml") in ids
     assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.framework.name", "value", "yarn") in ids
-    assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.framework.name", "description", "Specifies that YARN will be used as the MapReduce execution framework.") in ids
-
     assert make_id("mapred-site.xml", "configuration", "property", "yarn.resourcemanager.address", "value", "resourcemanager.example.com:8032") in ids
-    assert make_id("mapred-site.xml", "configuration", "property", "yarn.resourcemanager.address", "description", "Address of the YARN ResourceManager.") in ids
-
     assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.output.fileoutputformat.compress", "value", "true") in ids
-    assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.output.fileoutputformat.compress", "description", "Enable compression for job output files.") in ids
-
     assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.job.reduces", "value", "2") in ids
-    assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.job.reduces", "description", "Sets the number of reducers for MapReduce jobs.") in ids
-    
     assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.map.memory.mb", "value", "1024") in ids
-    assert make_id("mapred-site.xml", "configuration", "property", "mapreduce.map.memory.mb", "description", "Sets the heap size in MB for map tasks (1GB in this case).") in ids
-    
+
 
 def test_config_types(get_plugin):
     plugin = get_plugin

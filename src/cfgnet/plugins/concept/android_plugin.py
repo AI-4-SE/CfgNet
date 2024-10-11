@@ -103,52 +103,43 @@ class AndroidPlugin(Plugin):
         return None
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Get config type based on the option name.
-
-        :param name: option name
-        :return: ConfigType
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         option_name = option_name.lower()
 
-        if option_name.endswith("version"):
-            return ConfigType.VERSION_NUMBER
-
-        if option_name.endswith("mode"):
-            return ConfigType.MODE
-
-        if option_name.endswith("size"):
-            return ConfigType.SIZE
-
-        if option_name.endswith("port"):
-            return ConfigType.PORT
-
-        if option_name.endswith("host"):
-            return ConfigType.HOST
-
-        if option_name.endswith("path"):
-            return ConfigType.PATH
-
-        if option_name.endswith("permission"):
-            return ConfigType.PERMISSION
-
-        if option_name in (
-            "maxrecents",
-            "maxaspectratio",
-            "priority",
-            "height",
-            "width",
-        ):
+        if option_name in ("maxrecents", "maxaspectratio", "priority"):
             return ConfigType.NUMBER
 
-        if option_name in (
-            "name",
-            "label",
-            "description",
-            "process",
-            "package",
-        ):
+        if option_name.endswith(("version", "versioncode")):
+            return ConfigType.VERSION_NUMBER
+
+        if option_name.endswith(("package", "name", "label", "description")):
             return ConfigType.NAME
 
-        return ConfigType.UNKNOWN
+        if option_name.endswith(("mode")):
+            return ConfigType.TYPE
+
+        if option_name.endswith(("enabled", "exported", "required")):
+            return ConfigType.BOOLEAN
+
+        if option_name.startswith(("allow")):
+            return ConfigType.BOOLEAN
+
+        if option_name.endswith(("size", "height", "width")):
+            return ConfigType.SIZE
+
+        if option_name.endswith(("host")):
+            return ConfigType.IP_ADDRESS
+
+        if option_name.endswith(("port")):
+            return ConfigType.PORT
+
+        if option_name.endswith(("path", "location")):
+            return ConfigType.PATH
+
+        if option_name.startswith(("path")):
+            return ConfigType.PATH
+
+        if option_name.endswith(("type", "level")):
+            return ConfigType.TYPE
+
+        return super().get_config_type(option_name, value)

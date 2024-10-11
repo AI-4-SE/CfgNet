@@ -20,6 +20,7 @@ from typing import List, Optional, TYPE_CHECKING
 from cfgnet.linker.link import Link
 from cfgnet.linker.static_blacklist import StaticBlackList
 from cfgnet.network.nodes import ValueNode
+from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 if TYPE_CHECKING:
     from cfgnet.network.network import Network
@@ -35,6 +36,7 @@ class Linker(abc.ABC):
         self.enable_internal_links: Optional[bool] = None
         self.target_nodes: List = None
         self.static_blacklist = StaticBlackList()
+        self.inferer = ConfigTypeInferer()
 
     @abc.abstractmethod
     def create_links(self) -> None:

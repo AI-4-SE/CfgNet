@@ -28,21 +28,9 @@ class CypressPlugin(JsonPlugin):
         return False
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name == "projectId":
             return ConfigType.ID
-        if any(x in option_name for x in ["Url", "url", "Hosts"]):
-            return ConfigType.URL
-        if option_name == "env":
-            return ConfigType.ENVIRONMENT
-        if option_name == "port":
-            return ConfigType.PORT
         if option_name in (
             "includeShadowDom",
             "watchForFileChanges",
@@ -57,10 +45,7 @@ class CypressPlugin(JsonPlugin):
             "toConsole",
         ):
             return ConfigType.BOOLEAN
-        if any(x in option_name for x in ["Folder", "File", "Files"]):
-            return ConfigType.PATH
-        if option_name == "nodeVersion":
-            return ConfigType.VERSION_NUMBER
+
         if option_name in (
             "defaultCommandTimeout",
             "execTimeout",
@@ -72,8 +57,6 @@ class CypressPlugin(JsonPlugin):
         ):
             return ConfigType.TIME
 
-        if option_name == "env":
-            return ConfigType.ENVIRONMENT
         if option_name in (
             "numTestsKeptInMemory",
             "redirectionLimit",
@@ -82,16 +65,10 @@ class CypressPlugin(JsonPlugin):
         ):
             return ConfigType.NUMBER
 
-        if option_name in ("runMode", "openMode"):
-            return ConfigType.MODE
-
         if option_name in ("reporter", "devServer"):
             return ConfigType.NAME
 
         if option_name in ("viewportHeight", "viewportWidth"):
             return ConfigType.SIZE
 
-        if option_name in ("specPattern", "excludeSpecPattern"):
-            return ConfigType.PATTERN
-
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

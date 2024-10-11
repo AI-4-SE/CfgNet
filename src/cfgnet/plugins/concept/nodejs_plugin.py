@@ -32,13 +32,9 @@ class NodejsPlugin(JsonPlugin):
         return False
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
+        option_name = option_name.lower()
 
-        :param option_name: name of option
-        :return: config type
-        """
         if option_name in (
             "version",
             "dependencies",
@@ -70,4 +66,4 @@ class NodejsPlugin(JsonPlugin):
             return ConfigType.LICENSE
         if option_name == "private":
             return ConfigType.BOOLEAN
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

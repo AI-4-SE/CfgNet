@@ -48,21 +48,14 @@ def test_parse_hadoop_hbase_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 9
+    assert len(nodes) == 5
 
     assert make_id("hbase-site.xml", "file", "hbase-site.xml") in ids
     assert make_id("hbase-site.xml", "configuration", "property", "hbase.rootdir", "value", "hdfs://namenode.example.com:9000/hbase") in ids
-    assert make_id("hbase-site.xml", "configuration", "property", "hbase.rootdir", "description", "The directory shared by region servers and master where HBase stores data in HDFS.") in ids
-
     assert make_id("hbase-site.xml", "configuration", "property", "hbase.master.port", "value", "16000") in ids
-    assert make_id("hbase-site.xml", "configuration", "property", "hbase.master.port", "description", "The port for the HBase master.") in ids
-
     assert make_id("hbase-site.xml", "configuration", "property", "hbase.regionserver.global.memstore.upperLimit", "value", "0.4") in ids
-    assert make_id("hbase-site.xml", "configuration", "property", "hbase.regionserver.global.memstore.upperLimit", "description", "Maximum heap size a RegionServer's MemStore can use (40% in this case).") in ids
-
     assert make_id("hbase-site.xml", "configuration", "property", "hbase.client.pause", "value", "100") in ids
-    assert make_id("hbase-site.xml", "configuration", "property", "hbase.client.pause", "description", "Time between client retries, in milliseconds.") in ids
-    
+
 
 def test_config_types(get_plugin):
     plugin = get_plugin

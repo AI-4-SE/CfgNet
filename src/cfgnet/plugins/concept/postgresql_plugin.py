@@ -26,12 +26,87 @@ class PostgreSQLPlugin(ConfigParserPlugin):
             return True
         return False
 
-    # pylint: disable=unused-argument,too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
-        """
-        Find config type based on option name.
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
+        option_name = option_name.lower()
 
-        :param option_name: name of option
-        :return: config type
-        """
-        return ConfigType.UNKNOWN
+        if option_name.endswith(("_name", "_names", "_hostname")):
+            return ConfigType.NAME
+
+        if option_name.endswith("_addresses"):
+            return ConfigType.IP_ADDRESS
+
+        if option_name.endswith(
+            (
+                "_connections",
+                "_iterations",
+                "_permissions",
+                "_count",
+                "_buffers",
+                "_transactions",
+                "_depth",
+                "_pages",
+                "_concurrency",
+                "_workers",
+                "_senders",
+                "_slots",
+                "_subscription",
+                "_cost",
+                "_threshold",
+                "_seed",
+                "_generations",
+                "_fraction",
+                "_rate",
+                "_length",
+                "_factor",
+                "_age",
+            )
+        ):
+            return ConfigType.NUMBER
+
+        if option_name.endswith(
+            (
+                "_timeout",
+                "_interval",
+                "_delay",
+                "_time",
+                "_timestamp",
+                "_duration",
+            )
+        ):
+            return ConfigType.TIME
+
+        if option_name.endswith(
+            (
+                "_file",
+                "_files",
+                "_dir",
+                "_directories",
+                "_keyfile",
+                "_directory",
+                "_destination",
+                "_path",
+                "_filename",
+            )
+        ):
+            return ConfigType.PATH
+
+        if option_name.endswith(("_version", "_version_num")):
+            return ConfigType.VERSION_NUMBER
+
+        if option_name.endswith("_command"):
+            return ConfigType.COMMAND
+
+        if option_name.endswith(("_size", "_mem", "_limit", "_memory")):
+            return ConfigType.SIZE
+
+        if option_name.endswith(("_type", "_level")):
+            return ConfigType.TYPE
+
+        if option_name.endswith(("_xid", "_ident", "_id")):
+            return ConfigType.ID
+
+        if option_name.endswith("port"):
+            return ConfigType.PORT
+
+        return super().get_config_type(option_name, value)

@@ -27,7 +27,7 @@ class MysqlPlugin(ConfigParserPlugin):
         return False
 
     # pylint: disable=unused-argument,too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         """
         Find config type based on option name.
 
@@ -57,12 +57,6 @@ class MysqlPlugin(ConfigParserPlugin):
         ):
             return ConfigType.PATH
 
-        if option_name in ("port"):
-            return ConfigType.PORT
-
-        if option_name == "password":
-            return ConfigType.PASSWORD
-
         if option_name in ("user", "external_user", "proxy_user"):
             return ConfigType.USERNAME
 
@@ -79,12 +73,8 @@ class MysqlPlugin(ConfigParserPlugin):
             "caching_sha2_password_digest_rounds",
             "default_week_format",
             "div_precision_increment",
-            "ft_max_word_len",
             "information_schema_stats_expiry",
             "log_throttle_queries_not_using_indexes",
-            "max_connect_errors",
-            "max_length_for_sort_data",
-            "max_points_in_geometry",
             "password_history",
             "password_reuse_interval",
             "rand_seed1",
@@ -108,9 +98,6 @@ class MysqlPlugin(ConfigParserPlugin):
         ):
             return ConfigType.NUMBER
 
-        if option_name.endswith("mode"):
-            return ConfigType.MODE
-
         if option_name.endswith(
             (
                 "size",
@@ -119,50 +106,21 @@ class MysqlPlugin(ConfigParserPlugin):
                 "max_allowed_packet",
                 "max_ram",
                 "thread_stack",
+                "max_connect_errors",
+                "max_length_for_sort_data",
+                "max_points_in_geometry",
+                "ft_max_word_len",
             )
         ):
             return ConfigType.SIZE
-
-        if option_name in (
-            "use_secondary_engine",
-            "transaction_isolation",
-            "thread_handling",
-            "completion_type",
-            "concurrent_insert",
-            "default_authentication_plugin",
-            "default_collation_for_utf8mb4",
-            "delay_key_write",
-            "event_scheduler",
-            "authentication_windows_log_level",
-            "internal_tmp_disk_storage_engine",
-            "internal_tmp_mem_storage_engine",
-            "log_error_verbosity",
-            "myisam_recover_options",
-            "myisam_stats_method",
-            "offline_mode",
-            "optimizer_prune_level",
-            "protocol_compression_algorithms",
-            "rbr_exec_mode",
-            "session_track_gtids",
-            "sql_mode",
-            "ssl_fips_mode",
-            "ssl_session_cache_mode",
-        ):
-            return ConfigType.MODE
 
         if option_name.endswith(
             ("timeout", "time", "delay", "timer", "timestamp")
         ):
             return ConfigType.TIME
 
-        if option_name in ("ft_boolean_syntax"):
-            return ConfigType.PATTERN
-
         if option_name in ("hostname", "shared_memory_base_name"):
             return ConfigType.NAME
-
-        if option_name in ("license"):
-            return ConfigType.LICENSE
 
         if option_name.endswith(("pseudo_thread_id", "_id")):
             return ConfigType.ID
@@ -170,4 +128,4 @@ class MysqlPlugin(ConfigParserPlugin):
         if option_name in ("version_compile_os"):
             return ConfigType.PLATFORM
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

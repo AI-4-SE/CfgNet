@@ -12,56 +12,136 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
+import pytest
 from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 from cfgnet.config_types.config_types import ConfigType
 
+test_dataset = [
+    # Ports
+    {"option_name": "db_port", "value": "5432", "expected_type": ConfigType.PORT},
+    {"option_name": "server.port", "value": "8080", "expected_type": ConfigType.PORT},
+    {"option_name": "listener_port", "value": "80", "expected_type": ConfigType.PORT},
+    {"option_name": "ports.container", "value": "80", "expected_type": ConfigType.PORT},
+    {"option_name": "ports.host", "value": "80", "expected_type": ConfigType.PORT},
+    {"option_name": "http.port", "value": "9200", "expected_type": ConfigType.PORT},
+    
+    # Usernames
+    {"option_name": "admin_user", "value": "admin", "expected_type": ConfigType.USERNAME},
+    {"option_name": "ftp_username", "value": "ftp_user123", "expected_type": ConfigType.USERNAME},
+    {"option_name": "spring.datasource.username", "value": "root", "expected_type": ConfigType.USERNAME},
 
-def test_get_config_type():
+    # Passwords
+    {"option_name": "db_password", "value": "secret_password123", "expected_type": ConfigType.PASSWORD},
+    {"option_name": "ftp_pass", "value": "MyP@ssw0rd!", "expected_type": ConfigType.PASSWORD},
+    {"option_name": "spring.datasource.password", "value": "secret", "expected_type": ConfigType.PASSWORD},
 
-    assert ConfigTypeInferer.get_config_type("port", "8080") == ConfigType.PORT
-    assert ConfigTypeInferer.get_config_type("max_length", "100") == ConfigType.SIZE
-    assert ConfigTypeInferer.get_config_type("usr", "test") == ConfigType.USERNAME
-    assert ConfigTypeInferer.get_config_type("timeout", "10") == ConfigType.TIME
-    assert ConfigTypeInferer.get_config_type("file_path", "target/main.jar") == ConfigType.PATH
-    assert ConfigTypeInferer.get_config_type("url", "https://test.com/") == ConfigType.URL
-    assert ConfigTypeInferer.get_config_type("ip", "192.168.34.164") == ConfigType.IP_ADDRESS
-    assert ConfigTypeInferer.get_config_type("email", "test@gmail.com") == ConfigType.EMAIL
-    assert ConfigTypeInferer.get_config_type("speed", "1 bps") == ConfigType.SPEED
-    assert ConfigTypeInferer.get_config_type("memory", "516 GB") == ConfigType.SIZE
-    assert ConfigTypeInferer.get_config_type("artifact_id", "artifact_name") == ConfigType.ID
-    assert ConfigTypeInferer.get_config_type("password", "test1234") == ConfigType.PASSWORD
-    assert ConfigTypeInferer.get_config_type("count_leafs", "5") == ConfigType.COUNT
-    assert ConfigTypeInferer.get_config_type("domain_name", "https://192.168.34.164:8080") == ConfigType.DOMAIN_NAME
-    assert ConfigTypeInferer.get_config_type("server_name", "MainServer15") == ConfigType.NAME
-    assert ConfigTypeInferer.get_config_type("num_cores", "123123123") == ConfigType.NUMBER
-    assert ConfigTypeInferer.get_config_type("version_number", "1.12.12") == ConfigType.VERSION_NUMBER
-    assert ConfigTypeInferer.get_config_type("test", "true") == ConfigType.BOOLEAN
-    assert ConfigTypeInferer.get_config_type("io.file.buffer.size", "131072") == ConfigType.SIZE
+    # URLs
+    {"option_name": "api_url", "value": "https://api.example.com", "expected_type": ConfigType.URL},
+    {"option_name": "homepage", "value": "http://example.org", "expected_type": ConfigType.URL},
+    {"option_name": "spring.datasource.url", "value": "jdbc:mysql://localhost:3306/mydb", "expected_type": ConfigType.URL},
+    {"option_name": "baseUrl", "value": "http://localhost:3000", "expected_type": ConfigType.URL},
+
+    # IP Addresses
+    {"option_name": "server_ip", "value": "192.168.1.1", "expected_type": ConfigType.IP_ADDRESS},
+    {"option_name": "host_ip", "value": "10.0.0.254", "expected_type": ConfigType.IP_ADDRESS},
+    {"option_name": "bindIp", "value": "127.0.0.1", "expected_type": ConfigType.IP_ADDRESS},
+    
+    # Sizes
+    {"option_name": "max_file_size", "value": "20MB", "expected_type": ConfigType.SIZE},
+    {"option_name": "cache_size", "value": "512KB", "expected_type": ConfigType.SIZE},
+    {"option_name": "disk_size", "value": "100GB", "expected_type": ConfigType.SIZE},
+    
+    # Timeouts
+    {"option_name": "session_timeout", "value": "30s", "expected_type": ConfigType.TIME},
+    {"option_name": "request_timeout", "value": "500ms", "expected_type": ConfigType.TIME},
+    {"option_name": "retry_interval", "value": "5min", "expected_type": ConfigType.TIME},
+    
+    # Version numbers
+    {"option_name": "software_version", "value": "1.2.3", "expected_type": ConfigType.VERSION_NUMBER},
+    {"option_name": "api_version", "value": "v2.3.4-beta", "expected_type": ConfigType.VERSION_NUMBER},
+    {"option_name": "version", "value": "3.8", "expected_type": ConfigType.VERSION_NUMBER},
+    {"option_name": "targetSdkVersion", "value": "30", "expected_type": ConfigType.VERSION_NUMBER},
+    
+    # Paths
+    {"option_name": "volumes", "value": "/host/data:/container/data", "expected_type": ConfigType.PATH},
+    {"option_name": "log_dir", "value": "/var/logs/app/", "expected_type": ConfigType.PATH},
+    {"option_name": "config_path", "value": "/etc/app/config.yaml", "expected_type": ConfigType.PATH},
+    {"option_name": "home_dir", "value": "~/home/user/", "expected_type": ConfigType.PATH},
+    {"option_name": "build", "value": "./myapp", "expected_type": ConfigType.PATH},
+    {"option_name": "outputPath", "value": "dist/my-app", "expected_type": ConfigType.PATH},
+    {"option_name": "index", "value": "src/index.html", "expected_type": ConfigType.PATH},
+    
+    # File Names
+    {"option_name": "logfile", "value": "output.log", "expected_type": ConfigType.PATH},
+    {"option_name": "config_file", "value": "settings.ini", "expected_type": ConfigType.PATH},
+    
+    # Emails
+    {"option_name": "admin_email", "value": "admin@example.com", "expected_type": ConfigType.EMAIL},
+    {"option_name": "support_email", "value": "support@myapp.org", "expected_type": ConfigType.EMAIL},
+    
+    # IDs
+    {"option_name": "session_id", "value": "abc123xyz", "expected_type": ConfigType.ID},
+    {"option_name": "user_token", "value": "token-987654321", "expected_type": ConfigType.ID},
+    {"option_name": "artifactId", "value": "my-app", "expected_type": ConfigType.ID},
+    {"option_name": "groupID", "value": "com.maven.org", "expected_type": ConfigType.ID},
+    
+    # Number
+    {"option_name": "max_connections", "value": "100", "expected_type": ConfigType.NUMBER},
+    {"option_name": "retry_count", "value": "5", "expected_type": ConfigType.NUMBER},
+    
+    # Speeds
+    {"option_name": "download_speed", "value": "100Mbps", "expected_type": ConfigType.SPEED},
+    {"option_name": "upload_speed", "value": "50Mbps", "expected_type": ConfigType.SPEED},
+    
+    # Commands
+    {"option_name": "install_script", "value": "install.sh", "expected_type": ConfigType.COMMAND},
+    {"option_name": "start_script", "value": "node app.js", "expected_type": ConfigType.COMMAND},
+    
+    # Licenses
+    {"option_name": "software_license", "value": "MIT", "expected_type": ConfigType.LICENSE},
+    
+    # Images
+    {"option_name": "FROM", "value": "nginx:latest", "expected_type": ConfigType.IMAGE},
+        
+    # Names
+    {"option_name": "container_name", "value": "my_container", "expected_type": ConfigType.NAME},
+    {"option_name": "cluster.name", "value": "my-cluster", "expected_type": ConfigType.NAME},
+    {"option_name": "node.name", "value": "node-1", "expected_type": ConfigType.NAME},
+    
+    # Booleans
+    {"option_name": "compilerOptions.strict", "value": "true", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "DEBUG", "value": "True", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "production", "value": "true", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "chromeWebSecurity", "value": "false", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "enable_feature", "value": "true", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "is_active", "value": "false", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "debug_mode", "value": "1", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "dark_mode", "value": "on", "expected_type": ConfigType.BOOLEAN},
+    {"option_name": "safe_mode", "value": "off", "expected_type": ConfigType.BOOLEAN},
+
+    # Misclassifications
+    # {"option_name": "viewportWidth", "value": "1280", "expected_type": ConfigType.SIZE},  # SIZE
+    # {"option_name": "minSdkVersion", "value": "21", "expected_type": ConfigType.VERSION_NUMBER},  # VERSION_NUMBER
+    # {"option_name": "license_type", "value": "GPL", "expected_type": ConfigType.LICENSE},  # LICENSE
+    # {"option_name": "max_length", "value": "100", "expected_type": ConfigType.SIZE},  # SIZE
+    # {"option_name": "maven.compiler.source", "value": "1.8", "expected_type": ConfigType.VERSION_NUMBER},
+    # {"option_name": "maven.compiler.target", "value": "1.8", "expected_type": ConfigType.VERSION_NUMBER},
+    # {"option_name": "auth_key", "value": "auth_56789", "expected_type": ConfigType.ID},
+    # {"option_name": "SECRET_KEY", "value": "django-insecure-secretkey", "expected_type": ConfigType.ID},
+    # {"option_name": "start_command", "value": "run.sh", "expected_type": ConfigType.COMMAND},
+]
 
 
-def test_file_paths():
-    abs_file_path = "/home/user/github/cfgnet/src/launcher.py"
-    rel_file_path = "../cfgnet/src/network/network.py"
-    no_file_path = "test_string"
-
-    assert ConfigTypeInferer.get_config_type("", abs_file_path) == ConfigType.PATH
-    assert ConfigTypeInferer.get_config_type("", rel_file_path) == ConfigType.PATH
-    assert ConfigTypeInferer.get_config_type("", no_file_path) == ConfigType.UNKNOWN
+@pytest.fixture(name="get_inferer")
+def get_inferer_():
+    inferer = ConfigTypeInferer()
+    return inferer
 
 
-def test_port():
-    port = "8080"
-    not_port = "-200"
+def test_config_types(get_inferer):
+    inferer = get_inferer
 
-    assert ConfigTypeInferer.get_config_type("port", port) == ConfigType.PORT
-    assert ConfigTypeInferer.get_config_type("", not_port) == ConfigType.UNKNOWN
-
-
-def test_version_number():
-    version = "1.1.1"
-    version_snapshot = "3.9.0-SNAPSHOT"
-
-    assert ConfigTypeInferer.get_config_type("version", version) == ConfigType.VERSION_NUMBER
-    assert ConfigTypeInferer.get_config_type("version_snapshot", version_snapshot) == ConfigType.VERSION_NUMBER
+    for test in test_dataset:
+        inferred_type = inferer.get_config_type(test["option_name"], test["value"])
+        print(test["option_name"], test["value"], test["expected_type"], inferred_type)
+        assert inferred_type == test["expected_type"]

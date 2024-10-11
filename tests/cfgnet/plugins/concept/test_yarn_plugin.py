@@ -46,27 +46,23 @@ def test_parse_yarn_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 9
+    assert len(nodes) == 5
 
     assert make_id("yarn-site.xml", "file", "yarn-site.xml") in ids
     assert make_id("yarn-site.xml", "configuration", "property", "yarn.resourcemanager.hostname", "value", "resourcemanager.example.com") in ids
-    assert make_id("yarn-site.xml", "configuration", "property", "yarn.resourcemanager.hostname", "description", "The hostname of the ResourceManager.") in ids
-
     assert make_id("yarn-site.xml", "configuration", "property", "yarn.resourcemanager.address", "value", "resourcemanager.example.com:8032") in ids
-    assert make_id("yarn-site.xml", "configuration", "property", "yarn.resourcemanager.address", "description", "Address of the ResourceManager IPC service.") in ids
-
     assert make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.memory-mb", "value", "8192") in ids
-    assert make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.memory-mb", "description", "Amount of physical memory (in MB) available for containers on each NodeManager.") in ids
-
     assert make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.cpu-vcores", "value", "4") in ids
-    assert make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.cpu-vcores", "description", "Number of virtual CPU cores available for containers on each NodeManager.") in ids
-    
+
 
 def test_config_types(get_plugin):
     plugin = get_plugin
     yarn_file = os.path.abspath("tests/files/yarn-site.xml")
     artifact = plugin.parse_file(yarn_file, "yarn-site.xml")
     nodes = artifact.get_nodes()
+
+    for node in nodes:
+        print(node, node.config_type)
 
     number_node = next(filter(lambda x: x.id == make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.cpu-vcores", "value", "4"), nodes))
     name_node = next(filter(lambda x: x.id == make_id("yarn-site.xml", "configuration", "property", "yarn.resourcemanager.hostname", "value", "resourcemanager.example.com"), nodes))

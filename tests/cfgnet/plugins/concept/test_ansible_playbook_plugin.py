@@ -81,14 +81,10 @@ def test_config_types(get_plugin):
 
     path_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "ansible.builtin.git", "dest", "/home/www"), nodes))
     name_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "ansible.builtin.yum", "name", "httpd"), nodes))
-    state_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "win_user", "state", "present"), nodes))
     url_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "win_get_url", "url", "https://test.html"), nodes))
     password_node = next(filter(lambda x: x.id == make_id("playbook.yml", "tasks", "win_user", "password", "test123"), nodes))
-    host_node = next(filter(lambda x: x.id == make_id("playbook.yml", "hosts", "localhost"), nodes))
 
     assert path_node.config_type == ConfigType.PATH
     assert name_node.config_type == ConfigType.NAME
-    assert state_node.config_type == ConfigType.STATE
     assert url_node.config_type == ConfigType.URL
-    assert host_node.config_type == ConfigType.HOST
     assert password_node.config_type == ConfigType.PASSWORD

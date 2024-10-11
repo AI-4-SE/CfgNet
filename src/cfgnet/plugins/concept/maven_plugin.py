@@ -279,15 +279,8 @@ class MavenPlugin(Plugin):
         except StopIteration:
             return "jar", None
 
-    @staticmethod
     # pylint: disable=too-many-return-statements
-    def get_config_type(option_name: str) -> ConfigType:
-        """
-        Get config type based on the option name.
-
-        :param name: option name
-        :return: ConfigType
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in (
             "modelVersion",
             "version",
@@ -332,17 +325,8 @@ class MavenPlugin(Plugin):
         if any(x in option_name for x in ["directory", "Directory", "Path"]):
             return ConfigType.PATH
 
-        if option_name == "id":
-            return ConfigType.ID
-
         if option_name in ("url", "organizationUrl", "picUrl", "downloadUrl"):
             return ConfigType.URL
-
-        if option_name == "licence":
-            return ConfigType.LICENSE
-
-        if option_name == "email":
-            return ConfigType.EMAIL
 
         if option_name in (
             "address",
@@ -353,7 +337,4 @@ class MavenPlugin(Plugin):
         ):
             return ConfigType.IP_ADDRESS
 
-        if option_name in ("updatePolicy", "checksumPolicy", "status"):
-            return ConfigType.MODE
-
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

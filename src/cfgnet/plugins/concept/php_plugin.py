@@ -28,31 +28,11 @@ class PhpPlugin(ConfigParserPlugin):
         return False
 
     # pylint: disable=unused-argument,too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
-        """
-        Find config type based on option name.
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
+        option_name = option_name.lower()
 
-        Option types included from:
-        https://www.php.net/manual/de/ini.list.php
-        Not all options are included, but only those for which
-        the type could be easily derived manually.
-
-        :param option_name: name of option
-        :return: config type
-        """
-        if option_name.endswith("port"):
-            return ConfigType.PORT
-
-        if option_name.endswith("user"):
+        if option_name.endswith(("default_pw")):
             return ConfigType.USERNAME
-
-        if option_name.endswith(("password", "default_pw")):
-            return ConfigType.USERNAME
-
-        if option_name.endswith(
-            ("path", "dir", "file", "root", "filename", "directory", "log")
-        ):
-            return ConfigType.PATH
 
         if option_name in (
             "instance_name",
@@ -69,7 +49,7 @@ class PhpPlugin(ConfigParserPlugin):
             return ConfigType.NAME
 
         if option_name.endswith(("format", "http_output_conv_mimetypes")):
-            return ConfigType.PATTERN
+            return ConfigType.TYPE
 
         if option_name.endswith(
             (
@@ -82,13 +62,18 @@ class PhpPlugin(ConfigParserPlugin):
             return ConfigType.NUMBER
 
         if option_name in (
+            "memory_limit",
+            "memory_consumption",
+            "interned_strings_buffer",
+            "max_file_size",
+            "wsdl_cache_limit",
             "max_persistent",
             "max_links",
+            "max_accelerated_files",
             "regex_retry_limit",
             "regex_stack_limit",
             "max_failover_attempts",
             "default_prefetch",
-            "max_accelerated_files",
             "jit_blacklist_root_trace",
             "jit_blacklist_side_trace",
             "jit_max_loop_unrolls",
@@ -98,15 +83,6 @@ class PhpPlugin(ConfigParserPlugin):
             "backtrack_limit",
             "recursion_limit",
             "sid_length",
-        ):
-            return ConfigType.NUMBER
-
-        if option_name in (
-            "memory_limit",
-            "memory_consumption",
-            "interned_strings_buffer",
-            "max_file_size",
-            "wsdl_cache_limit",
         ):
             return ConfigType.SIZE
 
@@ -125,30 +101,6 @@ class PhpPlugin(ConfigParserPlugin):
             return ConfigType.TIME
 
         if option_name in ("default_mimetype"):
-            return ConfigType.MIME
+            return ConfigType.TYPE
 
-        if option_name.endswith(
-            (
-                "mode",
-                "error_reporting",
-                "log_mode",
-                "facility",
-                "filter",
-                "binmode",
-            )
-        ):
-            return ConfigType.MODE
-
-        if option_name in (
-            "wsdl_cache",
-            "i5_allow_commit",
-            "i5_dbcs_allo",
-            "error_level",
-            "optimization_level",
-        ):
-            return ConfigType.MODE
-
-        if option_name in ("cookie_domain"):
-            return ConfigType.DOMAIN_NAME
-
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

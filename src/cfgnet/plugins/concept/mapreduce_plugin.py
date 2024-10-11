@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import os
+from cfgnet.config_types.config_types import ConfigType
 from cfgnet.plugins.file_type.hadoop_plugin import HadoopPlugin
 
 
@@ -26,3 +27,52 @@ class MapReducePlugin(HadoopPlugin):
             file_name == name
             for name in ["mapred-site.xml", "mapred-default.xml"]
         )
+
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
+        if option_name.endswith(
+            ("name", ".nameservices", ".hostname", ".interfaces")
+        ):
+            return ConfigType.NAME
+
+        if option_name.endswith((".version")):
+            return ConfigType.VERSION_NUMBER
+
+        if option_name.endswith(
+            ("ms", ".sec", ".timeout", ".interval", ".hours")
+        ):
+            return ConfigType.TIME
+
+        if option_name.endswith(
+            (".factor", ".threshold", ".count", ".limit", ".attempts")
+        ):
+            return ConfigType.NUMBER
+
+        if option_name.endswith((".url")):
+            return ConfigType.URL
+
+        if option_name.endswith((".path", ".dir", ".location", ".filename")):
+            return ConfigType.PATH
+
+        if option_name.endswith((".password")):
+            return ConfigType.PASSWORD
+
+        if option_name.endswith((".enabled", ".needed")):
+            return ConfigType.BOOLEAN
+
+        if option_name.endswith((".address")):
+            return ConfigType.IP_ADDRESS
+
+        if option_name.endswith((".port")):
+            return ConfigType.PORT
+
+        if option_name.endswith((".mode", ".level", ".type")):
+            return ConfigType.TYPE
+
+        if option_name.endswith((".size", ".mb", ".bytes")):
+            return ConfigType.SIZE
+
+        if option_name.endswith((".id")):
+            return ConfigType.ID
+
+        return super().get_config_type(option_name, value)

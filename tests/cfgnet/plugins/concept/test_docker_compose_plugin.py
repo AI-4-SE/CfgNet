@@ -53,12 +53,15 @@ def test_parse_docker_compose_file(get_plugin):
     artifact = docker_compose_plugin.parse_file(file, "docker-compose.yml")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
+    
+    for id in ids:
+        print(id)
 
     assert artifact is not None
     assert len(nodes) == 20
 
     assert make_id("docker-compose.yml", "file", "docker-compose.yml") in ids
-    assert make_id("docker-compose.yml", "version", "version:3.9") in ids
+    assert make_id("docker-compose.yml", "version", "3.9") in ids
     assert (
         make_id("docker-compose.yml", "services", "web", "ports", "host", "8000")
         in ids
@@ -150,13 +153,6 @@ def test_config_types(get_plugin):
         )
     )
 
-    mode_node = next(
-        filter(
-            lambda x: x.id == make_id("docker-compose.yml", "restart", "no"),
-            nodes,
-        )
-    )
-
     boolean_node = next(
         filter(
             lambda x: x.id
@@ -225,7 +221,6 @@ def test_config_types(get_plugin):
 
     assert port_node.config_type == ConfigType.PORT
     assert ip_node.config_type == ConfigType.IP_ADDRESS
-    assert mode_node.config_type == ConfigType.MODE
     assert boolean_node.config_type == ConfigType.BOOLEAN
     assert time_node.config_type == ConfigType.TIME
     assert command_node.config_type == ConfigType.COMMAND

@@ -12,28 +12,25 @@ class ZookeeperPlugin(ConfigParserPlugin):
         return file_name == "zoo.cfg"
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         option_name = option_name.lower()
 
-        if option_name == "clientport":
+        if option_name.endswith(("port")):
             return ConfigType.PORT
 
-        if option_name in ("datadir", "datalogdir"):
+        if option_name.endswith(("dir", "file")):
             return ConfigType.PATH
 
         if option_name.endswith(("limit", "size", "buffer")):
             return ConfigType.SIZE
 
-        if option_name == "clientportaddress":
+        if option_name.endswith(("address")):
             return ConfigType.IP_ADDRESS
 
-        if option_name.endswith("user"):
-            return ConfigType.USERNAME
+        if option_name.endswith(("time", "timeout")):
+            return ConfigType.TIME
 
-        if option_name.endswith("password"):
-            return ConfigType.PASSWORD
+        if option_name.endswith(("limit", "count")):
+            return ConfigType.NUMBER
 
-        if option_name.endswith("protocol"):
-            return ConfigType.PROTOCOL
-
-        return super().get_config_type(option_name)
+        return super().get_config_type(option_name, value)

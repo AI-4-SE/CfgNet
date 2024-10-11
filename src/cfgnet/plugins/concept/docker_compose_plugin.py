@@ -53,11 +53,7 @@ class DockerComposePlugin(YAMLPlugin):
                     self._parse_value_assignment(node=node, parent=parent)
                     return
 
-                name = (
-                    f"{parent.name}:{node.value}"
-                    if parent.config_type == ConfigType.VERSION_NUMBER
-                    else node.value
-                )
+                name = node.value
 
                 value = ValueNode(name=name)
 
@@ -74,7 +70,9 @@ class DockerComposePlugin(YAMLPlugin):
         self, node: ScalarNode, parent: OptionNode
     ) -> None:
         value_parts = node.value.split("=")
-        config_type = self.get_config_type(option_name=value_parts[0])
+        config_type = self.get_config_type(
+            option_name=value_parts[0], value=value_parts[1]
+        )
         variable = OptionNode(
             name=value_parts[0],
             location=str(node.start_mark.line + 1),
@@ -85,29 +83,15 @@ class DockerComposePlugin(YAMLPlugin):
         variable.add_child(value)
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         option_name = option_name.lower()
 
-        if option_name == "version":
-            return ConfigType.VERSION_NUMBER
-        if option_name.endswith(("ports", "port", "expose", "PORT", "tmpfs")):
-            return ConfigType.PORT
-        if option_name == "image":
-            return ConfigType.IMAGE
         if option_name.endswith(("size", "weight", "height")):
             return ConfigType.SIZE
-        if option_name.endswith(("path", "env_file")):
+
+        if option_name == "env_file":
             return ConfigType.PATH
-        if option_name == "environment":
-            return ConfigType.ENVIRONMENT
-        if option_name.endswith(("command", "entrypoint", "test")):
-            return ConfigType.COMMAND
+
         if option_name.endswith(
             (
                 "name",
@@ -127,8 +111,10 @@ class DockerComposePlugin(YAMLPlugin):
             )
         ):
             return ConfigType.NAME
+
         if option_name == "rate":
             return ConfigType.SPEED
+
         if option_name.endswith(
             (
                 "cpu_rt_runtime",
@@ -140,9 +126,9 @@ class DockerComposePlugin(YAMLPlugin):
             )
         ):
             return ConfigType.TIME
+
         if option_name.endswith(
             (
-                "cpu_count",
                 "cpu_shares",
                 "uid",
                 "gid",
@@ -153,20 +139,13 @@ class DockerComposePlugin(YAMLPlugin):
             )
         ):
             return ConfigType.NUMBER
-        if option_name == "cpu_percent":
-            return ConfigType.FRACTION
+
         if option_name.endswith(("external", "disable", "init", "attachable")):
             return ConfigType.BOOLEAN
-        if option_name.endswith(
-            (
-                "mode",
-                "condition",
-                "network_mode",
-                "restart",
-                "userns_mode",
-            )
-        ):
-            return ConfigType.MODE
+
+        if option_name == "test":
+            return ConfigType.COMMAND
+
         if option_name.endswith(
             (
                 "dns",
@@ -181,15 +160,8 @@ class DockerComposePlugin(YAMLPlugin):
             )
         ):
             return ConfigType.IP_ADDRESS
+
         if option_name.endswith(("dns_search", "extra_hosts")):
             return ConfigType.URL
-        if option_name.endswith(("user", "username")):
-            return ConfigType.USERNAME
-        if option_name.endswith(("password", "pwd")):
-            return ConfigType.PASSWORD
-        if option_name == "platform":
-            return ConfigType.PLATFORM
-        if option_name == "protocol":
-            return ConfigType.PROTOCOL
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

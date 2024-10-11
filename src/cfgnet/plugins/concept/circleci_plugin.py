@@ -24,13 +24,7 @@ class CircleCiPlugin(YAMLPlugin):
         return abs_file_path.endswith(".circleci/config.yml")
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in ("command", "run", "shell", "entrypoint"):
             return ConfigType.COMMAND
 
@@ -67,4 +61,4 @@ class CircleCiPlugin(YAMLPlugin):
         if option_name in ("no_output_timeout"):
             return ConfigType.TIME
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

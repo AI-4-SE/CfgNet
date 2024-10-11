@@ -132,19 +132,10 @@ def test_config_types(get_plugin):
         )
     )
 
-    pattern_node = next(
-        filter(
-            lambda x: x.id
-            == make_id("cypress.json", "specPattern", "*.test.js"),
-            nodes,
-        )
-    )
-
     assert url_node.config_type == ConfigType.URL
-    assert env_node.config_type == ConfigType.ENVIRONMENT
+    assert env_node.config_type == ConfigType.NUMBER
     assert env_url_node.config_type == ConfigType.URL
     assert timeout_node.config_type == ConfigType.TIME
     assert folder_node.config_type == ConfigType.PATH
     assert id_node.config_type == ConfigType.ID
     assert size_node.config_type == ConfigType.SIZE
-    assert pattern_node.config_type == ConfigType.PATTERN

@@ -27,13 +27,7 @@ class TsconfigPlugin(JsonPlugin):
         return False
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in (
             "files",
             "outFile",
@@ -48,8 +42,7 @@ class TsconfigPlugin(JsonPlugin):
             "mapRoot",
         ):
             return ConfigType.PATH
-        if any(x in option_name for x in ["Dir", "File"]):
-            return ConfigType.PATH
+
         if option_name in (
             "noImplicitAny",
             "removeComments",
@@ -69,14 +62,7 @@ class TsconfigPlugin(JsonPlugin):
         ):
             return ConfigType.BOOLEAN
 
-        if option_name in (
-            "moduleResolution",
-            "importsNotUsedAsValues",
-            "newLine",
-        ):
-            return ConfigType.MODE
-
         if option_name == "types":
             return ConfigType.NAME
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

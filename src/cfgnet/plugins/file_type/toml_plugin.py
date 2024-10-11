@@ -19,7 +19,6 @@ import toml
 from toml import TomlDecodeError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
-from cfgnet.config_types.config_types import ConfigType
 
 
 class TomlPlugin(Plugin):
@@ -92,14 +91,3 @@ class TomlPlugin(Plugin):
                 else:
                     name = value
                     option.add_child(ValueNode(name))
-
-    # pylint: disable=unused-argument
-    @staticmethod
-    def get_config_type(option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
-        return ConfigType.UNKNOWN

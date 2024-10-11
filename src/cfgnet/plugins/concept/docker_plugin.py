@@ -19,7 +19,6 @@ import re
 from typing import List, Optional
 import dockerfile
 from cfgnet.config_types.config_types import ConfigType
-from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 from cfgnet.network.nodes import (
     ArtifactNode,
@@ -115,7 +114,7 @@ class DockerPlugin(Plugin):
                     self.env_vars[parts[0]] = value_name
                     env_var_option.add_child(value_node)
 
-            elif cmd.cmd in ["CMD", "ENTRYPOINT"]:
+            elif cmd.cmd in ["CMD", "ENTRYPOINT", "SH"]:
                 exec_command = " ".join(cmd.value)
                 exec_command_node = OptionNode(
                     "exec_command",
@@ -164,6 +163,10 @@ class DockerPlugin(Plugin):
                 value_name = self.check_value_name(cmd.value[0])
                 option.add_child(ValueNode(name=value_name))
 
+            elif cmd.cmd == "VOLUME":
+                value_name = self.check_value_name(cmd.value[0])
+                option.add_child(ValueNode(name=value_name))
+
             if not option.children:
                 artifact.children.remove(option)
 
@@ -187,7 +190,9 @@ class DockerPlugin(Plugin):
             )
             option_port = OptionNode("port", option.location, ConfigType.PORT)
             option_protocol = OptionNode(
-                "protocol", option.location, ConfigType.PROTOCOL
+                "protocol",
+                option.location,
+                self.get_config_type("protocol", match.group("protocol")),
             )
             option.add_child(option_port)
             option.add_child(option_protocol)
@@ -203,7 +208,7 @@ class DockerPlugin(Plugin):
         if len(parameters) == 1:
             parameters = parameters[0].split(" ")
         for param in parameters:
-            config_type = ConfigTypeInferer.get_config_type("", param)
+            config_type = self.get_config_type("", param)
             option_param = OptionNode(
                 name="param" + str(param_counter),
                 location=option.location,
@@ -236,6 +241,14 @@ class DockerPlugin(Plugin):
                 name=name, location=location, config_type=ConfigType.USERNAME
             )
         elif name == "WORKDIR":
+            option = OptionNode(
+                name=name, location=location, config_type=ConfigType.PATH
+            )
+        elif name == "RUN":
+            option = OptionNode(
+                name=name, location=location, config_type=ConfigType.COMMAND
+            )
+        elif name == "VOLUME":
             option = OptionNode(
                 name=name, location=location, config_type=ConfigType.PATH
             )

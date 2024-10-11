@@ -32,15 +32,10 @@ class AngularPlugin(JsonPlugin):
         return file_name == "angular.json"
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in ("version"):
             return ConfigType.VERSION_NUMBER
+
         if option_name in (
             "main",
             "sourceRoot",
@@ -48,15 +43,32 @@ class AngularPlugin(JsonPlugin):
             "with",
             "root",
             "$schema",
+            "path",
+            "outputPath",
+            "baseUrl",
         ):
             return ConfigType.PATH
-        if option_name in ("scripts", "bin"):
+
+        if option_name in ("bin"):
             return ConfigType.COMMAND
+
         if option_name in (
             "name",
             "bundledDependencies",
             "newProjectRoot",
             "projectType",
+            "packageManager",
+            "environement",
         ):
             return ConfigType.NAME
-        return ConfigType.UNKNOWN
+
+        if option_name in ("enabled", "scripts", "styles", "hidden", "vendor"):
+            return ConfigType.BOOLEAN
+
+        if option_name.startswith(("disable", "enable")):
+            return ConfigType.BOOLEAN
+
+        if option_name in ("flatModuleID"):
+            return ConfigType.ID
+
+        return super().get_config_type(option_name, value)

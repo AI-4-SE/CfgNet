@@ -26,13 +26,7 @@ class FlutterPlugin(YAMLPlugin):
         return file_name == "pubspec.yaml"
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name.endswith(("name", "description", "ref")):
             return ConfigType.NAME
 
@@ -58,4 +52,4 @@ class FlutterPlugin(YAMLPlugin):
         ):
             return ConfigType.URL
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

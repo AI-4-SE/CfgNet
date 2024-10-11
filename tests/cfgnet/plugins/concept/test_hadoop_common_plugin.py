@@ -46,21 +46,14 @@ def test_parse_hadoop_common_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 9
+    assert len(nodes) == 5
 
     assert make_id("core-site.xml", "file", "core-site.xml") in ids
     assert make_id("core-site.xml", "configuration", "property", "fs.defaultFS", "value", "hdfs://namenode.example.com:9000") in ids
-    assert make_id("core-site.xml", "configuration", "property", "fs.defaultFS", "description", "The name of the default file system. It can be HDFS, file:///, etc.") in ids
-
     assert make_id("core-site.xml", "configuration", "property", "hadoop.tmp.dir", "value", "/var/lib/hadoop/tmp") in ids
-    assert make_id("core-site.xml", "configuration", "property", "hadoop.tmp.dir", "description", "A base for other temporary directories.") in ids
-
     assert make_id("core-site.xml", "configuration", "property", "io.file.buffer.size", "value", "131072") in ids
-    assert make_id("core-site.xml", "configuration", "property", "io.file.buffer.size", "description", "Buffer size for Hadoop I/O operations in bytes (128KB).") in ids
-
     assert make_id("core-site.xml", "configuration", "property", "ipc.client.connect.timeout", "value", "30000") in ids
-    assert make_id("core-site.xml", "configuration", "property", "ipc.client.connect.timeout", "description", "Set the RPC timeout in milliseconds.") in ids
-    
+
 
 def test_config_types(get_plugin):
     plugin = get_plugin

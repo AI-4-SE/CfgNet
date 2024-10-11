@@ -208,47 +208,7 @@ class ApacheWebserverPlugin(Plugin):
                             break
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        Option types included from: https://httpd.apache.org/docs/2.4/mod/quickreference.html.
-
-        :param option_name: name of option
-        :return: config type
-        """
-        config_type = ConfigType.UNKNOWN
-
-        if option_name in ("AcceptFilter", "Protocol", "Protocols"):
-            return ConfigType.PROTOCOL
-
-        if option_name in (
-            "AcceptPathInfo",
-            "AddDefaultCharset",
-            "AllowEncodedSlashes",
-            "CGIPassAuth",
-            "EnableExceptionHook",
-            "EnableMMAP",
-            "EnableSendfile",
-            "ExtendedStatus",
-            "HostnameLookups",
-            "KeepAlive",
-            "LogLevel",
-            "MergeSlashes",
-            "MergeTrailers",
-            "ProtocolsHonorOrder",
-            "QualifyRedirectURL",
-            "SeeRequestTail",
-            "ServerSignature",
-            "StrictHostCheck",
-            "TraceEnable",
-            "UseCanonicalName",
-            "UseCanonicalPhysicalPort",
-            "Order",
-            "Allow",
-        ):
-            return ConfigType.MODE
-
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in (
             "AccessFileName",
             "ErrorLog",
@@ -277,24 +237,6 @@ class ApacheWebserverPlugin(Plugin):
             "SessionExclude",
         ):
             return ConfigType.PATH
-
-        if option_name.endswith(("File", "Path", "Dir")):
-            return ConfigType.PATH
-
-        if option_name in ("DefaultType", "ForceType"):
-            return ConfigType.MIME
-
-        if option_name in (
-            "DirectoryMatch",
-            "FilesMatch",
-            "LocationMatch",
-            "AliasMatch",
-            "ScriptAliasMatch",
-            "RedirectMatch",
-            "AuthLDAPInitialBindPattern",
-            "ProxyPassMatch",
-        ):
-            return ConfigType.PATTERN
 
         if option_name in ("ErrorLogFormat", "AddType"):
             return ConfigType.TYPE
@@ -367,7 +309,4 @@ class ApacheWebserverPlugin(Plugin):
         if option_name in ("User"):
             return ConfigType.USERNAME
 
-        if option_name in ("AddLanguage", "LanguagePriority"):
-            return ConfigType.LANGUAGE
-
-        return config_type
+        return super().get_config_type(option_name, value)

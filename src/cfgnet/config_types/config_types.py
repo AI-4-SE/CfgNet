@@ -20,13 +20,9 @@ class ConfigType(Enum):
     TIME = auto()
     PORT = auto()
     VERSION_NUMBER = auto()
-    FRACTION = auto()
     SPEED = auto()
-    PERMISSION = auto()
-    COUNT = auto()
     SIZE = auto()
     IP_ADDRESS = auto()
-    NUMBER = auto()
     ID = auto()
 
     # Strings
@@ -35,25 +31,14 @@ class ConfigType(Enum):
     PASSWORD = auto()
     URL = auto()
     EMAIL = auto()
-    DOMAIN_NAME = auto()
-    PROTOCOL = auto()
     IMAGE = auto()
     PATH = auto()
     COMMAND = auto()
     LICENSE = auto()
     ENVIRONMENT = auto()
-    PATTERN = auto()
     PLATFORM = auto()
-    LANGUAGE = auto()
     TYPE = auto()
-    MIME = auto()
-    HOST = auto()
-    STATE = auto()
-    CLASS = auto()
 
-    # Booleans
     BOOLEAN = auto()
-    MODE = auto()
-
-    # UNKNOWN
+    NUMBER = auto()
     UNKNOWN = auto()

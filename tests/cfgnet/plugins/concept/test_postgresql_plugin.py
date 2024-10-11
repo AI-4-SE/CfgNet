@@ -57,7 +57,7 @@ def test_parse_postgresql_file(get_plugin):
     assert make_id("postgresql.conf", "effective_cache_size", "512MB") in ids
     assert make_id("postgresql.conf", "random_page_cost", "1.1") in ids
     assert make_id("postgresql.conf", "effective_io_concurrency", "200") in ids
-    assert make_id("postgresql.conf", "log_filename", "'postgresql-%Y-%m-%d_%H%M%S.log'") in ids
+    assert make_id("postgresql.conf", "log_filename", "postgresql.log") in ids
     assert make_id("postgresql.conf", "max_wal_senders", "5") in ids
     assert make_id("postgresql.conf", "autovacuum", "on") in ids
 
@@ -72,9 +72,9 @@ def test_config_types(get_plugin):
     port_node = next(filter(lambda x: x.id == make_id("postgresql.conf", "port", "5432"), nodes))
     size_node = next(filter(lambda x: x.id == make_id("postgresql.conf", "effective_cache_size", "512MB"), nodes))
     number_node = next(filter(lambda x: x.id == make_id("postgresql.conf", "random_page_cost", "1.1"), nodes))
-    name_node = next(filter(lambda x: x.id == make_id("postgresql.conf", "log_filename", "'postgresql-%Y-%m-%d_%H%M%S.log'"), nodes))
+    path_node = next(filter(lambda x: x.id == make_id("postgresql.conf", "log_filename", "postgresql.log"), nodes))
 
-    assert name_node.config_type == ConfigType.NAME
+    assert path_node.config_type == ConfigType.PATH
     assert number_node.config_type == ConfigType.NUMBER
     assert size_node.config_type == ConfigType.SIZE
     assert port_node.config_type == ConfigType.PORT

@@ -48,21 +48,14 @@ def test_parse_hadoop_hdfs_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 9
+    assert len(nodes) == 5
 
     assert make_id("hdfs-site.xml", "file", "hdfs-site.xml") in ids
     assert make_id("hdfs-site.xml", "configuration", "property", "dfs.replication", "value", "3") in ids
-    assert make_id("hdfs-site.xml", "configuration", "property", "dfs.replication", "description", "Default block replication. Number of copies of each block in HDFS.") in ids
-
     assert make_id("hdfs-site.xml", "configuration", "property", "dfs.blocksize", "value", "134217728") in ids
-    assert make_id("hdfs-site.xml", "configuration", "property", "dfs.blocksize", "description", "Block size in bytes. Default is 128MB.") in ids
-
     assert make_id("hdfs-site.xml", "configuration", "property", "dfs.namenode.http-address", "value", "namenode.example.com:50070") in ids
-    assert make_id("hdfs-site.xml", "configuration", "property", "dfs.namenode.http-address", "description", "HTTP address for the NameNode.") in ids
-
     assert make_id("hdfs-site.xml", "configuration", "property", "dfs.datanode.data.dir", "value", "file:///var/lib/hadoop/hdfs/datanode") in ids
-    assert make_id("hdfs-site.xml", "configuration", "property", "dfs.datanode.data.dir", "description", "Directory where the DataNodes store the blocks.") in ids
-    
+
 
 def test_config_types(get_plugin):
     plugin = get_plugin

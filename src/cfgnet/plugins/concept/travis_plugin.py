@@ -56,13 +56,7 @@ class TravisPlugin(YAMLPlugin):
         return None
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in (
             "before_install",
             "before_script",
@@ -99,9 +93,6 @@ class TravisPlugin(YAMLPlugin):
         ):
             return ConfigType.PATH
 
-        if option_name == "language":
-            return ConfigType.LANGUAGE
-
         if option_name == "depth":
             return ConfigType.NUMBER
 
@@ -114,4 +105,4 @@ class TravisPlugin(YAMLPlugin):
         ):
             return ConfigType.VERSION_NUMBER
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

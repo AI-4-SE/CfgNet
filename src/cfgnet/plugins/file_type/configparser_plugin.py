@@ -20,7 +20,6 @@ from typing import List, Dict
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
-from cfgnet.config_types.config_types import ConfigType
 
 
 class MultiOrderedDict(OrderedDict):
@@ -165,13 +164,3 @@ class ConfigParserPlugin(Plugin):
                 del line_dict[line]
                 return str(lineno)
         return "Unknown"
-
-    # pylint: disable=unused-argument
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
-        return ConfigType.UNKNOWN

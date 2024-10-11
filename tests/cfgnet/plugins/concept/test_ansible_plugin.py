@@ -73,14 +73,14 @@ def test_config_types(get_plugin):
 
     path_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "defaults", "home", "~/.ansible"), nodes))
     timeout_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "defaults", "fact_caching_timeout", "86400"), nodes))
-    number_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "defaults", "internal_poll_interval", "0.001"), nodes))
+    time_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "defaults", "internal_poll_interval", "0.001"), nodes))
     url_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "galaxy", "server", "https://test.ansible.com"), nodes))
     password_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "runas_become_plugin", "password", "test123"), nodes))
     user_node = next(filter(lambda x: x.id == make_id("ansible.cfg", "runas_become_plugin", "user", "user"), nodes))
 
     assert path_node.config_type == ConfigType.PATH
     assert timeout_node.config_type == ConfigType.TIME
-    assert number_node.config_type == ConfigType.NUMBER
+    assert time_node.config_type == ConfigType.TIME
     assert url_node.config_type == ConfigType.URL
     assert user_node.config_type == ConfigType.USERNAME
     assert password_node.config_type == ConfigType.PASSWORD

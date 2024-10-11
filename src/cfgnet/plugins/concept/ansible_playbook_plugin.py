@@ -34,38 +34,26 @@ class AnsiblePlaybookPlugin(YAMLPlugin):
         return False
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
-        if option_name.endswith(("register", "group", "master")):
-            return ConfigType.NAME
-
-        if option_name.endswith(("loacl_action")):
-            return ConfigType.COMMAND
-
-        if option_name.endswith("hosts"):
-            return ConfigType.HOST
-
-        if option_name.endswith("state"):
-            return ConfigType.STATE
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
 
         if option_name.endswith("user"):
             return ConfigType.USERNAME
 
-        if option_name.endswith(("src", "dest", "path")):
-            return ConfigType.PATH
-
         if option_name.endswith("password"):
             return ConfigType.PASSWORD
 
-        if option_name.endswith("mode"):
-            return ConfigType.MODE
+        if option_name.endswith(
+            ("register", "group", "master", "hosts", "name")
+        ):
+            return ConfigType.NAME
+
+        if option_name.endswith(("local_action")):
+            return ConfigType.COMMAND
+
+        if option_name.endswith(("src", "dest", "path")):
+            return ConfigType.PATH
 
         if option_name.endswith(("network", "gateway", "dns4")):
             return ConfigType.IP_ADDRESS
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

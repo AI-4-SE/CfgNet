@@ -216,14 +216,7 @@ class SpringPlugin(Plugin):
             option.add_child(value)
 
     # pylint: disable=too-many-return-statements
-    @staticmethod
-    def get_config_type(option_name: str) -> ConfigType:
-        """
-        Get config type based on the option name.
-
-        :param name: option name
-        :return: ConfigType
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name.endswith(
             (
                 ".show-sql",
@@ -265,25 +258,12 @@ class SpringPlugin(Plugin):
                 ".max-in-memory-size",
                 ".image.height",
                 ".pool.size",
-            )
-        ):
-            return ConfigType.SIZE
-
-        if option_name.endswith(
-            (
                 ".max-history",
-                ".image.bitdepth",
-                ".image.margin",
                 ".core-size",
                 ".pool.max-size",
             )
         ):
-            return ConfigType.NUMBER
-
-        if option_name.endswith(
-            (".pattern.dateformat", ".pattern.file", ".pattern.level")
-        ):
-            return ConfigType.PATTERN
+            return ConfigType.SIZE
 
         if option_name.endswith(
             (
@@ -315,9 +295,6 @@ class SpringPlugin(Plugin):
         ):
             return ConfigType.PATH
 
-        if option_name.endswith(".image.pixelmode"):
-            return ConfigType.MODE
-
         if option_name.endswith(
             (".default-domain", ".host", ".uri", "url", "-uri")
         ):
@@ -342,10 +319,7 @@ class SpringPlugin(Plugin):
         if option_name.endswith(".password"):
             return ConfigType.PASSWORD
 
-        if option_name.endswith(".protocol"):
-            return ConfigType.PROTOCOL
-
         if option_name.endswith(".mail"):
             return ConfigType.EMAIL
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

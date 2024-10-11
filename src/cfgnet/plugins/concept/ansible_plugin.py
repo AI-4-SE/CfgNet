@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
+from cfgnet.config_types.config_types import ConfigType
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 
 
@@ -23,3 +24,50 @@ class AnsiblePlugin(ConfigParserPlugin):
         if abs_file_path.endswith("ansible.cfg"):
             return True
         return False
+
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
+        option_name = option_name.lower()
+
+        if option_name.endswith(
+            (
+                "_path",
+                "_home",
+                "_file",
+                "_paths",
+                "_output",
+                "_local_tmp",
+                "_dir",
+                "_root",
+            )
+        ):
+            return ConfigType.PATH
+
+        if option_name.endswith(("_interval", "_timeout")):
+            return ConfigType.TIME
+
+        if option_name.endswith(("_executable")):
+            return ConfigType.COMMAND
+
+        if option_name.endswith(("_name")):
+            return ConfigType.NAME
+
+        if option_name.endswith(("_port")):
+            return ConfigType.PORT
+
+        if option_name.endswith(("_user")):
+            return ConfigType.USERNAME
+
+        if option_name.endswith(("_identity")):
+            return ConfigType.ID
+
+        if option_name.endswith(("_url")):
+            return ConfigType.URL
+
+        if option_name.endswith(("_count")):
+            return ConfigType.NUMBER
+
+        if option_name.endswith(("_enabled")):
+            return ConfigType.BOOLEAN
+
+        return super().get_config_type(option_name, value)

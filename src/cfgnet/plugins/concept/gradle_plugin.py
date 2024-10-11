@@ -25,24 +25,36 @@ class GradlePlugin(ConfigParserPlugin):
         file_name = os.path.basename(abs_file_path)
         return file_name == "gradle.properties"
 
-    def get_config_type(self, option_name: str) -> ConfigType:
+    # pylint: disable=too-many-return-statements
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
 
-        if option_name.endswith(("home", "projectcachedir")):
+        if option_name.endswith((".home", ".projectcachedir")):
             return ConfigType.PATH
 
         if option_name.endswith(("max")):
             return ConfigType.NUMBER
 
-        if option_name.endswith(("console", "level", "mode")):
-            return ConfigType.MODE
-
-        if option_name.endswith("idletimeout"):
+        if option_name.endswith(".idletimeout"):
             return ConfigType.TIME
 
-        # if option_name.endswith("user"):
-        #    return ConfigType.USERNAME
+        if option_name.endswith(".worker.max"):
+            return ConfigType.NUMBER
 
-        # if option_name.endswith("password"):
-        #    return ConfigType.PASSWORD
+        if option_name.endswith(
+            (
+                ".caching",
+                ".debug",
+                ".configuration-cache",
+                "configureondemand",
+                ".daemon",
+                ".isolated-projects",
+                ".verbose",
+                ".watch",
+            )
+        ):
+            return ConfigType.BOOLEAN
 
-        return ConfigType.UNKNOWN
+        if option_name.endswith((".console", ".level", ".priority", ".mode")):
+            return ConfigType.TYPE
+
+        return super().get_config_type(option_name, value)

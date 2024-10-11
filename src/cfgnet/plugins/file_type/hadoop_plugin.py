@@ -19,7 +19,6 @@ from typing import Optional
 from lxml import etree as ET
 from lxml.etree import _Element
 
-from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.network.nodes import (
     ArtifactNode,
@@ -65,7 +64,7 @@ class HadoopPlugin(Plugin):
             option_root = OptionNode(
                 tree_root.tag,
                 tree_root.sourceline,
-                ConfigTypeInferer.get_config_type(tree_root.tag, ""),
+                self.get_config_type(tree_root.tag),
             )
             artifact.add_child(option_root)
             for child in tree_root:
@@ -87,7 +86,7 @@ class HadoopPlugin(Plugin):
 
         if name:
             if name == "property":
-                config_type = ConfigTypeInferer.get_config_type(name, "")
+                config_type = self.get_config_type(name)
                 property_option = OptionNode(
                     name, subtree.sourceline, config_type
                 )
@@ -95,7 +94,6 @@ class HadoopPlugin(Plugin):
 
                 property_name = None
                 property_value = None
-                property_description = None
 
                 # Capture property details
                 for child in subtree:
@@ -103,8 +101,6 @@ class HadoopPlugin(Plugin):
                         property_name = child.text.strip()
                     elif child.tag == "value":
                         property_value = child.text.strip()
-                    elif child.tag == "description":
-                        property_description = child.text.strip()
 
                 if property_name:
                     print(property_name, config_type)
@@ -115,7 +111,7 @@ class HadoopPlugin(Plugin):
 
                     # Add the value node, under the property name
                     if property_value:
-                        config_type = ConfigTypeInferer.get_config_type(
+                        config_type = self.get_config_type(
                             property_name, property_value
                         )
                         option_value = OptionNode(
@@ -126,18 +122,18 @@ class HadoopPlugin(Plugin):
                         option_value.add_child(value_node)
 
                     # Add the description node, under the property name
-                    if property_description:
-                        option_desc = OptionNode(
-                            "description",
-                            subtree.sourceline,
-                            ConfigType.NAME,
-                        )
-                        option.add_child(option_desc)
-                        description_node = ValueNode(name=property_description)
-                        option_desc.add_child(description_node)
+                    # if property_description:
+                    #    option_desc = OptionNode(
+                    #        "description",
+                    #        subtree.sourceline,
+                    #        ConfigType.NAME,
+                    #    )
+                    #    option.add_child(option_desc)
+                    #    description_node = ValueNode(name=property_description)
+                    #    option_desc.add_child(description_node)
 
             else:
-                config_type = ConfigTypeInferer.get_config_type(name, "")
+                config_type = self.get_config_type(name)
                 option = OptionNode(name, subtree.sourceline, config_type)
                 parent_node.add_child(option)
 

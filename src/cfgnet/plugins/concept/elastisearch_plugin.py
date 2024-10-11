@@ -53,11 +53,45 @@ class ElasticsearchPlugin(YAMLPlugin):
                     self._iter_tree(child, parent)
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
-        """
-        Find config type based on option name.
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
 
-        :param option_name: name of option
-        :return: config type
-        """
-        return ConfigType.UNKNOWN
+        if option_name in ("path"):
+            return ConfigType.PATH
+
+        if option_name.endswith(("seed_hosts", "host")):
+            return ConfigType.IP_ADDRESS
+
+        if option_name.endswith(("name", "initial_master_nodes")):
+            return ConfigType.NAME
+
+        if option_name.endswith(("enabled")):
+            return ConfigType.BOOLEAN
+
+        if option_name.endswith(("id")):
+            return ConfigType.ID
+
+        if option_name.endswith(("user", "users")):
+            return ConfigType.USERNAME
+
+        if option_name.endswith(("limit", "max_headroom")):
+            return ConfigType.SIZE
+
+        if option_name.endswith(("type")):
+            return ConfigType.TYPE
+
+        if option_name.endswith(("port")):
+            return ConfigType.PORT
+
+        if option_name.endswith(("password")):
+            return ConfigType.PASSWORD
+
+        if option_name.endswith(("threshold", "count")):
+            return ConfigType.NUMBER
+
+        if option_name.endswith(("interval", "timeout", "time", "age")):
+            return ConfigType.TIME
+
+        if option_name.endswith(("size")):
+            return ConfigType.SIZE
+
+        return super().get_config_type(option_name, value)

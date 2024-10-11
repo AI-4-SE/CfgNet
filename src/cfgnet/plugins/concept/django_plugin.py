@@ -114,46 +114,17 @@ class DjangoPlugin(Plugin):
                 self.__parse(option_node, option, option_value)
 
     # pylint: disable=too-many-return-statements
-    def get_config_type(self, option_name: str) -> ConfigType:  # noqa: C901
-        """
-        Find config type based on option name.
-
-        Option types included from: https://docs.djangoproject.com/en/4.2/ref/settings/.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         option_name = option_name.lower()
 
-        if option_name.endswith(("loaction", "path", "dir", "paths", "root")):
+        if option_name.endswith(("location")):
             return ConfigType.PATH
 
-        if option_name.endswith("version"):
-            return ConfigType.VERSION_NUMBER
-
-        if option_name.endswith("url"):
-            return ConfigType.URL
+        if option_name.endswith("file_upload_max_memory_size"):
+            return ConfigType.SIZE
 
         if option_name.endswith(("timeout", "seconds")):
             return ConfigType.TIME
-
-        if option_name.endswith("domain"):
-            return ConfigType.DOMAIN_NAME
-
-        if option_name.endswith("password"):
-            return ConfigType.PASSWORD
-
-        if option_name.endswith("user"):
-            return ConfigType.USERNAME
-
-        if option_name.endswith("host"):
-            return ConfigType.HOST
-
-        if option_name.endswith("port"):
-            return ConfigType.PORT
-
-        if option_name.endswith(("language_code", "languages")):
-            return ConfigType.LANGUAGE
 
         if option_name.endswith(("name", "time_zone")):
             return ConfigType.NAME
@@ -169,44 +140,7 @@ class DjangoPlugin(Plugin):
         ):
             return ConfigType.NUMBER
 
-        if option_name.endswith(("size")):
-            return ConfigType.SIZE
-
         if option_name.endswith(("format")):
-            return ConfigType.PATTERN
+            return ConfigType.TYPE
 
-        if option_name.endswith(("email")):
-            return ConfigType.EMAIL
-
-        if option_name.endswith(("permissions")):
-            return ConfigType.PERMISSION
-
-        if option_name.endswith(("message_level")):
-            return ConfigType.MODE
-
-        if option_name.endswith(("id")):
-            return ConfigType.ID
-
-        if option_name.endswith(
-            (
-                "backend",
-                "csrf_failure_view",
-                "engine",
-                "default_auto_field",
-                "default_exception_reporter",
-                "default_file_storage",
-                "form_renderer",
-                "logging_config",
-                "test_runner",
-                "backends",
-                "auth_user_model",
-                "password_hashers",
-                "message_storage",
-                "session_serializer",
-                "staticfiles_storage",
-                "file_upload_handlers",
-            )
-        ):
-            return ConfigType.CLASS
-
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

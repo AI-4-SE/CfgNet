@@ -16,7 +16,6 @@ from typing import List
 
 from cfgnet.network.nodes import ValueNode
 from cfgnet.linker.linker import Linker
-from cfgnet.config_types.config_type_inferer import ConfigTypeInferer
 
 
 class EqualityLinker(Linker):
@@ -50,7 +49,7 @@ class EqualityLinker(Linker):
         return [
             node
             for node in self.network.get_nodes(ValueNode)
-            if not ConfigTypeInferer.is_boolean(node.name)
+            if not self.inferer.is_boolean(node.name)
         ]
 
     def _find_matches(self, node: ValueNode) -> List[ValueNode]:

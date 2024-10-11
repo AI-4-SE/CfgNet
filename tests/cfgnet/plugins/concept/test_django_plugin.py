@@ -75,14 +75,10 @@ def test_django_config_types(get_plugin):
     artifact = django_plugin.parse_file(django_file, "settings.py")
     nodes = artifact.get_nodes()
 
-    language_node = next(filter(lambda x: x.id == make_id("settings.py", "LANGUAGE_CODE", "en-us"), nodes))
     url_node = next(filter(lambda x: x.id == make_id("settings.py", "LOGIN_URL", "/accounts/login/"), nodes))
     size_node = next(filter(lambda x: x.id == make_id("settings.py", "FILE_UPLOAD_MAX_MEMORY_SIZE", "2621440"), nodes))
-    pattern_node = next(filter(lambda x: x.id == make_id("settings.py", "DATE_FORMAT", "N j, Y"), nodes))
     boolean_node = next(filter(lambda x: x.id == make_id("settings.py", "DEBUG", "False"), nodes))
 
     assert url_node.config_type == ConfigType.URL
-    assert language_node.config_type == ConfigType.LANGUAGE
     assert size_node.config_type == ConfigType.SIZE
-    assert pattern_node.config_type == ConfigType.PATTERN
     assert boolean_node.config_type == ConfigType.BOOLEAN

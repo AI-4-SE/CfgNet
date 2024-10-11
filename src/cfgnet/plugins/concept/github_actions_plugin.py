@@ -28,13 +28,7 @@ class GitHubActionPlugin(YAMLPlugin):
             return True
         return False
 
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name in ("run"):
             return ConfigType.COMMAND
 
@@ -44,4 +38,4 @@ class GitHubActionPlugin(YAMLPlugin):
         if option_name in ("python-version"):
             return ConfigType.VERSION_NUMBER
 
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

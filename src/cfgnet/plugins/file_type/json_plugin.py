@@ -14,7 +14,6 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import json
 import logging
-import abc
 
 from typing import Union, Optional, Dict, List
 from cfgnet.network.nodes import (
@@ -24,7 +23,6 @@ from cfgnet.network.nodes import (
     ValueNode,
 )
 from cfgnet.plugins.plugin import Plugin
-from cfgnet.config_types.config_types import ConfigType
 
 
 class JsonPlugin(Plugin):
@@ -143,12 +141,3 @@ class JsonPlugin(Plugin):
         """
         line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
         return lines_dict[line]
-
-    @abc.abstractmethod
-    def get_config_type(self, option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """

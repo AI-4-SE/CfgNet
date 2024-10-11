@@ -34,14 +34,7 @@ class PoetryPlugin(TomlPlugin):
         return False
 
     # pylint: disable=too-many-return-statements
-    @staticmethod
-    def get_config_type(option_name: str) -> ConfigType:
-        """
-        Find config type based on option name.
-
-        :param option_name: name of option
-        :return: config type
-        """
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         if option_name == "name":
             return ConfigType.NAME
         if option_name == "license":
@@ -60,4 +53,4 @@ class PoetryPlugin(TomlPlugin):
             return ConfigType.VERSION_NUMBER
         if option_name == "scripts":
             return ConfigType.COMMAND
-        return ConfigType.UNKNOWN
+        return super().get_config_type(option_name, value)

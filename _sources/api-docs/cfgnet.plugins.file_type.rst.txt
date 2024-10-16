@@ -12,6 +12,14 @@ cfgnet.plugins.file\_type.configparser\_plugin module
    :undoc-members:
    :show-inheritance:
 
+cfgnet.plugins.file\_type.hadoop\_plugin module
+-----------------------------------------------
+
+.. automodule:: cfgnet.plugins.file_type.hadoop_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cfgnet.plugins.file\_type.json\_plugin module
 ---------------------------------------------
 

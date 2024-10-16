@@ -4,6 +4,30 @@ cfgnet.plugins.concept package
 Submodules
 ----------
 
+cfgnet.plugins.concept.alluxio\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.alluxio_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.android\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.android_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.angular\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.angular_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cfgnet.plugins.concept.ansible\_playbook\_plugin module
 -------------------------------------------------------
 
@@ -24,6 +48,22 @@ cfgnet.plugins.concept.apache\_webserver\_plugin module
 -------------------------------------------------------
 
 .. automodule:: cfgnet.plugins.concept.apache_webserver_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.cargo\_plugin module
+-------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.cargo_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.circleci\_plugin module
+----------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.circleci_plugin
    :members:
    :undoc-members:
    :show-inheritance:
@@ -56,6 +96,78 @@ cfgnet.plugins.concept.docker\_plugin module
 --------------------------------------------
 
 .. automodule:: cfgnet.plugins.concept.docker_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.elastisearch\_plugin module
+--------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.elastisearch_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.flutter\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.flutter_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.github\_actions\_plugin module
+-----------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.github_actions_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.gradle\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.gradle_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.hadoop\_common\_plugin module
+----------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.hadoop_common_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.hadoop\_hbase\_plugin module
+---------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.hadoop_hbase_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.hadoop\_hdfs\_plugin module
+--------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.hadoop_hdfs_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.kafka\_plugin module
+-------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.kafka_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.mapreduce\_plugin module
+-----------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.mapreduce_plugin
    :members:
    :undoc-members:
    :show-inheritance:
@@ -136,6 +248,22 @@ cfgnet.plugins.concept.tsconfig\_plugin module
 ----------------------------------------------
 
 .. automodule:: cfgnet.plugins.concept.tsconfig_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.yarn\_plugin module
+------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.yarn_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.zookeeper\_plugin module
+-----------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.zookeeper_plugin
    :members:
    :undoc-members:
    :show-inheritance:

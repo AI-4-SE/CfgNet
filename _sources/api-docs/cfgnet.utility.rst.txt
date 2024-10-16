@@ -12,6 +12,14 @@ cfgnet.utility.logger module
    :undoc-members:
    :show-inheritance:
 
+cfgnet.utility.util module
+--------------------------
+
+.. automodule:: cfgnet.utility.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

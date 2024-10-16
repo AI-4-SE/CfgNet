@@ -31,7 +31,7 @@ jobs:
           make distribution
           
       - name: Upload distribution to workflow tab
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: "distribution"
           path: "dist/*"

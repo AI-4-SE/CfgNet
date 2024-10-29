@@ -50,9 +50,6 @@ def test_parse_postgresql_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = sorted(list({node.id for node in nodes}))
 
-    for node in nodes:
-        print(node, node.config_type, node.parent.location)
-
     assert artifact is not None
     assert len(nodes) == 9
 

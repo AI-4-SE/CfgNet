@@ -406,9 +406,6 @@ class ConfigTypeInferer:
 
         results.sort(key=lambda x: x[1].value, reverse=True)
 
-        print(results)
-        print(option_name, value)
-
         if self.is_boolean(value):
             return ConfigType.BOOLEAN
 
@@ -418,8 +415,6 @@ class ConfigTypeInferer:
 
             if len(results) > 1:
                 confidence_levels = [result[1] for result in results][:2]
-
-                print(len(confidence_levels))
 
                 if all(
                     confidence == confidence_levels[0]

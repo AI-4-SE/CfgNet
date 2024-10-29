@@ -103,7 +103,6 @@ class HadoopPlugin(Plugin):
                         property_value = child.text.strip()
 
                 if property_name:
-                    print(property_name, config_type)
                     option = OptionNode(
                         property_name, subtree.sourceline, ConfigType.UNKNOWN
                     )

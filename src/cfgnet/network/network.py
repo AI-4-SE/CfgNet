@@ -312,7 +312,6 @@ class Network:
                 plugins, abs_file_path
             )
             if plugin:
-                print("File to parse: ", abs_file_path)
                 try:
                     plugin.parse_file(
                         abs_file_path=abs_file_path,

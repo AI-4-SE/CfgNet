@@ -4,7 +4,7 @@ build-backend = 'poetry.masonry.api'
 
 [tool.poetry]
 name = 'CfgNet'
-version = '1.0.2'
+version = '1.0.3'
 description = 'A Framework for Tracking Configuration Dependencies Across a Software Project'
 authors = [
   'Sebastian Simon <ssimon@informatik.uni-leipzig.de>',

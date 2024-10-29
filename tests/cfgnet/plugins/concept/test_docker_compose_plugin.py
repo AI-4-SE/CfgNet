@@ -54,9 +54,6 @@ def test_parse_docker_compose_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
     
-    for id in ids:
-        print(id)
-
     assert artifact is not None
     assert len(nodes) == 20
 

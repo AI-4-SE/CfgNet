@@ -143,5 +143,4 @@ def test_config_types(get_inferer):
 
     for test in test_dataset:
         inferred_type = inferer.get_config_type(test["option_name"], test["value"])
-        print(test["option_name"], test["value"], test["expected_type"], inferred_type)
         assert inferred_type == test["expected_type"]

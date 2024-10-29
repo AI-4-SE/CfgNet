@@ -61,9 +61,6 @@ def test_config_types(get_plugin):
     artifact = plugin.parse_file(yarn_file, "yarn-site.xml")
     nodes = artifact.get_nodes()
 
-    for node in nodes:
-        print(node, node.config_type)
-
     number_node = next(filter(lambda x: x.id == make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.cpu-vcores", "value", "4"), nodes))
     name_node = next(filter(lambda x: x.id == make_id("yarn-site.xml", "configuration", "property", "yarn.resourcemanager.hostname", "value", "resourcemanager.example.com"), nodes))
     size_node = next(filter(lambda x: x.id == make_id("yarn-site.xml", "configuration", "property", "yarn.nodemanager.resource.memory-mb", "value", "8192"), nodes))

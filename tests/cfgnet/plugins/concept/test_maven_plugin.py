@@ -46,9 +46,6 @@ def test_parse_maven_file(get_plugin):
     value_nodes = artifact.get_nodes()
     ids = {node.id for node in value_nodes}
 
-    for id in ids:
-        print(id)
-
     assert artifact is not None
     assert len(value_nodes) == 31
 

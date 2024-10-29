@@ -41,9 +41,6 @@ def test_config_types(get_plugin):
     artifact = plugin.parse_file(gradle_file, "gradle.properties")
     nodes = artifact.get_nodes()
 
-    for node in nodes:
-        print(node, node.config_type)
-
     name_node = next(filter(lambda x: x.id == make_id("gradle.properties", "appname", "MyApp"), nodes))
     boolean_node = next(filter(lambda x: x.id == make_id("gradle.properties", "org.gradle.daemon", "true"), nodes))
     time_node = next(filter(lambda x: x.id == make_id("gradle.properties", "org.gradle.daemon.idletimeout", "1000"), nodes))

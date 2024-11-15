@@ -155,13 +155,19 @@ is used in tests to check the plugins.
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.plugins.plugin_manager.PluginManager.file_type_plugins">
-<span class="sig-name descname"><span class="pre">file_type_plugins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><span class="pre">cfgnet.plugins.plugin.Plugin</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;cfgnet.plugins.file_type.toml_plugin.TomlPlugin</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin</span> <span class="pre">object&gt;]</span></em><a class="headerlink" href="#cfgnet.plugins.plugin_manager.PluginManager.file_type_plugins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">file_type_plugins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><span class="pre">cfgnet.plugins.plugin.Plugin</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;cfgnet.plugins.file_type.toml_plugin.TomlPlugin</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;cfgnet.plugins.file_type.json_plugin.JsonPlugin</span> <span class="pre">object&gt;]</span></em><a class="headerlink" href="#cfgnet.plugins.plugin_manager.PluginManager.file_type_plugins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cfgnet.plugins.plugin_manager.PluginManager.get_plugins">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#cfgnet.plugins.plugin_manager.PluginManager.get_plugins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all plugins except vcs plugins.</p>
+<dt class="sig sig-object py" id="cfgnet.plugins.plugin_manager.PluginManager.get_concept_plugins">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_concept_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#cfgnet.plugins.plugin_manager.PluginManager.get_concept_plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all concept plugins.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.plugin_manager.PluginManager.get_file_type_plugins">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_file_type_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#cfgnet.plugins.plugin_manager.PluginManager.get_file_type_plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all file type plugins.</p>
 </dd></dl>
 
 <dl class="py method">

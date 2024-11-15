@@ -1,0 +1,113 @@
+From 643b6134b92bfec74c822d0436fc7c57ded16935 Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <Bastisimon95@googlemail.com>
+Date: Sat, 9 Nov 2024 14:37:52 +0100
+Subject: [PATCH 1/2] Initial commit
+
+---
+ src/Dockerfile | 24 +++++++++++++++++++
+ src/pom.xml    | 62 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 86 insertions(+)
+ create mode 100644 src/Dockerfile
+ create mode 100644 src/pom.xml
+
+diff --git a/src/Dockerfile b/src/Dockerfile
+new file mode 100644
+index 0000000..9b6c00d
+--- /dev/null
++++ b/src/Dockerfile
+@@ -0,0 +1,24 @@
++# Stage 1: Build the application
++FROM maven:3.8.6-eclipse-temurin-17 AS build
++WORKDIR /app
++
++# Copy the pom.xml and download dependencies
++COPY pom.xml .
++RUN mvn dependency:go-offline -B
++
++# Copy the source code and build the application
++COPY src ./src
++RUN mvn package -DskipTests
++
++# Stage 2: Run the application
++FROM eclipse-temurin:17-jdk-alpine
++WORKDIR /app
++
++# Copy the built JAR file from the build stage
++COPY --from=build /app/target/spring-boot-app-0.0.1-SNAPSHOT.jar app.jar
++
++# Expose the application port
++EXPOSE 8080
++
++# Run the application
++ENTRYPOINT ["java", "-jar", "app.jar"]
+diff --git a/src/pom.xml b/src/pom.xml
+new file mode 100644
+index 0000000..46042ed
+--- /dev/null
++++ b/src/pom.xml
+@@ -0,0 +1,62 @@
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
++    <modelVersion>4.0.0</modelVersion>
++
++    <groupId>com.example</groupId>
++    <artifactId>spring-boot-app</artifactId>
++    <version>0.0.1-SNAPSHOT</version>
++    <packaging>jar</packaging>
++
++    <name>spring-boot-app</name>
++    <description>Simple Spring Boot Application</description>
++
++    <parent>
++        <groupId>org.springframework.boot</groupId>
++        <artifactId>spring-boot-starter-parent</artifactId>
++        <version>3.1.0</version>
++        <relativePath/> <!-- lookup parent from repository -->
++    </parent>
++
++    <properties>
++        <java.version>17</java.version>
++        <spring.boot.version>3.1.0</spring.boot.version>
++    </properties>
++
++    <dependencies>
++        <!-- Spring Boot Web Starter for creating web applications -->
++        <dependency>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-web</artifactId>
++        </dependency>
++
++        <!-- Optional: Spring Boot Starter for JPA (database access) -->
++        <dependency>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-data-jpa</artifactId>
++        </dependency>
++
++        <!-- Optional: Database driver (e.g., H2 for in-memory DB) -->
++        <dependency>
++            <groupId>com.h2database</groupId>
++            <artifactId>h2</artifactId>
++            <scope>runtime</scope>
++        </dependency>
++
++        <!-- Optional: Spring Boot Test Starter for unit testing -->
++        <dependency>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-test</artifactId>
++            <scope>test</scope>
++        </dependency>
++    </dependencies>
++
++    <build>
++        <plugins>
++            <!-- Spring Boot Maven Plugin -->
++            <plugin>
++                <groupId>org.springframework.boot</groupId>
++                <artifactId>spring-boot-maven-plugin</artifactId>
++            </plugin>
++        </plugins>
++    </build>
++</project>
+-- 
+2.34.1
+

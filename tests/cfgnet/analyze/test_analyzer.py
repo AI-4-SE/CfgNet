@@ -37,6 +37,7 @@ def get_config_(get_repo):
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        enable_file_type_plugins=False,
         system_level=False
     )
 
@@ -50,6 +51,7 @@ def get_config_all_conflicts_(get_repo):
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=True,
+        enable_file_type_plugins=False,
         system_level=False
     )
 

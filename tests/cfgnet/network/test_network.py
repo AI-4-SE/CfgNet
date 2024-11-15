@@ -37,6 +37,19 @@ def get_repo_():
     return repo
 
 
+@pytest.fixture(name="get_file_type_repo")
+def get_file_type_repo_():
+    repo = TemporaryRepository(
+        "tests/test_repos/file_type_repo/0001-Initial-commit.patch"
+    )
+
+    repo.apply_patch(
+        "tests/test_repos/file_type_repo/0002-Add-config-file.patch"
+    )
+
+    return repo
+
+
 @pytest.fixture(name="get_config")
 def get_config_(get_repo):
     network_configuration = NetworkConfiguration(
@@ -44,6 +57,7 @@ def get_config_(get_repo):
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        enable_file_type_plugins=False,
         system_level=False
     )
 
@@ -59,6 +73,21 @@ def test_init_network(get_repo, get_config):
     assert network.root == root
     assert len(network.links) == 2
     assert os.path.isdir(network.cfg.data_dir_path())
+
+
+def test_init_network_with_file_type_plugins(get_file_type_repo, get_config):
+    config = get_config
+    config.project_root_abs = os.path.abspath(get_file_type_repo.root)
+    network = Network.init_network(cfg=config)
+
+    assert network
+    assert len(network.get_nodes(node_type=ArtifactNode)) == 2
+
+    config.enable_file_type_plugins = True
+    network = Network.init_network(cfg=config)
+
+    assert network
+    assert len(network.get_nodes(node_type=ArtifactNode)) == 3
 
 
 def test_links(get_config):

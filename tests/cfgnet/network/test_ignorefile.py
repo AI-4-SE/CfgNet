@@ -36,6 +36,7 @@ def test_ignorefile(repo):
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        enable_file_type_plugins=False,
         system_level=False
     )
 

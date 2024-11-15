@@ -1,0 +1,77 @@
+From dac4a917a46c3051ca878a77007831e190f1394b Mon Sep 17 00:00:00 2001
+From: Sebastian Simon <Bastisimon95@googlemail.com>
+Date: Fri, 15 Nov 2024 15:57:33 +0100
+Subject: [PATCH 2/2] Add config file
+
+---
+ src/config.yml | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
+ create mode 100644 src/config.yml
+
+diff --git a/src/config.yml b/src/config.yml
+new file mode 100644
+index 0000000..f0d3bc0
+--- /dev/null
++++ b/src/config.yml
+@@ -0,0 +1,58 @@
++# Application configuration
++app:
++  name: "SampleSpringApp"
++  version: "1.0.0"
++  environment: "production"
++
++# Server configuration
++server:
++  port: 8080
++  context-path: "/api"
++
++# Database configuration
++database:
++  host: "localhost"
++  port: 5432
++  name: "sampledb"
++  username: "dbuser"
++  password: "dbpassword"
++  max-connections: 20
++  min-idle-connections: 5
++
++# Logging configuration
++logging:
++  level: "INFO"
++  file:
++    path: "/var/log/sample-spring-app"
++    max-size: "10MB"
++    max-history: 7
++
++# Cache configuration
++cache:
++  enabled: true
++  ttl: 300  # Time-to-live in seconds
++  max-entries: 1000
++
++# Security configuration
++security:
++  enable-https: true
++  allowed-origins:
++    - "https://example.com"
++    - "https://another-domain.com"
++  api-key: "random-generated-api-key"
++
++# Mail configuration
++mail:
++  enabled: true
++  host: "smtp.mailserver.com"
++  port: 587
++  username: "noreply@example.com"
++  password: "mailpassword"
++  from-address: "noreply@example.com"
++  timeout: 5000  # timeout in milliseconds
++
++# Feature toggles
++features:
++  enable-new-dashboard: true
++  enable-advanced-search: false
++  show-beta-banner: true
+-- 
+2.34.1
+

@@ -37,7 +37,7 @@ from cfgnet.network.nodes import (
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.exporter.exporter import DotExporter, JSONExporter
-from cfgnet.utility.util import is_test_file, get_system_files
+from cfgnet.utility.util import get_system_files
 
 
 class Network:
@@ -300,20 +300,19 @@ class Network:
         network = Network(project_name=project_name, root=root, cfg=cfg)
 
         tracked_files = IgnoreFile.filter(tracked_files)
-        plugins = PluginManager.get_plugins()
+        concept_plugins = PluginManager.get_concept_plugins()
+        file_type_plugins = PluginManager.get_file_type_plugins()
 
         for file in sorted(tracked_files):
             abs_file_path = os.path.join(cfg.project_root_abs, file)
 
-            if is_test_file(abs_file_path=abs_file_path):
-                continue
-
-            plugin = PluginManager.get_responsible_plugin(
-                plugins, abs_file_path
+            concept_plugin = PluginManager.get_responsible_plugin(
+                concept_plugins, abs_file_path
             )
-            if plugin:
+
+            if concept_plugin:
                 try:
-                    plugin.parse_file(
+                    concept_plugin.parse_file(
                         abs_file_path=abs_file_path,
                         rel_file_path=file,
                         root=root,
@@ -321,10 +320,32 @@ class Network:
                 except UnicodeDecodeError as error:
                     logging.warning(
                         "%s: %s (%s)",
-                        plugin.__class__.__name__,
+                        concept_plugin.__class__.__name__,
                         error.reason,
                         file,
                     )
+                continue
+
+            if cfg.enable_file_type_plugins:
+                file_type_plugin = PluginManager.get_responsible_plugin(
+                    file_type_plugins, abs_file_path
+                )
+
+                if file_type_plugin:
+                    try:
+                        file_type_plugin.parse_file(
+                            abs_file_path=abs_file_path,
+                            rel_file_path=file,
+                            root=root,
+                        )
+                    except UnicodeDecodeError as error:
+                        logging.warning(
+                            "%s: %s (%s)",
+                            file_type_plugin.__class__.__name__,
+                            error.reason,
+                            file,
+                        )
+                    continue
 
         LinkerManager.apply_linkers(network)
 

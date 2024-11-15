@@ -16,14 +16,14 @@
 from cfgnet.plugins.plugin_manager import PluginManager
 
 
-def test_get_all_plugins():
-    all_plugins = PluginManager.get_plugins()
+def test_get_all_concept_plugins():
+    all_concept_plugins = PluginManager.get_concept_plugins()
 
-    assert len(all_plugins) == 32
+    assert len(all_concept_plugins) == 32
 
 
-def test_get_responsible_plugin():
-    plugins = PluginManager.get_plugins()
+def test_get_responsible_concept_plugin():
+    plugins = PluginManager.get_concept_plugins()
 
     docker_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/Dockerfile")
     maven_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/pom.xml")

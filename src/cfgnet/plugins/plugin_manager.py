@@ -31,7 +31,7 @@ from cfgnet.plugins.concept.apache_webserver_plugin import (
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 from cfgnet.plugins.file_type.toml_plugin import TomlPlugin
-from cfgnet.plugins.file_type.hadoop_plugin import HadoopPlugin
+from cfgnet.plugins.file_type.json_plugin import JsonPlugin
 from cfgnet.plugins.concept.mysql_plugin import MysqlPlugin
 from cfgnet.plugins.concept.ansible_plugin import AnsiblePlugin
 from cfgnet.plugins.concept.ansible_playbook_plugin import (
@@ -101,13 +101,18 @@ class PluginManager:
         ConfigParserPlugin(),
         YAMLPlugin(),
         TomlPlugin(),
-        HadoopPlugin(),
+        JsonPlugin(),
     ]
 
     @staticmethod
-    def get_plugins() -> List:
-        """Return all plugins except vcs plugins."""
+    def get_concept_plugins() -> List:
+        """Return all concept plugins."""
         return PluginManager.concept_plugins
+
+    @staticmethod
+    def get_file_type_plugins() -> List:
+        """Return all file type plugins."""
+        return PluginManager.file_type_plugins
 
     @staticmethod
     def get_responsible_plugin(

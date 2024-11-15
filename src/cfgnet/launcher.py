@@ -38,6 +38,15 @@ add_disable_linker_option = click.option(
     "`--disable-linker foo --disable-linker bar`.",
 )
 
+add_enable_file_type_plugins = click.option(
+    "--enable_file_type_plugins",
+    type=click.BOOL,
+    is_flag=True,
+    default=False,
+    help="Enable file type plugins."
+    "Besides concept plugins also file type plugins will be used to construct the network.",
+)
+
 
 @click.group()
 @click.option(
@@ -57,6 +66,7 @@ def main(verbose: bool):
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
+@add_enable_file_type_plugins
 def init(
     enable_static_blacklist: bool,
     enable_internal_links: bool,
@@ -65,6 +75,7 @@ def init(
     project_root: str,
     enable_linker: List[str],
     disable_linker: List[str],
+    enable_file_type_plugins: bool,
     config_files: List,
 ):
     """Initialize configuration network."""
@@ -78,6 +89,7 @@ def init(
         enable_internal_links=enable_internal_links,
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
         enable_all_conflicts=enable_all_conflicts,
+        enable_file_type_plugins=enable_file_type_plugins,
         system_level=system_level,
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
@@ -142,6 +154,7 @@ def validate(project_root: str):
 @add_project_root_argument
 @add_enable_linker_option
 @add_disable_linker_option
+@add_enable_file_type_plugins
 def analyze(
     enable_static_blacklist: bool,
     enable_internal_links: bool,
@@ -151,6 +164,7 @@ def analyze(
     disable_linker: List[str],
     config_files: List,
     system_level: bool,
+    enable_file_type_plugins: bool,
 ):
     """Run self-evaluating analysis of commit history."""
     project_name = os.path.basename(project_root)
@@ -165,6 +179,7 @@ def analyze(
         enabled_linkers=list(set(enable_linker) - set(disable_linker)),
         enable_all_conflicts=enable_all_conflicts,
         system_level=system_level,
+        enable_file_type_plugins=enable_file_type_plugins,
     )
     LinkerManager.set_enabled_linkers(network_configuration.enabled_linkers)
     logger.configure_repo_logger(network_configuration.logfile_path())
@@ -231,8 +246,13 @@ def export(
 @click.option("-o", "--output", required=True)
 @click.option("-f", "--system_level", is_flag=False)
 @add_project_root_argument
+@add_enable_file_type_plugins
 def extract(
-    project_root: str, config_files: List, output: str, system_level: bool
+    project_root: str,
+    config_files: List,
+    output: str,
+    enable_file_type_plugins: bool,
+    system_level: bool,
 ):
     """Extract key-value pairs."""
     project_name = os.path.basename(project_root)
@@ -244,6 +264,7 @@ def extract(
         enable_static_blacklist=False,
         enable_internal_links=False,
         enable_all_conflicts=False,
+        enable_file_type_plugins=enable_file_type_plugins,
         system_level=system_level,
     )
 

@@ -18,7 +18,7 @@ import os
 
 from typing import Optional, Tuple, List
 from lxml import etree as ET
-from lxml.etree import _Element
+from lxml.etree import _Element, _Comment
 
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.network.nodes import (
@@ -63,10 +63,14 @@ class MavenPlugin(Plugin):
             maven_tree = ET.parse(abs_file_path)
             tree_root = maven_tree.getroot()
 
-            # Remove namespace prefixes
+            # Remove namespace prefixes and comments
             for elem in tree_root.getiterator():
                 if elem.tag is not ET.Comment:
                     elem.tag = ET.QName(elem).localname
+                for child in list(elem):
+                    if isinstance(child, _Comment):
+                        elem.remove(child)
+
             # Remove unused namespace declarations
             ET.cleanup_namespaces(tree_root)
 
@@ -322,7 +326,7 @@ class MavenPlugin(Plugin):
         if option_name in ("includes", "excludes", "filter", "file"):
             return ConfigType.PATH
 
-        if any(x in option_name for x in ["directory", "Directory", "Path"]):
+        if option_name in ("directory", "Directory", "Path"):
             return ConfigType.PATH
 
         if option_name in ("url", "organizationUrl", "picUrl", "downloadUrl"):

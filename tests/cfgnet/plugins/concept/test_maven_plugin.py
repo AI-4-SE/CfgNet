@@ -45,18 +45,24 @@ def test_parse_maven_file(get_plugin):
 
     value_nodes = artifact.get_nodes()
     ids = {node.id for node in value_nodes}
-
+    
     assert artifact is not None
-    assert len(value_nodes) == 31
+    assert len(value_nodes) == 35
 
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:hibernate:3.2.5.ga", "version", "3.2.5.ga") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:hibernate:3.2.5.ga", "groupId", "org.hibernate") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:hibernate:3.2.5.ga", "artifactId", "hibernate") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:ejb3-persistence:1.0.1.GA", "version", "1.0.1.GA") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:ejb3-persistence:1.0.1.GA", "groupId", "org.hibernate") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:ejb3-persistence:1.0.1.GA", "artifactId", "ejb3-persistence") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:hibernate-core", "groupId", "org.hibernate") in ids
-    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "org.hibernate:hibernate-core", "artifactId", "hibernate-core") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:hibernate:3.2.5.ga", "version", "3.2.5.ga") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:hibernate:3.2.5.ga", "groupId", "org.hibernate") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:hibernate:3.2.5.ga", "artifactId", "hibernate") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:ejb3-persistence:1.0.1.GA", "version", "1.0.1.GA") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:ejb3-persistence:1.0.1.GA", "groupId", "org.hibernate") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:ejb3-persistence:1.0.1.GA", "artifactId", "ejb3-persistence") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:hibernate-core", "groupId", "org.hibernate") in ids
+    assert make_id("pom.xml", "project", "dependencyManagement", "dependencies", "dependency", "org.hibernate:hibernate-core", "artifactId", "hibernate-core") in ids
+
+    assert make_id("pom.xml", "project", "dependencies", "dependency", "test-dependency:dependencyA", "groupId", "test-dependency") in ids
+    assert make_id("pom.xml", "project", "dependencies", "dependency", "test-dependency:dependencyA", "artifactId", "dependencyA") in ids
+    assert make_id("pom.xml", "project", "plugins", "plugin", "test-plugin:pluginA", "groupId", "test-plugin") in ids
+    assert make_id("pom.xml", "project", "plugins", "plugin", "test-plugin:pluginA", "artifactId", "pluginA") in ids
+
     assert make_id("pom.xml", "project", "modules", "module", "config") in ids
     assert make_id("pom.xml", "project", "modelVersion", "4.0.0") in ids
     assert make_id("pom.xml", "project", "packaging", "jar") in ids
@@ -71,16 +77,16 @@ def test_parse_maven_file(get_plugin):
     assert make_id("pom.xml", "project", "distributionManagement", "downloadUrl", "http://test/my-project") in ids
     assert make_id("pom.xml", "project", "issueManagement", "system", "Bugzilla") in ids
     assert make_id("pom.xml", "project", "issueManagement", "url", "http://test/bugzilla/") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-shade-plugin:1.4", "version", "1.4") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-shade-plugin:1.4", "groupId", "org.apache.maven.plugins") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-shade-plugin:1.4", "artifactId", "maven-shade-plugin") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-shade-plugin:1.4", "executions", "execution", "phase", "package") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-shade-plugin:1.4", "configuration", "finalName", "test") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-shade-plugin:1.4", "executions", "execution", "goals", "goal", "shade") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-compiler-plugin", "groupId", "org.apache.maven.plugins") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-compiler-plugin", "artifactId", "maven-compiler-plugin") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-compiler-plugin", "configuration", "source", "1.6") in ids
-    assert make_id("pom.xml", "project", "build", "plugins", "org.apache.maven.plugins:maven-compiler-plugin", "configuration", "target", "1.6") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-shade-plugin:1.4", "version", "1.4") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-shade-plugin:1.4", "groupId", "org.apache.maven.plugins") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-shade-plugin:1.4", "artifactId", "maven-shade-plugin") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-shade-plugin:1.4", "executions", "execution", "phase", "package") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-shade-plugin:1.4", "configuration", "finalName", "test") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-shade-plugin:1.4", "executions", "execution", "goals", "goal", "shade") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-compiler-plugin", "groupId", "org.apache.maven.plugins") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-compiler-plugin", "artifactId", "maven-compiler-plugin") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-compiler-plugin", "configuration", "source", "1.6") in ids
+    assert make_id("pom.xml", "project", "build", "plugins", "plugin", "org.apache.maven.plugins:maven-compiler-plugin", "configuration", "target", "1.6") in ids
 
 
 def test_config_types(get_plugin):

@@ -34,6 +34,21 @@
     <module>config</module>
   </modules>
 
+  <dependencies>
+    <!-- Spring Boot Web Starter for creating web applications -->
+    <dependency>
+      <groupId>test-dependency</groupId>
+      <artifactId>dependencyA</artifactId>
+    </dependency>
+  </dependencies>
+
+  <plugins>
+    <plugin>
+      <groupId>test-plugin</groupId>
+      <artifactId>pluginA</artifactId>
+    </plugin>
+  </plugins>
+
     <build>
         <plugins>
             <plugin>

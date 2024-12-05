@@ -104,51 +104,48 @@ class MavenPlugin(Plugin):
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
         name = subtree_root.tag
 
+        # remove prefix in curly brackets
+        name = self._remove_prefix(name=name)
+
         if name:
-            if name in ["dependencies", "plugins"]:
-                config_type = self.get_config_type(name)
-                option = OptionNode(name, subtree_root.sourceline, config_type)
-                parent_node.add_child(option)
+            config_type = self.get_config_type(name)
+            option = OptionNode(name, subtree_root.sourceline, config_type)
+            parent_node.add_child(option)
 
-                self._parse_artifacts(subtree_root, option)
+            qualified_option = None
+            if name in ["dependency", "plugin"]:
+                qualified_name = self._get_fully_qualified_name(subtree_root)
+                config_type = self.get_config_type(qualified_name)
 
-            else:
-                config_type = self.get_config_type(name)
-                option = OptionNode(name, subtree_root.sourceline, config_type)
-                parent_node.add_child(option)
+                qualified_option = OptionNode(
+                    name=qualified_name,
+                    location=subtree_root.sourceline,
+                    config_type=config_type,
+                )
 
-                text = subtree_root.text
+                option.add_child(qualified_option)
+
+            text = subtree_root.text
+            if text:
+                text = text.strip()
                 if text:
-                    text = text.strip()
-                    if text:
-                        value_node = ValueNode(name=text)
-                        option.add_child(value_node)
+                    value_node = ValueNode(name=text)
+                    option.add_child(value_node)
 
-                for child in subtree_root:
-                    if child.tag is not ET.Comment:
+            for child in subtree_root:
+                if child.tag is not ET.Comment:
+                    if qualified_option:
+                        self.parse_tree(child, qualified_option)
+                    else:
                         self.parse_tree(child, option)
 
-                # remove option nodes without children
+            # remove option nodes without children
             if not option.children:
                 parent_node.children.remove(option)
 
-    def _parse_artifacts(self, subtree: _Element, current_node: OptionNode):
-        """Parse Maven artifacts."""
-        for child in subtree:
-            if child.tag in ["dependency", "plugin"]:
-                qualified_name = self._get_fully_qualified_name(child)
-                config_type = self.get_config_type(qualified_name)
-                option_node = OptionNode(
-                    name=qualified_name,
-                    location=child.sourceline,
-                    config_type=config_type,
-                )
-                current_node.add_child(option_node)
-
-                for element in child:
-                    self.parse_tree(
-                        subtree_root=element, parent_node=option_node
-                    )
+    def _remove_prefix(self, name: str) -> str:
+        """Remove the prefix in curly brackets."""
+        return name.split("}")[-1]
 
     # pylint: disable=invalid-name
     def _get_fully_qualified_name(self, subtree: _Element) -> str:
@@ -157,11 +154,12 @@ class MavenPlugin(Plugin):
         groupID = None
         version = None
         for child in subtree:
-            if child.tag == "artifactId":
+            tag = self._remove_prefix(name=child.tag)
+            if tag == "artifactId":
                 artifactID = child.text
-            if child.tag == "groupId":
+            if tag == "groupId":
                 groupID = child.text
-            if child.tag == "version":
+            if tag == "version":
                 version = child.text
 
         if version:

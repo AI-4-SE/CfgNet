@@ -104,7 +104,6 @@ class MavenPlugin(Plugin):
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
         name = subtree_root.tag
 
-        # remove prefix in curly brackets
         name = self._remove_prefix(name=name)
 
         if name:
@@ -154,6 +153,8 @@ class MavenPlugin(Plugin):
         groupID = None
         version = None
         for child in subtree:
+            if child.tag is ET.Comment:
+                continue
             tag = self._remove_prefix(name=child.tag)
             if tag == "artifactId":
                 artifactID = child.text

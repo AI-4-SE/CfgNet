@@ -348,5 +348,5 @@ class Network:
                     continue
 
         LinkerManager.apply_linkers(network)
-
+        
         return network

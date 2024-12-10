@@ -68,102 +68,46 @@ class DockerPlugin(Plugin):
 
         self.env_vars.clear()
         data = dockerfile.parse_file(abs_file_path)
-        # files that are destinations in `ADD` and `COPY`
-        destination_files = []
 
         for cmd in data:
             option = self.create_option(name=cmd.cmd, location=cmd.start_line)
             artifact.add_child(option)
 
             if cmd.cmd == "FROM":
-                if len(cmd.value) == 3:
-                    image = ValueNode(cmd.value[0])
-                    name = ValueNode(cmd.value[2])
-                    option_image = OptionNode(
-                        name="image",
-                        location=cmd.start_line,
-                        config_type=ConfigType.IMAGE,
-                    )
-                    option_name = OptionNode(
-                        name="name",
-                        location=cmd.start_line,
-                        config_type=ConfigType.NAME,
-                    )
-                    option.add_child(option_image)
-                    option.add_child(option_name)
-                    option_image.add_child(image)
-                    option_name.add_child(name)
-                else:
-                    option.add_child(ValueNode(cmd.value[0]))
+                command_value = " ".join(cmd.value)
+                option.add_child(ValueNode(command_value))
 
             if cmd.cmd == "ARG":
-                parts = cmd.value[0].split("=")
-                if len(parts) == 2:
-                    self.env_vars[parts[0]] = parts[1]
+                command_value = " ".join(cmd.value)
+                option.add_child(ValueNode(command_value))
 
             if cmd.cmd == "ENV":
                 values = parse_env(cmd.original)
                 for value in values:
-                    parts = value.split("=")
-                    env_var_option = OptionNode(
-                        name=parts[0], location=cmd.start_line
-                    )
-                    option.add_child(env_var_option)
-                    value_name = self.check_value_name(parts[1])
-                    value_node = ValueNode(value_name)
-                    self.env_vars[parts[0]] = value_name
-                    env_var_option.add_child(value_node)
+                    value_node = ValueNode(value)
+                    option.add_child(value_node)
 
-            elif cmd.cmd in ["CMD", "ENTRYPOINT", "SH"]:
+            if cmd.cmd in ["CMD", "ENTRYPOINT", "SH"]:
                 exec_command = " ".join(cmd.value)
-                exec_command_node = OptionNode(
-                    "exec_command",
-                    location=option.location,
-                    config_type=ConfigType.COMMAND,
-                )
-                option.add_child(exec_command_node)
-                value_name = self.check_value_name(exec_command)
-                exec_command_node.add_child(ValueNode(value_name))
+                option.add_child(ValueNode(exec_command))
 
-                self._add_params(option, cmd.value)
+            if cmd.cmd in ["ADD", "COPY", "RUN"]:
+                command_value = " ".join(cmd.value)
+                option.add_child(ValueNode(command_value))
 
-            elif cmd.cmd in ["ADD", "COPY"]:
-                src = OptionNode("src", cmd.start_line, ConfigType.PATH)
-                option.add_child(src)
-                # remove leading `./` or `/`
-                src_file = re.sub(r"^(\.)?/", "", cmd.value[-2])
-                src_value = self.check_value_name(src_file)
-                src.add_child(ValueNode(name=src_value))
-                dest = OptionNode("dest", cmd.start_line, ConfigType.PATH)
-                option.add_child(dest)
-                dest_value = self.check_value_name(cmd.value[-1])
-                dest.add_child(ValueNode(name=dest_value))
-                destination_files.append(dest_value)
-                for flag in cmd.flags:
-                    flag_parts = flag.split("=")
-                    if "--from" == flag_parts[0]:
-                        flag_node = OptionNode(
-                            flag_parts[0], cmd.start_line, ConfigType.NAME
-                        )
-                    else:
-                        flag_node = OptionNode(flag_parts[0], cmd.start_line)
-                    option.add_child(flag_node)
-                    value_name = self.check_value_name(flag_parts[1])
-                    flag_node.add_child(ValueNode(value_name))
-
-            elif cmd.cmd == "EXPOSE":
+            if cmd.cmd == "EXPOSE":
                 for value in cmd.value:
                     self._parse_expose(option, value)
 
-            elif cmd.cmd == "WORKDIR":
+            if cmd.cmd == "WORKDIR":
                 value_name = self.check_value_name(cmd.value[0])
                 option.add_child(ValueNode(name=value_name))
 
-            elif cmd.cmd == "USER":
+            if cmd.cmd == "USER":
                 value_name = self.check_value_name(cmd.value[0])
                 option.add_child(ValueNode(name=value_name))
 
-            elif cmd.cmd == "VOLUME":
+            if cmd.cmd == "VOLUME":
                 value_name = self.check_value_name(cmd.value[0])
                 option.add_child(ValueNode(name=value_name))
 

@@ -180,6 +180,7 @@ class ArtifactNode(Node):
             {
                 "option": x.get_options(),
                 "value": x.name,
+                "line": x.parent.location,
                 "type": x.config_type.name,
             }
             for x in value_nodes

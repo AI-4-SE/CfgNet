@@ -4,14 +4,19 @@ import logging
 from typing import Set, Optional
 
 
-def is_test_file(abs_file_path) -> bool:
+def is_in_test_directory(file_path):
     """
-    Check if a given file is a test file.
+    Checks if a given file is in a test directory.
+    """
+    # Normalize and split the file path
+    normalized_path = os.path.normpath(file_path)
+    directories = normalized_path.split(os.sep)
 
-    :return: True if test file else False
-    """
-    test_indicators = ["/tests", "test", "tests"]
-    return any(indicator in abs_file_path for indicator in test_indicators)
+    # Check for 'test' in any directory name
+    for dir_name in directories:
+        if 'test' in dir_name.lower():
+            return True
+    return False
 
 
 def get_system_config_dir() -> Optional[str]:

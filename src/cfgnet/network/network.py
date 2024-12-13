@@ -37,7 +37,7 @@ from cfgnet.network.nodes import (
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.exporter.exporter import DotExporter, JSONExporter
-from cfgnet.utility.util import get_system_files
+from cfgnet.utility.util import get_system_files, is_in_test_directory
 
 
 class Network:
@@ -304,6 +304,11 @@ class Network:
         file_type_plugins = PluginManager.get_file_type_plugins()
 
         for file in sorted(tracked_files):
+
+            # skip config files in test directories
+            if is_in_test_directory(file):
+                continue
+
             abs_file_path = os.path.join(cfg.project_root_abs, file)
 
             concept_plugin = PluginManager.get_responsible_plugin(
@@ -348,5 +353,5 @@ class Network:
                     continue
 
         LinkerManager.apply_linkers(network)
-        
+
         return network

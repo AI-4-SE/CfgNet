@@ -5,16 +5,14 @@ from typing import Set, Optional
 
 
 def is_in_test_directory(file_path):
-    """
-    Checks if a given file is in a test directory.
-    """
+    """Check if a given file is in a test directory."""
     # Normalize and split the file path
     normalized_path = os.path.normpath(file_path)
     directories = normalized_path.split(os.sep)
 
     # Check for 'test' in any directory name
     for dir_name in directories:
-        if 'test' in dir_name.lower():
+        if "test" in dir_name.lower():
             return True
     return False
 

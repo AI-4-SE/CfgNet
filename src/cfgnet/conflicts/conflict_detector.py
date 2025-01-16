@@ -192,7 +192,7 @@ class ConflictDetector:
 
         # check if both values changed equally
         if value_a is None and value_b is None:
-            if option_a.prevalue_node and option_b.prevalue_node:
+            if option_a.is_prevalue_node and option_b.is_prevalue_node:
                 if option_a.children[0].name == option_b.children[0].name:
                     return None
 

@@ -16,7 +16,7 @@
 import logging
 from typing import List
 import tomllib
-from toml import TomlDecodeError
+from tomllib import TOMLDecodeError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 
@@ -51,7 +51,7 @@ class TomlPlugin(Plugin):
                 data = tomllib.load(file)
                 self._iter_data(data, line_number_dict, artifact)
 
-            except TomlDecodeError as error:
+            except TOMLDecodeError as error:
                 logging.warning(
                     "Invalid Toml file %s: %s", abs_file_path, error
                 )

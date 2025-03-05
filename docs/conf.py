@@ -11,12 +11,12 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../'))
 
-import toml
+import tomllib
 
 # -- Project information -----------------------------------------------------
 
-with open('../pyproject.toml', 'r') as pyproject_file:
-    pyproject = toml.load(pyproject_file)
+with open('../pyproject.toml', 'rb') as pyproject_file:
+    pyproject = tomllib.load(pyproject_file)
 
     authors = ""
     for author in pyproject["tool"]["poetry"]["authors"]:

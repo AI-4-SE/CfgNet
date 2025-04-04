@@ -15,7 +15,7 @@
 
 import os
 import re
-
+import logging
 from typing import List, Optional
 import dockerfile
 from cfgnet.config_types.config_types import ConfigType
@@ -67,7 +67,13 @@ class DockerPlugin(Plugin):
         )
 
         self.env_vars.clear()
-        data = dockerfile.parse_file(abs_file_path)
+        try:
+            data = dockerfile.parse_file(abs_file_path)
+        except dockerfile.GoParseError as error:
+            logging.warning(
+                "Invalid Dockerfile %s: %s", abs_file_path, error
+            )
+            return artifact
 
         for cmd in data:
             option = self.create_option(name=cmd.cmd, location=cmd.start_line)

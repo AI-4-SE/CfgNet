@@ -12,40 +12,57 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from typing import List
 
+from cfgnet.config_types.config_types import ConfigType
 from cfgnet.network.nodes import ValueNode
 from cfgnet.linker.linker import Linker
 
 
-class EqualityLinker(Linker):
-    """Equality-based Linker."""
+class SubstringLinker(Linker):
+    """Link nodes when one node's value appears as a substring in another node's value."""
 
-    name: str = "equality"
+    name: str = "substring"
+    allowed_config_types = [
+        ConfigType.NAME,
+        ConfigType.URL,
+        ConfigType.PORT,
+        ConfigType.IP_ADDRESS,
+        ConfigType.EMAIL,
+        ConfigType.IMAGE,
+        ConfigType.PATH,
+        ConfigType.COMMAND,
+        ConfigType.LICENSE,
+        ConfigType.VERSION_NUMBER,
+        ConfigType.PLATFORM,
+        ConfigType.TIME,
+        ConfigType.SPEED,
+        ConfigType.USERNAME,
+    ]
 
     def create_links(self) -> None:
         self.target_nodes = self._find_target_nodes()
 
         for node in self.target_nodes:
             if not node.name:
-                return
+                continue
 
-            # discard words from static blacklist
+            # Discard nodes from static blacklist if enabled
             if self.network:
                 if self.network.cfg.enable_static_blacklist:
                     if node.name in self.static_blacklist.values:
-                        return
+                        continue
 
-            # find all matches with the given linker criterion
+            # Find matches based on substring criterion
             matches = self._find_matches(node)
 
-            # add link for all matches
+            # Add link for all valid matches
             for match in matches:
-                # check config types before creating a link
                 if self._check_config_types(node, match):
                     self._add_link(node, match, self.name)
 
-    def _find_target_nodes(self):
+    def _find_target_nodes(self) -> List[ValueNode]:
         return [
             node
             for node in self.network.get_nodes(ValueNode)
@@ -58,11 +75,13 @@ class EqualityLinker(Linker):
         return [
             value_node
             for value_node in target_nodes
-            if value_node.name == node.name and node is not value_node
+            if value_node.name
+            and node.name in value_node.name
+            and node is not value_node
         ]
 
     def _filter_target_nodes(self, node) -> List[ValueNode]:
-        """Filter target nodes to avoid links within the same file."""
+        """Filter nodes to avoid linking within the same file."""
         if self.enable_internal_links:
             return self.target_nodes
 
@@ -79,14 +98,15 @@ class EqualityLinker(Linker):
         self, node_a: ValueNode, node_b: ValueNode
     ) -> bool:
         """
-        Check config types of given nodes before creating a link.
+        Check if both nodes have the same config type or if at least one has no type specified.
 
-        :param node_a: First node to be linked to the second
-        :param node_b: Second node to be linked to the first
-        :return: True if both nodes have the same config type or if at least
-         one node has no config type specified, else False
+        :param node_a: First node to be linked
+        :param node_b: Second node to be linked
+        :return: True if type of nodes is in allowed tyoes, else False
         """
-        if node_a.config_type == node_b.config_type:
+        if (
+            node_a.config_type in self.allowed_config_types
+            and node_b.config_type in self.allowed_config_types
+        ):
             return True
-
         return False

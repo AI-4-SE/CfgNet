@@ -243,6 +243,8 @@ class OptionNode(Node):
                 node.config_type = ConfigTypeInferer().get_config_type(
                     option_name=self.name, value=node.name
                 )
+            else:
+                node.config_type = self.config_type
 
         super().add_child(node)
 

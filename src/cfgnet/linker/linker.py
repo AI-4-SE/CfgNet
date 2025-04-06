@@ -62,14 +62,15 @@ class Linker(abc.ABC):
         :return: True if config types meet specific condition else False
         """
 
-    def _add_link(self, node_a: ValueNode, node_b: ValueNode):
+    def _add_link(self, node_a: ValueNode, node_b: ValueNode, link_type: str):
         """
         Establish a link between the two given nodes.
 
         :param node_a: First node to be linked to the second.
         :param node_b: Second node to be linked to the first.
+        :param type: Type of the link.
         :return: None
         """
-        link = Link(node_a, node_b)
+        link = Link(node_a, node_b, link_type)
         if self.network:
             self.network.links.add(link)

@@ -178,8 +178,10 @@ class ArtifactNode(Node):
         value_nodes = self.get_nodes(node_type=ValueNode)
         return [
             {
+                "artifact": self.rel_file_path,
                 "option": x.get_options(),
                 "value": x.name,
+                "line": x.parent.location,
                 "type": x.config_type.name,
             }
             for x in value_nodes
@@ -196,7 +198,7 @@ class OptionNode(Node):
         Option ID for nested options.
     location: int
         Line number of the option.
-    prevalue_node: bool
+    is_prevalue_node: bool
         Indicates whether the option is a prevalue node.
     config_type: ConfigType
         Type of configuration option/value.
@@ -212,7 +214,7 @@ class OptionNode(Node):
         super().__init__(name)
         self.display_option_id: str = name
         self.location: str = location
-        self.prevalue_node: bool = False
+        self.is_prevalue_node: bool = False
         self.config_type = config_type
 
     def __str__(self):
@@ -236,7 +238,7 @@ class OptionNode(Node):
             )
 
         if isinstance(node, ValueNode):
-            self.prevalue_node = True
+            self.is_prevalue_node = True
             if node.config_type == ConfigType.UNKNOWN:
                 node.config_type = ConfigTypeInferer().get_config_type(
                     option_name=self.name, value=node.name

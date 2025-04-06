@@ -4,7 +4,7 @@ build-backend = 'poetry.masonry.api'
 
 [tool.poetry]
 name = 'CfgNet'
-version = '1.0.4'
+version = '1.0.5'
 description = 'A Framework for Tracking Configuration Dependencies Across a Software Project'
 authors = [
   'Sebastian Simon <ssimon@informatik.uni-leipzig.de>',
@@ -24,7 +24,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = '>=3.8,<3.12'
+python = '>=3.11,<3.13'
 mypy = "1.2"
 lxml = "^4.6.3"
 GitPython = "^3.1.24"
@@ -33,13 +33,13 @@ graphviz = "^0.17"
 PyYAML = "^6.0"
 types-PyYAML = "^6.0.1"
 types-toml = "^0.10.1"
-Sphinx = "^4.4.0"
+Sphinx = "^5.0.2"
 sphinxcontrib-spelling = "^7.3.2"
 flatdict = "^4.0.1"
 dockerfile = "^3.2.0"
 apacheconfig = "^0.3.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = { version = '*', allow-prereleases = true }
 coverage = '^5.1'
 flake8 = "^3.7.9"
@@ -47,7 +47,7 @@ pylint = "^2.6.0"
 pytest = '^6.2.5'
 pytest-cov = '^2.7'
 pydocstyle = "^5.0.2"
-Sphinx = "^4.0.2"
+Sphinx = "^5.0.2"
 sphinxcontrib-spelling = "^7.2.1"
 
 [tool.poetry.scripts]

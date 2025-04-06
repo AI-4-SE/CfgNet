@@ -15,7 +15,7 @@
 
 import os
 import re
-
+import logging
 from typing import List, Optional
 import dockerfile
 from cfgnet.config_types.config_types import ConfigType
@@ -53,6 +53,7 @@ class DockerPlugin(Plugin):
         super().__init__("docker")
         self.env_vars = {}
 
+    # flake8: noqa: C901
     def _parse_config_file(
         self,
         abs_file_path: str,
@@ -67,7 +68,13 @@ class DockerPlugin(Plugin):
         )
 
         self.env_vars.clear()
-        data = dockerfile.parse_file(abs_file_path)
+
+        try:
+            data = dockerfile.parse_file(abs_file_path)
+        except dockerfile.GoParseError as error:
+            logging.warning("Invalid Dockerfile %s: %s", abs_file_path, error)
+            return artifact
+
         # files that are destinations in `ADD` and `COPY`
         destination_files = []
 

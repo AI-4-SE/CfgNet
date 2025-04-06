@@ -139,5 +139,8 @@ class JsonPlugin(Plugin):
         :param: name: name of option
         :return: line number of option
         """
-        line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
-        return lines_dict[line]
+        try:
+            line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
+            return lines_dict[line]
+        except StopIteration:
+            return "unknown"

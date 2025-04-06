@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet.network package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,12 +35,12 @@
           <div class="body" role="main">
             
   <section id="cfgnet-network-package">
-<h1>cfgnet.network package<a class="headerlink" href="#cfgnet-network-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet.network package<a class="headerlink" href="#cfgnet-network-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.network.ignorefile">
-<span id="cfgnet-network-ignorefile-module"></span><h2>cfgnet.network.ignorefile module<a class="headerlink" href="#module-cfgnet.network.ignorefile" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-network-ignorefile-module"></span><h2>cfgnet.network.ignorefile module<a class="headerlink" href="#module-cfgnet.network.ignorefile" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.ignorefile.IgnoreFile">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.ignorefile.</span></span><span class="sig-name descname"><span class="pre">IgnoreFile</span></span><a class="headerlink" href="#cfgnet.network.ignorefile.IgnoreFile" title="Permalink to this definition">¶</a></dt>
@@ -77,10 +80,10 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 </section>
 <section id="module-cfgnet.network.network">
-<span id="cfgnet-network-network-module"></span><h2>cfgnet.network.network module<a class="headerlink" href="#module-cfgnet.network.network" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-network-network-module"></span><h2>cfgnet.network.network module<a class="headerlink" href="#module-cfgnet.network.network" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.network.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.ProjectNode" title="cfgnet.network.nodes.ProjectNode"><span class="pre">cfgnet.network.nodes.ProjectNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.network_configuration.NetworkConfiguration" title="cfgnet.network.network_configuration.NetworkConfiguration"><span class="pre">cfgnet.network.network_configuration.NetworkConfiguration</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.network.Network" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.network.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.ProjectNode" title="cfgnet.network.nodes.ProjectNode"><span class="pre">ProjectNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.network_configuration.NetworkConfiguration" title="cfgnet.network.network_configuration.NetworkConfiguration"><span class="pre">NetworkConfiguration</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.network.Network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Datastructure for a configuration network.</p>
 <dl class="py method">
@@ -88,7 +91,7 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_unlinked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export the configuration network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – Name of the file to which the network is to be exported</p></li>
 <li><p><strong>export_format</strong> – Format in which the network is stored, either “dot” or “json”</p></li>
@@ -100,13 +103,13 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.find_artifact_node">
-<span class="sig-name descname"><span class="pre">find_artifact_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.find_artifact_node" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find_artifact_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">ArtifactNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.find_artifact_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find instance of the given node with the same ID.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – artifact node to be searched for</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Found artifact node or None if node has not been found</p>
 </dd>
 </dl>
@@ -114,13 +117,13 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.find_option_node">
-<span class="sig-name descname"><span class="pre">find_option_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.find_option_node" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find_option_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">OptionNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.find_option_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find instance of the given node with the same ID.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – option node to be searched for</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Found option node or None if node has not been found</p>
 </dd>
 </dl>
@@ -128,13 +131,13 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.find_value_node">
-<span class="sig-name descname"><span class="pre">find_value_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.find_value_node" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find_value_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">ValueNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.find_value_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find instance of the given node with the same ID.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – value node to be searched for</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Found value node or None if node has not been found</p>
 </dd>
 </dl>
@@ -145,10 +148,10 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <span class="sig-name descname"><span class="pre">get_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.get_nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return nodes from the network according to the entered node type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node_type</strong> – Type of node that should be returned</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of nodes</p>
 </dd>
 </dl>
@@ -159,7 +162,7 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <span class="sig-name descname"><span class="pre">get_pairs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.get_pairs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract all key-value-type pairs for each artifact in the configuration network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict with key-value-type pairs for each artifact</p>
 </dd>
 </dl>
@@ -167,13 +170,13 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.init_network">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.network_configuration.NetworkConfiguration" title="cfgnet.network.network_configuration.NetworkConfiguration"><span class="pre">cfgnet.network.network_configuration.NetworkConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">cfgnet.network.network.Network</span></a></span></span><a class="headerlink" href="#cfgnet.network.network.Network.init_network" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.network_configuration.NetworkConfiguration" title="cfgnet.network.network_configuration.NetworkConfiguration"><span class="pre">NetworkConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">Network</span></a></span></span><a class="headerlink" href="#cfgnet.network.network.Network.init_network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a configuration network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>cfg</strong> – network configuration</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>configuration network</p>
 </dd>
 </dl>
@@ -181,13 +184,13 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.load_network">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">cfgnet.network.network.Network</span></a></span></span><a class="headerlink" href="#cfgnet.network.network.Network.load_network" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">Network</span></a></span></span><a class="headerlink" href="#cfgnet.network.network.Network.load_network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load configuration network of a project from a pickle file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>project_root</strong> – Project root of the software repository</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Configuration network</p>
 </dd>
 </dl>
@@ -201,16 +204,16 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.traverse">
-<span class="sig-name descname"><span class="pre">traverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.traverse" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">traverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.traverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Traverse the configuration network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>current</strong> – Starting point of traversal</p></li>
 <li><p><strong>callback</strong> – Callback called on every visited node</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -218,10 +221,10 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.network.Network.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Set</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">cfgnet.network.network.Network</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.validate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit_hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Set</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">Network</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.network.Network.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detect conflicts with respect to the reference network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Set of detected dependency conflicts and the newly created network</p>
 </dd>
 </dl>
@@ -232,7 +235,7 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_unlinked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.network.Network.visualize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visualize the configuration network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – Name of the file to which the network is to be exported</p></li>
 <li><p><strong>export_format</strong> – Format in which the network is stored, either “png” or “pdf”</p></li>
@@ -246,7 +249,7 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 </section>
 <section id="module-cfgnet.network.network_configuration">
-<span id="cfgnet-network-network-configuration-module"></span><h2>cfgnet.network.network_configuration module<a class="headerlink" href="#module-cfgnet.network.network_configuration" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-network-network-configuration-module"></span><h2>cfgnet.network.network_configuration module<a class="headerlink" href="#module-cfgnet.network.network_configuration" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.network_configuration.NetworkConfiguration">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.network_configuration.</span></span><span class="sig-name descname"><span class="pre">NetworkConfiguration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_root_abs:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_static_blacklist:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_internal_links:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_all_conflicts:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_file_type_plugins:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_level:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfgnet_path_rel:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'.cfgnet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled_linkers:</span> <span class="pre">List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_files:</span> <span class="pre">List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.network_configuration.NetworkConfiguration" title="Permalink to this definition">¶</a></dt>
@@ -330,15 +333,15 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 </section>
 <section id="module-cfgnet.network.nodes">
-<span id="cfgnet-network-nodes-module"></span><h2>cfgnet.network.nodes module<a class="headerlink" href="#module-cfgnet.network.nodes" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-network-nodes-module"></span><h2>cfgnet.network.nodes module<a class="headerlink" href="#module-cfgnet.network.nodes" title="Permalink to this heading">¶</a></h2>
 <p>Datastructure for nodes of a configuration network.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ArtifactNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">ArtifactNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concept_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.ArtifactNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.network.nodes.Node</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
 <p>Artifact nodes model existing configuration artifacts.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file_path</strong> (<em>str</em>) – Absolute file path of the file.</p></li>
 <li><p><strong>rel_file_path</strong> (<em>str</em>) – Relative file path of the file.</p></li>
@@ -349,10 +352,10 @@ that match one or more of these patterns will be ignored by the tool.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ArtifactNode.add_child">
-<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ArtifactNode.add_child" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">OptionNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ArtifactNode.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a child to this node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – The node that should be added to this node.</p>
 </dd>
 </dl>
@@ -360,7 +363,7 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ArtifactNode.get_nodes">
-<span class="sig-name descname"><span class="pre">get_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ArtifactNode.get_nodes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">ArtifactNode</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ArtifactNode.get_nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all value nodes of an artifact.</p>
 </dd></dl>
 
@@ -374,11 +377,11 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.Node">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.Node" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.Node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base class of a node in the network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – name of a node.</p></li>
 <li><p><strong>parent</strong> (<em>str</em>) – Parent of a node.</p></li>
@@ -393,7 +396,7 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.Node.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a child to this node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – The node that should be added to this node.</p>
 </dd>
 </dl>
@@ -403,25 +406,25 @@ that match one or more of these patterns will be ignored by the tool.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.OptionNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">OptionNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">cfgnet.config_types.config_types.ConfigType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ConfigType.UNKNOWN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.OptionNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.network.nodes.Node</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">OptionNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ConfigType.UNKNOWN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.OptionNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
 <p>Option nodes refer to commands or lines of code in an artifact.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>display_option_id</strong> (<em>str</em>) – Option ID for nested options.</p></li>
 <li><p><strong>location</strong> (<em>int</em>) – Line number of the option.</p></li>
-<li><p><strong>prevalue_node</strong> (<em>bool</em>) – Indicates whether the option is a prevalue node.</p></li>
+<li><p><strong>is_prevalue_node</strong> (<em>bool</em>) – Indicates whether the option is a prevalue node.</p></li>
 <li><p><strong>config_type</strong> (<a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><em>ConfigType</em></a>) – Type of configuration option/value.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.OptionNode.add_child">
-<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.OptionNode.add_child" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">OptionNode</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">ValueNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.OptionNode.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a child to this node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – The node that should be added to this node.</p>
 </dd>
 </dl>
@@ -432,19 +435,19 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ProjectNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">ProjectNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.ProjectNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.network.nodes.Node</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
 <p>Root node of a network that represents the whole software system.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>root_dir</strong> (<em>str</em>) – Root directory of the project.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ProjectNode.add_child">
-<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ProjectNode.add_child" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">ArtifactNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ProjectNode.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a child to this node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – The node that should be added to this node.</p>
 </dd>
 </dl>
@@ -455,10 +458,10 @@ that match one or more of these patterns will be ignored by the tool.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ValueNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.network.nodes.</span></span><span class="sig-name descname"><span class="pre">ValueNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.network.nodes.ValueNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.network.nodes.Node</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
 <p>Value nodes represent actual parameters associated to an option node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>config_type</strong> (<a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><em>ConfigType</em></a>) – Type of configuration option/value.</p></li>
 <li><p><strong>possible_values</strong> (<em>Dict</em><em>[</em><em>Tuple</em><em>, </em><em>Str</em><em>]</em>) – Dictionary of possible values for a source code config option computed
@@ -468,10 +471,10 @@ using a control flow graph and constant propagation.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.network.nodes.ValueNode.add_child">
-<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ValueNode.add_child" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ValueNode.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a child to this node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – The node that should be added to this node.</p>
 </dd>
 </dl>
@@ -482,7 +485,7 @@ using a control flow graph and constant propagation.</p></li>
 <span class="sig-name descname"><span class="pre">get_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cfgnet.network.nodes.ValueNode.get_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get names of all option nodes of the value node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>String of concatenated option names</p>
 </dd>
 </dl>
@@ -492,7 +495,7 @@ using a control flow graph and constant propagation.</p></li>
 
 </section>
 <section id="module-cfgnet.network">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.network" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.network" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -539,7 +542,7 @@ using a control flow graph and constant propagation.</p></li>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -553,11 +556,11 @@ using a control flow graph and constant propagation.</p></li>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.network.rst.txt"

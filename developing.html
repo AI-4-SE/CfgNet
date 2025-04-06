@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Developing &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,7 +12,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing" href="contributing.html" />
@@ -20,8 +22,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -34,12 +37,12 @@
           <div class="body" role="main">
             
   <section id="developing">
-<h1>Developing<a class="headerlink" href="#developing" title="Permalink to this headline">¶</a></h1>
+<h1>Developing<a class="headerlink" href="#developing" title="Permalink to this heading">¶</a></h1>
 <p>This section contains all the necessary information to run and build the program from source and how to contribute to the project.
 For contributions to the project, please also consider our <a class="reference internal" href="contributing.html#contributing"><span class="std std-ref">contribution guidelines</span></a>.</p>
 <p>If you run into any problems, feel free to create an issue to describe the problem.</p>
 <section id="poetry-quick-start">
-<h2>Poetry Quick Start<a class="headerlink" href="#poetry-quick-start" title="Permalink to this headline">¶</a></h2>
+<h2>Poetry Quick Start<a class="headerlink" href="#poetry-quick-start" title="Permalink to this heading">¶</a></h2>
 <p>This section gives you the basic commands to use Poetry to run the project.
 For further information check their documentation.</p>
 <p>You can install the package in a local virtual environment managed by Poetry with</p>
@@ -57,7 +60,7 @@ For further information check their documentation.</p>
 <p>where <code class="code docutils literal notranslate"><span class="pre">$PATH_TO_REPOSITORY</span></code> is the path to the root of the repository (i.e.  where <code class="code docutils literal notranslate"><span class="pre">.git</span></code> is).</p>
 </section>
 <section id="building-the-package">
-<h2>Building the package<a class="headerlink" href="#building-the-package" title="Permalink to this headline">¶</a></h2>
+<h2>Building the package<a class="headerlink" href="#building-the-package" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://python-poetry.org/">Poetry</a> is used to build the package.
 After installing Poetry you can build the project with</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry build
@@ -67,7 +70,7 @@ After installing Poetry you can build the project with</p>
 <p>To start developing with the package you need to install <a class="reference external" href="https://python-poetry.org/">Poetry</a> and optionally Make.</p>
 </section>
 <section id="code-style">
-<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this headline">¶</a></h2>
+<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/python/black">Black</a> is used for code formatting.
 To format your contributions, run</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ black src tests
@@ -75,7 +78,7 @@ To format your contributions, run</p>
 </div>
 </section>
 <section id="makefile">
-<h2>Makefile<a class="headerlink" href="#makefile" title="Permalink to this headline">¶</a></h2>
+<h2>Makefile<a class="headerlink" href="#makefile" title="Permalink to this heading">¶</a></h2>
 <p>This repository also provides a Makefile for convenience.
 The default rule (<code class="code docutils literal notranslate"><span class="pre">install</span></code>) will install the package with Poetry.</p>
 <p>In addition to there are the following rules:</p>
@@ -141,7 +144,7 @@ The default rule (<code class="code docutils literal notranslate"><span class="p
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -155,11 +158,11 @@ The default rule (<code class="code docutils literal notranslate"><span class="p
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/developing.rst.txt"

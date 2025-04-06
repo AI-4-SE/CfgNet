@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Tests &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,7 +12,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Logging" href="logging.html" />
@@ -20,8 +22,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -34,10 +37,10 @@
           <div class="body" role="main">
             
   <section id="tests">
-<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this heading">¶</a></h1>
 <p>Here, we cover all information about how to write tests for this project.</p>
 <section id="aaa-pattern">
-<h2>AAA Pattern<a class="headerlink" href="#aaa-pattern" title="Permalink to this headline">¶</a></h2>
+<h2>AAA Pattern<a class="headerlink" href="#aaa-pattern" title="Permalink to this heading">¶</a></h2>
 <p>Software testing is a process across the entire life cycle of software development to ensure the quality of a system under test.
 Among others, this incorporates writing tests, which mainly aims at finding bugs introduced during the development, preventing bugs, and gaining confidence about the software quality.</p>
 <p>One of the most important requirements in writing tests is to keep tests readable and maintainable.
@@ -51,7 +54,7 @@ Each one of them is only responsible for the part in which they are named after.
 </div>
 <p>In this section, we describe the guidelines to write tests with using the Arrange-Act-Assert Pattern.</p>
 <section id="definition-of-the-test-method">
-<h3>Definition of the test method<a class="headerlink" href="#definition-of-the-test-method" title="Permalink to this headline">¶</a></h3>
+<h3>Definition of the test method<a class="headerlink" href="#definition-of-the-test-method" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>name your method something descriptive because the function name will be
 shown when the test fails</p></li>
@@ -59,7 +62,7 @@ shown when the test fails</p></li>
 </ul>
 </section>
 <section id="docstrings">
-<h3>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h3>
+<h3>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this heading">¶</a></h3>
 <p>Docstrings are not a part of the AAA pattern, but can help to describe the behavior under test.
 Consider if the tests needs one.</p>
 <ul class="simple">
@@ -69,7 +72,7 @@ Consider if the tests needs one.</p>
 </ul>
 </section>
 <section id="arrange">
-<h3>Arrange<a class="headerlink" href="#arrange" title="Permalink to this headline">¶</a></h3>
+<h3>Arrange<a class="headerlink" href="#arrange" title="Permalink to this heading">¶</a></h3>
 <p>The block of code sets up the conditions for the test action.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
 </pre></div>
@@ -79,7 +82,7 @@ Consider if the tests needs one.</p>
 </ul>
 </section>
 <section id="act">
-<h3>Act<a class="headerlink" href="#act" title="Permalink to this headline">¶</a></h3>
+<h3>Act<a class="headerlink" href="#act" title="Permalink to this heading">¶</a></h3>
 <p>The block where the action is taken.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
 </pre></div>
@@ -91,7 +94,7 @@ Consider if the tests needs one.</p>
 </ul>
 </section>
 <section id="assert">
-<h3>Assert<a class="headerlink" href="#assert" title="Permalink to this headline">¶</a></h3>
+<h3>Assert<a class="headerlink" href="#assert" title="Permalink to this heading">¶</a></h3>
 <p>The block that performs the assertions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 <span class="k">assert</span> <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">D</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
@@ -103,7 +106,7 @@ Consider if the tests needs one.</p>
 </ul>
 </section>
 <section id="the-final-test">
-<h3>The final test<a class="headerlink" href="#the-final-test" title="Permalink to this headline">¶</a></h3>
+<h3>The final test<a class="headerlink" href="#the-final-test" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
@@ -115,14 +118,14 @@ Consider if the tests needs one.</p>
 </section>
 </section>
 <section id="fixtures">
-<h2>Fixtures<a class="headerlink" href="#fixtures" title="Permalink to this headline">¶</a></h2>
+<h2>Fixtures<a class="headerlink" href="#fixtures" title="Permalink to this heading">¶</a></h2>
 <p>If the code in the arrangement block becomes too complex, extract code and create fixtures.</p>
 <ul class="simple">
 <li><p>in pytest fixtures are marked with <code class="code docutils literal notranslate"><span class="pre">&#64;pytest.fixtures</span></code></p></li>
 </ul>
 </section>
 <section id="patch-files">
-<h2>Patch files<a class="headerlink" href="#patch-files" title="Permalink to this headline">¶</a></h2>
+<h2>Patch files<a class="headerlink" href="#patch-files" title="Permalink to this heading">¶</a></h2>
 <p>To create Git repositories in the test cases where we need to create configuration networks we use patch files.</p>
 <p>First, create a repository and commits that you want to test.
 To generate the patch files, run</p>
@@ -183,7 +186,7 @@ To generate the patch files, run</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -197,11 +200,11 @@ To generate the patch files, run</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/tests.rst.txt"

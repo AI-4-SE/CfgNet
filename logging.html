@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Logging &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,7 +12,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plugins" href="plugins.html" />
@@ -20,8 +22,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -34,12 +37,12 @@
           <div class="body" role="main">
             
   <section id="logging">
-<h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
+<h1>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">¶</a></h1>
 <p>We added <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging">Python’s logging system</a> to our CfgNet to better understand the flow that our application goes through.
 The logging system allows us to log various information about when and where a log is triggered, as well as to log certain messages when we apply CfgNet to software repositories.
 Having good logs are very useful, not only for debugging but also to provide insights in CfgNet or in the analysis we perform.</p>
 <section id="logging-handler">
-<h2>Logging Handler<a class="headerlink" href="#logging-handler" title="Permalink to this headline">¶</a></h2>
+<h2>Logging Handler<a class="headerlink" href="#logging-handler" title="Permalink to this heading">¶</a></h2>
 <p>Logging handler are components that specify how and what kind of log messages are written in a log file or displayed in the console.
 They can be specified regarding the logging level, format, or filter.
 Currently, we have two preconfigured logging handler that are added to the root logger and that are responsible for our logging:</p>
@@ -49,7 +52,7 @@ Currently, we have two preconfigured logging handler that are added to the root 
 </ul>
 </section>
 <section id="logging-levels">
-<h2>Logging Levels<a class="headerlink" href="#logging-levels" title="Permalink to this headline">¶</a></h2>
+<h2>Logging Levels<a class="headerlink" href="#logging-levels" title="Permalink to this heading">¶</a></h2>
 <p>Logging levels correspond to the importance of log messages.
 There are six log levels that are showed below in order of severity:</p>
 <ul class="simple">
@@ -72,7 +75,7 @@ By contrast, the level <code class="code docutils literal notranslate"><span cla
 </ul>
 </section>
 <section id="logging-formatter">
-<h2>Logging Formatter<a class="headerlink" href="#logging-formatter" title="Permalink to this headline">¶</a></h2>
+<h2>Logging Formatter<a class="headerlink" href="#logging-formatter" title="Permalink to this heading">¶</a></h2>
 <p>Logging formatter basically specify the format of log messages by adding context information to it, such as the Python file, line number, method or additional context such as the thread and process.
 We use a default format that looks like as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">log_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> | </span><span class="si">%(levelname)8s</span><span class="s1"> | </span><span class="si">%(module)20s</span><span class="s1"> | </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -87,29 +90,29 @@ To add a new format, we need to create the format and set it in the correspondin
 </div>
 </section>
 <section id="logging-filter">
-<h2>Logging Filter<a class="headerlink" href="#logging-filter" title="Permalink to this headline">¶</a></h2>
+<h2>Logging Filter<a class="headerlink" href="#logging-filter" title="Permalink to this heading">¶</a></h2>
 <p>Logging filter can be used by logging handler for more sophisticated filtering than is provided by logging levels.
 For instance, the example below filters out all log messages fired by the <code class="code docutils literal notranslate"><span class="pre">cmd</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LogFileFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LogFileFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Logging filter to suppress logs fired by module &#39;cmd&#39;.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">record</span><span class="o">.</span><span class="n">module</span> <span class="o">!=</span> <span class="s2">&quot;cmd&quot;</span>
 </pre></div>
 </div>
 <p>To add a new logging filter, we need to create a new filter as shown in the example and add it to the corresponding logging handler.</p>
 </section>
 <section id="flags">
-<h2>Flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h2>
+<h2>Flags<a class="headerlink" href="#flags" title="Permalink to this heading">¶</a></h2>
 <p>We use a additional flag in order to configure the <code class="code docutils literal notranslate"><span class="pre">repo_logging_handler</span></code>.</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">--verbose</span></code>: all logging messages (<code class="code docutils literal notranslate"><span class="pre">DEBUG</span></code> and higher) are also logged in the console.</p></li>
 </ul>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <p>Since our logging handler are preconfigured, we only need to import <code class="code docutils literal notranslate"><span class="pre">logging</span></code> to be able to log messages.
 Depending on the severity of a message, the usage looks like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;print debug message&quot;</span><span class="p">)</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;print info message&quot;</span><span class="p">)</span>
@@ -174,7 +177,7 @@ Depending on the severity of a message, the usage looks like this:</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -188,11 +191,11 @@ Depending on the severity of a message, the usage looks like this:</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/logging.rst.txt"

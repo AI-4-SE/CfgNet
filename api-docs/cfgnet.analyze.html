@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet.analyze package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,15 +35,15 @@
           <div class="body" role="main">
             
   <section id="cfgnet-analyze-package">
-<h1>cfgnet.analyze package<a class="headerlink" href="#cfgnet-analyze-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet.analyze package<a class="headerlink" href="#cfgnet-analyze-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.analyze.analyzer">
-<span id="cfgnet-analyze-analyzer-module"></span><h2>cfgnet.analyze.analyzer module<a class="headerlink" href="#module-cfgnet.analyze.analyzer" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-analyze-analyzer-module"></span><h2>cfgnet.analyze.analyzer module<a class="headerlink" href="#module-cfgnet.analyze.analyzer" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.analyze.analyzer.Analyzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.analyze.analyzer.</span></span><span class="sig-name descname"><span class="pre">Analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration" title="cfgnet.network.network_configuration.NetworkConfiguration"><span class="pre">cfgnet.network.network_configuration.NetworkConfiguration</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.analyze.analyzer.Analyzer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.analyze.analyzer.</span></span><span class="sig-name descname"><span class="pre">Analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration" title="cfgnet.network.network_configuration.NetworkConfiguration"><span class="pre">NetworkConfiguration</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.analyze.analyzer.Analyzer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.analyze.analyzer.Analyzer.analyze_commit_history">
@@ -52,17 +55,17 @@
 
 </section>
 <section id="module-cfgnet.analyze.csv_writer">
-<span id="cfgnet-analyze-csv-writer-module"></span><h2>cfgnet.analyze.csv_writer module<a class="headerlink" href="#module-cfgnet.analyze.csv_writer" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-analyze-csv-writer-module"></span><h2>cfgnet.analyze.csv_writer module<a class="headerlink" href="#module-cfgnet.analyze.csv_writer" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.analyze.csv_writer.CSVWriter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.analyze.csv_writer.</span></span><span class="sig-name descname"><span class="pre">CSVWriter</span></span><a class="headerlink" href="#cfgnet.analyze.csv_writer.CSVWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.analyze.csv_writer.CSVWriter.write_conflicts_to_csv">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_conflicts_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conflicts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.ModifiedOptionConflict" title="cfgnet.conflicts.conflict.ModifiedOptionConflict"><span class="pre">cfgnet.conflicts.conflict.ModifiedOptionConflict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingArtifactConflict" title="cfgnet.conflicts.conflict.MissingArtifactConflict"><span class="pre">cfgnet.conflicts.conflict.MissingArtifactConflict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingOptionConflict" title="cfgnet.conflicts.conflict.MissingOptionConflict"><span class="pre">cfgnet.conflicts.conflict.MissingOptionConflict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.analyze.csv_writer.CSVWriter.write_conflicts_to_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_conflicts_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conflicts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.ModifiedOptionConflict" title="cfgnet.conflicts.conflict.ModifiedOptionConflict"><span class="pre">ModifiedOptionConflict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingArtifactConflict" title="cfgnet.conflicts.conflict.MissingArtifactConflict"><span class="pre">MissingArtifactConflict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingOptionConflict" title="cfgnet.conflicts.conflict.MissingOptionConflict"><span class="pre">MissingOptionConflict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.analyze.csv_writer.CSVWriter.write_conflicts_to_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write conflicts into a csv file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>conflicts</strong> – Conflicts to be written to a csv file</p>
 </dd>
 </dl>
@@ -72,7 +75,7 @@
 
 </section>
 <section id="module-cfgnet.analyze.timeout">
-<span id="cfgnet-analyze-timeout-module"></span><h2>cfgnet.analyze.timeout module<a class="headerlink" href="#module-cfgnet.analyze.timeout" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-analyze-timeout-module"></span><h2>cfgnet.analyze.timeout module<a class="headerlink" href="#module-cfgnet.analyze.timeout" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.analyze.timeout.Timeout">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.analyze.timeout.</span></span><span class="sig-name descname"><span class="pre">Timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Timeout'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.analyze.timeout.Timeout" title="Permalink to this definition">¶</a></dt>
@@ -86,7 +89,7 @@
 
 </section>
 <section id="module-cfgnet.analyze">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.analyze" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.analyze" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -133,7 +136,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -147,11 +150,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.analyze.rst.txt"

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet.linker package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,16 +35,16 @@
           <div class="body" role="main">
             
   <section id="cfgnet-linker-package">
-<h1>cfgnet.linker package<a class="headerlink" href="#cfgnet-linker-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet.linker package<a class="headerlink" href="#cfgnet-linker-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.linker.equality_linker">
-<span id="cfgnet-linker-equality-linker-module"></span><h2>cfgnet.linker.equality_linker module<a class="headerlink" href="#module-cfgnet.linker.equality_linker" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-linker-equality-linker-module"></span><h2>cfgnet.linker.equality_linker module<a class="headerlink" href="#module-cfgnet.linker.equality_linker" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.linker.equality_linker.EqualityLinker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.linker.equality_linker.</span></span><span class="sig-name descname"><span class="pre">EqualityLinker</span></span><a class="headerlink" href="#cfgnet.linker.equality_linker.EqualityLinker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cfgnet.linker.linker.Linker" title="cfgnet.linker.linker.Linker"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.linker.linker.Linker</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#cfgnet.linker.linker.Linker" title="cfgnet.linker.linker.Linker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Linker</span></code></a></p>
 <p>Equality-based Linker.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.linker.equality_linker.EqualityLinker.create_links">
@@ -58,31 +61,31 @@
 
 </section>
 <section id="module-cfgnet.linker.link">
-<span id="cfgnet-linker-link-module"></span><h2>cfgnet.linker.link module<a class="headerlink" href="#module-cfgnet.linker.link" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-linker-link-module"></span><h2>cfgnet.linker.link module<a class="headerlink" href="#module-cfgnet.linker.link" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.linker.link.</span></span><span class="sig-name descname"><span class="pre">Link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.linker.link.Link" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.linker.link.</span></span><span class="sig-name descname"><span class="pre">Link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">ValueNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">ValueNode</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.linker.link.Link" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Datastructure for network links between Value or artifact nodes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.artifact_a">
-<span class="sig-name descname"><span class="pre">artifact_a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.artifact_a" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">artifact_a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">ArtifactNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.artifact_a" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.artifact_b">
-<span class="sig-name descname"><span class="pre">artifact_b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">cfgnet.network.nodes.ArtifactNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.artifact_b" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">artifact_b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode" title="cfgnet.network.nodes.ArtifactNode"><span class="pre">ArtifactNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.artifact_b" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.is_node_involved">
-<span class="sig-name descname"><span class="pre">is_node_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.linker.link.Link.is_node_involved" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_node_involved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.linker.link.Link.is_node_involved" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if a node is involved in a link.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – node that should be involved in a link</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>true if node is involved in a link, else false</p>
 </dd>
 </dl>
@@ -90,34 +93,34 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.node_a">
-<span class="sig-name descname"><span class="pre">node_a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.node_a" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">node_a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">ValueNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.node_a" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.node_b">
-<span class="sig-name descname"><span class="pre">node_b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">cfgnet.network.nodes.ValueNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.node_b" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">node_b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode" title="cfgnet.network.nodes.ValueNode"><span class="pre">ValueNode</span></a></em><a class="headerlink" href="#cfgnet.linker.link.Link.node_b" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.option_stack_a">
-<span class="sig-name descname"><span class="pre">option_stack_a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cfgnet.linker.link.Link.option_stack_a" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">option_stack_a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">OptionNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cfgnet.linker.link.Link.option_stack_a" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.link.Link.option_stack_b">
-<span class="sig-name descname"><span class="pre">option_stack_b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">cfgnet.network.nodes.OptionNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cfgnet.linker.link.Link.option_stack_b" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">option_stack_b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode" title="cfgnet.network.nodes.OptionNode"><span class="pre">OptionNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cfgnet.linker.link.Link.option_stack_b" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-cfgnet.linker.linker">
-<span id="cfgnet-linker-linker-module"></span><h2>cfgnet.linker.linker module<a class="headerlink" href="#module-cfgnet.linker.linker" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-linker-linker-module"></span><h2>cfgnet.linker.linker module<a class="headerlink" href="#module-cfgnet.linker.linker" title="Permalink to this heading">¶</a></h2>
 <p>Package for linking nodes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.linker.linker.Linker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.linker.linker.</span></span><span class="sig-name descname"><span class="pre">Linker</span></span><a class="headerlink" href="#cfgnet.linker.linker.Linker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Helper class for establishing links while constructing a network.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.linker.linker.Linker.create_links">
@@ -134,7 +137,7 @@
 
 </section>
 <section id="module-cfgnet.linker.linker_manager">
-<span id="cfgnet-linker-linker-manager-module"></span><h2>cfgnet.linker.linker_manager module<a class="headerlink" href="#module-cfgnet.linker.linker_manager" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-linker-linker-manager-module"></span><h2>cfgnet.linker.linker_manager module<a class="headerlink" href="#module-cfgnet.linker.linker_manager" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.linker.linker_manager.LinkerManager">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.linker.linker_manager.</span></span><span class="sig-name descname"><span class="pre">LinkerManager</span></span><a class="headerlink" href="#cfgnet.linker.linker_manager.LinkerManager" title="Permalink to this definition">¶</a></dt>
@@ -142,7 +145,7 @@
 <p>Manager for linker implementations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.linker_manager.LinkerManager.all_linkers">
-<span class="sig-name descname"><span class="pre">all_linkers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.linker.linker.Linker" title="cfgnet.linker.linker.Linker"><span class="pre">cfgnet.linker.linker.Linker</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;cfgnet.linker.equality_linker.EqualityLinker</span> <span class="pre">object&gt;]</span></em><a class="headerlink" href="#cfgnet.linker.linker_manager.LinkerManager.all_linkers" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">all_linkers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.linker.linker.Linker" title="cfgnet.linker.linker.Linker"><span class="pre">Linker</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;cfgnet.linker.equality_linker.EqualityLinker</span> <span class="pre">object&gt;]</span></em><a class="headerlink" href="#cfgnet.linker.linker_manager.LinkerManager.all_linkers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -150,7 +153,7 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">apply_linkers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network" title="cfgnet.network.network.Network"><span class="pre">Network</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.linker.linker_manager.LinkerManager.apply_linkers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply all existing linker to create links in the configuration network.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Param</dt>
+<dt class="field-odd">Param<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Configuration network</p>
 </dd>
 </dl>
@@ -158,7 +161,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.linker.linker_manager.LinkerManager.enabled_linkers">
-<span class="sig-name descname"><span class="pre">enabled_linkers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.linker.linker.Linker" title="cfgnet.linker.linker.Linker"><span class="pre">cfgnet.linker.linker.Linker</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#cfgnet.linker.linker_manager.LinkerManager.enabled_linkers" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">enabled_linkers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cfgnet.linker.linker.Linker" title="cfgnet.linker.linker.Linker"><span class="pre">Linker</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#cfgnet.linker.linker_manager.LinkerManager.enabled_linkers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -175,7 +178,7 @@
 
 </section>
 <section id="module-cfgnet.linker.static_blacklist">
-<span id="cfgnet-linker-static-blacklist-module"></span><h2>cfgnet.linker.static_blacklist module<a class="headerlink" href="#module-cfgnet.linker.static_blacklist" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-linker-static-blacklist-module"></span><h2>cfgnet.linker.static_blacklist module<a class="headerlink" href="#module-cfgnet.linker.static_blacklist" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.linker.static_blacklist.StaticBlackList">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.linker.static_blacklist.</span></span><span class="sig-name descname"><span class="pre">StaticBlackList</span></span><a class="headerlink" href="#cfgnet.linker.static_blacklist.StaticBlackList" title="Permalink to this definition">¶</a></dt>
@@ -189,7 +192,7 @@
 
 </section>
 <section id="module-cfgnet.linker">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.linker" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.linker" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -236,7 +239,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -250,11 +253,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.linker.rst.txt"

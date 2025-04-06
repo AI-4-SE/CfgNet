@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Plugins &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,15 +12,18 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Logging" href="logging.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -33,11 +36,11 @@
           <div class="body" role="main">
             
   <section id="plugins">
-<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h1>
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h1>
 <p>Files belonging to configuration concepts like Maven (<code class="code docutils literal notranslate"><span class="pre">pom.xml</span></code>) or Docker (<code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code>) are handled by concept plugins, those, that are identified as (potential) configuration files by their file type (like <code class="code docutils literal notranslate"><span class="pre">.json</span></code> or <code class="code docutils literal notranslate"><span class="pre">.ini</span></code>), by file type plugins.</p>
 <p>These plugins fulfill the same tasks but concept plugins have higher priority when it comes to deciding which plugin is responsible for parsing a certain file.</p>
 <section id="creation-of-new-plugins">
-<h2>Creation of new plugins<a class="headerlink" href="#creation-of-new-plugins" title="Permalink to this headline">¶</a></h2>
+<h2>Creation of new plugins<a class="headerlink" href="#creation-of-new-plugins" title="Permalink to this heading">¶</a></h2>
 <p>Reading this documentation should help you get started with creating plugins in order to let the tool parse new types of configuration.</p>
 <p>Each plugin inherits from the base class <code class="code docutils literal notranslate"><span class="pre">Plugin</span></code> and must override the abstract methods <code class="code docutils literal notranslate"><span class="pre">_parse_config_file</span></code> and <code class="code docutils literal notranslate"><span class="pre">is_responsible</span></code>.</p>
 <p>The <code class="code docutils literal notranslate"><span class="pre">_parse_config_file</span></code> method is given a file path and optionally the <code class="code docutils literal notranslate"><span class="pre">project_node</span></code>.
@@ -65,7 +68,7 @@ Options are created as <code class="code docutils literal notranslate"><span cla
 Moreover, options can specify a configuration type if known.
 Those configuration types are a crucial part of when it comes to link nodes.</p>
 <section id="option-nodes-with-multiple-values">
-<h3>Option Nodes with Multiple Values<a class="headerlink" href="#option-nodes-with-multiple-values" title="Permalink to this headline">¶</a></h3>
+<h3>Option Nodes with Multiple Values<a class="headerlink" href="#option-nodes-with-multiple-values" title="Permalink to this heading">¶</a></h3>
 <p>A configuration option can have one or more values, and thus an <code class="code docutils literal notranslate"><span class="pre">OptionNode</span></code> can have one or more <code class="code docutils literal notranslate"><span class="pre">ValueNodes</span></code> as children.</p>
 <p>Note that the detection of conflicts in the configuration will only work for options with a single value.
 It is advised to avoid creating multi-value options in your plugin, and to instead create meaningful sub-options wherever possible.</p>
@@ -73,7 +76,7 @@ It is advised to avoid creating multi-value options in your plugin, and to inste
 Instead of creating a <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> <code class="code docutils literal notranslate"><span class="pre">OptionNode</span></code> with the source and destination values as children, the Dockerfile plugin creates a <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> <code class="code docutils literal notranslate"><span class="pre">OptionNode</span></code> that has children named <code class="code docutils literal notranslate"><span class="pre">source</span></code> and <code class="code docutils literal notranslate"><span class="pre">destination</span></code> (these are also <code class="code docutils literal notranslate"><span class="pre">OptionNodes</span></code>), that each have a single <code class="code docutils literal notranslate"><span class="pre">ValueNode</span></code> as a child, containing the values of the <code class="code docutils literal notranslate"><span class="pre">COPY</span></code> command’s source and destination parameters, respectively.</p>
 </section>
 <section id="option-nodes-without-children">
-<h3>Option Nodes without Children<a class="headerlink" href="#option-nodes-without-children" title="Permalink to this headline">¶</a></h3>
+<h3>Option Nodes without Children<a class="headerlink" href="#option-nodes-without-children" title="Permalink to this heading">¶</a></h3>
 <p>Please keep in mind that we want to maintain our network as lean as possible.
 That means we only want to have nodes in our network that potentially are involved in meaningful configuration conflicts.</p>
 <p>This, in particular, concerns option nodes, that don’t lead to any value nodes.
@@ -81,7 +84,7 @@ Therefore childless option nodes should be removed by the responsible plugin.
 Also keep in mind, that removing such option nodes might result in other childless option nodes that than have to be removed as well.</p>
 </section>
 <section id="value-nodes-with-type-version-number">
-<h3>Value Nodes with type Version Number<a class="headerlink" href="#value-nodes-with-type-version-number" title="Permalink to this headline">¶</a></h3>
+<h3>Value Nodes with type Version Number<a class="headerlink" href="#value-nodes-with-type-version-number" title="Permalink to this heading">¶</a></h3>
 <p>Since we rely on a equality-based linker, we need to modify the name of values nodes with the type <code class="code docutils literal notranslate"><span class="pre">VERSION_NUMBER</span></code>. Otherwise, we would link options that do not depend on each other but share the same version.
 This is often the case in projects that use multiple <code class="code docutils literal notranslate"><span class="pre">pom.xml</span></code> or <code class="code docutils literal notranslate"><span class="pre">package.json</span></code> files. Therefore, when adding value nodes with the type <code class="code docutils literal notranslate"><span class="pre">VERSION_NUMBER</span></code> to the network, we use the following pattern for the name of the node <code class="code docutils literal notranslate"><span class="pre">&lt;parent.name&gt;:&lt;value&gt;</span></code></p>
 </section>
@@ -135,7 +138,7 @@ This is often the case in projects that use multiple <code class="code docutils 
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -149,11 +152,11 @@ This is often the case in projects that use multiple <code class="code docutils 
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/plugins.rst.txt"

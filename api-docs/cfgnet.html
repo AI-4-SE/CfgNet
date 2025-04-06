@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,61 +35,337 @@
           <div class="body" role="main">
             
   <section id="cfgnet-package">
-<h1>cfgnet package<a class="headerlink" href="#cfgnet-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet package<a class="headerlink" href="#cfgnet-package" title="Permalink to this heading">¶</a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.analyze.html">cfgnet.analyze package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze.analyzer">cfgnet.analyze.analyzer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze.csv_writer">cfgnet.analyze.csv_writer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze.timeout">cfgnet.analyze.timeout module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze.analyzer">cfgnet.analyze.analyzer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.analyze.html#cfgnet.analyze.analyzer.Analyzer"><code class="docutils literal notranslate"><span class="pre">Analyzer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.analyze.html#cfgnet.analyze.analyzer.Analyzer.analyze_commit_history"><code class="docutils literal notranslate"><span class="pre">Analyzer.analyze_commit_history()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze.csv_writer">cfgnet.analyze.csv_writer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.analyze.html#cfgnet.analyze.csv_writer.CSVWriter"><code class="docutils literal notranslate"><span class="pre">CSVWriter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.analyze.html#cfgnet.analyze.csv_writer.CSVWriter.write_conflicts_to_csv"><code class="docutils literal notranslate"><span class="pre">CSVWriter.write_conflicts_to_csv()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze.timeout">cfgnet.analyze.timeout module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.analyze.html#cfgnet.analyze.timeout.Timeout"><code class="docutils literal notranslate"><span class="pre">Timeout</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.analyze.html#cfgnet.analyze.timeout.Timeout.handle_timeout"><code class="docutils literal notranslate"><span class="pre">Timeout.handle_timeout()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.analyze.html#module-cfgnet.analyze">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.config_types.html">cfgnet.config_types package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.config_types.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.config_types.html#module-cfgnet.config_types.config_type_inferer">cfgnet.config_types.config_type_inferer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.config_types.html#module-cfgnet.config_types.config_types">cfgnet.config_types.config_types module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.config_types.html#module-cfgnet.config_types.config_type_inferer">cfgnet.config_types.config_type_inferer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.Confidence"><code class="docutils literal notranslate"><span class="pre">Confidence</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.Confidence.HIGH"><code class="docutils literal notranslate"><span class="pre">Confidence.HIGH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.Confidence.LOW"><code class="docutils literal notranslate"><span class="pre">Confidence.LOW</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.get_config_type"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.get_config_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_bool"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_bool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_boolean"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_command"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_command()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_email"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_email()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_filename"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_filename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_id"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_image"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_ip_address"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_ip_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_license"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_license()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_name"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_number"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_number()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_password"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_password()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_path"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_platform"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_platform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_port"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_port()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_size"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_speed"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_speed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_time"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_type"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_url"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_username"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_username()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.is_version_number"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.is_version_number()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_boolean_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_boolean_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_command_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_command_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_command_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_command_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_email_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_email_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_email_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_email_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filename_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_filename_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filename_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_filename_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filepath_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_filepath_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_filepath_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_filepath_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_id_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_id_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_id_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_id_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_image_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_image_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_ip_address_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_ip_address_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_ip_address_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_ip_address_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_license_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_license_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_name_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_name_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_name_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_name_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_number_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_number_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_password_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_password_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_password_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_password_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_platform_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_platform_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_port_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_port_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_port_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_port_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_size_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_size_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_size_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_size_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_speed_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_speed_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_speed_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_speed_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_time_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_time_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_time_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_time_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_type_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_type_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_url_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_url_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_url_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_url_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_username_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_username_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_username_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_username_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_version_number_option"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_version_number_option</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_type_inferer.ConfigTypeInferer.regex_version_number_value"><code class="docutils literal notranslate"><span class="pre">ConfigTypeInferer.regex_version_number_value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.config_types.html#module-cfgnet.config_types.config_types">cfgnet.config_types.config_types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType"><code class="docutils literal notranslate"><span class="pre">ConfigType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.BOOLEAN"><code class="docutils literal notranslate"><span class="pre">ConfigType.BOOLEAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.COMMAND"><code class="docutils literal notranslate"><span class="pre">ConfigType.COMMAND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.EMAIL"><code class="docutils literal notranslate"><span class="pre">ConfigType.EMAIL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.ENVIRONMENT"><code class="docutils literal notranslate"><span class="pre">ConfigType.ENVIRONMENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.ID"><code class="docutils literal notranslate"><span class="pre">ConfigType.ID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.IMAGE"><code class="docutils literal notranslate"><span class="pre">ConfigType.IMAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.IP_ADDRESS"><code class="docutils literal notranslate"><span class="pre">ConfigType.IP_ADDRESS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.LICENSE"><code class="docutils literal notranslate"><span class="pre">ConfigType.LICENSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.NAME"><code class="docutils literal notranslate"><span class="pre">ConfigType.NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.NUMBER"><code class="docutils literal notranslate"><span class="pre">ConfigType.NUMBER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.PASSWORD"><code class="docutils literal notranslate"><span class="pre">ConfigType.PASSWORD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.PATH"><code class="docutils literal notranslate"><span class="pre">ConfigType.PATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.PLATFORM"><code class="docutils literal notranslate"><span class="pre">ConfigType.PLATFORM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.PORT"><code class="docutils literal notranslate"><span class="pre">ConfigType.PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.SIZE"><code class="docutils literal notranslate"><span class="pre">ConfigType.SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.SPEED"><code class="docutils literal notranslate"><span class="pre">ConfigType.SPEED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.TIME"><code class="docutils literal notranslate"><span class="pre">ConfigType.TIME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.TYPE"><code class="docutils literal notranslate"><span class="pre">ConfigType.TYPE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">ConfigType.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.URL"><code class="docutils literal notranslate"><span class="pre">ConfigType.URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.USERNAME"><code class="docutils literal notranslate"><span class="pre">ConfigType.USERNAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType.VERSION_NUMBER"><code class="docutils literal notranslate"><span class="pre">ConfigType.VERSION_NUMBER</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.config_types.html#module-cfgnet.config_types">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.conflicts.html">cfgnet.conflicts package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.conflicts.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.conflicts.html#module-cfgnet.conflicts.conflict">cfgnet.conflicts.conflict module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.conflicts.html#module-cfgnet.conflicts.conflict_detector">cfgnet.conflicts.conflict_detector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.conflicts.html#module-cfgnet.conflicts.conflict">cfgnet.conflicts.conflict module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.Conflict"><code class="docutils literal notranslate"><span class="pre">Conflict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.Conflict.count"><code class="docutils literal notranslate"><span class="pre">Conflict.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.Conflict.count_total"><code class="docutils literal notranslate"><span class="pre">Conflict.count_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.Conflict.is_involved"><code class="docutils literal notranslate"><span class="pre">Conflict.is_involved()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingArtifactConflict"><code class="docutils literal notranslate"><span class="pre">MissingArtifactConflict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingArtifactConflict.is_involved"><code class="docutils literal notranslate"><span class="pre">MissingArtifactConflict.is_involved()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingOptionConflict"><code class="docutils literal notranslate"><span class="pre">MissingOptionConflict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MissingOptionConflict.is_involved"><code class="docutils literal notranslate"><span class="pre">MissingOptionConflict.is_involved()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.ModifiedOptionConflict"><code class="docutils literal notranslate"><span class="pre">ModifiedOptionConflict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.ModifiedOptionConflict.count"><code class="docutils literal notranslate"><span class="pre">ModifiedOptionConflict.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.ModifiedOptionConflict.is_involved"><code class="docutils literal notranslate"><span class="pre">ModifiedOptionConflict.is_involved()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.ModifiedOptionConflict.update_dependents"><code class="docutils literal notranslate"><span class="pre">ModifiedOptionConflict.update_dependents()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MultiValueConflict"><code class="docutils literal notranslate"><span class="pre">MultiValueConflict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict.MultiValueConflict.is_involved"><code class="docutils literal notranslate"><span class="pre">MultiValueConflict.is_involved()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.conflicts.html#module-cfgnet.conflicts.conflict_detector">cfgnet.conflicts.conflict_detector module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict_detector.ConflictDetector"><code class="docutils literal notranslate"><span class="pre">ConflictDetector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.conflicts.html#cfgnet.conflicts.conflict_detector.ConflictDetector.detect"><code class="docutils literal notranslate"><span class="pre">ConflictDetector.detect()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.conflicts.html#module-cfgnet.conflicts">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.exceptions.html">cfgnet.exceptions package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.exceptions.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.exceptions.html#module-cfgnet.exceptions.exceptions">cfgnet.exceptions.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.exceptions.html#module-cfgnet.exceptions.exceptions">cfgnet.exceptions.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.exceptions.html#cfgnet.exceptions.exceptions.InvalidNetworkStateException"><code class="docutils literal notranslate"><span class="pre">InvalidNetworkStateException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.exceptions.html#cfgnet.exceptions.exceptions.MissingArgumentException"><code class="docutils literal notranslate"><span class="pre">MissingArgumentException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.exceptions.html#cfgnet.exceptions.exceptions.NetworkConstructionException"><code class="docutils literal notranslate"><span class="pre">NetworkConstructionException</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.exceptions.html#module-cfgnet.exceptions">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.exporter.html">cfgnet.exporter package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.exporter.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.exporter.html#module-cfgnet.exporter.exporter">cfgnet.exporter.exporter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.exporter.html#module-cfgnet.exporter.exporter">cfgnet.exporter.exporter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.exporter.html#cfgnet.exporter.exporter.DotExporter"><code class="docutils literal notranslate"><span class="pre">DotExporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.exporter.html#cfgnet.exporter.exporter.DotExporter.export"><code class="docutils literal notranslate"><span class="pre">DotExporter.export()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.exporter.html#cfgnet.exporter.exporter.DotExporter.visualize"><code class="docutils literal notranslate"><span class="pre">DotExporter.visualize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.exporter.html#cfgnet.exporter.exporter.JSONExporter"><code class="docutils literal notranslate"><span class="pre">JSONExporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.exporter.html#cfgnet.exporter.exporter.JSONExporter.export"><code class="docutils literal notranslate"><span class="pre">JSONExporter.export()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.exporter.html#module-cfgnet.exporter">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.linker.html">cfgnet.linker package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.equality_linker">cfgnet.linker.equality_linker module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.link">cfgnet.linker.link module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.linker">cfgnet.linker.linker module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.linker_manager">cfgnet.linker.linker_manager module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.static_blacklist">cfgnet.linker.static_blacklist module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.equality_linker">cfgnet.linker.equality_linker module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.equality_linker.EqualityLinker"><code class="docutils literal notranslate"><span class="pre">EqualityLinker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.equality_linker.EqualityLinker.create_links"><code class="docutils literal notranslate"><span class="pre">EqualityLinker.create_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.equality_linker.EqualityLinker.name"><code class="docutils literal notranslate"><span class="pre">EqualityLinker.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.link">cfgnet.linker.link module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link"><code class="docutils literal notranslate"><span class="pre">Link</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.artifact_a"><code class="docutils literal notranslate"><span class="pre">Link.artifact_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.artifact_b"><code class="docutils literal notranslate"><span class="pre">Link.artifact_b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.is_node_involved"><code class="docutils literal notranslate"><span class="pre">Link.is_node_involved()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.node_a"><code class="docutils literal notranslate"><span class="pre">Link.node_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.node_b"><code class="docutils literal notranslate"><span class="pre">Link.node_b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.option_stack_a"><code class="docutils literal notranslate"><span class="pre">Link.option_stack_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.link.Link.option_stack_b"><code class="docutils literal notranslate"><span class="pre">Link.option_stack_b</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.linker">cfgnet.linker.linker module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker.Linker"><code class="docutils literal notranslate"><span class="pre">Linker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker.Linker.create_links"><code class="docutils literal notranslate"><span class="pre">Linker.create_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker.Linker.name"><code class="docutils literal notranslate"><span class="pre">Linker.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.linker_manager">cfgnet.linker.linker_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker_manager.LinkerManager"><code class="docutils literal notranslate"><span class="pre">LinkerManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker_manager.LinkerManager.all_linkers"><code class="docutils literal notranslate"><span class="pre">LinkerManager.all_linkers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker_manager.LinkerManager.apply_linkers"><code class="docutils literal notranslate"><span class="pre">LinkerManager.apply_linkers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker_manager.LinkerManager.enabled_linkers"><code class="docutils literal notranslate"><span class="pre">LinkerManager.enabled_linkers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker_manager.LinkerManager.get_linker_names"><code class="docutils literal notranslate"><span class="pre">LinkerManager.get_linker_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.linker_manager.LinkerManager.set_enabled_linkers"><code class="docutils literal notranslate"><span class="pre">LinkerManager.set_enabled_linkers()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker.static_blacklist">cfgnet.linker.static_blacklist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.static_blacklist.StaticBlackList"><code class="docutils literal notranslate"><span class="pre">StaticBlackList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.linker.html#cfgnet.linker.static_blacklist.StaticBlackList.values"><code class="docutils literal notranslate"><span class="pre">StaticBlackList.values</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.linker.html#module-cfgnet.linker">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.network.html">cfgnet.network package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.ignorefile">cfgnet.network.ignorefile module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.network">cfgnet.network.network module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.network_configuration">cfgnet.network.network_configuration module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.nodes">cfgnet.network.nodes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.ignorefile">cfgnet.network.ignorefile module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.ignorefile.IgnoreFile"><code class="docutils literal notranslate"><span class="pre">IgnoreFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.ignorefile.IgnoreFile.configure"><code class="docutils literal notranslate"><span class="pre">IgnoreFile.configure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.ignorefile.IgnoreFile.filter"><code class="docutils literal notranslate"><span class="pre">IgnoreFile.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.ignorefile.IgnoreFile.ignored"><code class="docutils literal notranslate"><span class="pre">IgnoreFile.ignored()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.ignorefile.IgnoreFile.ignored_globs"><code class="docutils literal notranslate"><span class="pre">IgnoreFile.ignored_globs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.ignorefile.IgnoreFile.system"><code class="docutils literal notranslate"><span class="pre">IgnoreFile.system</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.network">cfgnet.network.network module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.export"><code class="docutils literal notranslate"><span class="pre">Network.export()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.find_artifact_node"><code class="docutils literal notranslate"><span class="pre">Network.find_artifact_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.find_option_node"><code class="docutils literal notranslate"><span class="pre">Network.find_option_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.find_value_node"><code class="docutils literal notranslate"><span class="pre">Network.find_value_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.get_nodes"><code class="docutils literal notranslate"><span class="pre">Network.get_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.get_pairs"><code class="docutils literal notranslate"><span class="pre">Network.get_pairs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.init_network"><code class="docutils literal notranslate"><span class="pre">Network.init_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.load_network"><code class="docutils literal notranslate"><span class="pre">Network.load_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.save"><code class="docutils literal notranslate"><span class="pre">Network.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.traverse"><code class="docutils literal notranslate"><span class="pre">Network.traverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.validate"><code class="docutils literal notranslate"><span class="pre">Network.validate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network.Network.visualize"><code class="docutils literal notranslate"><span class="pre">Network.visualize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.network_configuration">cfgnet.network.network_configuration module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.cfgnet_path_rel"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.cfgnet_path_rel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.config_files"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.config_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.data_dir_path"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.data_dir_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.enable_all_conflicts"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.enable_all_conflicts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.enable_file_type_plugins"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.enable_file_type_plugins</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.enable_internal_links"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.enable_internal_links</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.enable_static_blacklist"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.enable_static_blacklist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.enabled_linkers"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.enabled_linkers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.export_dir_path"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.export_dir_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.ignorefile_path"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.ignorefile_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.logfile_path"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.logfile_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.network_dir_path"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.network_dir_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.project_name"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.project_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.project_root_abs"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.project_root_abs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.network_configuration.NetworkConfiguration.system_level"><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration.system_level</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network.nodes">cfgnet.network.nodes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode"><code class="docutils literal notranslate"><span class="pre">ArtifactNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode.add_child"><code class="docutils literal notranslate"><span class="pre">ArtifactNode.add_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode.get_nodes"><code class="docutils literal notranslate"><span class="pre">ArtifactNode.get_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ArtifactNode.get_pairs"><code class="docutils literal notranslate"><span class="pre">ArtifactNode.get_pairs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.Node.add_child"><code class="docutils literal notranslate"><span class="pre">Node.add_child()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode"><code class="docutils literal notranslate"><span class="pre">OptionNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.OptionNode.add_child"><code class="docutils literal notranslate"><span class="pre">OptionNode.add_child()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ProjectNode"><code class="docutils literal notranslate"><span class="pre">ProjectNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ProjectNode.add_child"><code class="docutils literal notranslate"><span class="pre">ProjectNode.add_child()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode"><code class="docutils literal notranslate"><span class="pre">ValueNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode.add_child"><code class="docutils literal notranslate"><span class="pre">ValueNode.add_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.ValueNode.get_options"><code class="docutils literal notranslate"><span class="pre">ValueNode.get_options()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.network.html#module-cfgnet.network">Module contents</a></li>
 </ul>
 </li>
@@ -143,22 +422,79 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.plugins.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.plugins.html#module-cfgnet.plugins.plugin">cfgnet.plugins.plugin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.plugins.html#module-cfgnet.plugins.plugin_manager">cfgnet.plugins.plugin_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.plugins.html#module-cfgnet.plugins.plugin">cfgnet.plugins.plugin module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin"><code class="docutils literal notranslate"><span class="pre">Plugin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin.get_config_type"><code class="docutils literal notranslate"><span class="pre">Plugin.get_config_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin.is_responsible"><code class="docutils literal notranslate"><span class="pre">Plugin.is_responsible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin.parse_file"><code class="docutils literal notranslate"><span class="pre">Plugin.parse_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.plugins.html#module-cfgnet.plugins.plugin_manager">cfgnet.plugins.plugin_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin_manager.PluginManager"><code class="docutils literal notranslate"><span class="pre">PluginManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin_manager.PluginManager.concept_plugins"><code class="docutils literal notranslate"><span class="pre">PluginManager.concept_plugins</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin_manager.PluginManager.file_type_plugins"><code class="docutils literal notranslate"><span class="pre">PluginManager.file_type_plugins</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin_manager.PluginManager.get_concept_plugins"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_concept_plugins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin_manager.PluginManager.get_file_type_plugins"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_file_type_plugins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin_manager.PluginManager.get_responsible_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_responsible_plugin()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.plugins.html#module-cfgnet.plugins">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.utility.html">cfgnet.utility package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.utility.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.utility.html#module-cfgnet.utility.logger">cfgnet.utility.logger module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.utility.html#module-cfgnet.utility.util">cfgnet.utility.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.utility.html#module-cfgnet.utility.logger">cfgnet.utility.logger module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.logger.ConsoleFilter"><code class="docutils literal notranslate"><span class="pre">ConsoleFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.logger.ConsoleFilter.filter"><code class="docutils literal notranslate"><span class="pre">ConsoleFilter.filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.logger.LogFileFilter"><code class="docutils literal notranslate"><span class="pre">LogFileFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.logger.LogFileFilter.filter"><code class="docutils literal notranslate"><span class="pre">LogFileFilter.filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.logger.configure_console_logger"><code class="docutils literal notranslate"><span class="pre">configure_console_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.logger.configure_repo_logger"><code class="docutils literal notranslate"><span class="pre">configure_repo_logger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.utility.html#module-cfgnet.utility.util">cfgnet.utility.util module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.util.get_system_config_dir"><code class="docutils literal notranslate"><span class="pre">get_system_config_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.util.get_system_files"><code class="docutils literal notranslate"><span class="pre">get_system_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.utility.html#cfgnet.utility.util.is_in_test_directory"><code class="docutils literal notranslate"><span class="pre">is_in_test_directory()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.utility.html#module-cfgnet.utility">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cfgnet.vcs.html">cfgnet.vcs package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.vcs.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.vcs.html#module-cfgnet.vcs.git">cfgnet.vcs.git module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cfgnet.vcs.html#module-cfgnet.vcs.git_history">cfgnet.vcs.git_history module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.vcs.html#module-cfgnet.vcs.git">cfgnet.vcs.git module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git"><code class="docutils literal notranslate"><span class="pre">Git</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git.checkout"><code class="docutils literal notranslate"><span class="pre">Git.checkout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git.get_current_branch_name"><code class="docutils literal notranslate"><span class="pre">Git.get_current_branch_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git.get_current_commit_hash"><code class="docutils literal notranslate"><span class="pre">Git.get_current_commit_hash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git.get_tracked_files"><code class="docutils literal notranslate"><span class="pre">Git.get_tracked_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git.has_unstaged_changes"><code class="docutils literal notranslate"><span class="pre">Git.has_unstaged_changes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git.Git.repo"><code class="docutils literal notranslate"><span class="pre">Git.repo</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfgnet.vcs.html#module-cfgnet.vcs.git_history">cfgnet.vcs.git_history module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory"><code class="docutils literal notranslate"><span class="pre">GitHistory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory.commit_index"><code class="docutils literal notranslate"><span class="pre">GitHistory.commit_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory.commits"><code class="docutils literal notranslate"><span class="pre">GitHistory.commits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory.has_next_commit"><code class="docutils literal notranslate"><span class="pre">GitHistory.has_next_commit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory.next_commit"><code class="docutils literal notranslate"><span class="pre">GitHistory.next_commit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory.repo"><code class="docutils literal notranslate"><span class="pre">GitHistory.repo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cfgnet.vcs.html#cfgnet.vcs.git_history.GitHistory.restore_initial_commit"><code class="docutils literal notranslate"><span class="pre">GitHistory.restore_initial_commit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cfgnet.vcs.html#module-cfgnet.vcs">Module contents</a></li>
 </ul>
 </li>
@@ -166,13 +502,13 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.launcher">
-<span id="cfgnet-launcher-module"></span><h2>cfgnet.launcher module<a class="headerlink" href="#module-cfgnet.launcher" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-launcher-module"></span><h2>cfgnet.launcher module<a class="headerlink" href="#module-cfgnet.launcher" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.launcher_configuration">
-<span id="cfgnet-launcher-configuration-module"></span><h2>cfgnet.launcher_configuration module<a class="headerlink" href="#module-cfgnet.launcher_configuration" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-launcher-configuration-module"></span><h2>cfgnet.launcher_configuration module<a class="headerlink" href="#module-cfgnet.launcher_configuration" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.launcher_configuration.LauncherConfiguration">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.launcher_configuration.</span></span><span class="sig-name descname"><span class="pre">LauncherConfiguration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_include_unlinked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_visualize_dot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.launcher_configuration.LauncherConfiguration" title="Permalink to this definition">¶</a></dt>
@@ -206,7 +542,7 @@
 
 </section>
 <section id="module-cfgnet">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -253,7 +589,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -267,11 +603,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.rst.txt"

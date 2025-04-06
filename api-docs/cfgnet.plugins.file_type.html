@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet.plugins.file_type package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,28 +35,28 @@
           <div class="body" role="main">
             
   <section id="cfgnet-plugins-file-type-package">
-<h1>cfgnet.plugins.file_type package<a class="headerlink" href="#cfgnet-plugins-file-type-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet.plugins.file_type package<a class="headerlink" href="#cfgnet-plugins-file-type-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.plugins.file_type.configparser_plugin">
-<span id="cfgnet-plugins-file-type-configparser-plugin-module"></span><h2>cfgnet.plugins.file_type.configparser_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.configparser_plugin" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-plugins-file-type-configparser-plugin-module"></span><h2>cfgnet.plugins.file_type.configparser_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.configparser_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.file_type.configparser_plugin.</span></span><span class="sig-name descname"><span class="pre">ConfigParserPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin.get_line_number">
 <span class="sig-name descname"><span class="pre">get_line_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin.get_line_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get line number from line dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>option_name</strong> – option name in line</p></li>
 <li><p><strong>line_dict</strong> – dictionary of lines</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>line number as string</p>
 </dd>
 </dl>
@@ -64,7 +67,7 @@
 <span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the plugin is responsible for the file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
 </dd>
 </dl>
@@ -75,22 +78,22 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.configparser_plugin.MultiOrderedDict">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.file_type.configparser_plugin.</span></span><span class="sig-name descname"><span class="pre">MultiOrderedDict</span></span><a class="headerlink" href="#cfgnet.plugins.file_type.configparser_plugin.MultiOrderedDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">OrderedDict</span></code></p>
 </dd></dl>
 
 </section>
 <section id="module-cfgnet.plugins.file_type.hadoop_plugin">
-<span id="cfgnet-plugins-file-type-hadoop-plugin-module"></span><h2>cfgnet.plugins.file_type.hadoop_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.hadoop_plugin" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-plugins-file-type-hadoop-plugin-module"></span><h2>cfgnet.plugins.file_type.hadoop_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.hadoop_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.file_type.hadoop_plugin.</span></span><span class="sig-name descname"><span class="pre">HadoopPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin.is_responsible">
 <span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the plugin is responsible for the file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
 </dd>
 </dl>
@@ -98,24 +101,24 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin.parse_tree">
-<span class="sig-name descname"><span class="pre">parse_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subtree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">lxml.etree._Element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">cfgnet.network.nodes.Node</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin.parse_tree" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subtree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_Element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cfgnet.network.html#cfgnet.network.nodes.Node" title="cfgnet.network.nodes.Node"><span class="pre">Node</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.hadoop_plugin.HadoopPlugin.parse_tree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-cfgnet.plugins.file_type.json_plugin">
-<span id="cfgnet-plugins-file-type-json-plugin-module"></span><h2>cfgnet.plugins.file_type.json_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.json_plugin" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-plugins-file-type-json-plugin-module"></span><h2>cfgnet.plugins.file_type.json_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.json_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.json_plugin.JsonPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.file_type.json_plugin.</span></span><span class="sig-name descname"><span class="pre">JsonPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.json_plugin.JsonPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.json_plugin.JsonPlugin.is_responsible">
 <span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.file_type.json_plugin.JsonPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the plugin is responsible for the file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
 </dd>
 </dl>
@@ -125,17 +128,17 @@
 
 </section>
 <section id="module-cfgnet.plugins.file_type.toml_plugin">
-<span id="cfgnet-plugins-file-type-toml-plugin-module"></span><h2>cfgnet.plugins.file_type.toml_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.toml_plugin" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-plugins-file-type-toml-plugin-module"></span><h2>cfgnet.plugins.file_type.toml_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.toml_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.toml_plugin.TomlPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.file_type.toml_plugin.</span></span><span class="sig-name descname"><span class="pre">TomlPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.toml_plugin.TomlPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.toml_plugin.TomlPlugin.is_responsible">
 <span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.toml_plugin.TomlPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the plugin is responsible for the file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
 </dd>
 </dl>
@@ -145,17 +148,17 @@
 
 </section>
 <section id="module-cfgnet.plugins.file_type.yaml_plugin">
-<span id="cfgnet-plugins-file-type-yaml-plugin-module"></span><h2>cfgnet.plugins.file_type.yaml_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.yaml_plugin" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-plugins-file-type-yaml-plugin-module"></span><h2>cfgnet.plugins.file_type.yaml_plugin module<a class="headerlink" href="#module-cfgnet.plugins.file_type.yaml_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.file_type.yaml_plugin.</span></span><span class="sig-name descname"><span class="pre">YAMLPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cfgnet.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin.is_responsible">
 <span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the plugin is responsible for the file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
 </dd>
 </dl>
@@ -165,7 +168,7 @@
 
 </section>
 <section id="module-cfgnet.plugins.file_type">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.plugins.file_type" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.plugins.file_type" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -212,7 +215,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -226,11 +229,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.plugins.file_type.rst.txt"

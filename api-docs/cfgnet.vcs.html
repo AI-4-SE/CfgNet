@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet.vcs package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,25 +35,25 @@
           <div class="body" role="main">
             
   <section id="cfgnet-vcs-package">
-<h1>cfgnet.vcs package<a class="headerlink" href="#cfgnet-vcs-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet.vcs package<a class="headerlink" href="#cfgnet-vcs-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.vcs.git">
-<span id="cfgnet-vcs-git-module"></span><h2>cfgnet.vcs.git module<a class="headerlink" href="#module-cfgnet.vcs.git" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-vcs-git-module"></span><h2>cfgnet.vcs.git module<a class="headerlink" href="#module-cfgnet.vcs.git" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.vcs.git.Git">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.vcs.git.</span></span><span class="sig-name descname"><span class="pre">Git</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.vcs.git.Git" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.vcs.git.Git.checkout">
-<span class="sig-name descname"><span class="pre">checkout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">git.objects.commit.Commit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">git.refs.symbolic.SymbolicReference</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.vcs.git.Git.checkout" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">checkout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Commit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SymbolicReference</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cfgnet.vcs.git.Git.checkout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Go to a specific commit.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.vcs.git.Git.get_current_branch_name">
-<span class="sig-name descname"><span class="pre">get_current_branch_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">git.refs.symbolic.SymbolicReference</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.vcs.git.Git.get_current_branch_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_current_branch_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">SymbolicReference</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.vcs.git.Git.get_current_branch_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return current branch name or None if HEAD is detached.</p>
 </dd></dl>
 
@@ -74,17 +77,17 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.vcs.git.Git.repo">
-<span class="sig-name descname"><span class="pre">repo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">git.repo.base.Repo</span></em><a class="headerlink" href="#cfgnet.vcs.git.Git.repo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">repo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Repo</span></em><a class="headerlink" href="#cfgnet.vcs.git.Git.repo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-cfgnet.vcs.git_history">
-<span id="cfgnet-vcs-git-history-module"></span><h2>cfgnet.vcs.git_history module<a class="headerlink" href="#module-cfgnet.vcs.git_history" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-vcs-git-history-module"></span><h2>cfgnet.vcs.git_history module<a class="headerlink" href="#module-cfgnet.vcs.git_history" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.vcs.git_history.GitHistory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.vcs.git_history.</span></span><span class="sig-name descname"><span class="pre">GitHistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">git</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.vcs.git.Git" title="cfgnet.vcs.git.Git"><span class="pre">cfgnet.vcs.git.Git</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.vcs.git_history.</span></span><span class="sig-name descname"><span class="pre">GitHistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">git</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cfgnet.vcs.git.Git" title="cfgnet.vcs.git.Git"><span class="pre">Git</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.vcs.git_history.GitHistory.commit_index">
@@ -93,7 +96,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.vcs.git_history.GitHistory.commits">
-<span class="sig-name descname"><span class="pre">commits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">git.objects.commit.Commit</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.commits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">commits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Commit</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.commits" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -103,24 +106,24 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.vcs.git_history.GitHistory.next_commit">
-<span class="sig-name descname"><span class="pre">next_commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">git.objects.commit.Commit</span></span></span><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.next_commit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next_commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Commit</span></span></span><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.next_commit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cfgnet.vcs.git_history.GitHistory.repo">
-<span class="sig-name descname"><span class="pre">repo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">git.repo.base.Repo</span></em><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.repo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">repo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Repo</span></em><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.repo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.vcs.git_history.GitHistory.restore_initial_commit">
-<span class="sig-name descname"><span class="pre">restore_initial_commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">git.objects.commit.Commit</span></span></span><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.restore_initial_commit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">restore_initial_commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Commit</span></span></span><a class="headerlink" href="#cfgnet.vcs.git_history.GitHistory.restore_initial_commit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-cfgnet.vcs">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.vcs" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.vcs" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -167,7 +170,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -181,11 +184,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.vcs.rst.txt"

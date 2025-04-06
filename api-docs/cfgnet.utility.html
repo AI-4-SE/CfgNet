@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>cfgnet.utility package &#8212; CfgNet  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -12,14 +12,17 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,20 +35,20 @@
           <div class="body" role="main">
             
   <section id="cfgnet-utility-package">
-<h1>cfgnet.utility package<a class="headerlink" href="#cfgnet-utility-package" title="Permalink to this headline">¶</a></h1>
+<h1>cfgnet.utility package<a class="headerlink" href="#cfgnet-utility-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-cfgnet.utility.logger">
-<span id="cfgnet-utility-logger-module"></span><h2>cfgnet.utility.logger module<a class="headerlink" href="#module-cfgnet.utility.logger" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-utility-logger-module"></span><h2>cfgnet.utility.logger module<a class="headerlink" href="#module-cfgnet.utility.logger" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.utility.logger.ConsoleFilter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.utility.logger.</span></span><span class="sig-name descname"><span class="pre">ConsoleFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.utility.logger.ConsoleFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Filter</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
 <p>Logging filter for the console.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.utility.logger.ConsoleFilter.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">logging.LogRecord</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.utility.logger.ConsoleFilter.filter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.utility.logger.ConsoleFilter.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine if the specified record is to be logged.</p>
 <p>Returns True if the record should be logged, or False otherwise.
 If deemed appropriate, the record may be modified in-place.</p>
@@ -56,11 +59,11 @@ If deemed appropriate, the record may be modified in-place.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cfgnet.utility.logger.LogFileFilter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.utility.logger.</span></span><span class="sig-name descname"><span class="pre">LogFileFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.utility.logger.LogFileFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Filter</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
 <p>Logging filter to suppress logs fired by module ‘cmd’.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cfgnet.utility.logger.LogFileFilter.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">logging.LogRecord</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.utility.logger.LogFileFilter.filter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.utility.logger.LogFileFilter.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine if the specified record is to be logged.</p>
 <p>Returns True if the record should be logged, or False otherwise.
 If deemed appropriate, the record may be modified in-place.</p>
@@ -82,13 +85,13 @@ If deemed appropriate, the record may be modified in-place.</p>
 
 </section>
 <section id="module-cfgnet.utility.util">
-<span id="cfgnet-utility-util-module"></span><h2>cfgnet.utility.util module<a class="headerlink" href="#module-cfgnet.utility.util" title="Permalink to this headline">¶</a></h2>
+<span id="cfgnet-utility-util-module"></span><h2>cfgnet.utility.util module<a class="headerlink" href="#module-cfgnet.utility.util" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="cfgnet.utility.util.get_system_config_dir">
 <span class="sig-prename descclassname"><span class="pre">cfgnet.utility.util.</span></span><span class="sig-name descname"><span class="pre">get_system_config_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cfgnet.utility.util.get_system_config_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine the system configuration directory based on the operating system.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Path to the system configuration directory</p>
 </dd>
 </dl>
@@ -100,19 +103,14 @@ If deemed appropriate, the record may be modified in-place.</p>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="cfgnet.utility.util.is_test_file">
-<span class="sig-prename descclassname"><span class="pre">cfgnet.utility.util.</span></span><span class="sig-name descname"><span class="pre">is_test_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.utility.util.is_test_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if a given file is a test file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>True if test file else False</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="cfgnet.utility.util.is_in_test_directory">
+<span class="sig-prename descclassname"><span class="pre">cfgnet.utility.util.</span></span><span class="sig-name descname"><span class="pre">is_in_test_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.utility.util.is_in_test_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a given file is in a test directory.</p>
 </dd></dl>
 
 </section>
 <section id="module-cfgnet.utility">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.utility" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cfgnet.utility" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -159,7 +157,7 @@ If deemed appropriate, the record may be modified in-place.</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -173,11 +171,11 @@ If deemed appropriate, the record may be modified in-place.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
+      &#169;2021, Sebastian Simon, Nicolai Ruckel, Jakob Ruckel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../_sources/api-docs/cfgnet.utility.rst.txt"

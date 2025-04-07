@@ -70,9 +70,7 @@ class DockerPlugin(Plugin):
         try:
             data = dockerfile.parse_file(abs_file_path)
         except dockerfile.GoParseError as error:
-            logging.warning(
-                "Invalid Dockerfile %s: %s", abs_file_path, error
-            )
+            logging.warning("Invalid Dockerfile %s: %s", abs_file_path, error)
             return artifact
 
         for cmd in data:

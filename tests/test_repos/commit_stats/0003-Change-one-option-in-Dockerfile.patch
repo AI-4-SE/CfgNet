@@ -1,0 +1,23 @@
+From e93b9f8fd22a8a1b312f11a594b75f340933fcb8 Mon Sep 17 00:00:00 2001
+From: simisimon <Bastisimon95@googlemail.com>
+Date: Tue, 15 Mar 2022 16:59:02 +0100
+Subject: [PATCH 3/6] Change one option in  Dockerfile
+
+---
+ Dockerfile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Dockerfile b/Dockerfile
+index 4aa00ce..ddf7643 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -1,5 +1,5 @@
+ FROM java:8 as builder
+ 
+-EXPOSE 1234
++EXPOSE 8000
+ 
+ ADD --chown=1 /foo.jar bar.jar
+-- 
+2.25.1
+

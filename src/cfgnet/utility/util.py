@@ -4,7 +4,7 @@ import logging
 from typing import Set, Optional
 
 
-def is_in_test_directory(file_path):
+def is_in_test_directory(file_path) -> bool:
     """Check if a given file is in a test directory."""
     # Normalize and split the file path
     normalized_path = os.path.normpath(file_path)

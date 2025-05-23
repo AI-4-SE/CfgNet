@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_concept_plugins():
     all_concept_plugins = PluginManager.get_concept_plugins()
 
-    assert len(all_concept_plugins) == 32
+    assert len(all_concept_plugins) == 35
 
 
 def test_get_responsible_concept_plugin():
@@ -57,6 +57,9 @@ def test_get_responsible_concept_plugin():
     gradle_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/gradle.properties")
     flutter_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/pubspec.yaml")
     android_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/AndroidManifest.xml")
+    nginx_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/nginx.conf")
+    redis_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/redis.conf")
+    kubernetes_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/deployment.yaml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -90,3 +93,6 @@ def test_get_responsible_concept_plugin():
     assert gradle_plugin.concept_name == "gradle"
     assert flutter_plugin.concept_name == "flutter"
     assert android_plugin.concept_name == "android"
+    assert nginx_plugin.concept_name == "nginx"
+    assert redis_plugin.concept_name == "redis"
+    assert kubernetes_plugin.concept_name == "kubernetes"

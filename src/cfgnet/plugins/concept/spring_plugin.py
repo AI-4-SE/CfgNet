@@ -126,6 +126,9 @@ class SpringPlugin(Plugin):
             if len(section.keys()) == 0:
                 continue
 
+            # Initialize parent to artifact by default
+            parent = artifact
+
             if section_name == "dummy_section":
                 parent = artifact
 
@@ -138,6 +141,7 @@ class SpringPlugin(Plugin):
                     ),
                     config_type=config_type,
                 )
+
                 parent.add_child(option_node)
 
                 value = section[option]

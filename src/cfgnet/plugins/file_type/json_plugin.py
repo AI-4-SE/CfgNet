@@ -142,4 +142,4 @@ class JsonPlugin(Plugin):
             line = next(filter(lambda x: f'"{name}"' in x, lines_dict.keys()))
             return lines_dict[line]
         except StopIteration:
-            return "None"
+            return "unknown"

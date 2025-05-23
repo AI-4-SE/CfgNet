@@ -57,6 +57,9 @@ from cfgnet.plugins.concept.github_actions_plugin import GitHubActionPlugin
 from cfgnet.plugins.concept.gradle_plugin import GradlePlugin
 from cfgnet.plugins.concept.flutter_plugin import FlutterPlugin
 from cfgnet.plugins.concept.android_plugin import AndroidPlugin
+from cfgnet.plugins.concept.nginx_plugin import NginxPlugin
+from cfgnet.plugins.concept.redis_plugin import RedisPlugin
+from cfgnet.plugins.concept.kubernetes_plugin import KubernetesPlugin
 
 
 class PluginManager:
@@ -95,6 +98,9 @@ class PluginManager:
         GradlePlugin(),
         FlutterPlugin(),
         AndroidPlugin(),
+        NginxPlugin(),
+        RedisPlugin(),
+        KubernetesPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

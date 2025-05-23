@@ -77,7 +77,7 @@ def test_parse_package_json_file(get_plugin):
         )
         in ids
     )
-    pattern = "^.+\module\css$"  # noqa: W605
+    pattern = r"^.+\module\css$"  # noqa: W605
     assert make_id("package.json", pattern, "Test") in ids
 
 

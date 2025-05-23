@@ -102,7 +102,6 @@ class MavenPlugin(Plugin):
         return False
 
     def parse_tree(self, subtree_root: _Element, parent_node: Node):
-        """Parse the XML tree and create nodes."""
         # Ensure the tag is a string before processing
         if not isinstance(subtree_root.tag, str):
             return  # Skip non-element nodes (like ProcessingInstructions)

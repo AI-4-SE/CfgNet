@@ -164,6 +164,14 @@ cfgnet.plugins.concept.kafka\_plugin module
    :undoc-members:
    :show-inheritance:
 
+cfgnet.plugins.concept.kubernetes\_plugin module
+------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.kubernetes_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cfgnet.plugins.concept.mapreduce\_plugin module
 -----------------------------------------------
 
@@ -196,6 +204,14 @@ cfgnet.plugins.concept.mysql\_plugin module
    :undoc-members:
    :show-inheritance:
 
+cfgnet.plugins.concept.nginx\_plugin module
+-------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.nginx_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cfgnet.plugins.concept.nodejs\_plugin module
 --------------------------------------------
 
@@ -224,6 +240,22 @@ cfgnet.plugins.concept.postgresql\_plugin module
 ------------------------------------------------
 
 .. automodule:: cfgnet.plugins.concept.postgresql_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.rabbitmq\_plugin module
+----------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.rabbitmq_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.redis\_plugin module
+-------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.redis_plugin
    :members:
    :undoc-members:
    :show-inheritance:

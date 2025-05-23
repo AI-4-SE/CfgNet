@@ -847,6 +847,9 @@
 </dd></dl>
 
 </section>
+<section id="cfgnet-plugins-concept-kubernetes-plugin-module">
+<h2>cfgnet.plugins.concept.kubernetes_plugin module<a class="headerlink" href="#cfgnet-plugins-concept-kubernetes-plugin-module" title="Permalink to this heading">¶</a></h2>
+</section>
 <section id="module-cfgnet.plugins.concept.mapreduce_plugin">
 <span id="cfgnet-plugins-concept-mapreduce-plugin-module"></span><h2>cfgnet.plugins.concept.mapreduce_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.mapreduce_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -1004,6 +1007,28 @@
 </dd></dl>
 
 </section>
+<section id="module-cfgnet.plugins.concept.nginx_plugin">
+<span id="cfgnet-plugins-concept-nginx-plugin-module"></span><h2>cfgnet.plugins.concept.nginx_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.nginx_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.nginx_plugin.NginxPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.nginx_plugin.</span></span><span class="sig-name descname"><span class="pre">NginxPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.nginx_plugin.NginxPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
+<p>Plugin for parsing Nginx configuration files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.nginx_plugin.NginxPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.nginx_plugin.NginxPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the configuration type based on the option name and value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.nginx_plugin.NginxPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.concept.nginx_plugin.NginxPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cfgnet.plugins.concept.nodejs_plugin">
 <span id="cfgnet-plugins-concept-nodejs-plugin-module"></span><h2>cfgnet.plugins.concept.nodejs_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.nodejs_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -1147,6 +1172,50 @@
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.plugins.concept.rabbitmq_plugin">
+<span id="cfgnet-plugins-concept-rabbitmq-plugin-module"></span><h2>cfgnet.plugins.concept.rabbitmq_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.rabbitmq_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.rabbitmq_plugin.RabbitMQPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.rabbitmq_plugin.</span></span><span class="sig-name descname"><span class="pre">RabbitMQPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.rabbitmq_plugin.RabbitMQPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.file_type.html#cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin" title="cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParserPlugin</span></code></a></p>
+<p>Plugin for parsing RabbitMQ configuration files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.rabbitmq_plugin.RabbitMQPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.rabbitmq_plugin.RabbitMQPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the configuration type based on the option name and value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.rabbitmq_plugin.RabbitMQPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.concept.rabbitmq_plugin.RabbitMQPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.plugins.concept.redis_plugin">
+<span id="cfgnet-plugins-concept-redis-plugin-module"></span><h2>cfgnet.plugins.concept.redis_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.redis_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.redis_plugin.RedisPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.redis_plugin.</span></span><span class="sig-name descname"><span class="pre">RedisPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.redis_plugin.RedisPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.html#cfgnet.plugins.plugin.Plugin" title="cfgnet.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
+<p>Plugin for parsing Redis configuration files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.redis_plugin.RedisPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.redis_plugin.RedisPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the configuration type based on the option name and value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.redis_plugin.RedisPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.concept.redis_plugin.RedisPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
 </dd></dl>
 
 </dd></dl>

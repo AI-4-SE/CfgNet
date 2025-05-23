@@ -14,15 +14,8 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-from typing import Optional
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
-from cfgnet.network.nodes import (
-    ArtifactNode,
-    OptionNode,
-    ProjectNode,
-    ValueNode,
-)
 
 
 class RabbitMQPlugin(ConfigParserPlugin):
@@ -36,7 +29,7 @@ class RabbitMQPlugin(ConfigParserPlugin):
         file_name = os.path.basename(abs_file_path)
         return file_name.endswith("rabbitmq.conf")
 
-    def get_config_type(self, option_name: str) -> ConfigType:
+    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
         """Determine the configuration type based on the option name and value."""
         option_name = option_name.lower()
 
@@ -64,4 +57,4 @@ class RabbitMQPlugin(ConfigParserPlugin):
         if option_name in ["auth_mechanisms", "auth_backends"]:
             return ConfigType.TYPE
 
-        return super().get_config_type(option_name) 
+        return super().get_config_type(option_name)

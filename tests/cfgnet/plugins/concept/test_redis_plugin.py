@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
-import pytest
 from cfgnet.plugins.concept.redis_plugin import RedisPlugin
 from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
@@ -23,7 +21,7 @@ from tests.utility.id_creator import make_id
 def test_is_responsible():
     """Test if the plugin is responsible for the given file."""
     plugin = RedisPlugin()
-    
+
     assert plugin.is_responsible("path/to/redis.conf")
     assert not plugin.is_responsible("path/to/other.conf")
 
@@ -31,7 +29,7 @@ def test_is_responsible():
 def test_get_config_type():
     """Test configuration type inference."""
     plugin = RedisPlugin()
-    
+
     assert plugin.get_config_type("port") == ConfigType.PORT
     assert plugin.get_config_type("bind") == ConfigType.IP_ADDRESS
     assert plugin.get_config_type("dir") == ConfigType.PATH

@@ -62,11 +62,11 @@ class RedisPlugin(Plugin):
             if len(parts) == 2:
                 option_name = parts[0]
                 value = parts[1]
-                
+
                 # Strip comments from value
                 if "#" in value:
                     value = value.split("#")[0].strip()
-                
+
                 config_type = self.get_config_type(option_name, value)
                 option_node = OptionNode(
                     name=option_name,
@@ -92,7 +92,11 @@ class RedisPlugin(Plugin):
         if option_name in ["dir", "dbfilename", "logfile", "pidfile"]:
             return ConfigType.PATH
 
-        if option_name in ["maxmemory", "maxmemory-policy", "maxmemory-samples"]:
+        if option_name in [
+            "maxmemory",
+            "maxmemory-policy",
+            "maxmemory-samples",
+        ]:
             return ConfigType.SIZE
 
         if option_name in ["timeout", "tcp-keepalive", "repl-timeout"]:
@@ -110,4 +114,4 @@ class RedisPlugin(Plugin):
         if option_name in ["loglevel"]:
             return ConfigType.TYPE
 
-        return super().get_config_type(option_name, value) 
+        return super().get_config_type(option_name, value)

@@ -38,12 +38,13 @@ sphinxcontrib-spelling = "^7.3.2"
 flatdict = "^4.0.1"
 dockerfile = "^3.2.0"
 apacheconfig = "^0.3.2"
+tfparse = "^0.6.15"
 
 [tool.poetry.group.dev.dependencies]
 black = { version = '*', allow-prereleases = true }
 coverage = '^5.1'
-flake8 = "^3.7.9"
-pylint = "^2.6.0"
+flake8 = "^7.0.0"
+pylint = "^3.0.0"
 pytest = '^6.2.5'
 pytest-cov = '^2.7'
 pydocstyle = "^5.0.2"
@@ -57,7 +58,7 @@ cfgnet = 'cfgnet.launcher:main'
 good-names = "i,id"
 
 [tool.pylint.master]
-disable=["C0114","C0115","C0116","E0401","R0801","R0902","R0903","R0912","R0913","R0914","R0915","R1702","W0511"]
+disable=["C0114","C0115","C0116","E0401","R0801","R0902","R0903","R0912","R0913","R0914","R0915","R1702","W0511", "R0911", "R0917", "C0301"]
 
 [tool.black]
 line-length = 79

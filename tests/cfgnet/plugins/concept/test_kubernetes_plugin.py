@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
 import pytest
 
 from cfgnet.plugins.concept.kubernetes_plugin import KubernetesPlugin
@@ -25,6 +24,7 @@ from tests.utility.id_creator import make_id
 def get_plugin_():
     plugin = KubernetesPlugin()
     return plugin
+
 
 def test_is_responsible(get_plugin):
     kubernetes_plugin = get_plugin
@@ -156,4 +156,5 @@ def test_config_types(get_plugin):
             nodes,
         )
     )
-    assert url_node.config_type == ConfigType.URL 
+
+    assert url_node.config_type == ConfigType.URL

@@ -14,10 +14,8 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-from typing import Optional
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.config_types.type_registry import TypeRegistry
-from cfgnet.network.nodes import ArtifactNode, ProjectNode
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 
 
@@ -74,4 +72,6 @@ class KubernetesPlugin(YAMLPlugin):
         :param value: Value of the option
         :return: Configuration type
         """
-        return self.type_registry.infer_type(option_name, value, "kubernetes")
+        return self.type_registry.infer_type(
+            option_name, value, self.concept_name
+        )

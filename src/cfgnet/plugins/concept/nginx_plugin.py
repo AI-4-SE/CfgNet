@@ -70,9 +70,9 @@ class NginxPlugin(Plugin):
                 if len(parts) == 2:
                     option_name = parts[0]
                     value = parts[1].rstrip(";")
-                    
+
                     config_type = self.get_config_type(option_name, value)
-                    
+
                     # If we're inside a block, create a block-level node
                     if current_block:
                         # Create nodes for each level of nesting
@@ -85,7 +85,7 @@ class NginxPlugin(Plugin):
                             )
                             parent.add_child(block_node)
                             parent = block_node
-                        
+
                         # Add the option node under the innermost block
                         option_node = OptionNode(
                             name=option_name,
@@ -118,13 +118,27 @@ class NginxPlugin(Plugin):
         if option_name in ["server_name", "hostname"]:
             return ConfigType.NAME
 
-        if option_name in ["root", "alias", "include", "access_log", "error_log"]:
+        if option_name in [
+            "root",
+            "alias",
+            "include",
+            "access_log",
+            "error_log",
+        ]:
             return ConfigType.PATH
 
-        if option_name in ["client_max_body_size", "proxy_buffer_size", "proxy_buffers"]:
+        if option_name in [
+            "client_max_body_size",
+            "proxy_buffer_size",
+            "proxy_buffers",
+        ]:
             return ConfigType.SIZE
 
-        if option_name in ["proxy_read_timeout", "proxy_connect_timeout", "keepalive_timeout"]:
+        if option_name in [
+            "proxy_read_timeout",
+            "proxy_connect_timeout",
+            "keepalive_timeout",
+        ]:
             return ConfigType.TIME
 
         if option_name in ["proxy_pass", "fastcgi_pass"]:
@@ -139,4 +153,4 @@ class NginxPlugin(Plugin):
         if option_name in ["auth_basic", "auth_basic_user_file"]:
             return ConfigType.PASSWORD
 
-        return super().get_config_type(option_name, value) 
+        return super().get_config_type(option_name, value)

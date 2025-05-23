@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
-import pytest
 from cfgnet.plugins.concept.nginx_plugin import NginxPlugin
 from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
@@ -23,7 +21,7 @@ from tests.utility.id_creator import make_id
 def test_is_responsible():
     """Test if the plugin is responsible for the given file."""
     plugin = NginxPlugin()
-    
+
     assert plugin.is_responsible("path/to/nginx.conf")
     assert not plugin.is_responsible("path/to/other.conf")
 
@@ -31,7 +29,7 @@ def test_is_responsible():
 def test_get_config_type():
     """Test configuration type inference."""
     plugin = NginxPlugin()
-    
+
     assert plugin.get_config_type("listen") == ConfigType.PORT
     assert plugin.get_config_type("server_name") == ConfigType.NAME
     assert plugin.get_config_type("root") == ConfigType.PATH
@@ -61,7 +59,7 @@ def test_parse_config_file(tmp_path):
     assert make_id("nginx.conf", "events", "worker_connections", "1024") in ids
     assert make_id("nginx.conf", "http", "include", "/etc/nginx/mime.types") in ids
     assert make_id("nginx.conf", "http", "default_type", "application/octet-stream") in ids
-   
+
     assert make_id("nginx.conf", "http", "access_log", "/var/log/nginx/access.log main") in ids
     assert make_id("nginx.conf", "http", "sendfile", "on") in ids
     assert make_id("nginx.conf", "http", "tcp_nopush", "on") in ids

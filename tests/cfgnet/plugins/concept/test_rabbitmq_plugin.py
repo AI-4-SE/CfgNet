@@ -13,18 +13,15 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
-import pytest
 from cfgnet.plugins.concept.rabbitmq_plugin import RabbitMQPlugin
 from cfgnet.config_types.config_types import ConfigType
 from tests.utility.id_creator import make_id
-from cfgnet.network.nodes import ValueNode
 
 
 def test_is_responsible():
     """Test if the plugin is responsible for the given file."""
     plugin = RabbitMQPlugin()
-    
+
     assert plugin.is_responsible("path/to/rabbitmq.conf")
     assert not plugin.is_responsible("path/to/other.conf")
 
@@ -32,7 +29,7 @@ def test_is_responsible():
 def test_get_config_type():
     """Test configuration type inference."""
     plugin = RabbitMQPlugin()
-    
+
     assert plugin.get_config_type("listeners.tcp.default") == ConfigType.PORT
     assert plugin.get_config_type("cluster_nodes") == ConfigType.TYPE
     assert plugin.get_config_type("log.file") == ConfigType.PATH
@@ -48,8 +45,7 @@ def test_parse_config_file():
     plugin = RabbitMQPlugin()
     rabbitmq_file = "tests/files/rabbitmq.conf"
 
-    artifact = plugin.parse_file(rabbitmq_file, "rabbitmq.conf")    
-    
+    artifact = plugin.parse_file(rabbitmq_file, "rabbitmq.conf")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 

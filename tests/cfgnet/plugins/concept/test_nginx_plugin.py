@@ -49,9 +49,6 @@ def test_parse_config_file(tmp_path):
     artifact = plugin.parse_file(nginx_file, "nginx.conf")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
-    
-    for node in nodes:
-        print(node.id)
 
     assert artifact is not None
     assert len(nodes) == 33

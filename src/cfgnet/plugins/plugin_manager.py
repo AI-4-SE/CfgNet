@@ -60,6 +60,10 @@ from cfgnet.plugins.concept.android_plugin import AndroidPlugin
 from cfgnet.plugins.concept.nginx_plugin import NginxPlugin
 from cfgnet.plugins.concept.redis_plugin import RedisPlugin
 from cfgnet.plugins.concept.kubernetes_plugin import KubernetesPlugin
+from cfgnet.plugins.concept.heroku_plugin import HerokuPlugin
+from cfgnet.plugins.concept.gradle_wrapper_plugin import GradleWrapperPlugin
+from cfgnet.plugins.concept.maven_wrapper_plugin import MavenWrapperPlugin
+from cfgnet.plugins.concept.netlify_plugin import NetlifyPlugin
 
 
 class PluginManager:
@@ -101,6 +105,10 @@ class PluginManager:
         NginxPlugin(),
         RedisPlugin(),
         KubernetesPlugin(),
+        HerokuPlugin(),
+        GradleWrapperPlugin(),
+        MavenWrapperPlugin(),
+        NetlifyPlugin(),
     ]
 
     file_type_plugins: List[Plugin] = [

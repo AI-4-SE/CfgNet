@@ -46,8 +46,11 @@ def test_parse_pyproject_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
+    for node in nodes:
+        print(node.id)
+
     assert artifact is not None
-    assert len(nodes) == 11
+    assert len(nodes) == 12
 
     assert make_id("pyproject.toml", "file", "pyproject.toml") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "name", "CfgNet") in ids
@@ -56,7 +59,8 @@ def test_parse_pyproject_file(get_plugin):
     assert make_id("pyproject.toml", "tool", "poetry", "exclude", "['hello.py']") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "license", "GPL-3.0+") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "homepage", "https://github.com") in ids
-    assert make_id("pyproject.toml", "tool", "poetry", "packages", "[{'include': 'cfgnet', 'from': 'src'}]") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "packages", "from", "src") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "packages", "include", "cfgnet") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "dependencies", "python", "^3.8") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "dev-dependencies", "cov", "5.1") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "scripts", "cfgnet", "main") in ids

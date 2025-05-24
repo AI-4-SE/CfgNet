@@ -46,7 +46,7 @@ def test_parse_toml_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 7
+    assert len(nodes) == 8
 
     assert make_id("test.toml", "file", "test.toml") in ids
     assert make_id("test.toml", "tool", "poetry", "name", "cfgnet") in ids
@@ -54,4 +54,5 @@ def test_parse_toml_file(get_plugin):
     assert make_id("test.toml", "tool", "poetry", "keywords", "['config']") in ids
     assert make_id("test.toml", "dependencies", "python", "^3.6") in ids
     assert make_id("test.toml", "dependencies", "gitpython", "^3.0") in ids
-    assert make_id("test.toml", "tool", "poetry", "packages", "[{'include': 'cfgnet', 'from': 'src'}]") in ids
+    assert make_id("test.toml", "tool", "poetry", "packages", "include", "cfgnet") in ids
+    assert make_id("test.toml", "tool", "poetry", "packages", "from", "src") in ids

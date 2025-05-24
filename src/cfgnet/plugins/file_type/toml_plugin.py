@@ -86,8 +86,14 @@ class TomlPlugin(Plugin):
                 if isinstance(value, dict):
                     self._iter_data(value, line_number_dict, option)
                 elif isinstance(value, list):
-                    value_node = ValueNode(name=str(value))
-                    option.add_child(value_node)
+                    if all(isinstance(item, dict) for item in value):
+                        for dict_item in value:
+                            self._iter_data(
+                                dict_item, line_number_dict, option
+                            )
+                    else:
+                        value_node = ValueNode(name=str(value))
+                        option.add_child(value_node)
                 else:
                     name = value
                     option.add_child(ValueNode(name))

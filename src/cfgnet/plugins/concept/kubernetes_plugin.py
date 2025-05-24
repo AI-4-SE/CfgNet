@@ -14,8 +14,6 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-from cfgnet.config_types.config_types import ConfigType
-from cfgnet.config_types.type_registry import TypeRegistry
 from cfgnet.plugins.file_type.yaml_plugin import YAMLPlugin
 
 
@@ -24,7 +22,6 @@ class KubernetesPlugin(YAMLPlugin):
 
     def __init__(self):
         super().__init__("kubernetes")
-        self.type_registry = TypeRegistry()
 
     def is_responsible(self, abs_file_path: str) -> bool:
         """
@@ -63,15 +60,3 @@ class KubernetesPlugin(YAMLPlugin):
 
         file_name = os.path.basename(abs_file_path)
         return file_name in kubernetes_file_patterns
-
-    def get_config_type(self, option_name: str, value: str = "") -> ConfigType:
-        """
-        Get the configuration type for a given option name and value.
-
-        :param option_name: Name of the option
-        :param value: Value of the option
-        :return: Configuration type
-        """
-        return self.type_registry.infer_type(
-            option_name, value, self.concept_name
-        )

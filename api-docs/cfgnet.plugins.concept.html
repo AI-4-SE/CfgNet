@@ -716,6 +716,44 @@
 </dd></dl>
 
 </section>
+<section id="module-cfgnet.plugins.concept.gradle_wrapper_plugin">
+<span id="cfgnet-plugins-concept-gradle-wrapper-plugin-module"></span><h2>cfgnet.plugins.concept.gradle_wrapper_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.gradle_wrapper_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.gradle_wrapper_plugin.GradleWrapperPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.gradle_wrapper_plugin.</span></span><span class="sig-name descname"><span class="pre">GradleWrapperPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.gradle_wrapper_plugin.GradleWrapperPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.file_type.html#cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin" title="cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParserPlugin</span></code></a></p>
+<p>Plugin for parsing Gradle wrapper properties files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.gradle_wrapper_plugin.GradleWrapperPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.gradle_wrapper_plugin.GradleWrapperPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the configuration type for a given option name and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option_name</strong> – Name of the option</p></li>
+<li><p><strong>value</strong> – Value of the option</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.gradle_wrapper_plugin.GradleWrapperPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.concept.gradle_wrapper_plugin.GradleWrapperPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file</p>
+</dd>
+<dt class="field-even">Return bool<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the plugin is responsible for the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cfgnet.plugins.concept.hadoop_common_plugin">
 <span id="cfgnet-plugins-concept-hadoop-common-plugin-module"></span><h2>cfgnet.plugins.concept.hadoop_common_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.hadoop_common_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -810,6 +848,47 @@
 </dd></dl>
 
 </section>
+<section id="module-cfgnet.plugins.concept.heroku_plugin">
+<span id="cfgnet-plugins-concept-heroku-plugin-module"></span><h2>cfgnet.plugins.concept.heroku_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.heroku_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.heroku_plugin.HerokuPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.heroku_plugin.</span></span><span class="sig-name descname"><span class="pre">HerokuPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.heroku_plugin.HerokuPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.file_type.html#cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin" title="cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLPlugin</span></code></a></p>
+<p>Plugin for parsing Heroku configuration files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.heroku_plugin.HerokuPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.heroku_plugin.HerokuPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the configuration type for a given option name and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option_name</strong> – Name of the option</p></li>
+<li><p><strong>value</strong> – Value of the option</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ConfigType for the option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.heroku_plugin.HerokuPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.concept.heroku_plugin.HerokuPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file</p>
+</dd>
+<dt class="field-even">Return bool<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the plugin is responsible for the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cfgnet.plugins.concept.kafka_plugin">
 <span id="cfgnet-plugins-concept-kafka-plugin-module"></span><h2>cfgnet.plugins.concept.kafka_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.kafka_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -847,8 +926,29 @@
 </dd></dl>
 
 </section>
-<section id="cfgnet-plugins-concept-kubernetes-plugin-module">
-<h2>cfgnet.plugins.concept.kubernetes_plugin module<a class="headerlink" href="#cfgnet-plugins-concept-kubernetes-plugin-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-cfgnet.plugins.concept.kubernetes_plugin">
+<span id="cfgnet-plugins-concept-kubernetes-plugin-module"></span><h2>cfgnet.plugins.concept.kubernetes_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.kubernetes_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.kubernetes_plugin.KubernetesPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.kubernetes_plugin.</span></span><span class="sig-name descname"><span class="pre">KubernetesPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.kubernetes_plugin.KubernetesPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.file_type.html#cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin" title="cfgnet.plugins.file_type.yaml_plugin.YAMLPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">YAMLPlugin</span></code></a></p>
+<p>Plugin for parsing Kubernetes configuration files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.kubernetes_plugin.KubernetesPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.concept.kubernetes_plugin.KubernetesPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if this plugin is responsible for the given file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the plugin is responsible for the file, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-cfgnet.plugins.concept.mapreduce_plugin">
 <span id="cfgnet-plugins-concept-mapreduce-plugin-module"></span><h2>cfgnet.plugins.concept.mapreduce_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.mapreduce_plugin" title="Permalink to this heading">¶</a></h2>
@@ -934,6 +1034,44 @@
 </dd></dl>
 
 </section>
+<section id="module-cfgnet.plugins.concept.maven_wrapper_plugin">
+<span id="cfgnet-plugins-concept-maven-wrapper-plugin-module"></span><h2>cfgnet.plugins.concept.maven_wrapper_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.maven_wrapper_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.maven_wrapper_plugin.MavenWrapperPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.maven_wrapper_plugin.</span></span><span class="sig-name descname"><span class="pre">MavenWrapperPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.maven_wrapper_plugin.MavenWrapperPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.file_type.html#cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin" title="cfgnet.plugins.file_type.configparser_plugin.ConfigParserPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParserPlugin</span></code></a></p>
+<p>Plugin for parsing Maven wrapper properties files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.maven_wrapper_plugin.MavenWrapperPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.maven_wrapper_plugin.MavenWrapperPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the configuration type for a given option name and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option_name</strong> – Name of the option</p></li>
+<li><p><strong>value</strong> – Value of the option</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.maven_wrapper_plugin.MavenWrapperPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cfgnet.plugins.concept.maven_wrapper_plugin.MavenWrapperPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file</p>
+</dd>
+<dt class="field-even">Return bool<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the plugin is responsible for the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cfgnet.plugins.concept.mongodb_plugin">
 <span id="cfgnet-plugins-concept-mongodb-plugin-module"></span><h2>cfgnet.plugins.concept.mongodb_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.mongodb_plugin" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -1000,6 +1138,47 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cfgnet.plugins.concept.netlify_plugin">
+<span id="cfgnet-plugins-concept-netlify-plugin-module"></span><h2>cfgnet.plugins.concept.netlify_plugin module<a class="headerlink" href="#module-cfgnet.plugins.concept.netlify_plugin" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.netlify_plugin.NetlifyPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cfgnet.plugins.concept.netlify_plugin.</span></span><span class="sig-name descname"><span class="pre">NetlifyPlugin</span></span><a class="headerlink" href="#cfgnet.plugins.concept.netlify_plugin.NetlifyPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cfgnet.plugins.file_type.html#cfgnet.plugins.file_type.toml_plugin.TomlPlugin" title="cfgnet.plugins.file_type.toml_plugin.TomlPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TomlPlugin</span></code></a></p>
+<p>Plugin for parsing Netlify configuration files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.netlify_plugin.NetlifyPlugin.get_config_type">
+<span class="sig-name descname"><span class="pre">get_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cfgnet.config_types.html#cfgnet.config_types.config_types.ConfigType" title="cfgnet.config_types.config_types.ConfigType"><span class="pre">ConfigType</span></a></span></span><a class="headerlink" href="#cfgnet.plugins.concept.netlify_plugin.NetlifyPlugin.get_config_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the configuration type for a given option name and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option_name</strong> – Name of the option</p></li>
+<li><p><strong>value</strong> – Value of the option</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ConfigType for the option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cfgnet.plugins.concept.netlify_plugin.NetlifyPlugin.is_responsible">
+<span class="sig-name descname"><span class="pre">is_responsible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cfgnet.plugins.concept.netlify_plugin.NetlifyPlugin.is_responsible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the plugin is responsible for the given file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abs_file_path</strong> – Absolute path to the file</p>
+</dd>
+<dt class="field-even">Return bool<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the plugin is responsible for the file</p>
 </dd>
 </dl>
 </dd></dl>

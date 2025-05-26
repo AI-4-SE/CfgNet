@@ -132,6 +132,14 @@ cfgnet.plugins.concept.gradle\_plugin module
    :undoc-members:
    :show-inheritance:
 
+cfgnet.plugins.concept.gradle\_wrapper\_plugin module
+-----------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.gradle_wrapper_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cfgnet.plugins.concept.hadoop\_common\_plugin module
 ----------------------------------------------------
 
@@ -152,6 +160,14 @@ cfgnet.plugins.concept.hadoop\_hdfs\_plugin module
 --------------------------------------------------
 
 .. automodule:: cfgnet.plugins.concept.hadoop_hdfs_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.heroku\_plugin module
+--------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.heroku_plugin
    :members:
    :undoc-members:
    :show-inheritance:
@@ -188,6 +204,14 @@ cfgnet.plugins.concept.maven\_plugin module
    :undoc-members:
    :show-inheritance:
 
+cfgnet.plugins.concept.maven\_wrapper\_plugin module
+----------------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.maven_wrapper_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cfgnet.plugins.concept.mongodb\_plugin module
 ---------------------------------------------
 
@@ -200,6 +224,14 @@ cfgnet.plugins.concept.mysql\_plugin module
 -------------------------------------------
 
 .. automodule:: cfgnet.plugins.concept.mysql_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+cfgnet.plugins.concept.netlify\_plugin module
+---------------------------------------------
+
+.. automodule:: cfgnet.plugins.concept.netlify_plugin
    :members:
    :undoc-members:
    :show-inheritance:

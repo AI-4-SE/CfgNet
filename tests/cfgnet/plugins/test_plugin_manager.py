@@ -19,7 +19,7 @@ from cfgnet.plugins.plugin_manager import PluginManager
 def test_get_all_concept_plugins():
     all_concept_plugins = PluginManager.get_concept_plugins()
 
-    assert len(all_concept_plugins) == 35
+    assert len(all_concept_plugins) == 39
 
 
 def test_get_responsible_concept_plugin():
@@ -60,6 +60,10 @@ def test_get_responsible_concept_plugin():
     nginx_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/nginx.conf")
     redis_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/redis.conf")
     kubernetes_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/deployment.yaml")
+    heroku_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/heroku.yml")
+    gradle_wrapper_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/gradle-wrapper.properties")
+    maven_wrapper_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/maven-wrapper.properties")
+    netlify_plugin = PluginManager.get_responsible_plugin(plugins, "path/to/netlify.toml")
 
     assert docker_plugin.concept_name == "docker"
     assert maven_plugin.concept_name == "maven"
@@ -96,3 +100,7 @@ def test_get_responsible_concept_plugin():
     assert nginx_plugin.concept_name == "nginx"
     assert redis_plugin.concept_name == "redis"
     assert kubernetes_plugin.concept_name == "kubernetes"
+    assert heroku_plugin.concept_name == "heroku"
+    assert gradle_wrapper_plugin.concept_name == "gradle-wrapper"
+    assert maven_wrapper_plugin.concept_name == "maven-wrapper"
+    assert netlify_plugin.concept_name == "netlify"

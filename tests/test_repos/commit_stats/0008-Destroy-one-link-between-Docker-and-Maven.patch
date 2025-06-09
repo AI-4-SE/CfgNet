@@ -1,0 +1,23 @@
+From 9771f0dfc5f805cab98692410e229cc8f1000795 Mon Sep 17 00:00:00 2001
+From: simisimon <Bastisimon95@googlemail.com>
+Date: Fri, 18 Mar 2022 14:00:10 +0100
+Subject: [PATCH 8/8] Destroy one link between Docker and Maven
+
+---
+ pom.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pom.xml b/pom.xml
+index f9e682f..9a4f924 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -1,4 +1,4 @@
+ <project>
+   <version>0.2.0</version>
+-  <port>7777</port>
++  <port>9000</port>
+ </project>
+\ No newline at end of file
+-- 
+2.25.1
+

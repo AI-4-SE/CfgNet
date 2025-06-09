@@ -19,7 +19,7 @@ import abc
 import hashlib
 import logging
 
-from typing import Any, List, Optional, Set
+from typing import Any, Iterable, Optional, Set
 from cfgnet.linker.link import Link
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 
@@ -64,7 +64,7 @@ class Conflict(abc.ABC):
         """
 
     @staticmethod
-    def count_total(conflicts: List[Conflict]) -> int:
+    def count_total(conflicts: Iterable[Conflict]) -> int:
         """Total conflict count across a list."""
         return sum((conflict.count() for conflict in conflicts))
 

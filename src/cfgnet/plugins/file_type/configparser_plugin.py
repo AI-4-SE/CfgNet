@@ -31,11 +31,11 @@ class MultiOrderedDict(OrderedDict):
 
 
 class ConfigParserPlugin(Plugin):
-    def __init__(self, name=None):
+    def __init__(self, name=None, threshold=65536):
         if name is None:
-            super().__init__("configparser")
+            super().__init__("configparser", threshold=threshold)
         else:
-            super().__init__(name)
+            super().__init__(name, threshold=threshold)
         self.excluded_keys: List[str] = []
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):

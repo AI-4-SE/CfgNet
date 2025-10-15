@@ -26,11 +26,11 @@ from cfgnet.plugins.plugin import Plugin
 
 
 class JsonPlugin(Plugin):
-    def __init__(self, name=None):
+    def __init__(self, name=None, threshold: int = 524288):
         if name is None:
-            super().__init__("json")
+            super().__init__("json", threshold=threshold)
         else:
-            super().__init__(name)
+            super().__init__(name, threshold=threshold)
         self.excluded_keys: List[str] = []
 
     def is_responsible(self, abs_file_path: str) -> bool:

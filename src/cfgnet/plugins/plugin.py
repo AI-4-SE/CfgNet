@@ -78,7 +78,14 @@ class Plugin(abc.ABC):
         :returns: artifact node that represents a sub-network of the parsed file
         """
         if self.is_responsible(abs_file_path):
-            self._warn_if_large_file(abs_file_path)
+            if self._is_large_file(abs_file_path):
+                logging.warning(
+                    "File %s exceeds size threshold of %s bytes. "
+                    "Parsing may be slow.",
+                    abs_file_path,
+                    self.file_size_threshold,
+                )
+                return None
 
             artifact = self._parse_config_file(
                 abs_file_path, rel_file_path, root
@@ -87,17 +94,16 @@ class Plugin(abc.ABC):
 
         return None
 
-    def _warn_if_large_file(self, file_path: str) -> None:
-        """Log a warning if the file size in bytes exceeds the threshold."""
+    def _is_large_file(self, file_path: str) -> bool:
+        """Check if the file size in bytes exceeds the threshold."""
         if not self.file_size_threshold:
-            return
+            return False
         if (
             os.path.exists(file_path)
             and os.path.getsize(file_path) > self.file_size_threshold
         ):
-            logging.warning(
-                "Large file '%s' might not be configuration.", file_path
-            )
+            return True
+        return False
 
     # pylint: disable=unused-argument,too-many-return-statements
     def get_config_type(self, option_name: str, value: str = "") -> ConfigType:

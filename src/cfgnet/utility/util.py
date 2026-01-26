@@ -4,15 +4,20 @@ import logging
 from typing import Set, Optional
 
 
-def is_in_test_directory(file_path) -> bool:
-    """Check if a given file is in a test directory."""
+def is_in_excluded_directory(file_path) -> bool:
+    """Check if a given file is in an excluded directory."""
     # Normalize and split the file path
     normalized_path = os.path.normpath(file_path)
     directories = normalized_path.split(os.sep)
 
-    # Check for 'test' in any directory name
+    # List of excluded directory names
+    excluded_dirs = {"docs", "data", "lib", "benchmark", "annotations", "examples", "tmp"}
+
+    # Check if any directory in the path matches excluded directories
     for dir_name in directories:
-        if "test" in dir_name.lower():
+        dir_lower = dir_name.lower()
+        # Check for exact match or if 'test' is in the directory name
+        if dir_lower in excluded_dirs or "test" in dir_lower:
             return True
     return False
 

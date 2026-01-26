@@ -31,7 +31,7 @@ class Plugin(abc.ABC):
         Initialize plugin.
 
         :param concept_name: Name of the concept.
-        :param threshold: file size threshold, by default None.
+        :param threshold: file size threshold in KB, by default None.
         """
         self.concept_name: str = concept_name
         self.file_size_threshold: Optional[int] = threshold
@@ -81,7 +81,7 @@ class Plugin(abc.ABC):
             if self._is_large_file(abs_file_path):
                 logging.warning(
                     "File %s exceeds size threshold of %s bytes. "
-                    "Parsing may be slow.",
+                    "Skip parsing.",
                     abs_file_path,
                     self.file_size_threshold,
                 )

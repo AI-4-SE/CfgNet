@@ -37,7 +37,7 @@ from cfgnet.network.nodes import (
 )
 from cfgnet.network.network_configuration import NetworkConfiguration
 from cfgnet.exporter.exporter import DotExporter, JSONExporter
-from cfgnet.utility.util import get_system_files, is_in_test_directory
+from cfgnet.utility.util import get_system_files, is_in_excluded_directory
 
 
 class Network:
@@ -305,8 +305,8 @@ class Network:
 
         for file in sorted(tracked_files):
 
-            # skip config files in test directories
-            if is_in_test_directory(file):
+            # skip config files in excluded directories
+            if is_in_excluded_directory(file):
                 continue
 
             abs_file_path = os.path.join(cfg.project_root_abs, file)
@@ -317,11 +317,14 @@ class Network:
 
             if concept_plugin:
                 try:
-                    concept_plugin.parse_file(
+                    artifact = concept_plugin.parse_file(
                         abs_file_path=abs_file_path,
                         rel_file_path=file,
                         root=root,
                     )
+                    # Skip if file was too large (parse_file returns None)
+                    if artifact is None:
+                        continue
                 except UnicodeDecodeError as error:
                     logging.warning(
                         "%s: %s (%s)",
@@ -338,11 +341,14 @@ class Network:
 
                 if file_type_plugin:
                     try:
-                        file_type_plugin.parse_file(
+                        artifact = file_type_plugin.parse_file(
                             abs_file_path=abs_file_path,
                             rel_file_path=file,
                             root=root,
                         )
+                        # Skip if file was too large (parse_file returns None)
+                        if artifact is None:
+                            continue
                     except UnicodeDecodeError as error:
                         logging.warning(
                             "%s: %s (%s)",

@@ -11,7 +11,22 @@ def is_in_excluded_directory(file_path) -> bool:
     directories = normalized_path.split(os.sep)
 
     # List of excluded directory names
-    excluded_dirs = {"docs", "data", "lib", "benchmark", "annotations", "examples", "tmp"}
+    excluded_dirs = {
+        "docs", 
+        "data", 
+        "lib", 
+        "benchmark",
+        "benchmarks", 
+        "annotations", 
+        "examples", 
+        "spec",
+        "specs",
+        "fonts",
+        "videos",
+        "images",
+        "audios",
+        "cache"
+    }
 
     # Check if any directory in the path matches excluded directories
     for dir_name in directories:

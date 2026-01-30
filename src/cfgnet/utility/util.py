@@ -25,7 +25,8 @@ def is_in_excluded_directory(file_path) -> bool:
         "videos",
         "images",
         "audios",
-        "cache"
+        "cache",
+        "third_party",
     }
 
     # Check if any directory in the path matches excluded directories

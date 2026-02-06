@@ -16,7 +16,7 @@ import os
 import logging
 import configparser
 import re
-from typing import Optional, Dict
+from typing import Optional, Dict, List, Set, Tuple
 
 from groovy_parser.parser import parse_groovy_content
 
@@ -131,37 +131,58 @@ class GradlePlugin(Plugin):
         return artifact
 
     def _parse_gradle_build_file(
-        self,
-        abs_file_path: str,
-        rel_file_path: str,
-        root: Optional[ProjectNode],
-    ) -> ArtifactNode:
-        """Parse build.gradle and settings.gradle files using groovy-parser."""
-        artifact = ArtifactNode(
-            file_path=abs_file_path,
-            rel_file_path=rel_file_path,
-            concept_name=self.concept_name,
-            project_root=root,
-        )
+            self,
+            abs_file_path: str,
+            rel_file_path: str,
+            root: Optional[ProjectNode],
+        ) -> ArtifactNode:
+            """Parse build.gradle and settings.gradle files.
 
-        try:
-            with open(abs_file_path, "r", encoding="utf-8") as file:
-                content = file.read()
-
-            # Parse the Groovy file
-            tree = parse_groovy_content(content)
-
-            # Extract configuration from the Lark Tree
-            self._extract_config_from_tree(tree, artifact)
-
-        except Exception as error:
-            logging.warning(
-                'Failed to parse Gradle file "%s" due to %s',
-                rel_file_path,
-                error
+            We use groovy-parser as the primary extraction mechanism, but Gradle/Groovy
+            DSL has many constructs that are hard to recover losslessly from the AST
+            (e.g., method-call RHS assignments, nested blocks, plugin DSL, dependency
+            notations, etc.). To ensure we extract *all* potential options, we run an
+            additional lightweight, line-based extractor that:
+              - extracts every "=" assignment (including dotted keys like xml.enabled)
+              - parses the plugins { } DSL (id -> version)
+              - parses the dependencies { } DSL (group:artifact -> version, and other notations as raw values)
+            """
+            artifact = ArtifactNode(
+                file_path=abs_file_path,
+                rel_file_path=rel_file_path,
+                concept_name=self.concept_name,
+                project_root=root,
             )
 
-        return artifact
+            try:
+                with open(abs_file_path, "r", encoding="utf-8") as file:
+                    content = file.read()
+
+                # Used to de-duplicate nodes across AST + regex passes
+                self._seen_option_value_locations = set()
+
+                # 1) AST-based extraction (best-effort)
+                try:
+                    tree = parse_groovy_content(content)
+                    self._extract_config_from_tree(tree, artifact)
+                except Exception as error:  # keep parsing via regex below
+                    logging.warning(
+                        'Failed to parse Gradle file "%s" with groovy-parser due to %s',
+                        rel_file_path,
+                        error,
+                    )
+
+                # 2) Regex/line-based extraction (completeness-oriented)
+                self._extract_config_from_text(content, artifact)
+
+            except Exception as error:
+                logging.warning(
+                    'Failed to parse Gradle file "%s" due to %s',
+                    rel_file_path,
+                    error
+                )
+
+            return artifact
 
     def _extract_config_from_tree(self, tree, parent_node):
         """Recursively extract configuration from Lark Tree."""
@@ -209,16 +230,8 @@ class GradlePlugin(Plugin):
                             var_value = self._extract_string_literal(subchild)
 
             if var_name and var_value:
-                config_type = self.get_config_type(var_name, var_value)
                 line_num = self._get_line_from_tree(tree)
-                option_node = OptionNode(
-                    name=var_name,
-                    location=str(line_num),
-                    config_type=config_type,
-                )
-                parent_node.add_child(option_node)
-                value_node = ValueNode(name=var_value)
-                option_node.add_child(value_node)
+                self._add_option_value(parent_node, var_name, var_value, line_num)
         else:
             # This might be a method call (like plugins { }, dependencies { })
             self._process_method_call(tree, parent_node)
@@ -272,16 +285,8 @@ class GradlePlugin(Plugin):
 
         if string_arg:
             # This is a simple method call with an argument
-            config_type = self.get_config_type(method_name, string_arg)
             line_num = self._get_line_from_tree(tree)
-            option_node = OptionNode(
-                name=method_name,
-                location=str(line_num),
-                config_type=config_type,
-            )
-            parent_node.add_child(option_node)
-            value_node = ValueNode(name=string_arg)
-            option_node.add_child(value_node)
+            self._add_option_value(parent_node, method_name, string_arg, line_num)
         elif has_argument_list:
             # This is a method call with a closure/block (e.g., dependencies { ... })
             # Create a container node but don't recurse - let normal recursion handle children
@@ -458,6 +463,267 @@ class GradlePlugin(Plugin):
                 if result:
                     return result
         return None
+
+        
+    def _get_or_create_option_node(self, parent_node, option_name: str, line_num: str = "Unknown"):
+        """Return an existing OptionNode child with the given name, or create it once."""
+        if option_name is None or option_name == "":
+            return None
+
+        cache = getattr(self, "_option_node_cache", None)
+        if not isinstance(cache, dict):
+            cache = {}
+            setattr(self, "_option_node_cache", cache)
+
+        key = (id(parent_node), option_name)
+        if key in cache:
+            return cache[key]
+
+        config_type = self.get_config_type(option_name, "")
+        option_node = OptionNode(
+            name=option_name,
+            location=str(line_num) if line_num is not None else "Unknown",
+            config_type=config_type,
+        )
+        parent_node.add_child(option_node)
+        cache[key] = option_node
+        return option_node
+
+
+    def _add_option_value(
+        self,
+        parent_node,
+        option_name: str,
+        value: str,
+        line_num: str = "Unknown",
+    ) -> None:
+        """Add an option/value node pair with best-effort de-duplication (per parent + option + value)."""
+        if option_name is None or option_name == "":
+            return
+
+        value_str = "" if value is None else str(value).strip()
+        loc_str = str(line_num) if line_num is not None else "Unknown"
+
+        seen = getattr(self, "_seen_option_values", None)
+        if not isinstance(seen, set):
+            seen = set()
+            setattr(self, "_seen_option_values", seen)
+
+        key = (id(parent_node), option_name, value_str)
+        if key in seen:
+            return
+        seen.add(key)
+
+        option_node = self._get_or_create_option_node(parent_node, option_name, loc_str)
+        if option_node is None:
+            return
+
+        if value_str != "":
+            value_node = ValueNode(name=value_str)
+            option_node.add_child(value_node)
+
+    def _strip_inline_comment(self, line: str) -> str:
+        """Remove // comments from a line, keeping content inside quotes."""
+        out = []
+        in_single = False
+        in_double = False
+        i = 0
+        while i < len(line):
+            ch = line[i]
+            if ch == "'" and not in_double:
+                in_single = not in_single
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '"' and not in_single:
+                in_double = not in_double
+                out.append(ch)
+                i += 1
+                continue
+            # start of // comment outside quotes
+            if not in_single and not in_double and ch == "/" and i + 1 < len(line) and line[i + 1] == "/":
+                break
+            out.append(ch)
+            i += 1
+        return "".join(out)
+
+    
+    def _extract_config_from_text(self, content: str, parent_node) -> None:
+        """Completeness-oriented extraction over raw text with hierarchical block paths.
+
+        - Creates OptionNodes for named blocks like: jmh { ... }  /  reports { ... }
+        - Extracts any "=" assignment under the current block path (supports dotted keys)
+        - Extracts plugins DSL: id -> version under plugins { ... }
+        - Extracts dependencies DSL under dependencies { ... }:
+            * "g:a:v" -> option "g:a", value "v"
+            * "g:a" (no version) -> option "<configuration>", value "g:a"
+        - Skips dynamic/imperative closures such as: [..].each { ... } and tasks.register(...) { ... }
+        """
+        in_block_comment = False
+
+        # Node stack mirrors created named blocks; starts at artifact node
+        node_stack = [parent_node]
+        name_stack: List[str] = []
+
+        # Brace stack tracks *all* opens so closes pop correctly.
+        # Each entry is ("NODE", block_name) or ("SKIP", None) or ("NONE", None)
+        brace_stack: List[Tuple[str, Optional[str]]] = []
+
+        # Regexes
+        re_named_block_open = re.compile(r"^\s*([A-Za-z_][\w\-]*)\s*\{\s*$")
+        re_assignment = re.compile(r"^\s*([A-Za-z_][\w\.\-]*)\s*=\s*(.+?)\s*$")
+        re_plugins_id = re.compile(
+            r"\bid\s*(?:\(\s*)?['\"]([^'\"]+)['\"]\s*(?:\)\s*)?"
+            r"(?:\s*version\s*['\"]([^'\"]+)['\"])?",
+        )
+        re_apply_plugin = re.compile(r"\bapply\s+plugin\s*:\s*['\"]([^'\"]+)['\"]")
+        re_dep_decl = re.compile(r"^\s*([A-Za-z_][\w]*)\s*(?:\(|\s+)\s*(.+?)\s*\)?\s*$")
+        re_quoted = re.compile(r"^['\"]([^'\"]*)['\"]$")
+
+        def skip_active() -> bool:
+            return any(k == "SKIP" for k, _ in brace_stack)
+
+        def current_ctx() -> str:
+            return name_stack[-1] if name_stack else ""
+
+        def push_named_block(block_name: str, lineno: int):
+            # Create/reuse block node as OptionNode
+            if skip_active():
+                brace_stack.append(("NONE", None))
+                return
+            parent = node_stack[-1]
+            block_node = self._get_or_create_option_node(parent, block_name, str(lineno))
+            node_stack.append(block_node)
+            name_stack.append(block_name)
+            brace_stack.append(("NODE", block_name))
+
+        def push_skip_block():
+            brace_stack.append(("SKIP", None))
+
+        def push_none():
+            brace_stack.append(("NONE", None))
+
+        def pop_one():
+            if not brace_stack:
+                return
+            kind, block_name = brace_stack.pop()
+            if kind == "NODE":
+                # Pop the corresponding named block from stacks
+                if node_stack:
+                    node_stack.pop()
+                if name_stack:
+                    name_stack.pop()
+
+        lines = content.splitlines()
+        for lineno, raw in enumerate(lines, start=1):
+            line = raw.rstrip("\n")
+
+            # Handle /* ... */ comments (best-effort, line-based)
+            if in_block_comment:
+                if "*/" in line:
+                    in_block_comment = False
+                    line = line.split("*/", 1)[1]
+                else:
+                    # Still need to account for braces? assume none in block comments.
+                    continue
+
+            if "/*" in line:
+                before, after = line.split("/*", 1)
+                if "*/" in after:
+                    after = after.split("*/", 1)[1]
+                    line = before + after
+                else:
+                    in_block_comment = True
+                    line = before
+
+            line = self._strip_inline_comment(line).strip()
+            if not line:
+                continue
+
+            # Pre-count braces (approx; braces in strings are rare in Gradle scripts)
+            open_count = line.count("{")
+            close_count = line.count("}")
+
+            # Detect and push openings in a way that preserves hierarchy
+            # 1) Skip dynamic closures: [..].each { ... }  or  tasks.register(..) { ... }
+            if open_count > 0 and (
+                (".each" in line and "{" in line)
+                or ("tasks.register" in line and "{" in line)
+                or ("tasks.withType" in line and "{" in line)
+                or (re.match(r"^\s*dependencyRecommendations\s*\{\s*$", line) is not None)
+            ):
+                # Push one SKIP for the first "{"; any additional "{" are NONE
+                push_skip_block()
+                for _ in range(max(0, open_count - 1)):
+                    push_none()
+            else:
+                # 2) Named block open (exact form: name { )
+                m_open = re_named_block_open.match(line)
+                if m_open and open_count == 1 and close_count == 0:
+                    push_named_block(m_open.group(1), lineno)
+                else:
+                    # 3) Generic opens we don't model as config sections
+                    for _ in range(open_count):
+                        push_none()
+
+            # If we're in a skipped region, ignore extraction but still pop closes
+            if not skip_active():
+                ctx = current_ctx()
+
+                # --- plugins { } DSL
+                if ctx == "plugins":
+                    m = re_plugins_id.search(line)
+                    if m:
+                        plugin_id = m.group(1)
+                        plugin_version = (m.group(2) or "").strip()
+                        # Desired shape:
+                        #   <file>::::plugins::::<plugin_id>::::version::::<plugin_version>
+                        if plugin_version != "":
+                            plugin_node = self._get_or_create_option_node(node_stack[-1], plugin_id, str(lineno))
+                            if plugin_node is not None:
+                                self._add_option_value(plugin_node, "version", plugin_version, str(lineno))
+
+                # --- apply plugin: '...'
+                m_apply = re_apply_plugin.search(line)
+                if m_apply:
+                    plugin_id = m_apply.group(1)
+                    self._add_option_value(node_stack[-1], plugin_id, "", str(lineno))
+
+                # --- dependencies { } DSL
+                if ctx == "dependencies":
+                    m = re_dep_decl.match(line)
+                    if m:
+                        conf = m.group(1)
+                        spec = m.group(2).strip()
+
+                        # Prefer a quoted coordinate inside the spec
+                        quoted = re.findall(r"['\"]([^'\"]+)['\"]", spec)
+                        candidate = quoted[0] if quoted else spec
+
+                        option_name, version = self._parse_artifact_coordinates(candidate)
+                        if version:
+                            # g:a:v  -> option g:a, value v  (no conf in key)
+                            self._add_option_value(node_stack[-1], option_name, version, str(lineno))
+                        else:
+                            # g:a (no version) -> option conf, value candidate
+                            self._add_option_value(node_stack[-1], conf, candidate, str(lineno))
+
+                # --- generic "=" assignments (everywhere, under current block path)
+                m_assign = re_assignment.match(line)
+                if m_assign:
+                    key = m_assign.group(1).strip()
+                    rhs = m_assign.group(2).strip().rstrip(",")
+
+                    mq = re_quoted.match(rhs)
+                    if mq:
+                        rhs = mq.group(1)
+
+                    self._add_option_value(node_stack[-1], key, rhs, str(lineno))
+
+            # Pop closes at end of line
+            for _ in range(close_count):
+                pop_one()
+
 
     def _get_line_from_tree(self, tree):
         """Get line number from a Lark tree."""

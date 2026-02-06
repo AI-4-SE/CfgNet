@@ -80,54 +80,110 @@ def test_parse_build_gradle(get_plugin):
     assert artifact.concept_name == "gradle"
 
     nodes = artifact.get_nodes()
-    assert len(nodes) > 0
 
-    # Check for specific extracted values
-    group_node = next(filter(lambda x: x.id == make_id("build.gradle", "group", "com.example"), nodes), None)
-    version_node = next(filter(lambda x: x.id == make_id("build.gradle", "version", "1.0.0"), nodes), None)
-    source_compat_node = next(filter(lambda x: x.id == make_id("build.gradle", "sourceCompatibility", "11"), nodes), None)
-    main_class_node = next(filter(lambda x: x.id == make_id("build.gradle", "application", "mainClass", "com.example.Main"), nodes), None)
+    # Check for plugins (id as option, version as nested option, version number as value)
+    # Structure: plugins -> plugin-id -> version -> version-number
+    plugin_versions = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "plugins", "com.github.ben-manes.versions", "version", "0.53.0"),
+            nodes
+        ),
+        None
+    )
+    plugin_spotbugs = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "plugins", "com.github.spotbugs", "version", "6.4.8"),
+            nodes
+        ),
+        None
+    )
+    plugin_shadow = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "plugins", "com.gradleup.shadow", "version", "9.3.1"),
+            nodes
+        ),
+        None
+    )
+    plugin_jmh = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "plugins", "me.champeau.jmh", "version", "0.7.2"),
+            nodes
+        ),
+        None
+    )
 
-    assert group_node is not None
-    assert group_node.config_type == ConfigType.NAME
-    assert version_node is not None
-    assert version_node.config_type == ConfigType.VERSION_NUMBER
-    assert source_compat_node is not None
-    assert main_class_node is not None
+    assert plugin_versions is not None, "Plugin 'com.github.ben-manes.versions' should be parsed"
+    assert plugin_spotbugs is not None, "Plugin 'com.github.spotbugs' should be parsed"
+    assert plugin_shadow is not None, "Plugin 'com.gradleup.shadow' should be parsed"
+    assert plugin_jmh is not None, "Plugin 'me.champeau.jmh' should be parsed"
 
     # Check for ext properties
-    kotlin_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "kotlinVersion", "1.8.0"), nodes), None)
-    spring_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "springVersion", "5.3.20"), nodes), None)
+    github_project_name = next(filter(lambda x: x.id == make_id("build.gradle", "ext.githubProjectName", "spectator"), nodes), None)
+    assert github_project_name is not None
 
-    assert kotlin_version_node is not None
-    assert spring_version_node is not None
-
-    # Check for specific dependencies (groupId:artifactId as option, version as value)
-    # Structure: dependencies -> org.springframework.boot:spring-boot-starter-web -> 2.7.0
-    spring_boot_dep = next(
+    # Check for dependencies
+    # Structure: subprojects -> dependencies -> configuration-type -> dependency-name
+    slf4j_dep = next(
         filter(
-            lambda x: x.id == make_id("build.gradle", "dependencies", "org.springframework.boot:spring-boot-starter-web", "2.7.0"),
+            lambda x: x.id == make_id("build.gradle", "subprojects", "dependencies", "implementation", "org.slf4j:slf4j-api"),
             nodes
         ),
         None
     )
     junit_dep = next(
         filter(
-            lambda x: x.id == make_id("build.gradle", "dependencies", "junit:junit", "4.13.2"),
+            lambda x: x.id == make_id("build.gradle", "subprojects", "dependencies", "testImplementation", "org.junit.jupiter:junit-jupiter"),
+            nodes
+        ),
+        None
+    )
+    equalsverifier_dep = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "subprojects", "dependencies", "testImplementation", "nl.jqno.equalsverifier:equalsverifier"),
             nodes
         ),
         None
     )
 
-    assert spring_boot_dep is not None, "Spring Boot dependency should be parsed as groupId:artifactId"
-    assert junit_dep is not None, "JUnit dependency should be parsed as groupId:artifactId"
+    assert slf4j_dep is not None, "SLF4J dependency should be parsed"
+    assert junit_dep is not None, "JUnit Jupiter dependency should be parsed"
+    assert equalsverifier_dep is not None, "EqualsVerifier dependency should be parsed"
 
-    # Check for ext properties
-    kotlin_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "kotlinVersion", "1.8.0"), nodes), None)
-    spring_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "springVersion", "5.3.20"), nodes), None)
+    # Check for jmh section options (all options should be parsed, not just the first one)
+    jmh_version = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "jmh", "jmhVersion", "1.37"), nodes), None)
+    jmh_warmup = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "jmh", "warmupIterations", "2"), nodes), None)
+    jmh_iterations = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "jmh", "iterations", "5"), nodes), None)
+    jmh_fork = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "jmh", "fork", "1"), nodes), None)
+    jmh_includeTests = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "jmh", "includeTests", "false"), nodes), None)
 
-    assert kotlin_version_node is not None
-    assert spring_version_node is not None
+    assert jmh_version is not None, "jmh.jmhVersion should be parsed"
+    assert jmh_warmup is not None, "jmh.warmupIterations should be parsed (not just first option)"
+    assert jmh_iterations is not None, "jmh.iterations should be parsed"
+    assert jmh_fork is not None, "jmh.fork should be parsed"
+    assert jmh_includeTests is not None, "jmh.includeTests should be parsed"
+
+    # Check for checkstyle section options
+    checkstyle_version = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "checkstyle", "toolVersion", "13.1.0"), nodes), None)
+    checkstyle_ignoreFailures = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "checkstyle", "ignoreFailures", "false"), nodes), None)
+
+    assert checkstyle_version is not None, "checkstyle.toolVersion should be parsed"
+    assert checkstyle_ignoreFailures is not None, "checkstyle.ignoreFailures should be parsed"
+
+    # Check for spotbugs section options
+    spotbugs_version = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "spotbugs", "toolVersion", "4.9.8"), nodes), None)
+    spotbugs_useJavaToolchains = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "spotbugs", "useJavaToolchains", "false"), nodes), None)
+    spotbugs_ignoreFailures = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "spotbugs", "ignoreFailures", "false"), nodes), None)
+
+    assert spotbugs_version is not None, "spotbugs.toolVersion should be parsed"
+    assert spotbugs_useJavaToolchains is not None, "spotbugs.useJavaToolchains should be parsed"
+    assert spotbugs_ignoreFailures is not None, "spotbugs.ignoreFailures should be parsed"
+
+    # Check for pmd section options
+    pmd_version = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "pmd", "toolVersion", "7.16.0"), nodes), None)
+    pmd_ignoreFailures = next(filter(lambda x: x.id == make_id("build.gradle", "subprojects", "pmd", "ignoreFailures", "false"), nodes), None)
+
+    assert pmd_version is not None, "pmd.toolVersion should be parsed"
+    assert pmd_ignoreFailures is not None, "pmd.ignoreFailures should be parsed"
 
 
 def test_parse_settings_gradle(get_plugin):

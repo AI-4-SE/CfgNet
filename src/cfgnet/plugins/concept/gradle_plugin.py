@@ -274,6 +274,11 @@ class GradlePlugin(Plugin):
 
         if not method_name:
             return
+        
+        # --- Skip plugins DSL "id '...'" entries from the AST pass
+        # They are already handled (with versions) by the text extractor in _extract_config_from_text.
+        if getattr(parent_node, "name", None) == "plugins" and method_name == "id":
+            return
 
         # Check if this is a simple method call with a string argument
         string_arg = self._extract_first_string_argument(tree)
@@ -691,22 +696,26 @@ class GradlePlugin(Plugin):
 
                 # --- dependencies { } DSL
                 if ctx == "dependencies":
-                    m = re_dep_decl.match(line)
-                    if m:
-                        conf = m.group(1)
-                        spec = m.group(2).strip()
+                    # ADD THIS GUARD:
+                    if line.endswith("{") or line == "{" or line == "}":
+                        pass
+                    else:
+                        m = re_dep_decl.match(line)
+                        if m:
+                            conf = m.group(1)
+                            spec = m.group(2).strip()
 
-                        # Prefer a quoted coordinate inside the spec
-                        quoted = re.findall(r"['\"]([^'\"]+)['\"]", spec)
-                        candidate = quoted[0] if quoted else spec
+                            # Prefer a quoted coordinate inside the spec
+                            quoted = re.findall(r"['\"]([^'\"]+)['\"]", spec)
+                            candidate = quoted[0] if quoted else spec
 
-                        option_name, version = self._parse_artifact_coordinates(candidate)
-                        if version:
-                            # g:a:v  -> option g:a, value v  (no conf in key)
-                            self._add_option_value(node_stack[-1], option_name, version, str(lineno))
-                        else:
-                            # g:a (no version) -> option conf, value candidate
-                            self._add_option_value(node_stack[-1], conf, candidate, str(lineno))
+                            option_name, version = self._parse_artifact_coordinates(candidate)
+                            if version:
+                                # g:a:v  -> option g:a, value v  (no conf in key)
+                                self._add_option_value(node_stack[-1], option_name, version, str(lineno))
+                            else:
+                                # g:a (no version) -> option conf, value candidate
+                                self._add_option_value(node_stack[-1], conf, candidate, str(lineno))
 
                 # --- generic "=" assignments (everywhere, under current block path)
                 m_assign = re_assignment.match(line)

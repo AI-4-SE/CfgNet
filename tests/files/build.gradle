@@ -1,31 +1,142 @@
 plugins {
-    id 'java'
-    id 'application'
+  id 'com.github.ben-manes.versions' version '0.53.0'
+  id 'com.github.spotbugs' version '6.4.8' apply false
+  id 'com.gradleup.shadow' version '9.3.1' apply false
+  id 'me.champeau.jmh' version '0.7.2'
 }
 
-group = 'com.example'
-version = '1.0.0'
+// Establish version and status
+ext.githubProjectName = 'spectator'
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+allprojects {
+  apply plugin: 'project-report'
+  apply plugin: 'me.champeau.jmh'
+  apply plugin: 'com.github.ben-manes.versions'
 
-repositories {
+  // Needs to be here to avoid problems with JMH plugin
+  repositories {
     mavenCentral()
+    mavenLocal()
+  }
 }
 
-dependencies {
-    implementation platform('org.apache.groovy:groovy-bom:5.+')
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.0'
-    implementation 'org.apache.groovy:groovy-json'
-    implementation ':simple-jar'
-    testImplementation 'junit:junit:4.13.2'
-}
+subprojects {
+  apply plugin: 'com.netflix.nebula.dependency-recommender'
+  apply plugin: 'com.netflix.nebula.netflixoss'
+  apply plugin: 'java-library'
 
-application {
-    mainClass = 'com.example.Main'
-}
+  group = "com.netflix.${githubProjectName}"
 
-ext {
-    kotlinVersion = '1.8.0'
-    springVersion = '5.3.20'
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(8)
+    }
+  }
+
+  tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+  }
+
+  tasks {
+    javadoc {
+      options.addStringOption('Xdoclint:none', '-quiet')
+    }
+  }
+
+  javadoc {
+    options {
+      links = ['https://docs.oracle.com/javase/8/docs/api/']
+    }
+  }
+
+  dependencyRecommendations {
+    propertiesFile file: new File(rootProject.projectDir, 'dependencies.properties')
+  }
+
+  dependencies {
+    implementation "org.slf4j:slf4j-api"
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier'
+    jmh "org.slf4j:slf4j-simple"
+    jmh "org.openjdk.jmh:jmh-core:1.37"
+    jmh "org.openjdk.jmh:jmh-generator-annprocess:1.37"
+  }
+
+  tasks.withType(Test) {
+    useJUnitPlatform()
+  }
+
+  [17, 21, 25].each { additionalJDK ->
+    def additionalTestTask = tasks.register("testJDK$additionalJDK", Test) {
+      description = "Runs tests against JDK $additionalJDK."
+      group = 'verification'
+
+      testClassesDirs = sourceSets.test.output.classesDirs
+      classpath = sourceSets.test.runtimeClasspath
+
+      javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(additionalJDK)
+      }
+    }
+    check.dependsOn additionalTestTask
+  }
+
+  jmh {
+    jmhVersion = '1.37'
+    warmupIterations = 2
+    iterations = 5
+    fork = 1
+    //threads = 1
+    profilers = ['stack', 'gc']
+    includeTests = false
+    duplicateClassesStrategy = DuplicatesStrategy.WARN
+    includes = ['.*Ids.*']
+  }
+
+  checkstyle {
+    toolVersion = '13.1.0'
+    ignoreFailures = false 
+    configFile = rootProject.file('codequality/checkstyle.xml')
+    configDirectory = rootProject.file("codequality")
+    sourceSets = [sourceSets.main]
+  }
+  
+  tasks.withType(Checkstyle) {
+    // Use the JVM running Gradle (JDK 25) instead of the project toolchain (JDK 8)
+    javaLauncher = javaToolchains.launcherFor {
+      languageVersion = JavaLanguageVersion.of(25)
+    }
+  }
+
+  spotbugs {
+    toolVersion = '4.9.8'
+    useJavaToolchains = false
+    excludeFilter = rootProject.file('codequality/findbugs-exclude.xml')
+    ignoreFailures = false
+    spotbugsMain.enabled = true
+    spotbugsTest.enabled = false
+    spotbugsJmh.enabled = false
+  }
+  spotbugsMain {
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+
+  pmd {
+    toolVersion = '7.16.0'
+    ignoreFailures = false
+    sourceSets = [sourceSets.main]
+    ruleSets = []
+    ruleSetFiles = rootProject.files("codequality/pmd.xml")
+  }
+
+  tasks.withType(Pmd) {
+    // Use the JVM running Gradle (JDK 17) instead of the project toolchain (JDK 8)
+    javaLauncher = javaToolchains.launcherFor {
+      languageVersion = JavaLanguageVersion.of(17)
+    }
+  }
 }

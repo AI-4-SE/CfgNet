@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('org.apache.groovy:groovy-bom:5.+')
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.0'
+    implementation 'org.apache.groovy:groovy-json'
+    implementation ':simple-jar'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+application {
+    mainClass = 'com.example.Main'
+}
+
+ext {
+    kotlinVersion = '1.8.0'
+    springVersion = '5.3.20'
+}

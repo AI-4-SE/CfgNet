@@ -1,0 +1,12 @@
+rootProject.name = 'my-project'
+
+include 'module-a'
+include 'module-b'
+include 'module-c'
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}

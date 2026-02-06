@@ -54,3 +54,89 @@ def test_config_types(get_plugin):
     assert version_node.config_type == ConfigType.VERSION_NUMBER
     assert user_node.config_type == ConfigType.USERNAME
     assert password_node.config_type == ConfigType.PASSWORD
+
+
+def test_is_responsible_build_gradle(get_plugin):
+    plugin = get_plugin
+
+    assert plugin.is_responsible("tests/files/build.gradle")
+    assert plugin.is_responsible("tests/files/build.gradle.kts")
+    assert not plugin.is_responsible("tests/files/random.gradle")
+
+
+def test_is_responsible_settings_gradle(get_plugin):
+    plugin = get_plugin
+
+    assert plugin.is_responsible("tests/files/settings.gradle")
+    assert plugin.is_responsible("tests/files/settings.gradle.kts")
+
+
+def test_parse_build_gradle(get_plugin):
+    plugin = get_plugin
+    build_file = os.path.abspath("tests/files/build.gradle")
+    artifact = plugin.parse_file(build_file, "build.gradle")
+
+    assert artifact is not None
+    assert artifact.concept_name == "gradle"
+
+    nodes = artifact.get_nodes()
+    assert len(nodes) > 0
+
+    # Check for specific extracted values
+    group_node = next(filter(lambda x: x.id == make_id("build.gradle", "group", "com.example"), nodes), None)
+    version_node = next(filter(lambda x: x.id == make_id("build.gradle", "version", "1.0.0"), nodes), None)
+    source_compat_node = next(filter(lambda x: x.id == make_id("build.gradle", "sourceCompatibility", "11"), nodes), None)
+    main_class_node = next(filter(lambda x: x.id == make_id("build.gradle", "application", "mainClass", "com.example.Main"), nodes), None)
+
+    assert group_node is not None
+    assert group_node.config_type == ConfigType.NAME
+    assert version_node is not None
+    assert version_node.config_type == ConfigType.VERSION_NUMBER
+    assert source_compat_node is not None
+    assert main_class_node is not None
+
+    # Check for ext properties
+    kotlin_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "kotlinVersion", "1.8.0"), nodes), None)
+    spring_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "springVersion", "5.3.20"), nodes), None)
+
+    assert kotlin_version_node is not None
+    assert spring_version_node is not None
+
+    # Check for specific dependencies (groupId:artifactId as option, version as value)
+    # Structure: dependencies -> org.springframework.boot:spring-boot-starter-web -> 2.7.0
+    spring_boot_dep = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "dependencies", "org.springframework.boot:spring-boot-starter-web", "2.7.0"),
+            nodes
+        ),
+        None
+    )
+    junit_dep = next(
+        filter(
+            lambda x: x.id == make_id("build.gradle", "dependencies", "junit:junit", "4.13.2"),
+            nodes
+        ),
+        None
+    )
+
+    assert spring_boot_dep is not None, "Spring Boot dependency should be parsed as groupId:artifactId"
+    assert junit_dep is not None, "JUnit dependency should be parsed as groupId:artifactId"
+
+    # Check for ext properties
+    kotlin_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "kotlinVersion", "1.8.0"), nodes), None)
+    spring_version_node = next(filter(lambda x: x.id == make_id("build.gradle", "ext", "springVersion", "5.3.20"), nodes), None)
+
+    assert kotlin_version_node is not None
+    assert spring_version_node is not None
+
+
+def test_parse_settings_gradle(get_plugin):
+    plugin = get_plugin
+    settings_file = os.path.abspath("tests/files/settings.gradle")
+    artifact = plugin.parse_file(settings_file, "settings.gradle")
+
+    assert artifact is not None
+    assert artifact.concept_name == "gradle"
+
+    nodes = artifact.get_nodes()
+    assert len(nodes) >= 0

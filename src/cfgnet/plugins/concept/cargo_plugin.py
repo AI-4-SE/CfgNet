@@ -19,14 +19,7 @@ from cfgnet.config_types.config_types import ConfigType
 class CargoPlugin(TomlPlugin):
     def __init__(self):
         super().__init__("cargo")
-        self.excluded_keys = [
-            "description",
-            "authors",
-            "maintainers",
-            "readme",
-            "keywords",
-            "classifiers",
-        ]
+        self.excluded_keys = []
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("Cargo.toml"):

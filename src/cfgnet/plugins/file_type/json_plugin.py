@@ -104,24 +104,13 @@ class JsonPlugin(Plugin):
             return
 
         if isinstance(json_object, list):
-            for item in json_object:
-                if isinstance(item, (dict, list)):
+            if any (isinstance(item, dict) for item in json_object):
+                for item in json_object:
                     self._parse_json_object(item, parent, line_number_dict)
-
-                else:
-                    virtual_option_name = f"{parent.name}/{item}"
-                    virtual_option = OptionNode(
-                        name=virtual_option_name,
-                        location=self._get_line_number(
-                            line_number_dict, parent.name
-                        ),
-                    )
-                    parent.add_child(virtual_option)
-
-                    if isinstance(parent, OptionNode):
-                        name = item
-                        value = ValueNode(name=name)
-                        virtual_option.add_child(value)
+            else:
+                value_name = str(json_object)
+                value_node = ValueNode(name=value_name)
+                parent.add_child(value_node)
 
         else:
             if not isinstance(parent, ArtifactNode):

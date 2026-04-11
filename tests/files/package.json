@@ -9,6 +9,7 @@
   "dependencies": {
     "express": "^4.13.3"
   },
+
   "repository": {
     "url": "https://github.com/example/example"
   },
@@ -17,9 +18,30 @@
     "heroku",
     "express"
   ],
+  "author": {
+    "name": "Barney Rubble",
+    "email": "b@rubble.com",
+    "url": "http://barnyrubble.tumblr.com/"
+  },
   "devDependencies": {
 	"nodemon": "^1.1.1"
   },
   "license": "ISC",
-  "^.+\\module\\css$": "Test"
+  "^.+\\module\\css$": "Test",
+  "files": [
+    "/bin",
+    "/dist",
+    "/src"
+  ],
+  "funding": [
+    {
+      "type": "individual",
+      "url": "http://example.com/donate"
+    },
+    "http://example.com/donateAlso",
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/my-account"
+    }
+  ]
 }

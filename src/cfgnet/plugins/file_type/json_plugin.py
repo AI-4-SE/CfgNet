@@ -104,14 +104,14 @@ class JsonPlugin(Plugin):
             return
 
         if isinstance(json_object, list):
-            if any (isinstance(item, dict) for item in json_object):
-                for item in json_object:
-                    self._parse_json_object(item, parent, line_number_dict)
-            else:
-                value_name = str(json_object)
-                value_node = ValueNode(name=value_name)
-                parent.add_child(value_node)
-
+            if not isinstance(parent, ArtifactNode):
+                if any (isinstance(item, dict) for item in json_object):
+                    for item in json_object:
+                        self._parse_json_object(item, parent, line_number_dict)
+                else:
+                    value_name = str(json_object)
+                    value_node = ValueNode(name=value_name)
+                    parent.add_child(value_node)
         else:
             if not isinstance(parent, ArtifactNode):
                 name = json_object

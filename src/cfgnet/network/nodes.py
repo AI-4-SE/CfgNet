@@ -159,7 +159,8 @@ class ArtifactNode(Node):
     def add_child(self, node: OptionNode) -> None:
         if not isinstance(node, OptionNode):
             raise NetworkConstructionException(
-                "Artifact nodes accept artifact nodes and option nodes only."
+                f"Network construction failed for artifact: {self.file_path}. "
+                "Artifact nodes accept option nodes only."
             )
 
         super().add_child(node)

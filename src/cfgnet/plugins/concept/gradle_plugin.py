@@ -31,7 +31,7 @@ class GradlePlugin(Plugin):
 
     def is_responsible(self, abs_file_path):
         file_name = os.path.basename(abs_file_path)
-        return file_name in ["gradle.properties", "build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts"]
+        return file_name in ["gradle.properties"]
 
     def _parse_config_file(
         self,

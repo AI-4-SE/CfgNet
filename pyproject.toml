@@ -41,7 +41,7 @@ apacheconfig = "^0.3.2"
 tfparse = "^0.6.15"
 
 [tool.poetry.group.dev.dependencies]
-black = { version = '*', allow-prereleases = true }
+black = "25.1.0"
 coverage = '^5.1'
 flake8 = "^7.0.0"
 pylint = "^3.0.0"

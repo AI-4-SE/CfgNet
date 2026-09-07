@@ -20,12 +20,6 @@ from cfgnet.config_types.config_types import ConfigType
 class AngularPlugin(JsonPlugin):
     def __init__(self):
         super().__init__("angular")
-        self.excluded_keys = [
-            "keywords",
-            "description",
-            "author",
-            "contributors",
-        ]
 
     def is_responsible(self, abs_file_path: str) -> bool:
         file_name = os.path.basename(abs_file_path)

@@ -6,7 +6,7 @@
       "my-app": {
         "projectType": "application",
         "schematics": {},
-        "root": "",
+        "root": "test",
         "sourceRoot": "src",
         "architect": {
             "configurations": {

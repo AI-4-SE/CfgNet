@@ -51,10 +51,12 @@ def test_parse_package_json_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 10
+    assert len(nodes) == 12
 
     assert make_id("package.json", "file", "package.json") in ids
     assert make_id("package.json", "name", "node-js-sample") in ids
+    assert make_id("package.json", "description", "Example Project") in ids
+    assert make_id("package.json", "keywords", "['node', 'heroku', 'express']") in ids
     assert make_id("package.json", "version", "0.2.0") in ids
     assert make_id("package.json", "main", "index.js") in ids
     assert make_id("package.json", "license", "ISC") in ids

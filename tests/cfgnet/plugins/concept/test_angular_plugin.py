@@ -45,13 +45,14 @@ def test_parse_angular_file(get_plugin):
     artifact = plugin.parse_file(file, "angular.json")
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
-    
+
     assert artifact is not None
-    assert len(nodes) == 13
+    assert len(nodes) == 14
 
     assert make_id("angular.json", "file", "angular.json") in ids
     assert make_id("angular.json", "$schema", "./node_modules/@angular/cli/lib/config/schema.json") in ids
     assert make_id("angular.json", "version", "1") in ids
+    assert make_id("angular.json", "projects", "my-app", "architect", "configurations", "production", "outputHashing", "all") in ids
     assert make_id("angular.json", "projects", "my-app", "architect", "configurations", "production", "fileReplacements", "replace", "src/environments/environment.ts") in ids
     assert make_id("angular.json", "projects", "my-app", "architect", "configurations", "production", "fileReplacements", "with", "src/environments/environment.prod.ts") in ids
     assert make_id("angular.json", "projects", "my-app", "test", "builder", "@angular-devkit/build-angular:karma") in ids
@@ -60,7 +61,7 @@ def test_parse_angular_file(get_plugin):
     assert make_id("angular.json", "projects", "my-app", "architect", "configurations", "production", "fileReplacements", "with", "src/environments/environment.prod.ts") in ids
     assert make_id("angular.json", "projects", "my-app", "test", "options", "main", "src/test.ts") in ids
     assert make_id("angular.json", "projects", "my-app", "sourceRoot", "src") in ids
-    assert make_id("angular.json", "projects", "my-app", "root", "") in ids
+    assert make_id("angular.json", "projects", "my-app", "root", "test") in ids
     assert make_id("angular.json", "newProjectRoot", "projects") in ids
 
 

@@ -16,7 +16,7 @@ import configparser
 import logging
 import re
 from collections import OrderedDict
-from typing import List, Dict
+from typing import Dict
 
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
@@ -31,12 +31,11 @@ class MultiOrderedDict(OrderedDict):
 
 
 class ConfigParserPlugin(Plugin):
-    def __init__(self, name=None):
+    def __init__(self, name=None, threshold=65536):
         if name is None:
-            super().__init__("configparser")
+            super().__init__("configparser", threshold=threshold)
         else:
-            super().__init__(name)
-        self.excluded_keys: List[str] = []
+            super().__init__(name, threshold=threshold)
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
         artifact = ArtifactNode(
@@ -108,8 +107,6 @@ class ConfigParserPlugin(Plugin):
                 parent = section_node
 
             for option in section.keys():
-                if option in self.excluded_keys:
-                    continue
                 config_type = self.get_config_type(option_name=option)
                 line_number = self.get_line_number(
                     option_name=option, line_dict=line_dict

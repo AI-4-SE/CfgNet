@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
-from typing import List
 from cfgnet.config_types.config_types import ConfigType
 from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 
@@ -20,7 +19,6 @@ from cfgnet.plugins.file_type.configparser_plugin import ConfigParserPlugin
 class PhpPlugin(ConfigParserPlugin):
     def __init__(self):
         super().__init__("php")
-        self.excluded_keys: List[str] = ["extension"]
 
     def is_responsible(self, abs_file_path) -> bool:
         if abs_file_path.endswith("php.ini"):

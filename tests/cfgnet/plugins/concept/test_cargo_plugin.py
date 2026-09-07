@@ -42,11 +42,13 @@ def test_parse_pyproject_file(get_plugin):
     ids = {node.id for node in nodes}
 
     assert artifact is not None
-    assert len(nodes) == 13
+    assert len(nodes) == 15
 
     assert make_id("Cargo.toml", "file", "Cargo.toml") in ids
     assert make_id("Cargo.toml", "package", "name", "example") in ids
     assert make_id("Cargo.toml", "package", "version", "0.1.0") in ids
+    assert make_id("Cargo.toml", "package", "authors", "['Your Name <your.email@example.com>']") in ids
+    assert make_id("Cargo.toml", "package", "description", "A simple Rust project example") in ids
     assert make_id("Cargo.toml", "package", "edition", "2021") in ids
     assert make_id("Cargo.toml", "package", "license", "MIT") in ids
     assert make_id("Cargo.toml", "package", "homepage", "https://example.com") in ids

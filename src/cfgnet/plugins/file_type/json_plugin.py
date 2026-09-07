@@ -26,12 +26,11 @@ from cfgnet.plugins.plugin import Plugin
 
 
 class JsonPlugin(Plugin):
-    def __init__(self, name=None):
+    def __init__(self, name=None, threshold=524288):
         if name is None:
-            super().__init__("json")
+            super().__init__("json", threshold=threshold)
         else:
-            super().__init__(name)
-        self.excluded_keys: List[str] = []
+            super().__init__(name, threshold=threshold)
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith(".json"):
@@ -88,41 +87,29 @@ class JsonPlugin(Plugin):
     ) -> None:
         if isinstance(json_object, dict):
             for key in json_object:
-                if key not in self.excluded_keys:
-                    config_type = self.get_config_type(key)
-                    option = OptionNode(
-                        name=key,
-                        location=self._get_line_number(line_number_dict, key),
-                        config_type=config_type,
-                    )
-                    parent.add_child(option)
-                    child = json_object[key]
+                config_type = self.get_config_type(key)
+                option = OptionNode(
+                    name=key,
+                    location=self._get_line_number(line_number_dict, key),
+                    config_type=config_type,
+                )
+                parent.add_child(option)
+                child = json_object[key]
 
-                    self._parse_json_object(child, option, line_number_dict)
-                    if not option.children:
-                        parent.children.remove(option)
+                self._parse_json_object(child, option, line_number_dict)
+                if not option.children:
+                    parent.children.remove(option)
             return
 
         if isinstance(json_object, list):
-            for item in json_object:
-                if isinstance(item, (dict, list)):
-                    self._parse_json_object(item, parent, line_number_dict)
-
+            if not isinstance(parent, ArtifactNode):
+                if any(isinstance(item, dict) for item in json_object):
+                    for item in json_object:
+                        self._parse_json_object(item, parent, line_number_dict)
                 else:
-                    virtual_option_name = f"{parent.name}/{item}"
-                    virtual_option = OptionNode(
-                        name=virtual_option_name,
-                        location=self._get_line_number(
-                            line_number_dict, parent.name
-                        ),
-                    )
-                    parent.add_child(virtual_option)
-
-                    if isinstance(parent, OptionNode):
-                        name = item
-                        value = ValueNode(name=name)
-                        virtual_option.add_child(value)
-
+                    value_name = str(json_object)
+                    value_node = ValueNode(name=value_name)
+                    parent.add_child(value_node)
         else:
             if not isinstance(parent, ArtifactNode):
                 name = json_object

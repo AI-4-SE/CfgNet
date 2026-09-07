@@ -19,7 +19,6 @@ from cfgnet.config_types.config_types import ConfigType
 class TsconfigPlugin(JsonPlugin):
     def __init__(self):
         super().__init__("tsconfig")
-        self.excluded_keys = []
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("tsconfig.json"):

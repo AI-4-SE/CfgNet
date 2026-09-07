@@ -19,14 +19,6 @@ from cfgnet.config_types.config_types import ConfigType
 class PoetryPlugin(TomlPlugin):
     def __init__(self):
         super().__init__("poetry")
-        self.excluded_keys = [
-            "description",
-            "authors",
-            "maintainers",
-            "readme",
-            "keywords",
-            "classifiers",
-        ]
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("pyproject.toml"):

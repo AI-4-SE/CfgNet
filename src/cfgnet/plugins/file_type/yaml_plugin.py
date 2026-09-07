@@ -28,11 +28,11 @@ from cfgnet.plugins.plugin import Plugin
 
 
 class YAMLPlugin(Plugin):
-    def __init__(self, name=None):
+    def __init__(self, name=None, threshold=786342):
         if name is None:
-            super().__init__("yaml")
+            super().__init__("yaml", threshold=threshold)
         else:
-            super().__init__(name)
+            super().__init__(name, threshold=threshold)
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
         artifact = ArtifactNode(

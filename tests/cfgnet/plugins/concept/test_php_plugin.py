@@ -51,7 +51,7 @@ def test_parsing_php_file(get_plugin):
     ids = sorted(list({node.id for node in nodes}))
 
     assert artifact is not None
-    assert len(nodes) == 7
+    assert len(nodes) == 8
 
     assert make_id("php.ini", "file", "php.ini") in ids
     assert make_id("php.ini", "PHP", "memory_limit", "128M") in ids
@@ -60,6 +60,7 @@ def test_parsing_php_file(get_plugin):
     assert make_id("php.ini", "PHP", "allow_url_fopen", "On") in ids
     assert make_id("php.ini", "MySQL", "mysql.default_port", "3306") in ids
     assert make_id("php.ini", "MySQL", "mysql.default_user", "user") in ids
+    assert make_id("php.ini", "PHP", "extension", "php_soap.dll") in ids
 
 
 def test_config_types(get_plugin):

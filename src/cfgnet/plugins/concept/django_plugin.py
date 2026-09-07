@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 import ast
+import logging
 from typing import Optional
 from cfgnet.plugins.plugin import Plugin
 from cfgnet.network.nodes import (
@@ -78,13 +79,19 @@ class DjangoPlugin(Plugin):
                     key = node.target
                     settings[key] = node.value
 
-        for key, value in settings.items():
-            if not key.id.isupper():
-                continue
-            if isinstance(value, ast.Dict):
-                self.__parse_dict(artifact, key, value)
-            else:
-                self.__parse(artifact, key, value)
+        try:
+            for key, value in settings.items():
+                if not key.id.isupper():
+                    continue
+                if isinstance(value, ast.Dict):
+                    self.__parse_dict(artifact, key, value)
+                else:
+                    self.__parse(artifact, key, value)
+        # Preserve the partial artifact when a setting cannot be parsed.
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            logging.warning(
+                "Error parsing file %s: %s", abs_file_path, e, exc_info=True
+            )
 
         return artifact
 

@@ -46,14 +46,15 @@ def test_parse_pyproject_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
-    for node in nodes:
-        print(node.id)
+    for id in ids:
+        print(id)
 
     assert artifact is not None
-    assert len(nodes) == 12
+    assert len(nodes) == 13
 
     assert make_id("pyproject.toml", "file", "pyproject.toml") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "name", "CfgNet") in ids
+    assert make_id("pyproject.toml", "tool", "poetry", "description", "A Framework for Tracking Configuration Dependencies Across a Software Project") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "version", "1.0.0") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "include", "['test.py']") in ids
     assert make_id("pyproject.toml", "tool", "poetry", "exclude", "['hello.py']") in ids

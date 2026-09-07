@@ -46,6 +46,9 @@ def test_parse_tsconfig_file(get_plugin):
     nodes = artifact.get_nodes()
     ids = {node.id for node in nodes}
 
+    for id in ids:
+        print(id)
+
     assert artifact is not None
     assert len(nodes) == 7
 
@@ -67,12 +70,12 @@ def test_parse_tsconfig_file(get_plugin):
         make_id("tsconfig.json", "compilerOptions", "sourceMap", "True") in ids
     )
     assert (
-        make_id("tsconfig.json", "include", "include/src/**/*", "src/**/*")
+        make_id("tsconfig.json", "include", "['src/**/*']")
         in ids
     )
     assert (
         make_id(
-            "tsconfig.json", "exclude", "exclude/node_modules", "node_modules"
+            "tsconfig.json", "exclude", "['node_modules']"
         )
         in ids
     )
@@ -112,8 +115,7 @@ def test_config_types(get_plugin):
             == make_id(
                 "tsconfig.json",
                 "exclude",
-                "exclude/node_modules",
-                "node_modules",
+                "['node_modules']",
             ),
             nodes,
         )

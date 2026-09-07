@@ -14,7 +14,6 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-from typing import List
 import tomllib
 from tomllib import TOMLDecodeError
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
@@ -22,12 +21,11 @@ from cfgnet.plugins.plugin import Plugin
 
 
 class TomlPlugin(Plugin):
-    def __init__(self, name=None):
+    def __init__(self, name=None, threshold=65536):
         if name is None:
-            super().__init__("toml")
+            super().__init__("toml", threshold=threshold)
         else:
-            super().__init__(name)
-        self.excluded_keys: List[str] = []
+            super().__init__(name, threshold=threshold)
 
     def _parse_config_file(self, abs_file_path, rel_file_path, root):
         artifact = ArtifactNode(
@@ -74,26 +72,23 @@ class TomlPlugin(Plugin):
                     del line_number_dict[line]
                     break
 
-            if argument not in self.excluded_keys:
-                config_type = self.get_config_type(argument)
-                option = OptionNode(
-                    name=argument,
-                    location=str(lineno),
-                    config_type=config_type,
-                )
-                parent.add_child(option)
+            config_type = self.get_config_type(argument)
+            option = OptionNode(
+                name=argument,
+                location=str(lineno),
+                config_type=config_type,
+            )
+            parent.add_child(option)
 
-                if isinstance(value, dict):
-                    self._iter_data(value, line_number_dict, option)
-                elif isinstance(value, list):
-                    if all(isinstance(item, dict) for item in value):
-                        for dict_item in value:
-                            self._iter_data(
-                                dict_item, line_number_dict, option
-                            )
-                    else:
-                        value_node = ValueNode(name=str(value))
-                        option.add_child(value_node)
+            if isinstance(value, dict):
+                self._iter_data(value, line_number_dict, option)
+            elif isinstance(value, list):
+                if all(isinstance(item, dict) for item in value):
+                    for dict_item in value:
+                        self._iter_data(dict_item, line_number_dict, option)
                 else:
-                    name = value
-                    option.add_child(ValueNode(name))
+                    value_node = ValueNode(name=str(value))
+                    option.add_child(value_node)
+            else:
+                name = value
+                option.add_child(ValueNode(name))

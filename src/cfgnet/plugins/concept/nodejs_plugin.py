@@ -19,12 +19,6 @@ from cfgnet.config_types.config_types import ConfigType
 class NodejsPlugin(JsonPlugin):
     def __init__(self):
         super().__init__("nodejs")
-        self.excluded_keys = [
-            "keywords",
-            "description",
-            "author",
-            "contributors",
-        ]
 
     def is_responsible(self, abs_file_path: str) -> bool:
         if abs_file_path.endswith("package.json"):

@@ -28,13 +28,13 @@ class EqualityLinker(Linker):
 
         for node in self.target_nodes:
             if not node.name:
-                return
+                continue
 
             # discard words from static blacklist
             if self.network:
                 if self.network.cfg.enable_static_blacklist:
                     if node.name in self.static_blacklist.values:
-                        return
+                        continue
 
             # find all matches with the given linker criterion
             matches = self._find_matches(node)

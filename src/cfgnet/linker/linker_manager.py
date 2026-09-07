@@ -31,11 +31,13 @@ class LinkerManager:
     @staticmethod
     def apply_linkers(network: "Network") -> None:
         """
-        Apply all existing linker to create links in the configuration network.
+        Apply the linkers enabled in the network configuration.
 
         :param: Configuration network
         """
         for linker in LinkerManager.all_linkers:
+            if linker.name not in network.cfg.enabled_linkers:
+                continue
             linker.network = network
             linker.enable_internal_links = network.cfg.enable_internal_links
             linker.create_links()

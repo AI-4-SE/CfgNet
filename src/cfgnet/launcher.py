@@ -118,8 +118,6 @@ def validate(project_root: str):
     ref_network = Network.load_network(project_root=project_root)
     logger.configure_repo_logger(ref_network.cfg.logfile_path())
 
-    # TODO Network should configure LinkerManager with list of enabled linkers
-
     conflicts, new_network = ref_network.validate()
 
     new_network.save()

@@ -2,6 +2,7 @@ import os
 
 from dataclasses import dataclass, field
 from typing import List
+from cfgnet.linker.linker_manager import LinkerManager
 
 
 @dataclass()
@@ -16,7 +17,9 @@ class NetworkConfiguration:
     # Path to CfgNet data directory relative to project_root
     cfgnet_path_rel: str = ".cfgnet"
     # List of names of enabled linkers
-    enabled_linkers: List[str] = field(default_factory=list)
+    enabled_linkers: List[str] = field(
+        default_factory=LinkerManager.get_linker_names
+    )
     config_files: List[str] = field(default_factory=list)
 
     def data_dir_path(self):

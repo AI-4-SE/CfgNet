@@ -36,6 +36,20 @@ the `validate` command. Detected dependency conflicts will be displayed on scree
 
     cfgnet validate <project_root>
 
+When no conflicts are detected, validation saves the current network as the new
+reference, including any newly added options. When conflicts are detected, it
+displays them and keeps the previous reference unchanged, so unresolved conflicts
+remain detectable on subsequent runs.
+
+To display the conflicts and explicitly accept the current network as the new
+reference using the saved configuration, run:
+
+    cfgnet validate --accept <project_root>
+
+With `--accept`, CfgNet displays the detected conflicts and saves the current
+network as the new reference, treating those conflicts as accepted by the
+developer. Subsequent validations compare against this accepted state.
+
 
 To export the reference network for visualization, use the `export` command.
 The `export` command additionally requires a `output` and `format` option.

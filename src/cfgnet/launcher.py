@@ -107,8 +107,13 @@ def init(
 
 
 @main.command()
+@click.option(
+    "--accept",
+    is_flag=True,
+    help="Display conflicts and accept the current network as the new reference.",
+)
 @add_project_root_argument
-def validate(project_root: str):
+def validate(project_root: str, accept: bool):
     """Validate a reference network against a new network."""
     project_name = os.path.basename(project_root)
     logging.info("Validate configuration network for %s.", project_name)
@@ -120,9 +125,8 @@ def validate(project_root: str):
 
     conflicts, new_network = ref_network.validate()
 
-    new_network.save()
-
     if len(conflicts) == 0:
+        new_network.save()
         logging.info("No conflicts detected.")
         return
 
@@ -139,6 +143,11 @@ def validate(project_root: str):
     print()
     for conflict in conflicts:
         print(conflict)
+
+    if accept:
+        new_network.save()
+        logging.info("Accepted current network as the new reference.")
+        return
 
     sys.exit(1)
 

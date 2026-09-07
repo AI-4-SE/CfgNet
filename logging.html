@@ -78,13 +78,13 @@ By contrast, the level <code class="code docutils literal notranslate"><span cla
 <h2>Logging Formatter<a class="headerlink" href="#logging-formatter" title="Permalink to this heading">¶</a></h2>
 <p>Logging formatter basically specify the format of log messages by adding context information to it, such as the Python file, line number, method or additional context such as the thread and process.
 We use a default format that looks like as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">log_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> | </span><span class="si">%(levelname)8s</span><span class="s1"> | </span><span class="si">%(module)20s</span><span class="s1"> | </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">log_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">'</span><span class="si">%(asctime)s</span><span class="s1"> | </span><span class="si">%(levelname)8s</span><span class="s1"> | </span><span class="si">%(module)20s</span><span class="s1"> | </span><span class="si">%(message)s</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In addition to the log message, this format allows to display the time/module when/in which the logging was triggered and the logging level.
 To add a new format, we need to create the format and set it in the corresponding logging handler.</p>
 <p>Assume we want to change the format for the <code class="code docutils literal notranslate"><span class="pre">console_logging_handler</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(levelname)8s</span><span class="s1"> | </span><span class="si">%(filename)20s</span><span class="s1"> | </span><span class="si">%(funcName)s</span><span class="s1"> | </span><span class="si">%(lineno)d</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">'</span><span class="si">%(levelname)8s</span><span class="s1"> | </span><span class="si">%(filename)20s</span><span class="s1"> | </span><span class="si">%(funcName)s</span><span class="s1"> | </span><span class="si">%(lineno)d</span><span class="s1">'</span><span class="p">)</span>
 <span class="n">console_logging_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">new_formatter</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -94,9 +94,9 @@ To add a new format, we need to create the format and set it in the correspondin
 <p>Logging filter can be used by logging handler for more sophisticated filtering than is provided by logging levels.
 For instance, the example below filters out all log messages fired by the <code class="code docutils literal notranslate"><span class="pre">cmd</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LogFileFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Logging filter to suppress logs fired by module &#39;cmd&#39;.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Logging filter to suppress logs fired by module 'cmd'."""</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">record</span><span class="o">.</span><span class="n">module</span> <span class="o">!=</span> <span class="s2">&quot;cmd&quot;</span>
+        <span class="k">return</span> <span class="n">record</span><span class="o">.</span><span class="n">module</span> <span class="o">!=</span> <span class="s2">"cmd"</span>
 </pre></div>
 </div>
 <p>To add a new logging filter, we need to create a new filter as shown in the example and add it to the corresponding logging handler.</p>
@@ -114,11 +114,11 @@ For instance, the example below filters out all log messages fired by the <code 
 Depending on the severity of a message, the usage looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;print debug message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;print info message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;print warning message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;print error message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;print critical message&quot;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"print debug message"</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"print info message"</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"print warning message"</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"print error message"</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">"print critical message"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

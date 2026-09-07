@@ -27,7 +27,9 @@ class GitHistory:
 
     def __init__(self, git: Git):
         self.repo = git.repo
-        self.commits = list(self.repo.iter_commits(rev=self.repo.heads[0]))
+        self.commits = list(
+            self.repo.iter_commits(rev=self.repo.head.commit.hexsha)
+        )
         self.commits.reverse()
         self.commit_index = len(self.commits) - 1
 

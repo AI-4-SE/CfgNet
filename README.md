@@ -76,6 +76,11 @@ When the analysis is finished, all detected configuration conflicts will be stor
 
     cfgnet analyze <project_root>
 
+Analysis uses the history of the currently checked-out branch up to its tip.
+If HEAD is detached, it analyzes the history up to the checked-out commit.
+Afterward, CfgNet restores the original branch or detached commit. It uses locally
+available Git history and does not fetch remote updates.
+
 To extract the key-value pairs of all configuration artifacts within a software project, use the `extract` command. The `extract` command additionally requires an `output` options, which specifies the directory where the key-value pairs are stored using the JSON format. 
 
     cfgnet extract <project_root> --output=<output>

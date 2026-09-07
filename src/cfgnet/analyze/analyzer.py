@@ -87,9 +87,6 @@ class Analyzer:
 
                 self._print_progress(num_commit=history.commit_index + 1)
 
-                if commit.hexsha == commit_hash_pre_analysis:
-                    break
-
         except Exception as error:
             logging.error(
                 "An exception occurred during analysis at commit %s.",

@@ -43,14 +43,15 @@ class Plugin(abc.ABC):
         abs_file_path: str,
         rel_file_path: str,
         root: Optional[ProjectNode],
-    ) -> ArtifactNode:
+    ) -> Optional[ArtifactNode]:
         """
         Parse the file to extract configuration options and values.
 
         :param abs_file_path: Absolute path to the file
         :param rel_file_path: Relative path to the file
         :param root: The ArtifactNode will be appended to this ProjectNode
-        :return: ArtifactNode that will be added to the configuration network
+        :return: ArtifactNode that will be added to the configuration network,
+            or None when parsing fails
         """
 
     @abc.abstractmethod

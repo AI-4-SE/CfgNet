@@ -14,6 +14,7 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
+from typing import Optional
 
 import yaml
 import yaml.reader
@@ -34,25 +35,35 @@ class YAMLPlugin(Plugin):
         else:
             super().__init__(name, threshold=threshold)
 
-    def _parse_config_file(self, abs_file_path, rel_file_path, root):
+    def _parse_config_file(
+        self, abs_file_path, rel_file_path, root
+    ) -> Optional[ArtifactNode]:
+        try:
+            with open(abs_file_path, "r", encoding="utf8") as yaml_file:
+                docs = list(yaml.compose_all(yaml_file))
+        except (ScannerError, ParserError, ComposerError) as error:
+            logging.warning(
+                "Invalid YAML file %s: %s", abs_file_path, error.problem
+            )
+            return None
+        except (
+            FileNotFoundError,
+            OSError,
+            UnicodeDecodeError,
+            ReaderError,
+        ) as error:
+            logging.warning("Invalid YAML file %s: %s", abs_file_path, error)
+            return None
+
         artifact = ArtifactNode(
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
             concept_name=self.concept_name,
             project_root=root,
         )
-
-        try:
-            with open(abs_file_path, "r", encoding="utf8") as yaml_file:
-                docs = yaml.compose_all(yaml_file)
-                for root_tree in docs:
-                    self._iter_tree(root_tree, artifact)
-        except (ScannerError, ParserError, ComposerError) as error:
-            logging.warning(
-                "Invalid YAML file %s: %s", abs_file_path, error.problem
-            )
-        except (FileNotFoundError, ReaderError) as error:
-            logging.warning("Invalid YAML file %s: %s", abs_file_path, error)
+        for root_tree in docs:
+            if root_tree is not None:
+                self._iter_tree(root_tree, artifact)
         return artifact
 
     def is_responsible(self, abs_file_path):
@@ -79,20 +90,8 @@ class YAMLPlugin(Plugin):
             self._iter_tree(child, parent)
 
     def _parse_sequence_node(self, node, parent):
-        # index = 0
         for child in node.value:
-            if isinstance(child, MappingNode):
-                # offset_option = OptionNode(
-                #    "offset:" + str(index),
-                #    node.start_mark.line + 1,
-                # )
-                # parent.add_child(offset_option)
-
-                # self._iter_tree(child, offset_option)
-                self._iter_tree(child, parent)
-                # index += 1
-            else:
-                self._iter_tree(child, parent)
+            self._iter_tree(child, parent)
 
     def _parse_tuple(self, node, parent):
         key = node[0]

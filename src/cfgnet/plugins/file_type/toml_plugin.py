@@ -16,6 +16,7 @@
 import logging
 import tomllib
 from tomllib import TOMLDecodeError
+from typing import Optional
 from cfgnet.network.nodes import ArtifactNode, OptionNode, ValueNode
 from cfgnet.plugins.plugin import Plugin
 
@@ -27,32 +28,29 @@ class TomlPlugin(Plugin):
         else:
             super().__init__(name, threshold=threshold)
 
-    def _parse_config_file(self, abs_file_path, rel_file_path, root):
+    def _parse_config_file(
+        self, abs_file_path, rel_file_path, root
+    ) -> Optional[ArtifactNode]:
+        try:
+            with open(abs_file_path, "r", encoding="utf-8") as file:
+                line_number_dict = {}
+                for lineno, line in enumerate(file, start=1):
+                    line = line.strip()
+                    if line:
+                        line_number_dict[line] = lineno
+            with open(abs_file_path, "rb") as file:
+                data = tomllib.load(file)
+        except (OSError, UnicodeDecodeError, TOMLDecodeError) as error:
+            logging.warning("Invalid Toml file %s: %s", abs_file_path, error)
+            return None
+
         artifact = ArtifactNode(
             file_path=abs_file_path,
             rel_file_path=rel_file_path,
             concept_name=self.concept_name,
             project_root=root,
         )
-
-        with open(abs_file_path, "r", encoding="utf-8") as file:
-            line_number_dict = {}
-            lineno = 1
-            for line in file:
-                line = line.strip()
-                if len(line) > 0:
-                    line_number_dict[line] = lineno
-                lineno += 1
-
-        with open(abs_file_path, "rb") as file:
-            try:
-                data = tomllib.load(file)
-                self._iter_data(data, line_number_dict, artifact)
-
-            except TOMLDecodeError as error:
-                logging.warning(
-                    "Invalid Toml file %s: %s", abs_file_path, error
-                )
+        self._iter_data(data, line_number_dict, artifact)
 
         return artifact
 
@@ -87,8 +85,7 @@ class TomlPlugin(Plugin):
                     for dict_item in value:
                         self._iter_data(dict_item, line_number_dict, option)
                 else:
-                    value_node = ValueNode(name=str(value))
-                    option.add_child(value_node)
+                    option.add_child(ValueNode(name=str(value)))
             else:
                 name = value
                 option.add_child(ValueNode(name))

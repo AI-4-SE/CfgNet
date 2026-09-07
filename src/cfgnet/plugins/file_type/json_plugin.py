@@ -42,16 +42,8 @@ class JsonPlugin(Plugin):
         abs_file_path: str,
         rel_file_path: str,
         root: Optional[ProjectNode],
-    ) -> ArtifactNode:
-        artifact = ArtifactNode(
-            file_path=abs_file_path,
-            rel_file_path=rel_file_path,
-            concept_name=self.concept_name,
-            project_root=root,
-        )
-
+    ) -> Optional[ArtifactNode]:
         try:
-            # store line and line number in a dict
             with open(abs_file_path, "r", encoding="utf-8") as json_file:
                 line_number_dict = {}
                 lineno = 1
@@ -64,18 +56,25 @@ class JsonPlugin(Plugin):
 
             with open(abs_file_path, "r", encoding="utf-8") as json_file:
                 json_object = json.load(json_file)
-                self._parse_json_object(
-                    json_object=json_object,
-                    parent=artifact,
-                    line_number_dict=line_number_dict,
-                )
-
-        except json.JSONDecodeError as error:
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
             logging.warning(
                 'Failed to parse json file "%s" due to "%s"',
                 rel_file_path,
                 error,
             )
+            return None
+
+        artifact = ArtifactNode(
+            file_path=abs_file_path,
+            rel_file_path=rel_file_path,
+            concept_name=self.concept_name,
+            project_root=root,
+        )
+        self._parse_json_object(
+            json_object=json_object,
+            parent=artifact,
+            line_number_dict=line_number_dict,
+        )
 
         return artifact
 
@@ -107,15 +106,11 @@ class JsonPlugin(Plugin):
                     for item in json_object:
                         self._parse_json_object(item, parent, line_number_dict)
                 else:
-                    value_name = str(json_object)
-                    value_node = ValueNode(name=value_name)
-                    parent.add_child(value_node)
-        else:
-            if not isinstance(parent, ArtifactNode):
-                name = json_object
-                value = ValueNode(name=name)
-
-                parent.add_child(value)
+                    parent.add_child(ValueNode(name=str(json_object)))
+            return
+        if not isinstance(parent, ArtifactNode):
+            value = ValueNode(name=json_object)
+            parent.add_child(value)
 
     @staticmethod
     def _get_line_number(lines_dict: Dict, name: str) -> str:
